@@ -6,14 +6,14 @@ url: "https://ox0400.github.io" # the base hostname & protocol for your site e.g
 #url: "http://127.0.0.1:4000" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
 
 # User settings
-username: Lorem Ipsum
-user_description: Anon Developer at Lorem Ipsum Dolor
-user_title: Anon Developer
-email: anon@anon.com
-twitter_username: lorem_ipsum
-github_username:  lorem_ipsum
-gplus_username:  lorem_ipsum
-disqus_username: lorem_ipsum
+username: zhipeng
+user_description: Python Developer
+user_title: zhipeng dev
+email: zhipeng.py@gmail.com
+twitter_username:
+github_username: ox0400
+gplus_username:
+disqus_username: 0x0400
 
 # Build settings
 markdown: kramdown
