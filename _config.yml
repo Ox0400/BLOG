@@ -8,7 +8,7 @@ url: "https://ox0400.github.io" # the base hostname & protocol for your site e.g
 # User settings
 username: zhipeng
 user_description: Python Developer
-user_title: zhipeng dev
+#user_title: zhipeng dev
 email: zhipeng.py@gmail.com
 twitter_username:
 github_username: ox0400
