@@ -94,8 +94,11 @@ twitter_text: 'How to install and use this template'
 In order to compile the assets and run Jekyll on local you need to follow those steps:
 
 - Install [NodeJS](https://nodejs.org/)
-- Run `npm install` 
+- Run `npm install`
 - Run `gulp`
+
+Use jekyll
+- bundle exec jekyll serve
 
 ## Questions
 
