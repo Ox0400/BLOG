@@ -1,0 +1,12 @@
+version: '3'
+services:
+    web:
+        build: .
+        ports:
+            - '4000:4000'
+        volumes:
+            - .:/app/
+            - /app/node_modules
+        #entrypoint: tail -f /dev/null
+        entrypoint: bundle exec jekyll serve
+        network_mode: 'host'

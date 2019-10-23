@@ -4,3 +4,5 @@ _site
 .jekyll-metadata
 vendor
 *.md-e
+node_modules
+*.css.b
