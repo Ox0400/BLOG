@@ -8,5 +8,5 @@ services:
             - .:/app/
             - /app/node_modules
         #entrypoint: tail -f /dev/null
-        entrypoint: bundle exec jekyll serve
+        entrypoint: bundle exec jekyll s  -H 0.0.0.0
         network_mode: 'host'
