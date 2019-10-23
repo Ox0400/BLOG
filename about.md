@@ -34,12 +34,12 @@ layout: github2
 
 
 <div align="right" style="margin-top:-100px;height:100px;" >
-<span>5 years experience</span><br>
+<span>6 years experience</span><br>
 <span>+86 135-0102-3020</span><br>
 <span>+1 (910) 317-9302</span><br>
 <span>zhipeng.py@gmail.com</span><br>
-    <span>Blog: <a target='_blank' href="https://blog.csdn.net/u012731379" >bit.ly/2MLzbB7</a></span><br>
-<span>Github: <a target='_blank' href="https://github.com/ChainBoy" >chainboy</a></span><br>
+<span>Blog: <a target='_blank' href="https://ox0400.github.io" >ox0400.github.io</a></span><br>
+<span>Github: <a target='_blank' href="https://github.com/ox0400" >Ox0400</a></span><br>
 </div>
 
 ##### WORK EXPERIENCE
