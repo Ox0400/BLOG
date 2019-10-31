@@ -5,7 +5,7 @@ date: 2019-10-31 16:32:25
 image: '/assets/img/'
 description: Fix pymongo ServerSelectionTimeoutError
 tags: pymongo,mongodb
-categories:python,mongodb
+categories: python,mongodb
 ---
 
 #### fix: pymongo ServerSelectionTimeoutError
