@@ -7,6 +7,7 @@ description: Fix pymongo ServerSelectionTimeoutError
 tags:
   - pymongo
   - mongodb
+  - python
 categories:
   - python
   - mongodb
