@@ -50,7 +50,6 @@ pymongo.common.SERVER_SELECTION_TIMEOUT *=2
 ## set single connect
 from pymongo import MongoClient
 MongoClient(serverselectiontimeoutms=pymongo.common.SERVER_SELECTION_TIMEOUT * 1000 * 2 )
-
 ```
 > Note: The timeoutms unit is ms, set value is 30000.
 
