@@ -1,0 +1,71 @@
+---
+layout: post
+title: "[原创]python-文件操作-路径"
+date: 2017-03-20 14:38:34
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<p><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri; mso-ascii-theme-font:minor-latin;mso-fareast-font-family:宋体;mso-fareast-theme-font: minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin">
+之前用</SPAN><span>python</SPAN><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri; mso-ascii-theme-font:minor-latin;mso-fareast-font-family:宋体;mso-fareast-theme-font: minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin">的时候，一直根据提示就可以获取到文件，但是后来发现，这样是有错误的。比如：</SPAN></P>
+<p><b><span STYLE="font-size:14.0pt">1.</SPAN></B></P>
+<p><span>&gt;&gt;&gt;
+f=open('.\mytest\a.txt')</SPAN></P>
+<p><span STYLE="color:red">Traceback (most recent call
+last):</SPAN></P>
+<p><span STYLE="color:red">&nbsp;<wbr> File "", line 1,
+in</SPAN></P>
+<p><span STYLE="color:red">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+f=open('.\mytest\a.txt')</SPAN></P>
+<p><span STYLE="color:red">IOError: [Errno 22] invalid mode ('r')
+or filename: '.\\mytest\x07.txt'</SPAN></P>
+<p><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri; mso-ascii-theme-font:minor-latin;mso-fareast-font-family:宋体;mso-fareast-theme-font: minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin">
+【释】我是根据</SPAN><span>IDE</SPAN><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri; mso-ascii-theme-font:minor-latin;mso-fareast-font-family:宋体;mso-fareast-theme-font: minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin">的提示用反斜线打出来的路径，但是会提示</SPAN><span>IOError</SPAN><span STYLE="font-family:宋体;mso-ascii-font-family: Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:宋体;mso-fareast-theme-font: minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin">。</SPAN></P>
+<p><b><span STYLE="font-size:14.0pt">2.</SPAN></B></P>
+<p><span>&gt;&gt;&gt;
+f=open('.\\mytest\\a.txt')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+f.read()</SPAN></P>
+<p><span STYLE="color:#00B0F0">'aaa'<a NAME="OLE_LINK2"></A><a NAME="OLE_LINK1"></A></SPAN></P>
+<p><span>&gt;&gt;&gt;
+f.close()</SPAN><span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family:宋体; mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: 宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri; mso-hansi-theme-font:minor-latin">
+【释】双反斜线</SPAN> <span STYLE="font-family:宋体; mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: 宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri; mso-hansi-theme-font:minor-latin">
+成功！</SPAN></P>
+<p><b><span STYLE="font-size:14.0pt">3.</SPAN></B></P>
+<p><span>&gt;&gt;&gt;
+f=open('./mytest/a.txt')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+f.read()</SPAN></P>
+<p><span STYLE="color:#00B0F0">'aaa'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+f.close()</SPAN></P>
+<p><span STYLE="font-family:宋体; mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: 宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri; mso-hansi-theme-font:minor-latin">
+【释】单斜线，成功！</SPAN></P>
+<p><b><span STYLE="font-size:14.0pt">4.</SPAN></B></P>
+<p><span>&gt;&gt;&gt;
+f=open('.//mytest//a.txt','rb')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+f</SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span>&gt;&gt;&gt;
+f.read()</SPAN></P>
+<p><span STYLE="color:#00B0F0">'aaa'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+f.close()</SPAN></P>
+<p><span STYLE="font-family:宋体; mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: 宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri; mso-hansi-theme-font:minor-latin">
+【释】咦，双斜线也可以成功的！</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family:宋体; mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: 宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri; mso-hansi-theme-font:minor-latin">
+以上操作均在</SPAN><span>windows</SPAN><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin; mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family: Calibri;mso-hansi-theme-font:minor-latin">上。</SPAN></P>
+<p><span STYLE="font-family:宋体;mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin; mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family: Calibri;mso-hansi-theme-font:minor-latin">
+原创所有，转载请附加链接，谢谢！</SPAN></P>
+<p><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bi35.html" TARGET="_blank">http://blog.sina.com.cn/s/blog_83dc494d0101bi35.html&nbsp;<wbr></A></P>							
+		</div>

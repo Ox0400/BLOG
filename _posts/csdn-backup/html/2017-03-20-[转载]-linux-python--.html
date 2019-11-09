@@ -1,0 +1,89 @@
+---
+layout: post
+title: "[转载]-linux-python--"
+date: 2017-03-20 14:41:20
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<h1 STYLE="color: rgb(98, 49, 38); font-family: 'Times new roman'; line-height: normal;">
+储存器</H1>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+Python提供一个标准的模块，称为<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>。使用它你可以在一个文件中储存<strong>任何</STRONG>Python对象，之后你又可以把它完整无缺地取出来。这被称为&nbsp;<wbr><dfn>持久地</DFN>&nbsp;<wbr>储存对象。</P>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+还有另一个模块称为<code STYLE="font-family: 'Courier new'; font-size: large;">cPickle</CODE>，它的功能和<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>模块完全相同，只不过它是用C语言编写的，因此要快得多（比<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>快1000倍）。你可以使用它们中的任一个，而我们在这里将使用<code STYLE="font-family: 'Courier new'; font-size: large;">cPickle</CODE>模块。记住，我们把这两个模块都简称为<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>模块。</P>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+<a NAME="pickling">储存与取储存</A></H2>
+<p STYLE="line-height: 19px; text-align: justify; font-weight: bold; font-family: 'Times new roman'; font-size: medium;">
+<a NAME="e122">例12.2 储存与取储存</A></P>
+<p STYLE="line-height: 19px; text-align: justify; margin: 0em 3em; background-color: rgb(251, 248, 210); border: thin solid rgb(0, 0, 0); padding: 5px 1em; font-family: 'Times new roman'; font-size: medium;">
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">
+#!/usr/bin/python<br />
+# Filename: pickling.py</CODE><br />
+<br />
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 0);">
+import&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(102, 51, 0);">cPickle&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large;">as
+p</CODE><br />
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">
+#import pickle as p</CODE><br />
+<br />
+<code STYLE="font-family: 'Courier new'; font-size: large;">shoplistfile
+=&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 255);">'shoplist.data'</CODE><br />
+
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">
+# the name of the file where we will store the object</CODE><br />
+<br />
+<code STYLE="font-family: 'Courier new'; font-size: large;">shoplist =
+[</CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 255);">'apple'</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">,&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 255);">'mango'</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">,&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 255);">'carrot'</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">]</CODE><br />
+
+<br />
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">
+# Write to the file</CODE><br />
+<code STYLE="font-family: 'Courier new'; font-size: large;">f
+=&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(102, 51, 0);">file</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">(shoplistfile,&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 255);">'w'</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">)<br />
+
+p.dump(shoplist, f)&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">#
+dump the object to a file</CODE><br />
+<code STYLE="font-family: 'Courier new'; font-size: large;">f.close()</CODE><br />
+
+<br />
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 0);">
+del&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large;">shoplist&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(0, 0, 255);">#
+remove the shoplist<br />
+<br />
+# Read back from the storage</CODE><br />
+<code STYLE="font-family: 'Courier new'; font-size: large;">f
+=&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(102, 51, 0);">file</CODE><code STYLE="font-family: 'Courier new'; font-size: large;">(shoplistfile)<br />
+
+storedlist = p.load(f)</CODE><br />
+<code STYLE="font-family: 'Courier new'; font-size: large; color: rgb(255, 0, 0);">
+print&nbsp;<wbr></CODE><code STYLE="font-family: 'Courier new'; font-size: large;">storedlist</CODE></P>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+（源文件：<a HREF="http://woodpecker.org.cn/abyteofpython_cn/chinese/code/pickling.py">code/pickling.py</A>）</P>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+输出</H2>
+<p STYLE="line-height: 19px; text-align: justify; margin: 0em 3em; background-color: rgb(254, 236, 224); border: thin solid rgb(0, 0, 0); padding: 5px 1em; font-family: 'Times new roman'; font-size: medium;">
+<code STYLE="font-family: 'Courier new'; font-size: large;">$
+python pickling.py<br />
+['apple', 'mango', 'carrot']</CODE></P>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+它如何工作</H2>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+首先，请注意我们使用了<code STYLE="font-family: 'Courier new'; font-size: large;">import..as</CODE>语法。这是一种便利方法，以便于我们可以使用更短的模块名称。在这个例子中，它还让我们能够通过简单地改变一行就切换到另一个模块（<code STYLE="font-family: 'Courier new'; font-size: large;">cPickle</CODE>或者<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>）！在程序的其余部分的时候，我们简单地把这个模块称为<code STYLE="font-family: 'Courier new'; font-size: large;">p</CODE>。</P>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+为了在文件里储存一个对象，首先以写模式打开一个<code STYLE="font-family: 'Courier new'; font-size: large;">file</CODE>对象，然后调用储存器模块的<code STYLE="font-family: 'Courier new'; font-size: large;">dump</CODE>函数，把对象储存到打开的文件中。这个过程称为&nbsp;<wbr><dfn>储存</DFN>&nbsp;<wbr>。</P>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+接下来，我们使用<code STYLE="font-family: 'Courier new'; font-size: large;">pickle</CODE>模块的<code STYLE="font-family: 'Courier new'; font-size: large;">load</CODE>函数的返回来取回对象。这个过程称为&nbsp;<wbr><dfn>取储存</DFN>&nbsp;<wbr>。<span STYLE="font-size: 14px;">文章来源：啄木鸟社区
+-- 简明Python 教程 第12章&nbsp;<wbr></SPAN><a HREF="http://woodpecker.org.cn/abyteofpython_cn/chinese/ch12s02.html" TARGET="_blank">输入/输出
+&nbsp;<wbr>储存器</A></P>
+<p STYLE="line-height: 19px; text-align: justify; font-family: 'Times new roman'; font-size: medium;">
+<br /></P>
+用这个是不是可以存储东西呢嘿嘿，一些配置参数。。。。							
+		</div>

@@ -1,0 +1,24 @@
+---
+layout: post
+title: "[原创]python-requests&amp;nbs-"
+date: 2017-03-20 14:46:30
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>import requests as req</DIV>
+res = req.get("https://www.google.com.hk" ,proxies={"<font COLOR="#ED1C24">https</FONT>":"<font COLOR="#FF0000">http://</FONT>127.0.0.1:8087",&nbsp;<wbr><span STYLE="line-height: 21px;">"</SPAN><font COLOR="#ED1C24">http</FONT><span STYLE="line-height: 21px;">":"</SPAN><font COLOR="#FF0000">http://</FONT><span STYLE="line-height: 21px;">127.0.0.1:8087"</SPAN>},
+&nbsp;<wbr>verify=True)
+<div>1、访问https协议可能会遇到SSLError，设置verify 为True/False即可</DIV>
+<div>2、<font COLOR="#0B0FFF">代理时，切记，要设置代理网址的协议类型！！飘红位置</FONT>，因为代理端口是http协议，而访问地址是https协议，特别注意此处。</DIV>
+<div>否则如下错误(未知协议)：<font COLOR="#FF0000">SSLError: [Errno 1]
+_ssl.c:503: error:140770FC:SSL
+routines:SSL23_GET_SERVER_HELLO:unknown protocol</FONT></DIV>							
+		</div>

@@ -1,0 +1,187 @@
+---
+layout: post
+title: "[原创，持续更新]正则练习"
+date: 2017-03-20 14:39:03
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			正则~记事本不可以的，大家可以用Microsoft Word的通配符来练习通配符，对正则和通配符的区别也会有更深的体会。
+<div><br />
+<div STYLE="text-align: left;"><b STYLE="color: rgb(255, 17, 17); font-size: 20px; line-height: 30px; text-align: center;">
+通配符≠正则！</B></DIV>
+<div>
+<div STYLE="text-align: center;"><font COLOR="#FF1111"><span STYLE="font-size: 20px; line-height: 30px;"><b><br /></B></SPAN></FONT></DIV>
+<div>
+<div>
+<div>通配符：<span STYLE="font-family: arial, 宋体, sans-serif; line-height: 25px; text-indent: 30px;"><font COLOR="#333333">主要有星号(*)和问号(?)，用来</FONT><b><font COLOR="#FF0000">模糊搜索文件</FONT></B><font COLOR="#333333">。当查找文件夹时，可以使用它来代替一个或多个</FONT></SPAN><span STYLE="font-family: arial, 宋体, sans-serif; line-height: 25px; text-indent: 30px;">真正</SPAN><a TARGET="_blank" HREF="http://baike.baidu.com/view/263416.htm"><font COLOR="#000000">字符</FONT></A><span STYLE="color: rgb(51, 51, 51); font-family: arial, 宋体, sans-serif; line-height: 25px; text-indent: 30px;">；当不知道真正字符或者懒得输入完整名字时，常常使用通配符代替一个或多个真正的字符。例:
+实际上用“*Not?paOd”可以对应Notpad\MyNotpad【*可以代表任何文字】;Notpad\Notepad【?仅代表单个文字】;Notepad\Notepod【ao代表a与o里二选一】，其余以此类推。（引用自</SPAN><a HREF="http://baike.baidu.com/link?url=ODnYq0x5draL80iVRsPOb2MlDgjW_YB8P9ZwiiULAuiL5MSxOwnfOm-DULE96T_p" TARGET="_blank">百度百科</A><span STYLE="color: rgb(51, 51, 51); font-family: arial, 宋体, sans-serif; line-height: 25px; text-indent: 30px;">）</SPAN></DIV>
+<div>
+<ul STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial;">
+<li STYLE="margin: 0px; padding: 0px;">
+<b>[a-z]或[12]：匹配方括号中指定范围内的单个字符或方括号列出的其中一个字符。&nbsp;<wbr></B></LI>
+<li STYLE="margin: 0px; padding: 0px;">
+<b>[!9]：不匹配方括号中所列字符或指定范围内的单个字符。&nbsp;<wbr></B></LI>
+<li STYLE="margin: 0px; padding: 0px;">
+<b>*：匹配0个字符或多个字符。&nbsp;<wbr></B></LI>
+<li STYLE="margin: 0px; padding: 0px;">
+<b>?：匹配任何单个字符，且不能为空字符。&nbsp;<wbr></B></LI>
+</UL>
+<div STYLE="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; line-height: 21px;">
+<b>由于shell会将字符？[&nbsp;<wbr>]&nbsp;<wbr>*&nbsp;<wbr>区别对待，因此在命令参数时如果需要用到这几个特殊字符，应将该参数用单引号标注或通过在特殊字符前加转义字符\。</B></DIV>
+</DIV>
+<div STYLE="color: rgb(69, 69, 69); font-family: tahoma, helvetica, arial; line-height: 21px;">
+<b><br /></B></DIV>
+<div STYLE="font-family: tahoma, helvetica, arial; line-height: 21px;">
+<font COLOR="#454545">正则表达式用于</FONT><b><font COLOR="#FF0000">文本内容中的字符串搜索和替换</FONT></B><font COLOR="#454545">等(python,基本用法都一样)</FONT></DIV>
+<div STYLE="color: rgb(69, 69, 69); line-height: 21px;">
+<ul>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>^</CODE> 匹配字符串的开始。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>$</CODE> 匹配字符串的结尾。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>\b</CODE> 匹配一个单词的边界。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>\d</CODE> 匹配任意数字。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>\D</CODE> 匹配任意非数字字符。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>x?</CODE> 匹配一个可选的 <code>x</CODE> 字符 (换言之，它匹配 1 次或者 0 次
+<code>x</CODE> 字符)。</B></LI>
+<li><font FACE="monospace"><b>. 匹配任意一个字符，等同于通配符的?</B></FONT></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>x*</CODE> 匹配0次或者多次 <code>x</CODE> 字符。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>x+</CODE> 匹配1次或者多次 <code>x</CODE> 字符。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>x{n,m}</CODE> 匹配 <code>x</CODE> 字符，至少 <code>n</CODE> 次，至多
+<code>m</CODE> 次。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>(a|b|c)</CODE> 要么匹配 <code>a</CODE>，要么匹配
+<code>b</CODE>，要么匹配 <code>c</CODE>。</B></LI>
+<li STYLE="font-family: tahoma, helvetica, arial;">
+<b><code>(x)</CODE> 一般情况下表示一个<span><em>记忆组 (remembered
+group)</EM></SPAN>。你可以利用 <code>re.search</CODE> 函数返回对象的
+<code>groups()</CODE> 函数获取它的值。</B></LI>
+</UL>
+</DIV>
+<div>&nbsp;<wbr>
+<div>
+<div STYLE="text-align: center;"><font STYLE="font-size: 20px;" COLOR="#FF1111"><b>通配符≠正则！</B></FONT></DIV>
+<div>
+<div><br /></DIV>
+<div>Python正则re.compile 常用,节省资源。</DIV>
+<div>re.I -- &gt;忽略大小写</DIV>
+<div>re.L -- &gt;本地化</DIV>
+<div>re.M -- &gt;多行匹配模式</DIV>
+<div>re.X -- &gt;忽略正则换行</DIV>
+<div>re.S -- &gt;文本的/n /t /r
+等转义视为1个字符,(这样用.就可以匹配到)</DIV>
+<div>-------------------------------------------------------</DIV>
+<div>python正则匹配ip</DIV>
+<div>
+<div>&gt;&gt;&gt; x =
+r'ip=(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})'</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')</DIV>
+<div>['192.0.0.120']</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0]</DIV>
+<div>'192.0.0.120'</DIV>
+<div>#到这里应该就可以了，但是正则中的“.”的意思应该是匹配任意字符的意思，所以：</DIV>
+<div>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0/0=120pl,m ')</DIV>
+<div>['192.0/0=120']</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=19220/0=120pl,m ')</DIV>
+<div>['19220/0=120']</DIV>
+</DIV>
+<div>也就是说，可以匹配到一串无意义的字符串：</DIV>
+<div>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=0000000pl,m ')</DIV>
+<div>['0000000']</DIV>
+</DIV>
+<div>&gt;&gt;&gt; x =
+r'ip=(\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})'</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0]</DIV>
+<div>'192.0.0.120'</DIV>
+<div><br /></DIV>
+<div>
+<div STYLE="line-height: 21px;">
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=0000000pl,m ')</DIV>
+<div>['0000000']</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">
+&gt;&gt;&gt; x =
+r'ip=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'</DIV>
+<div STYLE="line-height: 21px;">
+&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0]</DIV>
+<div STYLE="line-height: 21px;">'192.0.0.120'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; x =
+r'ip=((\d{1,3}[.]){3}\d{1,3})'</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0]</DIV>
+<div>('192.0.0.120', '0.')</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0][0]</DIV>
+<div>'192.0.0.120'</DIV>
+<div><br /></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; x =
+r'ip=((\d{1,3}\.){3}\d{1,3})'</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')</DIV>
+<div>[('192.0.0.120', '0.')]</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfip=192.0.0.120pl,m ')[0][0]</DIV>
+<div>'192.0.0.120'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; x =
+r"""Zhang</DIV>
+<div>... Zhi</DIV>
+<div>... Peng"""</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,'adsfname=ZhangZhiPeng,m ',re.X)</DIV>
+<div>['ZhangZhiPeng']</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; x =
+r'^Zhipeng'</DIV>
+<div>&gt;&gt;&gt; str =
+"""Zhang</DIV>
+<div>... Zhipeng"""</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,str)</DIV>
+<div>[]</DIV>
+<div>&gt;&gt;&gt;
+re.findall(x,str,re.M)</DIV>
+<div>['Zhipeng']</DIV>
+</DIV>
+<div><br /></DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</DIV>							
+		</div>

@@ -1,0 +1,98 @@
+---
+layout: post
+title: "[原创]python修改文件某行的内容"
+date: 2017-03-20 14:47:49
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<pre class="python"> 1 # -*- coding:utf-8 -*-
+ 2
+ 3
+ 4 # @version: 1.0
+ 5 # @author: Zhipeng Zhang
+ 6 # @date: '2015/5/28'
+ 7 import os
+ 8
+ 9 import fileinput
+10
+11
+12 def rewrite_line(filename, lineno, text, left=True, right=False):
+13     f = fileinput.input(filename, inplace=1)
+14     for line in f:
+15         line_text = line.replace("\r\n", "").replace("\n", "")
+16         if f.lineno() == lineno:
+17             if left:
+18                 print text + line_text
+19             elif right:
+20                 print line_text + text
+21             else:
+22                 print text
+23         else:
+24             print line_text
+25     f.close()
+26
+27 def cat(filename):
+28     with file(filename) as f:
+29         print f.read()
+30     os.remove(filename)
+31     with file(filename, "w")as f:
+32         f.write("a\nb\nc")
+33
+34 def test():
+35     filename = "rewrite.test"
+36     with file(filename, "w")as f:
+37         f.write("a\nb\nc")
+38
+39     print "new file:" + filename
+40     print "file content: a\nb\nc"
+41
+42     print "--------start test---------"
+43
+44     print filename, "line:", 2, "left add # --&gt; #b?"
+45     rewrite_line(filename, 2, "#", left=True)
+46     cat(filename)
+47
+48
+49     print filename, "line:", 2, "right add #END --&gt; b#END?"
+50     rewrite_line(filename, 2, "#END", left=False, right=True)
+51     cat(filename)
+52
+53     print filename, "line:", 1, " rewrite a --&gt; zhipeng?"
+54     rewrite_line(filename, 1, "zhipeng", left=False, right=False)
+55     cat(filename)
+56
+57     os.remove(filename)
+58
+59
+60 if __name__ == "__main__":
+61     test()</pre><br /><pre class="python">参考：《how-to-write-char-on-line-into-file》《http://stackoverflow.com/questions/5453267/is-it-possible-to-modify-lines-in-a-file-in-place》《Python fileinput模块》
+
+输出如下：
+new file:rewrite.test
+file content: a
+b
+c
+--------start test---------
+rewrite.test line: 2 left add # --&gt; #b?
+a
+#b
+c
+
+rewrite.test line: 2 right add #END --&gt; b#END?
+a
+b#END
+c
+
+rewrite.test line: 1  rewrite a --&gt; zhipeng?
+zhipeng
+b
+c
+
+根据输出可以看到，函数rewrite_line中的print的每行值并没有打印出来，而是打印到stdout中，其实就是直接定向到文件了，这样做，可能有点鸡肋吧。。。但起码也是一个轮子</pre><br />

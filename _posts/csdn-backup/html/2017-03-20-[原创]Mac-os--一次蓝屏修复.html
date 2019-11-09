@@ -1,0 +1,29 @@
+---
+layout: post
+title: "[原创]Mac-os--一次蓝屏修复"
+date: 2017-03-20 14:49:03
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - MacBoox-OSX
+---
+
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">起初是因为在 mac 上运行 mongo, 文件和表过大, 追踪日志后发现时 Too-many-open-files
+<div>尝试修改 ulimit -n 1024&nbsp;<wbr></div>
+<div>添加/etc/sysctl.conf /etc/launchd.conf&nbsp;<wbr>在/etc/profile添加 ulimit -n 1024</div>
+<div>重启后发现系统崩溃, 输入密码进入桌面后崩溃.</div>
+<div>解决办法, (command &#43; s &#43; 电源键) 进入命令模式</div>
+<div><br>
+</div>
+<div>chmod 664 /etc/profile# 将 ulimit -n 1024 删掉</div>
+<div>rm /etc/sysctl.conf</div>
+<div>rm /etc/<span style="color:rgb(36,39,41); font-family:Arial">launchd.conf&nbsp;<wbr></span></div>
+<div><span style="color:rgb(36,39,41); font-family:Arial"><br>
+</span></div>
+<div><span style="color:rgb(36,39,41); font-family:Arial">sudo reboot&nbsp;</span></div>
+</div>

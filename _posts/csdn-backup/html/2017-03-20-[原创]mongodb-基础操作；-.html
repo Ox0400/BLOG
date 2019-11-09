@@ -1,0 +1,41 @@
+---
+layout: post
+title: "[原创]mongodb-基础操作；-"
+date: 2017-03-20 14:46:44
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			mongo db使用很简单，最基础的语法其实就几个，
+<div><br />
+<div>show dbs; -- 列出现有的数据库</DIV>
+<div>use <b>Test_DB</B>; -- 设置当前数据库</DIV>
+<div>show tables; --&nbsp;<wbr><span STYLE="line-height: 21px;">&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">等同于</SPAN><span STYLE="line-height: 21px;">db.getCollectionNames();&nbsp;<wbr></SPAN>列出当前数据库的聚集聚合Collection，后面可能会简称table，方便已经有mysql等数据库的同志理解</DIV>
+<div>db.createCollection("<b>test_table</B>"); --
+创建一个table。（创建一个聚集聚合）</DIV>
+<div>db.<b>test_table</B>.save(<b>{name: "张志鹏yi"}</B>); --
+插入一行记录，注意：要以json格式或者字典格式（支持列表[json, json]），key可以不加引号</DIV>
+<div>db.<b>test_table</B>.find() -- 列出表记录</DIV>
+<div>db.<b>test_table</B>.drop() - 删除表</DIV>
+<div>db.dropDatabase() -- 删除数据库</DIV>
+<div><br /></DIV>
+<div>注意：</DIV>
+<div>mongoDB中，是没有create database这种说法的，直接use
+<b>DATABASE</B>，然后创建table或者插入数据的时候，数据库便会直接存在。</DIV>
+<div>同理，其实呢，table也是不用创建的哦！只要use&nbsp;<wbr><span STYLE="line-height: 21px;"><b>DATABASE</B></SPAN>，直接执行
+db.<b>TABLE</B>.save(<b>{}</B>)，就可以把表、库都建好啦！</DIV>
+<div><a HREF="http://ww2.sinaimg.cn/mw1024/83dc494djw1eqd81e826cj20it0gc79s.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww2.sinaimg.cn/mw1024/83dc494djw1eqd81e826cj20it0gc79s.jpg" WIDTH="677" HEIGHT="588" NAME="image_operate_85951426912656275"  ALT="【原创】mongodb&nbsp;<wbr>基础操作；同mysql对比"  TITLE="【原创】mongodb&nbsp;<wbr>基础操作；同mysql对比" /></A></DIV>
+<div><br /></DIV>
+</DIV>
+<div><br /></DIV>
+<div>下图是Mysql基础操作，方面和mongo对比。</DIV>
+<div><a HREF="http://ww2.sinaimg.cn/mw1024/83dc494djw1eqd8xwqnkfj20il0keafh.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww2.sinaimg.cn/mw1024/83dc494djw1eqd8xwqnkfj20il0keafh.jpg" WIDTH="669" HEIGHT="734" NAME="image_operate_28791426912776408"  ALT="【原创】mongodb&nbsp;<wbr>基础操作；同mysql对比"  TITLE="【原创】mongodb&nbsp;<wbr>基础操作；同mysql对比" /></A><br />
+<br /></DIV>							
+		</div>

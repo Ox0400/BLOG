@@ -1,0 +1,145 @@
+---
+layout: post
+title: "[原创]centos-打开防火墙端-"
+date: 2017-03-20 14:47:38
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			自己写了一个服务（<span STYLE="line-height: 21px;">10.20.30.10:9000</SPAN>），另一台机器访问的时候访问不到。
+<div>curl : <b><font COLOR="#FF0000">(7) couldn't connect to
+host</FONT></B></DIV>
+<div>wget：<b><font COLOR="#FF0000">Connecting
+to&nbsp;<wbr><span STYLE="line-height: 21px;">10.20.30.10:9000</SPAN>... failed: No route to
+host.</FONT></B></DIV>
+<div>python：<b><font COLOR="#FF0000">IOError: [Errno socket error]
+[Errno 113] No route to host</FONT></B></DIV>
+<div>------------</DIV>
+<div><span STYLE="line-height: 21px;">经了解，是centos
+防火墙的原因。</SPAN>解决方法：</DIV>
+<div><font COLOR="#50FE26"><b>sudo vi
+/etc/sysconfig/iptables</B></FONT></DIV>
+<div>加上一句：<b><font COLOR="#5CFD2C">-A INPUT -p tcp -m tcp --dport
+9000 -j ACCEPT</FONT>&nbsp;<wbr></B>或者
+&nbsp;<wbr><b><font COLOR="#31FF29">-A INPUT -p tcp -m state
+--state NEW -m tcp --dport 9000 -j ACCEPT</FONT></B></DIV>
+<div>保存退出后，<span STYLE="line-height: 21px;"><b><font COLOR="#31FF19">sudo service iptables restart</FONT></B></SPAN></DIV>
+<div><br /></DIV>
+<div>1. sudo service iptables start</DIV>
+<div><br /></DIV>
+<span STYLE="line-height: 21px;">2. sudo service iptables
+stop</SPAN>
+<div><br />
+<div><span STYLE="line-height: 21px;">3. sudo service iptables
+restart</SPAN></DIV>
+<div>
+<div>[zhangzhipeng@localhost test]$ sudo service iptables
+restart</DIV>
+<div>iptables: Setting chains to policy ACCEPT: filter
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>[ &nbsp;<wbr>OK
+&nbsp;<wbr>]</DIV>
+<div>iptables: Flushing firewall rules: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> [ &nbsp;<wbr>OK
+&nbsp;<wbr>]</DIV>
+<div>iptables: Unloading modules: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> [ &nbsp;<wbr>OK
+&nbsp;<wbr>]</DIV>
+<div>iptables: Applying firewall rules: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> [ &nbsp;<wbr>OK
+&nbsp;<wbr>]</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div><span STYLE="line-height: 21px;">4. sudo service iptables
+status</SPAN></DIV>
+</DIV>
+<div>
+<div>[zhangzhipeng@localhost test]$ sudo service iptables
+status</DIV>
+<div>Table: filter</DIV>
+<div>Chain INPUT (policy ACCEPT)</DIV>
+<div>num &nbsp;<wbr>target &nbsp;<wbr>
+&nbsp;<wbr> prot opt source &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+destination</DIV>
+<div>1 &nbsp;<wbr> &nbsp;<wbr>ACCEPT
+&nbsp;<wbr> &nbsp;<wbr> tcp &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> tcp
+dpt:9000</DIV>
+<div>2 &nbsp;<wbr> &nbsp;<wbr>ACCEPT
+&nbsp;<wbr> &nbsp;<wbr> all &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> state
+RELATED,ESTABLISHED</DIV>
+<div>3 &nbsp;<wbr> &nbsp;<wbr>ACCEPT
+&nbsp;<wbr> &nbsp;<wbr> icmp --
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0</DIV>
+<div>4 &nbsp;<wbr> &nbsp;<wbr>ACCEPT
+&nbsp;<wbr> &nbsp;<wbr> all &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0</DIV>
+<div>5 &nbsp;<wbr> &nbsp;<wbr>ACCEPT
+&nbsp;<wbr> &nbsp;<wbr> tcp &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> state NEW
+tcp dpt:22</DIV>
+<div>6 &nbsp;<wbr> &nbsp;<wbr>REJECT
+&nbsp;<wbr> &nbsp;<wbr> all &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+reject-with icmp-host-prohibited</DIV>
+<div><br /></DIV>
+<div>Chain FORWARD (policy ACCEPT)</DIV>
+<div>num &nbsp;<wbr>target &nbsp;<wbr>
+&nbsp;<wbr> prot opt source &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+destination</DIV>
+<div>1 &nbsp;<wbr> &nbsp;<wbr>REJECT
+&nbsp;<wbr> &nbsp;<wbr> all &nbsp;<wbr>--
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0.0.0.0/0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+reject-with icmp-host-prohibited</DIV>
+<div><br /></DIV>
+<div>Chain OUTPUT (policy ACCEPT)</DIV>
+<div>num &nbsp;<wbr>target &nbsp;<wbr>
+&nbsp;<wbr> prot opt source &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+destination</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+</DIV>							
+		</div>

@@ -1,0 +1,130 @@
+---
+layout: post
+title: "[原创]Python-Mongo-批量操作"
+date: 2017-03-20 14:49:24
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+<div style="">
+<h2 style="margin:1.3em 0px 1em; padding:0px; font-weight:bold; font-size:1.4em; border-bottom:1px solid rgb(238,238,238)">
+向数据库新增大量数据是经常性的需求, pymongo 支持 <a target="_blank" href="http://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.insert_many">
+insert_many</a>.</h2>
+<h3 style="margin:1.3em 0px 1em; padding:0px; font-weight:bold; font-size:1.3em">
+但主键是我们自己外部定义生成的, 并且实现更新记录, 就有点困难.</h3>
+<blockquote style="margin:1.2em 0px; border-left:4px solid rgb(221,221,221); padding:0px 1em; color:rgb(119,119,119); quotes:none">
+<p style="margin:0px 0px 1.2em!important">注: MongoDB 主键字段是<strong>_id</strong></p>
+</blockquote>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(153,153,153)"># insert_many 用法</span>
+insert_many(documents, ordered=<span style="color:rgb(204,153,204)">True</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>)
+</code>
+</pre>
+<p style="margin:0px 0px 1.2em!important">Insert an iterable ofdocuments.</p>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span>&gt;&gt;&gt; </span>db.test.count()
+<span style="color:rgb(249,145,87)">0</span>
+<span>&gt;&gt;&gt; </span>result = db.test.insert_many([{<span style="color:rgb(153,204,153)">'x'</span>: i} <span style="color:rgb(204,153,204)">for</span> i <span style="color:rgb(204,153,204)">in</span> range(<span style="color:rgb(249,145,87)">2</span>)])
+<span>&gt;&gt;&gt; </span>result.inserted_ids
+[ObjectId(<span style="color:rgb(153,204,153)">'54f113fffba522406c9cc20e<wbr>'</span>), ObjectId(<span style="color:rgb(153,204,153)">'54f113fffba522406c9cc20f<wbr>'</span>)]
+<span>&gt;&gt;&gt; </span>db.test.count()
+<span style="color:rgb(249,145,87)">2</span>
+</code>
+</pre>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">insert_many(docs, ordered=<span style="color:rgb(204,153,204)">True</span>) <span style="color:rgb(153,153,153)"># 遇到错误 break, 并且抛出异常</span>
+insert_many(docs, ordered=<span style="color:rgb(204,153,204)">False</span>) <span style="color:rgb(153,153,153)"># 遇到错误 continue, 循环结束后抛出异常</span>
+<span style="color:rgb(153,153,153)"># 无论 ordered 是 True 或者 False, 批量添加的时候遇到重复的, 并不会对历史数据更新</span>
+</code>
+</pre>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">insert_one(document, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>)
+replace_one(filter, replacement, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
+update_one(filter, update, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
+update_many(filter, update, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
+<span style="color:rgb(153,153,153)">#  都无法实现批量插入, 没有插入\有则更新的需求.</span>
+</code>
+</pre>
+<h3 style="margin:1.3em 0px 1em; padding:0px; font-weight:bold; font-size:1.3em">
+解决办法 1</h3>
+<p style="margin:0px 0px 1.2em!important">有一个<a target="_blank" href="https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/">$setOnInsert</a>的方式.但目的是为了仅仅插入不纯在的数据.<br>
+&lt;&lt;ahref=&quot;https://stackoverflow.com/questions/31375606/is-there-a-way-to-skip-over-existing-ids-for-insert-many-in-pymongo-3-0&quot;&gt;Isthere a way to skip over existing _id’s for insert_many in Pymongo3.0?&gt;</p>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">bulk = pymongo.bulk.BulkOperationBuilder(collection,ordered=<span style="color:rgb(204,153,204)">True</span>)
+<span style="color:rgb(204,153,204)">for</span> doc <span style="color:rgb(204,153,204)">in</span> docs:
+    bulk.find({ <span style="color:rgb(153,204,153)">&quot;_id&quot;</span>: doc[<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>] }).upsert().updateOne({
+        <span style="color:rgb(153,204,153)">&quot;$setOnInsert&quot;</span>: doc
+    })
+
+response = bulk.execute()
+
+<span style="color:rgb(153,153,153)"># 这并不能实现主键存在的情况下对数据进行更新.</span>
+</code>
+</pre>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(153,153,153)">### 正确姿势如下</span>
+<span style="color:rgb(102,153,204)"><span style="color:rgb(204,153,204)">def</span> <span style="color:rgb(153,153,153)">insert_many</span><span style="color:rgb(249,145,87)">(collection, docs=None, update=True)</span>:</span>
+    <span style="color:rgb(204,153,204)">if</span> <span style="color:rgb(204,153,204)">not</span> docs:
+        <span style="color:rgb(204,153,204)">return</span>
+    <span style="color:rgb(153,153,153)"># $set 的时候, 会更新数据, setOnInsert只插入不更新</span>
+    update_key = <span style="color:rgb(153,204,153)">&quot;$set&quot;</span> <span style="color:rgb(204,153,204)">if</span> update <span style="color:rgb(204,153,204)">else</span> <span style="color:rgb(153,204,153)">&quot;$setOnInsert&quot;</span>
+    bulk = BulkOperationBuilder(collection, ordered=<span style="color:rgb(204,153,204)">False</span>)
+    <span style="color:rgb(204,153,204)">for</span> i <span style="color:rgb(204,153,204)">in</span> docs:
+        <span style="color:rgb(204,153,204)">if</span> i[<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>]:
+            bulk.find({<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>:i[<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>]}).upsert().update_one({update_key:i })
+        <span style="color:rgb(204,153,204)">else</span>:
+            bulk.insert(i)
+    result = bulk.execute()
+    modify_count = result.get(<span style="color:rgb(153,204,153)">&quot;nModified&quot;</span>)
+    insert_count = result.get(<span style="color:rgb(153,204,153)">&quot;nUpserted&quot;</span>) &#43; result.get(<span style="color:rgb(153,204,153)">&quot;nInserted&quot;</span>)
+
+<span style="color:rgb(153,153,153)"># 如上, 实现了主键已存在时, 对数据进行更新. 主键不在表中的时候对数据进行插入操作. 并且, 如果要插入的数据没有设置主键 _id, 进行普通的插入操作即可.</span>
+</code>
+</pre>
+<h3 style="margin:1.3em 0px 1em; padding:0px; font-weight:bold; font-size:1.3em">
+解决方法 2</h3>
+<blockquote style="margin:1.2em 0px; border-left:4px solid rgb(221,221,221); padding:0px 1em; color:rgb(119,119,119); quotes:none">
+<p style="margin:0px 0px 1.2em!important"><a target="_blank" href="http://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.bulk_write">Send a batch of write operations to the server.</a></p>
+</blockquote>
+<pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
+<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(204,153,204)">from</span> pymongo <span style="color:rgb(204,153,204)">import</span> UpdateOne, ReplaceOne <span style="color:rgb(153,153,153)"># InsertOne, DeleteOne</span>
+<span>&gt;&gt;&gt; </span><span style="color:rgb(204,153,204)">from</span> pymongo <span style="color:rgb(204,153,204)">import</span> MongoClient <span style="color:rgb(204,153,204)">as</span> MC
+<span>&gt;&gt;&gt; </span>db = MC().test.test1
+
+<span>&gt;&gt;&gt; </span>db.count()
+<span style="color:rgb(249,145,87)">1</span>
+
+<span>&gt;&gt;&gt; </span>list(db.find())
+[{<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'a'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'a'</span>}]
+
+<span style="color:rgb(153,153,153)">#  先用 UpdateOne 测试一下</span>
+<span>&gt;&gt;&gt; </span>db.bulk_write([UpdateOne({<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>:<span style="color:rgb(153,204,153)">&quot;a&quot;</span>},{<span style="color:rgb(153,204,153)">&quot;$set&quot;</span>:{<span style="color:rgb(153,204,153)">&quot;n&quot;</span>:<span style="color:rgb(153,204,153)">&quot;aa&quot;</span>}}, upsert=<span style="color:rgb(204,153,204)">True</span>), UpdateOne({<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>:<span style="color:rgb(153,204,153)">&quot;b&quot;</span>},{<span style="color:rgb(153,204,153)">&quot;$set&quot;</span>:{<span style="color:rgb(153,204,153)">&quot;n&quot;</span>:<span style="color:rgb(153,204,153)">&quot;b&quot;</span>}}, upsert=<span style="color:rgb(204,153,204)">True</span>)])
+<span style="color:rgb(249,145,87)">0x102d4d370</span>&gt;
+<span>&gt;&gt;&gt; </span>list(db.find())
+[{<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'a'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'aa'</span>}, {<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'b'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'b'</span>}]
+<span style="color:rgb(153,153,153)"># 可以看到 记录 a 的 &quot;n&quot; 成功被更新为 &quot;aa&quot;, 并且新增了一条记录 b</span>
+<span style="color:rgb(153,153,153)"># 再用 ReplaceOne 测试一下</span>
+<span>&gt;&gt;&gt; </span>db.bulk_write([ReplaceOne({<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>:<span style="color:rgb(153,204,153)">&quot;b&quot;</span>},{<span style="color:rgb(153,204,153)">&quot;n&quot;</span>:<span style="color:rgb(153,204,153)">&quot;bb&quot;</span>}, upsert=<span style="color:rgb(204,153,204)">True</span>), ReplaceOne({<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>:<span style="color:rgb(153,204,153)">&quot;c&quot;</span>},{<span style="color:rgb(153,204,153)">&quot;n&quot;</span>:<span style="color:rgb(153,204,153)">&quot;cc&quot;</span>}, upsert=<span style="color:rgb(204,153,204)">True</span>)])
+<span style="color:rgb(249,145,87)">0x102d4d370</span>&gt;
+<span>&gt;&gt;&gt; </span>list(db.find())
+[{<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'a'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'aa'</span>}, {<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'b'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'bb'</span>}, {<span style="color:rgb(153,204,153)">u'_id'</span>: <span style="color:rgb(153,204,153)">u'c'</span>, <span style="color:rgb(153,204,153)">u'n'</span>: <span style="color:rgb(153,204,153)">u'cc'</span>}]
+
+<span style="color:rgb(153,153,153)"># 可以看到, 记录 b 的 n 从 &quot;b&quot; 更新为 &quot;bb&quot;, 并且新增了一条记录 c</span>
+<span style="color:rgb(153,153,153)"># 这里需要注意的是, 如果使用 ReplaceOne, update 的&#20540;不能使用&quot;$set&quot;</span>
+<span style="color:rgb(153,153,153)"># 注意区分 ReplaceOne 和 UpdateOne 的区别. 加上$set后是更新操作. 没有$set 是覆盖操作.</span>
+</code>
+</pre>
+<hr>
+<p style="margin:0px 0px 1.2em!important">END.</p>
+<div title="MDH:IyMg5ZCR5pWw5o2u5bqT5paw5aKe5aSn6YeP5pWw5o2u5piv57uP5bi45oCn55qE6ZyA5rGCLCBw eW1vbmdvIOaUr&#43;aMgSBbaW5zZXJ0X21hbnldKGh0dHA6Ly9hcGkubW9uZ29kYi5jb20vcHl0aG9u L2N1cnJlbnQvYXBpL3B5bW9uZ28vY29sbGVjdGlvbi5odG1sI3B5bW9uZ28uY29sbGVjdGlvbi5D b2xsZWN0aW9uLmluc2VydF9tYW55KS7CoDxkaXY&#43;IyMjIOS9huS4u&#43;mUruaYr&#43;aIkeS7rOiHquW3 seWklumDqOWumuS5ieeUn&#43;aIkOeahCwg5bm25LiU5a6e546w5pu05paw6K6w5b2VLCDlsLHmnInn grnlm7Dpmr4uJm5ic3A7PGRpdj48YnI&#43;PC9kaXY&#43;PGRpdj4mZ3Q7IOazqDogTW9uZ29EQiDkuLvp lK7lrZfmrrXmmK8gKipfaWQqKjwvZGl2PjxkaXY&#43;PGJyPjxkaXY&#43;YGBgcHl0aG9uPC9kaXY&#43;PGRp dj4jIGluc2VydF9tYW55IOeUqOazlTxicj48ZGl2PjxkaXY&#43;aW5zZXJ0X21hbnkoZG9jdW1lbnRz LCBvcmRlcmVkPVRydWUsIGJ5cGFzc19kb2N1bWVudF92YWxpZGF0aW9uPUZhbHNlKTwvZGl2Pjxk aXY&#43;YGBgPC9kaXY&#43;PGRpdj5JbnNlcnQgYW4gaXRlcmFibGUgb2YgZG9jdW1lbnRzLjwvZGl2Pjxk aXY&#43;PGJyPjwvZGl2PjxkaXY&#43;YGBgcHl0aG9uPC9kaXY&#43;PGRpdj4mZ3Q7Jmd0OyZndDsgZGIudGVz dC5jb3VudCgpPC9kaXY&#43;PGRpdj4wPC9kaXY&#43;PGRpdj4mZ3Q7Jmd0OyZndDsgcmVzdWx0ID0gZGIu dGVzdC5pbnNlcnRfbWFueShbeyd4JzogaX0gZm9yIGkgaW4gcmFuZ2UoMildKTwvZGl2PjxkaXY&#43; Jmd0OyZndDsmZ3Q7IHJlc3VsdC5pbnNlcnRlZF9pZHM8L2Rpdj48ZGl2PltPYmplY3RJZCgnNTRm MTEzZmZmYmE1MjI0MDZjOWNjMjBlJyksIE9iamVjdElkKCc1NGYxMTNmZmZiYTUyMjQwNmM5Y2My MGYnKV08L2Rpdj48ZGl2PiZndDsmZ3Q7Jmd0OyBkYi50ZXN0LmNvdW50KCk8L2Rpdj48ZGl2PjI8 L2Rpdj48L2Rpdj48L2Rpdj48ZGl2PmBgYDwvZGl2PjxkaXY&#43;PGJyPjwvZGl2PmBgYHB5dGhvbjxi ciBjbGFzcz0iQXBwbGUtaW50ZXJjaGFuZ2UtbmV3bGluZSI&#43;aW5zZXJ0X21hbnkoZG9jcywgb3Jk ZXJlZD1UcnVlKSAjIOmBh&#43;WIsOmUmeivryBicmVhaywg5bm25LiU5oqb5Ye65byC5bi4PGJyIGNs YXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXdsaW5lIj5pbnNlcnRfbWFueShkb2NzLCBvcmRlcmVk PUZhbHNlKSAjIOmBh&#43;WIsOmUmeivryBjb250aW51ZSwg5b6q546v57uT5p2f5ZCO5oqb5Ye65byC 5bi4PGRpdj4jIOaXoOiuuiBvcmRlcmVkIOaYryBUcnVlIOaIluiAhSBGYWxzZSwg5om56YeP5re7 5Yqg55qE5pe25YCZ6YGH5Yiw6YeN5aSN55qELCDlubbkuI3kvJrlr7nljoblj7LmlbDmja7mm7Tm lrA8L2Rpdj48ZGl2PmBgYDwvZGl2PjxkaXY&#43;PGJyPjwvZGl2PjxkaXY&#43;PGJyPjwvZGl2PjxkaXY&#43; YGBgcHl0aG9uPC9kaXY&#43;PGRpdj5pbnNlcnRfb25lKGRvY3VtZW50LCBieXBhc3NfZG9jdW1lbnRf dmFsaWRhdGlvbj1GYWxzZSk8L2Rpdj48ZGl2PnJlcGxhY2Vfb25lKGZpbHRlciwgcmVwbGFjZW1l bnQsIHVwc2VydD1GYWxzZSwgYnlwYXNzX2RvY3VtZW50X3ZhbGlkYXRpb249RmFsc2UsIGNvbGxh dGlvbj1Ob25lKTwvZGl2PjxkaXY&#43;dXBkYXRlX29uZShmaWx0ZXIsIHVwZGF0ZSwgdXBzZXJ0PUZh bHNlLCBieXBhc3NfZG9jdW1lbnRfdmFsaWRhdGlvbj1GYWxzZSwgY29sbGF0aW9uPU5vbmUpPC9k aXY&#43;PGRpdj51cGRhdGVfbWFueShmaWx0ZXIsIHVwZGF0ZSwgdXBzZXJ0PUZhbHNlLCBieXBhc3Nf ZG9jdW1lbnRfdmFsaWRhdGlvbj1GYWxzZSwgY29sbGF0aW9uPU5vbmUpPC9kaXY&#43;PGRpdj4jICZu YnNwO&#43;mDveaXoOazleWunueOsOaJuemHj&#43;aPkuWFpSwg5rKh5pyJ5o&#43;S5YWlXOacieWImeabtOaW sOeahOmcgOaxgi48L2Rpdj48ZGl2PmBgYDwvZGl2PjxkaXY&#43;PGJyPjwvZGl2PjxkaXY&#43;IyMjIOin o&#43;WGs&#43;WKnuazlSAxPC9kaXY&#43;PGRpdj7mnInkuIDkuKpbJHNldE9uSW5zZXJ0XShodHRwczovL2Rv Y3MubW9uZ29kYi5jb20vbWFudWFsL3JlZmVyZW5jZS9vcGVyYXRvci91cGRhdGUvc2V0T25JbnNl cnQvKeeahOaWueW8jy4g5L2G55uu55qE5piv5Li65LqG5LuF5LuF5o&#43;S5YWl5LiN57qv5Zyo55qE 5pWw5o2uLjwvZGl2PjxkaXY&#43;Jmx0O1tJcyB0aGVyZSBhIHdheSB0byBza2lwIG92ZXIgZXhpc3Rp bmcgX2lkJ3MgZm9yIGluc2VydF9tYW55IGluIFB5bW9uZ28gMy4wP10oaHR0cHM6Ly9zdGFja292 ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzEzNzU2MDYvaXMtdGhlcmUtYS13YXktdG8tc2tpcC1vdmVy LWV4aXN0aW5nLWlkcy1mb3ItaW5zZXJ0LW1hbnktaW4tcHltb25nby0zLTApJmd0OzwvZGl2Pjxk aXY&#43;YGBgcHl0aG9uPC9kaXY&#43;PGRpdj48ZGl2PmJ1bGsgPSBweW1vbmdvLmJ1bGsuQnVsa09wZXJh dGlvbkJ1aWxkZXIoY29sbGVjdGlvbixvcmRlcmVkPVRydWUpPC9kaXY&#43;PGRpdj5mb3IgZG9jIGlu IGRvY3M6PC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IGJ1bGsuZmluZCh7ICJfaWQiOiBkb2NbIl9p ZCJdIH0pLnVwc2VydCgpLnVwZGF0ZU9uZSh7PC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNw OyAmbmJzcDsgIiRzZXRPbkluc2VydCI6IGRvYzwvZGl2PjxkaXY&#43;Jm5ic3A7ICZuYnNwOyB9KTwv ZGl2PjxkaXY&#43;PGJyPjwvZGl2PjxkaXY&#43;cmVzcG9uc2UgPSBidWxrLmV4ZWN1dGUoKTwvZGl2Pjwv ZGl2PjxkaXY&#43;IyDov5nlubbkuI3og73lrp7njrDkuLvplK7lrZjlnKjnmoTmg4XlhrXkuIvlr7nm lbDmja7ov5vooYzmm7TmlrAuPC9kaXY&#43;PGRpdj5gYGA8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2 PmBgYHB5dGhvbjwvZGl2PjxkaXY&#43;IyMjIOato&#43;ehruWnv&#43;WKv&#43;WmguS4izwvZGl2PjxkaXY&#43;PGRp dj5kZWYgaW5zZXJ0X21hbnkoY29sbGVjdGlvbiwgZG9jcz1Ob25lLCB1cGRhdGU9VHJ1ZSk6PC9k aXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IGlmIG5vdCBkb2NzOjwvZGl2PjxkaXY&#43;Jm5ic3A7ICZuYnNw OyAmbmJzcDsgJm5ic3A7IHJldHVybjwvZGl2PjxkaXY&#43;Jm5ic3A7ICZuYnNwOyAjICRzZXQg55qE 5pe25YCZLCDkvJrmm7TmlrDmlbDmja4sIHNldE9uSW5zZXJ05Y&#43;q5o&#43;S5YWl5LiN5pu05pawPC9k aXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IHVwZGF0ZV9rZXkgPSAiJHNldCIgaWYgdXBkYXRlIGVsc2Ug IiRzZXRPbkluc2VydCI8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgYnVsayA9IEJ1bGtPcGVyYXRp b25CdWlsZGVyKGNvbGxlY3Rpb24sIG9yZGVyZWQ9RmFsc2UpPC9kaXY&#43;PGRpdj4mbmJzcDsgJm5i c3A7IGZvciBpIGluIGRvY3M6PC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg aWYgaVsiX2lkIl06PC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7 ICZuYnNwOyBidWxrLmZpbmQoeyJfaWQiOmlbIl9pZCJdfSkudXBzZXJ0KCkudXBkYXRlX29uZSh7 dXBkYXRlX2tleTppIH0pPC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgZWxz ZTo8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IGJ1 bGsuaW5zZXJ0KGkpPC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IHJlc3VsdCA9IGJ1bGsuZXhlY3V0 ZSgpPC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IG1vZGlmeV9jb3VudCA9IHJlc3VsdC5nZXQoIm5N b2RpZmllZCIpPC9kaXY&#43;PGRpdj4mbmJzcDsgJm5ic3A7IGluc2VydF9jb3VudCA9IHJlc3VsdC5n ZXQoIm5VcHNlcnRlZCIpICsgcmVzdWx0LmdldCgibkluc2VydGVkIik8L2Rpdj48L2Rpdj48ZGl2 PiMg5aaC5LiKLCDlrp7njrDkuobkuLvplK7lt7LlrZjlnKjml7YsIOWvueaVsOaNrui/m&#43;ihjOab tOaWsC4g5Li76ZSu5LiN5Zyo6KGo5Lit55qE5pe25YCZ5a&#43;55pWw5o2u6L&#43;b6KGM5o&#43;S5YWl5pON 5L2cLiDlubbkuJQsIOWmguaenOimgeaPkuWFpeeahOaVsOaNruayoeacieiuvue9ruS4u&#43;mUriBf aWQsIOi/m&#43;ihjOaZrumAmueahOaPkuWFpeaTjeS9nOWNs&#43;WPry48L2Rpdj48ZGl2PmBgYDwvZGl2 PjxkaXY&#43;PGJyPjwvZGl2PjxkaXY&#43;IyMjIOino&#43;WGs&#43;aWueazlSAyPC9kaXY&#43;PGRpdj4mZ3Q7IFtT ZW5kIGEgYmF0Y2ggb2Ygd3JpdGUgb3BlcmF0aW9ucyB0byB0aGUgc2VydmVyLl0oaHR0cDovL2Fw aS5tb25nb2RiLmNvbS9weXRob24vY3VycmVudC9hcGkvcHltb25nby9jb2xsZWN0aW9uLmh0bWwj cHltb25nby5jb2xsZWN0aW9uLkNvbGxlY3Rpb24uYnVsa193cml0ZSk8L2Rpdj48ZGl2Pjxicj48 L2Rpdj48ZGl2PmBgYHB5dGhvbjwvZGl2PjxkaXY&#43;ZnJvbSBweW1vbmdvIGltcG9ydCBVcGRhdGVP bmUsIFJlcGxhY2VPbmUgIyZuYnNwO0luc2VydE9uZSwgRGVsZXRlT25lPC9kaXY&#43;PGRpdj48ZGl2 PiZndDsmZ3Q7Jmd0OyBmcm9tIHB5bW9uZ28gaW1wb3J0IE1vbmdvQ2xpZW50IGFzIE1DPC9kaXY&#43; PGRpdj4mZ3Q7Jmd0OyZndDsgZGIgPSBNQygpLnRlc3QudGVzdDE8L2Rpdj48L2Rpdj48ZGl2Pjxk aXY&#43;Jmd0OyZndDsmZ3Q7IGRiLmNvdW50KCk8L2Rpdj48ZGl2PjE8L2Rpdj48L2Rpdj48ZGl2Pjxk aXY&#43;Jmd0OyZndDsmZ3Q7IGxpc3QoZGIuZmluZCgpKTwvZGl2PjxkaXY&#43;W3t1J19pZCc6IHUnYScs IHUnbic6IHUnYSd9XTwvZGl2PjwvZGl2PjxkaXY&#43;IyAmbmJzcDvlhYjnlKggVXBkYXRlT25lIOa1 i&#43;ivleS4gOS4izwvZGl2PjxkaXY&#43;PGRpdj4mZ3Q7Jmd0OyZndDsgZGIuYnVsa193cml0ZShbVXBk YXRlT25lKHsiX2lkIjoiYSJ9LHsiJHNldCI6eyJuIjoiYWEifX0sIHVwc2VydD1UcnVlKSwgVXBk YXRlT25lKHsiX2lkIjoiYiJ9LHsiJHNldCI6eyJuIjoiYiJ9fSwgdXBzZXJ0PVRydWUpXSk8L2Rp dj48ZGl2PiZsdDtweW1vbmdvLnJlc3VsdHMuQnVsa1dyaXRlUmVzdWx0IG9iamVjdCBhdCAweDEw MmQ0ZDM3MCZndDs8L2Rpdj48ZGl2PiZndDsmZ3Q7Jmd0OyBsaXN0KGRiLmZpbmQoKSk8L2Rpdj48 ZGl2Plt7dSdfaWQnOiB1J2EnLCB1J24nOiB1J2FhJ30sIHt1J19pZCc6IHUnYicsIHUnbic6IHUn Yid9XTwvZGl2PjxkaXY&#43;IyDlj6/ku6XnnIvliLAg6K6w5b2VIGEg55qEICJuIiDmiJDlip/ooqvm m7TmlrDkuLogImFhIiwg5bm25LiU5paw5aKe5LqG5LiA5p2h6K6w5b2VIGI8L2Rpdj48ZGl2PiMg 5YaN55SoIFJlcGxhY2VPbmUg5rWL6K&#43;V5LiA5LiLPC9kaXY&#43;PGRpdj48ZGl2PiZndDsmZ3Q7Jmd0 OyBkYi5idWxrX3dyaXRlKFtSZXBsYWNlT25lKHsiX2lkIjoiYiJ9LHsibiI6ImJiIn0sIHVwc2Vy dD1UcnVlKSwgUmVwbGFjZU9uZSh7Il9pZCI6ImMifSx7Im4iOiJjYyJ9LCB1cHNlcnQ9VHJ1ZSld KTwvZGl2PjxkaXY&#43;Jmx0O3B5bW9uZ28ucmVzdWx0cy5CdWxrV3JpdGVSZXN1bHQgb2JqZWN0IGF0 IDB4MTAyZDRkMzcwJmd0OzwvZGl2PjxkaXY&#43;Jmd0OyZndDsmZ3Q7IGxpc3QoZGIuZmluZCgpKTwv ZGl2PjxkaXY&#43;W3t1J19pZCc6IHUnYScsIHUnbic6IHUnYWEnfSwge3UnX2lkJzogdSdiJywgdSdu JzogdSdiYid9LCB7dSdfaWQnOiB1J2MnLCB1J24nOiB1J2NjJ31dPC9kaXY&#43;PC9kaXY&#43;PC9kaXY&#43; PGRpdj4jIOWPr&#43;S7peeci&#43;WIsCwg6K6w5b2VIGIg55qEIG4g5LuOICJiIiDmm7TmlrDkuLogImJi Iiwg5bm25LiU5paw5aKe5LqG5LiA5p2h6K6w5b2VIGM8L2Rpdj48ZGl2PiMg6L&#43;Z6YeM6ZyA6KaB 5rOo5oSP55qE5pivLCDlpoLmnpzkvb/nlKggUmVwbGFjZU9uZSwgdXBkYXRlIOeahOWAvOS4jeiD veS9v&#43;eUqCIkc2V0IjwvZGl2PjxkaXY&#43;IyDms6jmhI/ljLrliIYgUmVwbGFjZU9uZSDlkowgVXBk YXRlT25lIOeahOWMuuWIqy4g5Yqg5LiKJHNldOWQjuaYr&#43;abtOaWsOaTjeS9nC4g5rKh5pyJJHNl dCDmmK/opobnm5bmk43kvZwuPC9kaXY&#43;PGRpdj5gYGA8L2Rpdj48L2Rpdj48ZGl2Pi0tLTwvZGl2 PjxkaXY&#43;RU5ELjwvZGl2PjxkaXY&#43;PGJyPjwvZGl2PjwvZGl2Pg==" style="height:0; width:0; max-height:0; max-width:0; overflow:hidden; font-size:0em; padding:0; margin:0">
+​</div>
+</div>
+</div>

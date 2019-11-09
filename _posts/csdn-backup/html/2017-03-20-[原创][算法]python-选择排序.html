@@ -1,0 +1,109 @@
+---
+layout: post
+title: "[原创][算法]python-选择排序"
+date: 2017-03-20 14:47:00
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - 算法
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div STYLE="box-sizing: border-box; color: rgb(0, 0, 136); font-family: 'source Code pro', monospace; font-size: 13.5px; line-height: 19.5750007629395px; white-space: pre-wrap; outline: none !important; background-color: rgba(128, 128, 128, 0.0470588);">
+</DIV>
+<div>
+<div STYLE="box-sizing: border-box; text-align: justify; outline: none !important; background-color: rgb(246, 246, 246);">
+<p STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+选择排序 原理</P>
+<ol STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; box-sizing: border-box; margin-top: 0px; margin-bottom: 1.1em; outline: none !important;">
+<li STYLE="box-sizing: border-box; outline: none !important;">
+从左至右遍历，找到最小(大)的元素，然后与第一个元素交换。</LI>
+<li STYLE="box-sizing: border-box; outline: none !important;">
+从剩余未排序元素中继续寻找最小（大）元素，同第二个元素进行交换。</LI>
+<li STYLE="box-sizing: border-box; outline: none !important;">
+以此类推，直到所有元素均排序完毕。</LI>
+</OL>
+<div STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px;">
+原理图</DIV>
+<p STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+图1：&nbsp;<wbr><br STYLE="box-sizing: border-box; outline: none !important;" />
+<img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw690/6941baebjw1elxsnce73zg20800800st.gif" ALT="选择排序 图1" TITLE="" STYLE="box-sizing: border-box; vertical-align: middle; max-width: 100%; outline: none !important;" />
+</P>
+<p STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+图2：&nbsp;<wbr><br STYLE="box-sizing: border-box; outline: none !important;" />
+<img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww2.sinaimg.cn/large/6941baebjw1elxsnb210hg20k3068agd.gif" ALT="选择排序 图2" TITLE="" STYLE="box-sizing: border-box; vertical-align: middle; max-width: 100%; outline: none !important;" />
+</P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+<font COLOR="#3F3F3F"><span STYLE="font-size: 15px; line-height: 22.5px;">选择排序需要花费 (N &ndash; 1) + (N &ndash; 2)
++ … + 1 + 0 = N(N- 1) / 2 ~ N2/2次比较 和 N-1次交换操作。</SPAN></FONT></P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+<font COLOR="#3F3F3F"><span STYLE="font-size: 15px; line-height: 22.5px;">对初始数据不敏感，不管初始的数据有没有排好序，都需要经历N2/2次比较，这对于一些原本排好序，或者近似排好序的序列来说并不具有优势。在最好的情况下，即所有的排好序，需要0次交换，最差的情况，倒序，需要N-1次交换。</SPAN></FONT></P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+<font COLOR="#3F3F3F"><span STYLE="font-size: 15px; line-height: 22.5px;">数据交换的次数较少，如果某个元素位于正确的最终位置上，则它不会被移动。在最差情况下也只需要进行N-1次数据交换，在所有的完全依靠交换去移动元素的排序方法中，选择排序属于比较好的一种。</SPAN></FONT></P>
+<p STYLE="color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; box-sizing: border-box; margin: 0px 0px 1.1em; outline: none !important;">
+python代码实现：</P>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(63, 63, 63); font-family: 'microsoft yahei'; font-size: 15px; line-height: 21.75px; text-align: justify; outline: none !important; background-color: rgb(246, 246, 246);">
+<pre STYLE="box-sizing: border-box; font-family: 'source Code pro', monospace; font-size: 0.9em; white-space: pre-wrap; padding: 10px 20px; margin-top: 0px; margin-bottom: 1.1em; line-height: 1.45; word-break: break-word; word-wrap: break-word; color: rgb(51, 51, 51); border: 0px; border-radius: 5px; text-align: start; outline: none !important; background-color: rgba(128, 128, 128, 0.0470588);">
+
+<code STYLE="box-sizing: border-box; font-family: 'source Code pro', monospace; font-size: inherit; padding: 0.5em; color: rgb(0, 0, 0); border-radius: 0px; display: block; outline: none !important; background-image: initial; background-attachment: initial; background-color: transparent !important; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span STYLE="box-sizing: border-box; outline: none !important;"><span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">def</SPAN> <span STYLE="box-sizing: border-box; outline: none !important;">sort_choice</SPAN><span STYLE="box-sizing: border-box; outline: none !important; color: rgb(102, 0, 102);">(numbers, max_to_min=True)</SPAN>:</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 136, 0);">"""
+    我这没有按照标准的选择排序，假设列表长度为n，思路如下：
+        1、获取最大值x，将x移动到列最后。[n1, n2, n3, ... nn]
+        2、将x追加到排序结果[n1, n3, ... nn, n2]
+        3、获取排序后n-1个元素[n1, n3, ... nn]，重复第一步，重复n-1次。
+
+    max_to_min是指从大到小排序，默认为true；否则从小到大排序。
+    对[8, 4, 1, 0, 9]排序，大致流程如下：
+    sorted_numbers = []
+    [8, 4, 1, 0, 9], sorted_numbers = [9]
+    [4, 1, 0, 8], sorted_numbers = [9, 8]
+    [1, 0, 4], sorted_numbers = [9, 8, 4]
+    [0, 1], sorted_numbers = [9, 8, 4, 1]
+    [0], sorted_numbers = [9, 8, 4, 1, 0]
+    """</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">if</SPAN> len(numbers) &lt;= <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">1</SPAN>:
+        <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">return</SPAN> numbers
+    sorted_list = []
+    index = <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">for</SPAN> i <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">in</SPAN> xrange(len(numbers) - index):
+        left_numbers = _get_left_numbers(numbers, max_to_min)
+        numbers = left_numbers[:-<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">1</SPAN>]
+        sorted_list.append(left_numbers[-<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">1</SPAN>])
+        index += <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">1</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">return</SPAN> sorted_list
+
+<span STYLE="box-sizing: border-box; outline: none !important;"><span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">def</SPAN> <span STYLE="box-sizing: border-box; outline: none !important;">_get_left_numbers</SPAN><span STYLE="box-sizing: border-box; outline: none !important; color: rgb(102, 0, 102);">(numbers, get_max=True)</SPAN>:</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 136, 0);">'''
+    获取最大值或者最小值x，并且将x抽取出来，置于列表最后.
+    Ex: get_max=True, [1, 4, 3] &rArr; [1, 3, 4] 
+        get_max=False, [1, 4, 3] &rArr; [4, 3 ,1] 
+    '''</SPAN>
+    max_index = <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">for</SPAN> i, num <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">in</SPAN> enumerate(numbers):
+        <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">if</SPAN> get_max:
+            <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">if</SPAN> num &gt; numbers[max_index]:
+                max_index = i
+        <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">else</SPAN>:
+            <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">if</SPAN> num &lt; numbers[max_index]:
+                max_index = i
+    numbers = numbers[:max_index] + numbers[max_index + <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">1</SPAN>:] + [numbers[max_index]]
+    <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">return</SPAN> numbers
+
+测试一下：
+<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">&gt;&gt;&gt; </SPAN>get_left_numbers([<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>,<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>], get_max=<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">True</SPAN>)
+[<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>]
+<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">&gt;&gt;&gt; </SPAN>get_left_numbers([<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>,<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>], get_max=<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">False</SPAN>)
+[<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>]
+
+<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">&gt;&gt;&gt; </SPAN>sort_choice([<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>,<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>], max_to_min=<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">False</SPAN>)
+[<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>]
+<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">&gt;&gt;&gt; </SPAN>sort_choice([<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>,<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>], max_to_min=<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 0, 136);">True</SPAN>)
+[<span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">89</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">67</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">31</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">19</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">9</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">4</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>, <span STYLE="box-sizing: border-box; outline: none !important; color: rgb(0, 102, 102);">0</SPAN>]</CODE>
+</PRE></DIV>
+</DIV>							
+		</div>

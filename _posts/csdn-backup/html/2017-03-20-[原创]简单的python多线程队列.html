@@ -1,0 +1,175 @@
+---
+layout: post
+title: "[原创]简单的python多线程队列"
+date: 2017-03-20 14:42:12
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>
+<div>import threading #线程库</DIV>
+<div>import Queue #队列库</DIV>
+<div>import string #字符串操作库</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>#继承Thread</DIV>
+<div>class g(threading.Thread):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def __init__(self,
+que):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> threading.Thread.__init__(self)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.que = que</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def run
+(self):#重写run方法</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> while True:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if not
+self.que.empty():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> print "%s:%s," % (self.name,
+self.que.get())#输出线程名字，取队列内容</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+else:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> break</DIV>
+<div>que = Queue.Queue() #实例一个queue队列</DIV>
+<div>thread_num = 5 #要开启的线程数量</DIV>
+<div>k = string.ascii_letters #+ string.digits #大小写字母，数字</DIV>
+<div>for i in k:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> que.put(i)
+#将大小写字母填充至队列(貌似是生产者?)，也就是生成需要用到的资源，比如文件的url等</DIV>
+<div>for i in range(1, thread_num + 1):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> h = g(que)
+#实例指定数量的线程</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> h.start() #启动线程</DIV>
+</DIV>
+<div><br /></DIV>
+<div>-----</DIV>
+<div>
+<div>================================ RESTART
+================================</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div>&gt;&gt;&gt;
+Thread-1:a,Thread-2:b,Thread-3:c,Thread-4:d,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:e,Thread-2:f,Thread-3:g,Thread-4:h,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:i,Thread-2:j,Thread-3:k,Thread-4:l,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:m,Thread-2:n,Thread-3:o,Thread-4:p,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:q,Thread-2:r,Thread-3:s,Thread-4:t,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:u,Thread-2:v,Thread-3:w,Thread-4:x,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:y,Thread-2:z,Thread-3:A,Thread-4:B,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:C,Thread-2:D,Thread-3:E,Thread-4:F,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:G,Thread-2:H,Thread-3:I,Thread-4:J,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:K,Thread-2:L,Thread-3:M,Thread-4:N,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:O,Thread-2:P,Thread-3:Q,Thread-4:R,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:S,Thread-2:T,Thread-3:U,Thread-4:V,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-1:W,Thread-2:X,Thread-3:Y,Thread-4:Z,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>================================ RESTART
+================================</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div>&gt;&gt;&gt;
+Thread-1:a,Thread-2:b,Thread-3:c,Thread-4:d,</DIV>
+<div><br /></DIV>
+<div>Thread-1:e,Thread-4:f,</DIV>
+<div><br /></DIV>
+<div>Thread-1:g,Thread-4:h,</DIV>
+<div><br /></DIV>
+<div>Thread-1:i,Thread-4:j,</DIV>
+<div><br /></DIV>
+<div>Thread-1:k,Thread-4:l,</DIV>
+<div><br /></DIV>
+<div>Thread-1:m,Thread-4:n,</DIV>
+<div><br /></DIV>
+<div>Thread-1:o,Thread-4:p,</DIV>
+<div><br /></DIV>
+<div>Thread-1:q,Thread-4:r,</DIV>
+<div><br /></DIV>
+<div>Thread-1:s,Thread-4:t,</DIV>
+<div><br /></DIV>
+<div>Thread-1:u,Thread-4:v,</DIV>
+<div><br /></DIV>
+<div>Thread-1:w,Thread-4:x,</DIV>
+<div><br /></DIV>
+<div>Thread-1:y,Thread-4:z,</DIV>
+<div><br /></DIV>
+<div>Thread-1:A,Thread-4:B,</DIV>
+<div><br /></DIV>
+<div>Thread-1:C,Thread-4:D,</DIV>
+<div><br /></DIV>
+<div>Thread-1:E,Thread-4:F,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-2:G,Thread-1:H,Thread-3:I,Thread-4:J,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-2:K,Thread-1:L,Thread-3:M,Thread-4:N,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-2:O,Thread-1:P,Thread-3:Q,Thread-4:R,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-2:S,Thread-1:T,Thread-3:U,Thread-4:V,</DIV>
+<div><br /></DIV>
+<div>Thread-3:W,Thread-2:X,</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>Thread-2:Y,Thread-3:Z,</DIV>
+</DIV>
+<div><br /></DIV>
+<div>运行结果肿么这么乱捏...</DIV>							
+		</div>

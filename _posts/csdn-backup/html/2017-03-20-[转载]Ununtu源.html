@@ -1,0 +1,981 @@
+---
+layout: post
+title: "[转载]Ununtu源"
+date: 2017-03-20 14:44:08
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			转自：<a HREF="http://webcache.googleusercontent.com/search?q=cache:S1KlZeStLN4J:wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8&amp;newwindow=1&amp;hl=zh-CN&amp;gl=cn&amp;strip=1" TARGET="_blank">谷歌缓存</A>
+<div>转自：<a HREF="http://wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8" TARGET="_blank">Ununtu-源列表</A><br />
+<table CELLSPACING="0" CELLPADDING="10" STYLE="font-family: 'Times new roman'; border: 1px solid rgb(153, 153, 170); background-color: rgb(249, 249, 255);">
+<tbody>
+<tr>
+<td STYLE="border-left-width: 1px; border-left-style: solid; border-left-color: rgb(153, 153, 170);">
+<a HREF="http://wiki.ubuntu.org.cn/Qref/More" TITLE="Qref/More">热门设置</A></TD>
+<td STYLE="border-left-width: 1px; border-left-style: solid; border-left-color: rgb(153, 153, 170);">
+<a HREF="http://wiki.ubuntu.org.cn/Qref/Apps" TITLE="Qref/Apps">软件推荐</A></TD>
+<td STYLE="border-left-width: 1px; border-left-style: solid; border-left-color: rgb(153, 153, 170);">
+<a HREF="http://wiki.ubuntu.org.cn/Qref/Source" TITLE="Qref/Source">源列表</A></TD>
+<td STYLE="border-left-width: 1px; border-left-style: solid; border-left-color: rgb(153, 153, 170);">
+<a HREF="http://wiki.ubuntu.org.cn/Qref/faq" TITLE="Qref/faq">疑难杂症</A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<a NAME=".E5.A6.82.E4.BD.95.E4.BD.BF.E7.94.A8Ubuntu_Night"></A>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=1" TITLE="编辑段落：如何使用Ubuntu Night">编辑</A>] 如何使用Ubuntu Night</H2>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+Ubuntu Night(&nbsp;<wbr><a HREF="http://ubuntu9.com/" TITLE="http://ubuntu9.com">http://ubuntu9.com</A>&nbsp;<wbr>) 的Top
+mirror功能根据当前的网络情况和源健康状况不断地进行更新当前可用的源的信息，包括了Top fast/near/stable
+mirror，可以找到当前网络上所有可用的Ubuntu
+镜像（即源)，并按照平均下载速度和地理位置进行排名。而且，当你找到最适合你的源之后，还可以直接下载它的sources.list
+文件，并可直接将它copy到/etc/apt/sources.list或者放在/etc/apt/souces.list.d目录下，非常的方便，无须苦苦找可用源。</P>
+<a NAME=".E5.A6.82.E4.BD.95.E4.BD.BF.E7.94.A8.E6.88.91.E4.BB.AC.E6.8E.A8.E8.8D.90.E7.9A.84.E6.BA.90"></A>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=2" TITLE="编辑段落：如何使用我们推荐的源">编辑</A>] 如何使用我们推荐的源</H2>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/File:Bulbgraph.png" TITLE="Info">Info</A>&nbsp;<wbr>不同的网络状况连接以下源的速度不同,
+建议在添加前手动验证以下源的连接速度(ping下就行),选择最快的源可以节省大批下载时间。</P>
+<ul STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<li>首先备份源列表:</LI>
+</UL>
+<pre STYLE="line-height: normal;">
+sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+</PRE>
+<ul STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<li>而后用gedit或其他编辑器打开:</LI>
+</UL>
+<pre STYLE="line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/File:Qref_Ubuntu_Logo.png" TITLE="Qref Ubuntu Logo.png"></A> gksu gedit /etc/apt/sources.list
+<a HREF="http://wiki.ubuntu.org.cn/File:Qref_Kubuntu_Logo.png" TITLE="Qref Kubuntu Logo.png"></A> kdesudo kate /etc/apt/sources.list  
+<a HREF="http://wiki.ubuntu.org.cn/File:Qref_Xubuntu_Logo.png" TITLE="Qref Xubuntu Logo.png"></A> gksu mousepad /etc/apt/sources.list
+<a HREF="http://wiki.ubuntu.org.cn/File:Qref_Xubuntu_Logo.png" TITLE="Qref Xubuntu Logo.png"></A> gksu leafpad /etc/apt/sources.list (12.04版)
+<a HREF="http://wiki.ubuntu.org.cn/File:Qref_Edubuntu_Logo.png" TITLE="Qref Edubuntu Logo.png"></A> gksu gedit /etc/apt/sources.list
+</PRE>
+<ul STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<li>从下面列表中选择合适的源，替换掉文件中所有的内容，保存编辑好的文件:</LI>
+</UL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://wiki.ubuntu.org.cn/File:Attention_niels_epting.svg" TITLE="Attention niels epting.svg"></A><font COLOR="red">注意：一定要选对版本</FONT></DD>
+</DL>
+<ul STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<li>然后，刷新列表:</LI>
+</UL>
+<pre STYLE="line-height: normal;">
+sudo apt-get update
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://wiki.ubuntu.org.cn/File:Attention_niels_epting.svg" TITLE="Attention niels epting.svg"></A><font COLOR="red">注意：一定要执行刷新</FONT></DD>
+</DL>
+<a NAME=".E6.BA.90.E5.88.97.E8.A1.A8"></A>
+<h2 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=3" TITLE="编辑段落：源列表">编辑</A>] 源列表</H2>
+<a NAME="Raring.2813.04.29.E7.89.88.E6.9C.AC"></A>
+<h3 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=4" TITLE="编辑段落：Raring(13.04)版本">编辑</A>] Raring(13.04)版本</H3>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>Ubuntu
+官方更新服务器（欧洲，此为官方源，国内较慢，但无同步延迟问题，电信、移动/铁通、联通等公网用户可以使用)：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>Ubuntu官方提供的其他软件（第三方闭源软件等）：</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://archive.canonical.com/ubuntu/ raring partner
+deb http://extras.ubuntu.com/ubuntu/ raring main
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://luy.li/about/" TITLE="http://luy.li/about/">骨头兄</A>亲自搭建并维护的 Ubuntu
+源（该源位于浙江杭州百兆共享宽带的电信机房)，<a HREF="http://ubuntu.srt.cn/" TITLE="http://ubuntu.srt.cn/">包含
+Deepin 等镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ubuntu.srt.cn/ubuntu/ raring main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://ubuntu.srt.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://ubuntu.srt.cn/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>网易163更新服务器（广东广州电信/联通千兆双线接入），<a HREF="http://mirrors.163.com/" TITLE="http://mirrors.163.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.163.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>搜狐更新服务器（山东联通千兆接入，<a HREF="http://cn.archive.ubuntu.com/" TITLE="http://cn.archive.ubuntu.com">官方中国大陆地区镜像</A>跳转至此） ，<a HREF="http://mirrors.sohu.com/" TITLE="http://mirrors.sohu.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.sohu.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>阿里云更新服务器（北京万网/浙江杭州阿里云服务器双线接入），<a HREF="http://mirrors.aliyun.com/" TITLE="http://mirrors.aliyun.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.aliyun.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://www.oschina.net/" TITLE="http://www.oschina.net/">开源中国</A>更新服务器（浙江杭州阿里云服务器），<a HREF="http://mirrors.oschina.net/" TITLE="http://mirrors.oschina.net/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.oschina.net/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.oschina.net/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.oschina.net/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.oschina.net/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.oschina.net/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.oschina.net/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.oschina.net/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.oschina.net/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.oschina.net/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.oschina.net/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://coss.csip.org.cn/" TITLE="http://coss.csip.org.cn/">中国开源软件中心</A>更新服务器（北京光环新网</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+服务器），<a HREF="http://mirrors.oss.org.cn/" TITLE="http://mirrors.oss.org.cn/">包含其他开源镜像</A>：</P>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.oss.org.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.oss.org.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.oss.org.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.oss.org.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.oss.org.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.oss.org.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.oss.org.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.oss.org.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.oss.org.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.oss.org.cn/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>LupaWorld 更新服务器（浙江杭州电信/联通双线服务器），<a HREF="http://mirror.lupaworld.com/" TITLE="http://mirror.lupaworld.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror.lupaworld.com/ubuntu raring main restricted universe multiverse
+deb http://mirror.lupaworld.com/ubuntu raring-security main restricted universe multiverse
+deb http://mirror.lupaworld.com/ubuntu raring-updates main restricted universe multiverse
+deb http://mirror.lupaworld.com/ubuntu raring-backports main restricted universe multiverse
+deb http://mirror.lupaworld.com/ubuntu raring-proposed main restricted universe multiverse
+deb-src http://mirror.lupaworld.com/ubuntu raring main restricted universe multiverse
+deb-src http://mirror.lupaworld.com/ubuntu raring-security main restricted universe multiverse
+deb-src http://mirror.lupaworld.com/ubuntu raring-updates main restricted universe multiverse
+deb-src http://mirror.lupaworld.com/ubuntu raring-backports main restricted universe multiverse
+deb-src http://mirror.lupaworld.com/ubuntu raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://www.skyshe.cn/" TITLE="http://www.skyshe.cn">Linux运维派</A>架设的更新服务器（北京阿里巴巴科技有限公司服务器），<a HREF="http://mirrors.skyshe.com/" TITLE="http://mirrors.skyshe.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.skyshe.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.skyshe.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.skyshe.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.skyshe.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.skyshe.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.skyshe.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.skyshe.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.skyshe.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.skyshe.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.skyshe.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://www.yun-idc.com/" TITLE="http://www.yun-idc.com/">北京首都在线科技股份有限公司</A>&nbsp;<wbr>更新服务器，<a HREF="http://mirrors.yun-idc.com/" TITLE="http://mirrors.yun-idc.com/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.yun-idc.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.yun-idc.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.yun-idc.com/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.yun-idc.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.yun-idc.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.yun-idc.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.yun-idc.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.yun-idc.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.yun-idc.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.yun-idc.com/ubuntu/ raring-backports main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd><a HREF="http://bitcomm.cn/" TITLE="http://bitcomm.cn/">常州贝特康姆软件技术有限公司</A>&nbsp;<wbr>更新服务器（江苏常州电信服务器），<a HREF="http://centos.bitcomm.cn/" TITLE="http://centos.bitcomm.cn/">包含其他开源镜像</A>。</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>(&nbsp;<wbr><a HREF="http://www.cn99.com/" TITLE="http://www.cn99.com/">CN99域名</A>&nbsp;<wbr>系&nbsp;<wbr><a HREF="http://www.miibeian.gov.cn/icp/publish/query/icpMemoInfo_login.action?id=23145237" TITLE="http://www.miibeian.gov.cn/icp/publish/query/icpMemoInfo_login.action?id=23145237">“常州市亚科技术有限公司”
+所注册</A>，但此公司与常州贝特康姆的法人代表和营业地址相同。所以本镜像实际即原
+CN99。但现在&nbsp;<wbr><a HREF="http://mirrors.cn99.com/" TITLE="http://mirrors.cn99.com/">CN99镜像的域名</A>已改为跳转至<a HREF="http://mirrors.163.com/" TITLE="http://mirrors.163.com/">网易镜像</A>）:</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://centos.bitcomm.cn/ubuntu raring main restricted universe multiverse
+deb http://centos.bitcomm.cn/ubuntu raring-security main restricted universe multiverse
+deb http://centos.bitcomm.cn/ubuntu raring-updates main restricted universe multiverse
+deb http://centos.bitcomm.cn/ubuntu raring-backports main restricted universe multiverse
+deb http://centos.bitcomm.cn/ubuntu raring-proposed main restricted universe multiverse
+deb-src http://centos.bitcomm.cn/ubuntu raring main restricted universe multiverse
+deb-src http://centos.bitcomm.cn/ubuntu raring-security main restricted universe multiverse
+deb-src http://centos.bitcomm.cn/ubuntu raring-updates main restricted universe multiverse
+deb-src http://centos.bitcomm.cn/ubuntu raring-backports main restricted universe multiverse
+deb-src http://centos.bitcomm.cn/ubuntu raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br />
+<b>以下为有教育网接入的服务器（推荐教育网用户使用，部分非教育网用户也有可观的速度。教育网用户请优先使用IPv6地址。</B></P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>中国科学技术大学更新服务器（位于合肥，千兆教育网接入，百兆电信/联通线路智能路由），由<a HREF="http://lug.ustc.edu.cn/" TITLE="http://lug.ustc.edu.cn/">中科大 Linux
+用户协会</A>和<a HREF="http://ustcnet.ustc.edu.cn/" TITLE="http://ustcnet.ustc.edu.cn/">中科大学网络信息中心</A>维护，<a HREF="http://mirrors.ustc.edu.cn/" TITLE="http://mirrors.ustc.edu.cn/">包含其他开源镜像</A>，<a HREF="http://packages.linuxdeepin.com/" TITLE="http://packages.linuxdeepin.com/">Deepin 官方服务器</A>&nbsp;<wbr>实际亦指向此处：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://debian.ustc.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://debian.ustc.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://debian.ustc.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://debian.ustc.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://debian.ustc.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://debian.ustc.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://debian.ustc.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://debian.ustc.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://debian.ustc.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://debian.ustc.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors6.ustc.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://mirrors6.ustc.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://mirrors6.ustc.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://mirrors6.ustc.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://mirrors6.ustc.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://mirrors6.ustc.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://mirrors6.ustc.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://mirrors6.ustc.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://mirrors6.ustc.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://mirrors6.ustc.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>清华大学更新服务器，（教育网核心节点百兆接入，已计划提高到千兆）由<a HREF="http://tuna.tsinghua.edu.cn/" TITLE="http://tuna.tsinghua.edu.cn/">清华大学学生网管会</A>维护。<a HREF="http://mirrors.tuna.tsinghua.edu.cn/" TITLE="http://mirrors.tuna.tsinghua.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv4-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.4.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://mirrors.6.tuna.tsinghua.edu.cn//ubuntu/ raring-security main multiverse restricted universe
+deb http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://mirrors.6.tuna.tsinghua.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>中国地质大学开源镜像站，由<a HREF="http://cugbteam.org/stream/" TITLE="http://cugbteam.org/stream/">中国地质大学 Linux 爱好者</A>维护。<a HREF="http://cugbteam.org/" TITLE="http://cugbteam.org/">包含其他开源镜像</A>， (校外限 IPv6 访问)：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://cugbteam.org/ubuntu/ raring main restricted universe multiverse
+deb http://cugbteam.org/ubuntu/ raring-security main restricted universe multiverse
+debhttp://cugbteam.org/ubuntu/ raring-updates main restricted universe multiverse
+deb http://cugbteam.org/ubuntu/ raring-backports main restricted universe multiverse
+deb http://cugbteam.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://cugbteam.org/ubuntu/ raring main restricted universe multiverse
+deb-src http://cugbteam.org/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://cugbteam.org/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://cugbteam.org/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://cugbteam.org/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>北京交通大学更新服务器（教育网/电信百兆接入），由<a HREF="http://ic.bjtu.edu.cn/" TITLE="http://ic.bjtu.edu.cn/">北京交通大学信息中心</A>赞助，<a HREF="http://mirror.bjtu.edu.cn/" TITLE="http://mirror.bjtu.edu.cn/">包含其他开源镜像</A>。</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>（域名中的 bjtu 可以替换为 njtu ，即北交旧名“北方交通大学”对应域名） ：</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror.bjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://mirror.bjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://mirror.bjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror6.bjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://mirror6.bjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://mirror6.bjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://mirror6.bjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://mirror6.bjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://mirror6.bjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://mirror6.bjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://mirror6.bjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://mirror6.bjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://mirror6.bjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>北京理工大学更新服务器，<a HREF="http://mirror.bit.edu.cn/" TITLE="http://mirror.bit.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror.bit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirror.bit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirror.bit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirror.bit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://mirror.bit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirror.bit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirror.bit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirror.bit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirror.bit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirror.bit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror.bit6.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirror.bit6.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirror.bit6.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirror.bit6.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://mirror.bit6.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirror.bit6.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirror.bit6.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirror.bit6.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirror.bit6.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirror.bit6.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>天津大学更新服务器，由天津大学信息与网络协会和<a HREF="http://tju.zyrj.org/" TITLE="http://tju.zyrj.org/">天津大学自由软件联盟</A>维护，<a HREF="http://mirror.tju.edu.cn/" TITLE="http://mirror.tju.edu.cn/">包含其他开源镜像</A>&nbsp;<wbr>(校外限 IPv6 访问)</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>（域名可以替换为 jx.tju.zyrj.org 或 jx6.tju.zyrj.org）</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirror.tju.edu.cn/ubuntu/ oneiric main restricted universe multiverse
+deb http://mirror.tju.edu.cn/ubuntu/ oneiric-security main restricted universe multiverse
+deb http://mirror.tju.edu.cn/ubuntu/ oneiric-updates main restricted universe multiverse
+deb http://mirror.tju.edu.cn/ubuntu/ oneiric-backports main restricted universe multiverse
+deb http://mirror.tju.edu.cn/ubuntu/ oneiric-proposed main restricted universe multiverse
+deb-src http://mirror.tju.edu.cn/ubuntu/ oneiric main restricted universe multiverse
+deb-src http://mirror.tju.edu.cn/ubuntu/ oneiric-security main restricted universe multiverse
+deb-src http://mirror.tju.edu.cn/ubuntu/ oneiric-updates main restricted universe multiverse
+deb-src http://mirror.tju.edu.cn/ubuntu/ oneiric-backports main restricted universe multiverse
+deb-src http://mirror.tju.edu.cn/ubuntu/ oneiric-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>山东理工大学更新服务器，<a HREF="http://mirrors.sdutlinux.org/" TITLE="http://mirrors.sdutlinux.org/">包含其他开源镜像</A>，<b>限校内访问</B>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.sdutlinux.org/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.sdutlinux.org/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.sdutlinux.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.sdutlinux.org/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.sdutlinux.org/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.sdutlinux.org/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.sdutlinux.org/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.sdutlinux.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.sdutlinux.org/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.sdutlinux.org/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>东北大学更新服务器，<a HREF="http://ftp.neu.edu.cn/mirrors/" TITLE="http://ftp.neu.edu.cn/mirrors/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ftp.neu.edu.cn/mirrors/ubuntu/ raring main multiverse restricted universe
+deb http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-backports main multiverse restricted universe
+deb http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-security main multiverse restricted universe
+deb http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://ftp.neu.edu.cn/mirrors/ubuntu/ raring main multiverse restricted universe
+deb-src http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://ftp.neu.edu.cn/mirrors/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ftp.neu6.edu.cn/mirrors/ raring main multiverse restricted universe
+deb http://ftp.neu6.edu.cn/mirrors/ raring-backports main multiverse restricted universe
+deb http://ftp.neu6.edu.cn/mirrors/ raring-proposed main multiverse restricted universe
+deb http://ftp.neu6.edu.cn/mirrors/ raring-security main multiverse restricted universe
+deb http://ftp.neu6.edu.cn/mirrors/ raring-updates main multiverse restricted universe
+deb-src http://ftp.neu6.edu.cn/mirrors/ raring main multiverse restricted universe
+deb-src http://ftp.neu6.edu.cn/mirrors/ raring-backports main multiverse restricted universe
+deb-src http://ftp.neu6.edu.cn/mirrors/ raring-proposed main multiverse restricted universe
+deb-src http://ftp.neu6.edu.cn/mirrors/ raring-security main multiverse restricted universe
+deb-src http://ftp.neu6.edu.cn/mirrors/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>哈尔滨工业大学更新服务器，<a HREF="http://run.hit.edu.cn/" TITLE="http://run.hit.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://run.hit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://run.hit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://run.hit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://run.hit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://run.hit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://run.hit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://run.hit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://run.hit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://run.hit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://run.hit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://run6.hit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://run6.hit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://run6.hit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://run6.hit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb http://run6.hit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://run6.hit.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://run6.hit.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://run6.hit.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://run6.hit.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://run6.hit.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>大连理工大学更新服务器，<a HREF="http://mirror.dlut.edu.cn/" TITLE="http://mirror.dlut.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+( IPv4/v6 Both )</P>
+<pre STYLE="line-height: normal;">
+deb http://mirror.dlut.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirror.dlut.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirror.dlut.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirror.dlut.edu.cn/ubuntu/ubuntu raring-backports main restricted universe multiverse
+deb http://mirror.dlut.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirror.dlut.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirror.dlut.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirror.dlut.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirror.dlut.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirror.dlut.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>上海交通大学更新服务器（教育网千兆接入，联通/电信线路情况不详），<a HREF="http://ftp.sjtu.edu.cn/" TITLE="http://ftp.sjtu.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ftp.sjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://ftp.sjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://ftp.sjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>IPv6-Only 地址</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ftp6.sjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://ftp6.sjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://ftp6.sjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://ftp6.sjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://ftp6.sjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://ftp6.sjtu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://ftp6.sjtu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://ftp6.sjtu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://ftp6.sjtu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://ftp6.sjtu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>江苏开放大学更新服务器，由江苏开放大学技术中心维护，<a HREF="http://mirrors.jstvu.edu.cn/" TITLE="http://mirrors.jstvu.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.jstvu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.jstvu.edu.cn/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.jstvu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.jstvu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.jstvu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.jstvu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.jstvu.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.jstvu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.jstvu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.jstvu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>南京师范大学更新服务器，<a HREF="http://mirrors.njnu.edu.cn/" TITLE="http://mirrors.njnu.edu.cn/">包含其他开源镜像</A>，<b>限校内访问</B>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.njnu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.njnu.edu.cn/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.njnu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.njnu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.njnu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.njnu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.njnu.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.njnu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.njnu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.njnu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>浙江大学更新服务器，由<a HREF="http://lug.zjustu.org/Wiki/" TITLE="http://lug.zjustu.org/Wiki/">浙江大学Linux用户组</A>维护，<a HREF="http://mirrors.zjustu.org/" TITLE="http://mirrors.zjustu.org/">包含其他开源镜像</A>：</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<dl>
+<dd>（域名可以替换为mirrors.zju.edu.cn）</DD>
+</DL>
+</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+( IPv4/v6 Both )</P>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.zjustu.org/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.zjustu.org/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.zjustu.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.zjustu.org/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.zjustu.org/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.zjustu.org/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.zjustu.org/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.zjustu.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.zjustu.org/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.zjustu.org/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>华中科技大学更新服务器，由<a HREF="http://ncc.hust.edu.cn/" TITLE="http://ncc.hust.edu.cn/">华中科技大学网络与计算中心</A>维护，<a HREF="http://mirrors.hust.edu.cn/" TITLE="http://mirrors.hust.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.hust.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.hust.edu.cn/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.hust.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.hust.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.hust.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.hust.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.hust.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.hust.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.hust.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.hust.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>华中科大联创团队更新服务器，由<a HREF="http://ncc.hust.edu.cn/" TITLE="http://ncc.hust.edu.cn/">华中科技大学启明学院&nbsp;<wbr></A>的<a HREF="http://www.hustunique.com/" TITLE="http://www.hustunique.com/">联创团队</A>维护，<a HREF="http://mirrors.hustunique.com/help/" TITLE="http://mirrors.hustunique.com/help/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.hustunique.com/ubuntu/ raring main restricted universe multiverse
+deb http://mirrors.hustunique.com/ubuntu/ raring-backports restricted universe multiverse
+deb http://mirrors.hustunique.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://mirrors.hustunique.com/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirrors.hustunique.com/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.hustunique.com/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirrors.hustunique.com/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.hustunique.com/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.hustunique.com/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirrors.hustunique.com/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>厦门大学更新服务器，由<a HREF="http://net.xmu.edu.cn/" TITLE="http://net.xmu.edu.cn/">厦门大学信息与网络中心</A>维护，<a HREF="http://mirrors.xmu.edu.cn/" TITLE="http://mirrors.xmu.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+( IPv4/v6 Both )</P>
+<pre STYLE="line-height: normal;">
+deb http://mirrors.xmu.edu.cn/ubuntu/archive/ raring main restricted universe multiverse
+deb http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-backports restricted universe multiverse
+deb http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-proposed main restricted universe multiverse
+deb http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-security main restricted universe multiverse
+deb http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-updates main restricted universe multiverse
+deb-src http://mirrors.xmu.edu.cn/ubuntu/archive/ raring main restricted universe multiverse
+deb-src http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-backports main restricted universe multiverse
+deb-src http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-proposed main restricted universe multiverse
+deb-src http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-security main restricted universe multiverse
+deb-src http://mirrors.xmu.edu.cn/ubuntu/archive/ raring-updates main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>西南林业大学更新服务器，只包括当前稳定版和开发版，不包括 LTS 镜像。由<a HREF="http://cs3.swfu.edu.cn/moodle/" TITLE="http://cs3.swfu.edu.cn/moodle/">西南林业大学计信学院</A>维护。<a HREF="http://cs3.swfu.edu.cn/cs3guide.html" TITLE="http://cs3.swfu.edu.cn/cs3guide.html">包括 Debian
+镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://cs3.swfu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb http://cs3.swfu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb http://cs3.swfu.edu.cn/ubuntu/ raring-proposed main multiverse restricted universe
+deb http://cs3.swfu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb http://cs3.swfu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+deb-src http://cs3.swfu.edu.cn/ubuntu/ raring main multiverse restricted universe
+deb-src http://cs3.swfu.edu.cn/ubuntu/ raring-backports main multiverse restricted universe
+deb-src http://cs3.swfu.edu.cnubuntu/ raring-proposed main multiverse restricted universe
+deb-src http://cs3.swfu.edu.cn/ubuntu/ raring-security main multiverse restricted universe
+deb-src http://cs3.swfu.edu.cn/ubuntu/ raring-updates main multiverse restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>电子科技大学（位于成都）更新服务器，由<a HREF="http://ubuntu.dormforce.net/about.html" TITLE="http://ubuntu.dormforce.net/about.html">电子科技大学学生宿舍网络管理委员会</A>维护，<a HREF="http://ubuntu.dormforce.net/" TITLE="http://ubuntu.dormforce.net/">仅包含 Ubuntu
+镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ubuntu.dormforce.net/ubuntu/ raring main restricted universe multiverse
+deb http://ubuntu.dormforce.net/ubuntu/ raring-backports main restricted universe multiverse
+deb http://ubuntu.dormforce.net/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://ubuntu.dormforce.net/ubuntu/ raring-security main restricted universe multiverse
+deb http://ubuntu.dormforce.net/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://ubuntu.dormforce.net/ubuntu/ raring main restricted universe multiverse
+deb-src http://ubuntu.dormforce.net/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://ubuntu.dormforce.net/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://ubuntu.dormforce.net/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://ubuntu.dormforce.net/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>电子科技大学另一更新服务器，由<a HREF="http://www.cnssuestc.org/" TITLE="http://www.cnssuestc.org/">电子科大凝聚网络安全工作室</A>维护，<a HREF="http://www.cnssuestc.org/source/" TITLE="http://www.cnssuestc.org/source/">包含 Ubuntu 和
+Raspian镜像</A>，以及&nbsp;<wbr><a HREF="http://mirrors.cnssuestc.org/" TITLE="http://mirrors.cnssuestc.org/">Linux
+Deepin镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ubuntu.cnssuestc.org/ubuntu/ raring main restricted universe multiverse
+deb http://ubuntu.cnssuestc.org/ubuntu/ raring-backports main restricted universe multiverse
+deb http://ubuntu.cnssuestc.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb http://ubuntu.cnssuestc.org/ubuntu/ raring-security main restricted universe multiverse
+deb http://ubuntu.cnssuestc.org/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://ubuntu.cnssuestc.org/ubuntu/ raring main restricted universe multiverse
+deb-src http://ubuntu.cnssuestc.org/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://ubuntu.cnssuestc.org/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://ubuntu.cnssuestc.org/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://ubuntu.cnssuestc.org/ubuntu/ raring-updates main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>兰州大学更新服务器，由<a HREF="http://oss.lzu.edu.cn/" TITLE="http://oss.lzu.edu.cn/">兰州大学开源社区</A>维护，<a HREF="http://mirror.lzu.edu.cn/" TITLE="http://mirror.lzu.edu.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+( IPv4/v6 Both ,http 亦可替换为 ftp)</P>
+<pre STYLE="line-height: normal;">
+deb http://mirror.lzu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb http://mirror.lzu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://mirror.lzu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://mirror.lzu.edu.cn/ubuntu/ubuntu raring-backports main restricted universe multiverse
+deb http://mirror.lzu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://mirror.lzu.edu.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://mirror.lzu.edu.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://mirror.lzu.edu.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://mirror.lzu.edu.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://mirror.lzu.edu.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>西安交通大学更新服务器，由<a HREF="http://www.xjtuns.cn/" TITLE="http://www.xjtuns.cn/">西安交通大学众享社</A>维护，<a HREF="http://linux.xjtuns.cn/" TITLE="http://linux.xjtuns.cn/">包含其他开源镜像</A>：</DD>
+</DL>
+<pre STYLE="line-height: normal;">
+deb http://ubuntu.xjtuns.cn/ubuntu/ raring main restricted universe multiverse
+deb http://ubuntu.xjtuns.cn/ubuntu/ raring-security main restricted universe multiverse
+deb http://ubuntu.xjtuns.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb http://ubuntu.xjtuns.cn/ubuntu/ubuntu raring-backports main restricted universe multiverse
+deb http://ubuntu.xjtuns.cn/ubuntu/ raring-proposed main restricted universe multiverse
+deb-src http://ubuntu.xjtuns.cn/ubuntu/ raring main restricted universe multiverse
+deb-src http://ubuntu.xjtuns.cn/ubuntu/ raring-security main restricted universe multiverse
+deb-src http://ubuntu.xjtuns.cn/ubuntu/ raring-updates main restricted universe multiverse
+deb-src http://ubuntu.xjtuns.cn/ubuntu/ raring-backports main restricted universe multiverse
+deb-src http://ubuntu.xjtuns.cn/ubuntu/ raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<b>以下为大陆地区外的源</B></P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+香港中文大学更新服务器，由<a HREF="http://www.cuhk.edu.hk/itsc/chinese/" TITLE="http://www.cuhk.edu.hk/itsc/chinese/">香港中文大学资讯科技服务处</A>维护，<a HREF="http://ftp.cuhk.edu.hk/pub/Linux/" TITLE="http://ftp.cuhk.edu.hk/pub/Linux/">包含其他开源镜像</A>：</P>
+<pre STYLE="line-height: normal;">
+deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring main restricted universe multiverse
+deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-security main restricted universe multiverse
+deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-updates main restricted universe multiverse
+deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-backports main restricted universe multiverse
+deb http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-proposed main restricted universe multiverse
+deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring main restricted universe multiverse
+deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-security main restricted universe multiverse
+deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-updates main restricted universe multiverse
+deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-backports main restricted universe multiverse
+deb-src http://ftp.cuhk.edu.hk/pub/Linux/ubuntu raring-proposed main restricted universe
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+台湾的官方源。速度有时甚至快于内地的，<a HREF="http://tw.archive.ubuntu.com/" TITLE="http://tw.archive.ubuntu.com/">包含 Debian 等其他镜像</A>：</P>
+<pre STYLE="line-height: normal;">
+deb http://tw.archive.ubuntu.com/ubuntu raring main restricted universe multiverse
+deb http://tw.archive.ubuntu.com/ubuntu raring-security main restricted universe multiverse
+deb http://tw.archive.ubuntu.com/ubuntu raring-updates main restricted universe multiverse
+deb http://tw.archive.ubuntu.com/ubuntu raring-backports main restricted universe multiverse
+deb http://tw.archive.ubuntu.com/ubuntu raring-proposed main restricted universe multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu raring main restricted universe multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu raring-security main restricted universe multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu raring-updates main restricted universe multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu raring-backports main restricted universe multiverse
+deb-src http://tw.archive.ubuntu.com/ubuntu raring-proposed main restricted universe multiverse
+</PRE>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+其他台湾源可以参考<a HREF="http://wiki.ubuntu-tw.org/index.php?title=%E5%A5%97%E4%BB%B6%E5%BA%AB%E4%BE%86%E6%BA%90" TITLE="http://wiki.ubuntu-tw.org/index.php?title=套件庫來源">正体中文站Wiki</A></P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dt>备注：</DT>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<ul>
+<li>完全失效的服务器：
+<ol>
+<li>青岛大学更新服务器（教育网/山东青岛移动专线双线服务器），由&nbsp;<wbr><a HREF="http://blog.osqdu.org/" TITLE="http://blog.osqdu.org/">OSQDU</A>维护，位于青岛大学。<a HREF="http://mirror.qdu.edu.cn/" TITLE="http://mirror.qdu.edu.cn/">包含开源镜像和Opera、马克思主义文库等其他镜像</A>。</LI>
+<li><a HREF="http://mirrors.shlug.org/" TITLE="http://mirrors.shlug.org/">Geekbone.org更新服务器</A>（上海电信服务器，由&nbsp;<wbr><a HREF="http://www.shlug.org/?page_id=268" TITLE="http://www.shlug.org/?page_id=268">SHLUG /上海Linux用户群</A>维护）,现跳转至搜狐服务器。</LI>
+<li>北京化工大学更新服务器（仅教育网可以访问），<a HREF="http://ubuntu.buct.edu.cn/" TITLE="http://ubuntu.buct.edu.cn/">包含 CentOS 镜像</A>。</LI>
+</OL>
+<ul>
+<li>上述服务器部分可能改为校内/地区访问，。</LI>
+</UL>
+</LI>
+</UL>
+</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<ul>
+<li>部分失效的服务器
+<ol>
+<li><a HREF="http://linux.swu.edu.cn/" TITLE="http://linux.swu.edu.cn/">西南大学开源社区</A>维护的<a HREF="http://linux.swu.edu.cn/swudownload/" TITLE="http://linux.swu.edu.cn/swudownload/">西南大学镜像</A>中已经取消了主要发行版镜像，但有一些学习资源。</LI>
+<li>由[<a HREF="http://bbs.scie.in/" TITLE="http://bbs.scie.in/">http://bbs.scie.in/</A>&nbsp;<wbr>成都市的电子科技大学
+Linux 用户组</LI>
+</OL>
+</LI>
+</UL>
+</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+]维护的<a HREF="http://mirrors.scie.in/" TITLE="http://mirrors.scie.in/">UESTC
+LUG软件源</A>中包含其它发行版的镜像。</P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<ul>
+<li>
+<ol>
+<li>由<a HREF="http://www.stuhome.net/" TITLE="http://www.stuhome.net/">成都市的电子科技大学学生之家</A>维护的<a HREF="http://mirrors.stuhome.net/" TITLE="http://mirrors.stuhome.net/">电子科大星辰工作室镜像</A>中已经取消了
+Ubuntu 镜像，但有其它发行版的镜像。</LI>
+<li>中山大学更新服务器，由<a HREF="http://inc.sysu.edu.cn/" TITLE="http://inc.sysu.edu.cn/">中山大学网络与信息技术中心</A>维护，但其中的 Ubuntu 镜像已久未更新，<a HREF="http://mirror.sysu.edu.cn/" TITLE="http://mirror.sysu.edu.cn/">包含其他开源镜像</A>。</LI>
+<li>由<a HREF="mailto:we@nou.com.cn" TITLE="mailto:we@nou.com.cn">We ·
+Cloud云技术小组</A>维护的<a HREF="http://mirrors.neusoft.edu.cn/" TITLE="http://mirrors.neusoft.edu.cn/">大连东软信息学院的We - 开源镜像站</A>中已经取消了 Ubuntu 镜像，但有Ubuntu
+光盘镜像和其它发行版。</LI>
+<li>由[<a HREF="http://www.love4taylor.org/" TITLE="http://www.love4taylor.org/">http://www.love4taylor.org/</A>&nbsp;<wbr>Love4Taylor</LI>
+</OL>
+</LI>
+</UL>
+</DD>
+</DL>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+]维护的[开源镜像站&nbsp;<wbr><a HREF="http://mirrors.love4taylor.org/" TITLE="http://mirrors.love4taylor.org/">http://mirrors.love4taylor.org/</A>]，位于香港新世界电讯有限公司CDN节点
+上，包含<a HREF="http://mirrors.love4taylor.org/deepin/" TITLE="http://mirrors.love4taylor.org/deepin/">Deepin 镜像</A>，可能包含其它开源镜像。</P>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<ul>
+<li>各大镜像站点往往包括 Ubuntu 以外的大量其他自由软件资源，文中已注出。</LI>
+</UL>
+</DD>
+</DL>
+<dl STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<dd>
+<ul>
+<li>其他软件源如 Medibuntu、Getdeb 等可参考<a HREF="http://wiki.ubuntu.hk/wiki/index.php?title=Package_Repositories_for_Ubuntu&amp;variant=zh-cn" TITLE="http://wiki.ubuntu.hk/wiki/index.php?title=Package_Repositories_for_Ubuntu&amp;variant=zh-cn">香港自由软件社团维护的Wiki</A>&nbsp;<wbr>。</LI>
+</UL>
+</DD>
+</DL>
+<hr STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;" />
+
+<a NAME="Quantal.2812.10.29.E7.89.88.E6.9C.AC"></A>
+<h3 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=5" TITLE="编辑段落：Quantal(12.10)版本">编辑</A>] Quantal(12.10)版本</H3>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+将上述列表地址中的 raring 替换为 quantal 即可</P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/Template:12.10source" TITLE="Template:12.10source">详细</A></P>
+<hr STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;" />
+
+<a NAME="Precise.2812.04.29.E7.89.88.E6.9C.AC"></A>
+<h3 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=6" TITLE="编辑段落：Precise(12.04)版本">编辑</A>] Precise(12.04)版本</H3>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+将上述列表地址中的 raring 替换为 precise 即可</P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/Template:12.04source" TITLE="Template:12.04source">详细</A></P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<br /></P>
+<hr STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;" />
+
+<a NAME="Lucid.2810.04.29_.E7.89.88.E6.9C.AC"></A>
+<h3 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=7" TITLE="编辑段落：Lucid(10.04) 版本">编辑</A>] Lucid(10.04) 版本</H3>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+将上述列表地址中的 raring 替换为 lucid 即可</P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/Template:10.04source" TITLE="Template:10.04source">详细</A></P>
+<hr STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;" />
+
+<a NAME=".E5.81.9C.E6.AD.A2.E7.BB.B4.E6.8A.A4.E7.9A.84.E7.89.88.E6.9C.AC"></A>
+<h3 STYLE="font-family: 'Times new roman'; line-height: normal;">
+[<a HREF="http://wiki.ubuntu.org.cn/index.php?title=%E6%BA%90%E5%88%97%E8%A1%A8&amp;action=edit&amp;section=8" TITLE="编辑段落：停止维护的版本">编辑</A>] 停止维护的版本</H3>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+<a HREF="http://wiki.ubuntu.org.cn/Template:11.10source" TITLE="Template:11.10source">11.10</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:11.04source" TITLE="Template:11.04source">11.04</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:10.10source" TITLE="Template:10.10source">10.10</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:9.10source" TITLE="Template:9.10source">9.10</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:9.04source" TITLE="Template:9.04source">9.04</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:8.10source" TITLE="Template:8.10source">8.10</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:7.10source" TITLE="Template:7.10source">7.10</A>&nbsp;<wbr>、<a HREF="http://wiki.ubuntu.org.cn/Template:7.04source" TITLE="Template:7.04source">7.04</A>、<a HREF="http://wiki.ubuntu.org.cn/Template:6.10source" TITLE="Template:6.10source">6.10</A>、6.06、5.10、5.04、4.10</P>
+<p STYLE="font-family: 'Times new roman'; font-size: medium; line-height: normal;">
+停止維護版本的官方軟件源：<a HREF="http://old-releases.ubuntu.com/releases/" TITLE="http://old-releases.ubuntu.com/releases/">http://old-releases.ubuntu.com/releases/</A></P>
+</DIV>							
+		</div>

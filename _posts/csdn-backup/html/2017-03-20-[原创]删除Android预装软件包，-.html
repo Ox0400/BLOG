@@ -1,0 +1,264 @@
+---
+layout: post
+title: "[原创]删除Android预装软件包，-"
+date: 2017-03-20 14:43:11
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - Android
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>Linux 下 删除Android系统自带软件包</DIV>
+<div>1.linux需要安装adb</DIV>
+<div>2.手机进入recovery模式，插上数据线</DIV>
+<div>3.Linux 启动adb服务&nbsp;<wbr><b>adb
+start-server&nbsp;<wbr></B></DIV>
+<div>4.Linux 查看adb 设备 <b>zhipeng@ubuntu:~$ adb devices</B></DIV>
+<div><i>List of devices attached&nbsp;<wbr></I></DIV>
+<div><i>4d00e53474c78000
+&nbsp;<wbr><b>recovery</B>（恢复模式）</I></DIV>
+<div>5.Linux 查看设备规则 厂商ID和产品ID：<b>adb shell lsusb</B></DIV>
+<div><i>Bus 001 Device 001: ID 1d6b:0002</I></DIV>
+<div><b><i><span STYLE="line-height: 21px;">厂商ID
+:</SPAN><span STYLE="line-height: 1.5;">1d6b&nbsp;<wbr></SPAN>产品ID:&nbsp;<wbr><span STYLE="line-height: 1.5;">0002</SPAN></I></B></DIV>
+<div>6.编辑设备规则：<b>vi /etc/udev/rules.d/51-android.rules</B></DIV>
+<div>内容如下：</DIV>
+<div><b><span STYLE="line-height: 1.5;">SUBSYSTEM=="usb",
+ATTR{idVendor}=="</SPAN><span STYLE="line-height: 21px;">04e8</SPAN><span STYLE="line-height: 1.5;">",
+MODE="0666"</SPAN></B></DIV>
+<div><i>SUBSYSTEM=="usb", ATTRS{idVendor}=="1d6b",
+ATTRS{idProduct}=="0002", MODE="0666"</I> （我用的上面那种方法）</DIV>
+<div STYLE="line-height: 21px;"><b><i>编号见最底部</I></B></DIV>
+<div STYLE="line-height: 21px;">7.Linux 重新加载 udev 规则：<b>udevadm
+control --reload</B></DIV>
+<div>8.手机开机，选择<b>reboot system now</B></DIV>
+<div>9.手机设置打开USB调试</DIV>
+<div>10.linux 重新链接adb：</DIV>
+<div><b>adb kill-server</B></DIV>
+<div><b>adb start-server</B></DIV>
+<div><b>adb drives</B></DIV>
+<div>
+<div><i>List of devices attached&nbsp;<wbr></I></DIV>
+<div><i>4d00e53474c78000
+&nbsp;<wbr><b>device</B>(设备模式)</I></DIV>
+</DIV>
+<div>11.Linux 进去设备终端：adb shell</DIV>
+<div>12.Android
+设备获取root权限，包括system权限也可以获取到(超级权限噢~~,其实是重新挂载磁盘为可读写)：</DIV>
+<div><b STYLE="line-height: 1.5;">mount -o remount,rw rootfs
+/</B></DIV>
+<div><b>mount -o remount rw /system</B></DIV>
+<div>
+<div>mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system
+（<b>这种的没成功</B>）</DIV>
+<div>13.Android 使用root：<b>su</B></DIV>
+<div>14.Android 删除设备预置软件(这些软件就是恢复出厂设置还会存在的):<b>rmdir
+preload</B></DIV>
+<div>15.Android 创建preload文件夹，<b>mkdir proload</B></DIV>
+<div>16.Android 拷贝一些你想用的软件进去：</DIV>
+<div><b>cp sdcard/baidu/AppSearch/downloads/QQshurufa_1171.apk
+preload/</B></DIV>
+<div><b>cp
+sdcard/baidu/AppSearch/downloads/微信_v_5_2.apk&nbsp;<wbr>preload/</B></DIV>
+<div><span STYLE="line-height: 21px;"><b>cp
+sdcard/baidu/AppSearch/downloads/腾讯微博_v_4_3.apk&nbsp;<wbr>preload/</B></SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><b>(文件都是从百度手机助手下载的，下载前把设置中的
+安装后删除软件包 去掉)</B></SPAN></DIV>
+<div>
+OK~~至此，搞完了，这么做的目的是因为我把三星手机自带的输入法删除了，充值以后幸好有百度一键root，下载了一个百度手机助手，通过语音输入输入法才下载到QQ输入法~~</DIV>
+<div>这样也可以装一些属于自己的想要的app~~</DIV>
+<div><br /></DIV>
+<div>
+重大说明，后来发现装完重启后就消失了！于是发现问题了，需要在/system/app中复制一份，并且将权限修改为644。</DIV>
+<div><b>chmod 644 you_app.apk</B></DIV>
+<div><b><font COLOR="#FF0000">注意：因为系统会在开始时检测system/app，造成系统升级，所有有些app因为没有.desc签名失败等原因，会致使手机一直重新启动，将app删除即可。腾讯QQ安桌输入法不能放进去，绝对会重启。腾讯微博4.3版本可以，其余未试，太麻烦了-
+-</FONT></B></DIV>
+<div><b><font COLOR="#FF0000">如果在使用自己设置的app发现黑屏关机的现象后，不要着急，重新开机后，找到app(需要提前备份，不要删除，不要重命名!)重新安装，会提示系统应用，是否继续，确定继续安装，这样就ok了，之前的帐号还可以继续使用的。</FONT></B></DIV>
+<div>参考：</DIV>
+<div><a HREF="http://blog.aboutc.net/linux/30/linux-using-android-adb-fastboot-command" TARGET="_blank">Linux 下使用 adb 和 fastboot 命令 - linux -
+ABOUTC.NET&nbsp;<wbr></A></DIV>
+<div><a HREF="http://www.shunix.com/adb-shell-root-691/" TARGET="_blank">adb shell获取root权限</A></DIV>
+<div><a HREF="http://m.oschina.net/blog/78231" TARGET="_blank">整理的一些 USB 安卓设备连接设置</A></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>## Acer</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0502", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## ASUS</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Dell</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="413c", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Foxconn</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0489", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Garmin-ASUS</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="091e", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Google</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## HTC</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Huawei</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="12d1", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## K-Touch</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="24e3", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## KT Tech</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="2116", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Kyocera</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0482", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Lenovo</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="17ef", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## LG</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="1004", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Motorola</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## NEC</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0409", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Nook</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="2080", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Nvidia</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0955", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## OTGV</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="2257", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Pantech</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="10a9", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Pegatron</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="1d4d", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Phillips</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0471", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## PMC-Sierra</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="04da", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Qualcomm</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## SK Telesys</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="1f53", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Samsung</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Sharp</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="04dd", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Sony Ericsson</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0fce", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## Toshiba</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="0930", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>## ZTE</DIV>
+<div>#SUBSYSTEM=="usb", ATTR{idVendor}=="19d2", MODE="0600",
+OWNER=""&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>### Nexus &amp; AOSP Devices ###</DIV>
+<div><br /></DIV>
+<div># adb protocol on passion (Nexus One)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e12", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on passion (Nexus One)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="0bb4",
+ATTR{idProduct}=="0fff", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># adb protocol on crespo/crespo4g (Nexus S)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e22", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on crespo/crespo4g (Nexus S)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e20", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># adb protocol on stingray/wingray (Xoom)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="22b8",
+ATTR{idProduct}=="70a9", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on stingray/wingray (Xoom)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="708c", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># adb protocol on maguro/toro (Galaxy Nexus)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="04e8",
+ATTR{idProduct}=="6860", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on maguro/toro (Galaxy Nexus)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e30", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># mtp protocol on maguro/toro (Galaxy Nexus)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="04e8",
+ATTR{idProduct}=="685c", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># adb protocol on panda (PandaBoard)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="0451",
+ATTR{idProduct}=="d101", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on panda (PandaBoard)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="0451",
+ATTR{idProduct}=="d022", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># adb protocol on the grouper (Nexus 7)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e42", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># fastboot protocol on the grouper (Nexus 7)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e40", MODE="0600", OWNER=""</DIV>
+<div><br /></DIV>
+<div># mtp protocol on the grouper (Nexus 7)</DIV>
+<div>SUBSYSTEM=="usb", ATTR{idVendor}=="18d1",
+ATTR{idProduct}=="4e41", MODE="0600", OWNER=""</DIV>
+</DIV>							
+		</div>

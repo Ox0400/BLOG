@@ -1,0 +1,44 @@
+---
+layout: post
+title: "[原创]Mysql-ERROR-17-"
+date: 2017-03-20 14:44:53
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			mysql 删除含有主键为它表外键时引发的外键异常。
+<div>
+<div>mysql&gt; <b>truncate table movies;</B></DIV>
+<div><font COLOR="#FF0000">ERROR 1701 (42000): Cannot truncate a
+table referenced in a foreign key constraint
+...&nbsp;<wbr></FONT></DIV>
+</DIV>
+<div>
+<div>只需要将外键约束设置为0, 即可删除。</DIV>
+<div>mysql&gt; <b>set foreign_key_checks=0;</B></DIV>
+<div>Query OK, 0 rows affected (0.00 sec)</DIV>
+<div><br /></DIV>
+<div>mysql&gt; <b>truncate table movies;</B></DIV>
+<div>Query OK, 0 rows affected (0.22 sec)</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>mysql&gt; <b>set foreign_key_checks=1;</B></DIV>
+<div>Query OK, 0 rows affected (0.00 sec)</DIV>
+<div><br /></DIV>
+<div>mysql&gt; <b>truncate table movies;</B></DIV>
+<div><font COLOR="#FF0000">ERROR 1701 (42000): Cannot truncate a
+table referenced in a foreign key constraint ...</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>如图：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uwiy&url=http://album.sina.com.cn/pic/002pInNzgy6KhL9Xddv91" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s2.sinaimg.cn/mw690/002pInNzgy6KhL9Xddv91&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="497" HEIGHT="218" NAME="image_operate_99211404803987607"  ALT="【原创】Mysql&nbsp;<wbr>ERROR&nbsp;<wbr>1701&nbsp;<wbr>(42000):&nbsp;<wbr>Cannot&nbsp;<wbr>truncate&nbsp;<wbr>a&nbsp;<wbr>table&amp;nbs"  TITLE="【原创】Mysql&nbsp;<wbr>ERROR&nbsp;<wbr>1701&nbsp;<wbr>(42000):&nbsp;<wbr>Cannot&nbsp;<wbr>truncate&nbsp;<wbr>a&nbsp;<wbr>table&amp;nbs" /></A><br />
+<br /></DIV>							
+		</div>

@@ -1,0 +1,82 @@
+---
+layout: post
+title: "[原创]python-try-cat-"
+date: 2017-03-20 14:37:52
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			大家都知道python有很强大的异常处理机制，但是每次都要指定这个异常类型，感觉好不麻烦...、
+<div>以下用四个例子说明一下，被除数为0的异常。</DIV>
+<div><br />
+<div><b>示例一</B>：<br />
+<div>
+<div>&gt;&gt;&gt; 1/0</DIV>
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+1/0</FONT></DIV>
+<div><font COLOR="#FF0000">ZeroDivisionError: integer division or
+modulo by zero</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>【释】pythonIDE抛出异常。</DIV>
+<div><b>示例二</B>：</DIV>
+<div>&gt;&gt;&gt; try:</DIV>
+<div>1/0</DIV>
+<div>except ZeroDivisionError:</DIV>
+<div>print '<span STYLE="line-height: 21px;">integer division or
+modulo by zero...</SPAN>'</DIV>
+<div><br /></DIV>
+<div><span STYLE="line-height: 21px;"><i>integer division or modulo
+by zero...</I></SPAN></DIV>
+</DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">【释】自定义异常处理</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><b>实例三</B>：</SPAN></DIV>
+<div>
+<div>&gt;&gt;&gt; try:</DIV>
+<div>1/0</DIV>
+<div>except:</DIV>
+<div>for i in sys.exc_info():</DIV>
+<div>print i</DIV>
+<div><br /></DIV>
+<div><i>integer division or modulo by zero</I></DIV>
+</DIV>
+<div>【释】exc_info异常信息</DIV>
+<div><br /></DIV>
+<div><b>示例四</B>：</DIV>
+<div>
+<div>&gt;&gt;&gt; import
+traceback</DIV>
+<div>&gt;&gt;&gt; try:
+1/0</DIV>
+<div>except:</DIV>
+<div>for i in
+traceback.format_exception(sys.exc_info()[0],sys.exc_info()[1],sys.exc_info()[2]):</DIV>
+<div>print i.replace('\n','').strip()</DIV>
+<div><br /></DIV>
+<div><font STYLE="font-size: 14px;"><i>Traceback (most recent call
+last):</I>&nbsp;<wbr> #最近一次的异常</FONT></DIV>
+<div><font STYLE="font-size: 14px;"><i>File "", line 1, in</I>
+#异常所在的地址</FONT></DIV>
+<div><font STYLE="font-size: 14px;"><i>ZeroDivisionError: integer
+division or modulo by zero</I> #异常类型和信息</FONT></DIV>
+</DIV>
+<div><i><font STYLE="font-size: 14px;"><br /></FONT></I></DIV>
+<div>怎么样，跟pythonIDE的异常输出一样了吧?~当然，针对示例四可以特殊处理，自定义消息...自由发挥咯~</DIV>
+<div><br /></DIV>
+<div>【注】：原创所有，转载请附本文链接，谢谢.<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bbob.html">http://blog.sina.com.cn/s/blog_83dc494d0101bbob.html</A></DIV>
+</DIV>							
+		</div>

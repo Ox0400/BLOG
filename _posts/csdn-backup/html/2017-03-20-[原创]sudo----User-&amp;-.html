@@ -1,0 +1,38 @@
+---
+layout: post
+title: "[原创]sudo----User-&amp;-"
+date: 2017-03-20 14:47:24
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>[zhangzhipeng@localhost ~]$ sudo su</DIV>
+<div>[sudo] password for zhangzhipeng:</DIV>
+<div>zhangzhipeng is not in the sudoers file.
+&nbsp;<wbr>This incident will be reported.</DIV>
+<div><br /></DIV>
+<div>
+<div>[zhangzhipeng@localhost ~]$ su</DIV>
+<div>Password:</DIV>
+<div>[root@localhost zhangzhipeng]#</DIV>
+</DIV>
+<div>
+<div>[root@localhost zhangzhipeng]# <b>vi /etc/sudoers</B></DIV>
+</DIV>
+<div>在sudoers末尾添加一行&nbsp;<wbr><span STYLE="color: rgb(240, 0, 0); font-family: 宋体, Arial; font-size: 16px; line-height: 26px;"><b>zhangzhipeng
+ALL=(ALL) ALL</B></SPAN></DIV>
+<b>:wq!</B> 保存退出
+<div>
+<div>[zhangzhipeng@localhost ~]$ sudo su</DIV>
+<div>[sudo] password for zhangzhipeng:</DIV>
+<div>[root@localhost zhangzhipeng]# exit</DIV>
+</DIV>
+<div><br /></DIV>							
+		</div>

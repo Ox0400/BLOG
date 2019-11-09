@@ -1,0 +1,51 @@
+---
+layout: post
+title: "[原创]python-set处理"
+date: 2017-03-20 14:40:33
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			set在python中是一个常用的内置函数，作用是清除重复项，但是<font COLOR="#ED1C24">返回的类型是set类型</FONT>
+<div>
+<div>&gt;&gt;&gt; ls = ['a','b','ac','ab','a','c','d']</DIV>
+<div>&gt;&gt;&gt; ls_1=set(ls)</DIV>
+<div>&gt;&gt;&gt; type(ls_1)</DIV>
+<div>&gt;&gt;&gt; ls_1</DIV>
+<div><font COLOR="#4D6DF3">set(['a', 'ac', 'b', 'd', 'c',
+'ab'])</FONT></DIV>
+<div>&gt;&gt;&gt; a=ls_1</DIV>
+<div>&gt;&gt;&gt; a</DIV>
+<div>set(['a', 'ac', 'b', 'd', 'c', 'ab'])</DIV>
+<div>&gt;&gt;&gt; b=set('abzbs')</DIV>
+<div>&gt;&gt;&gt; a</DIV>
+<div><font COLOR="#4D6DF3">set(['a', 'ac', 'b', 'd', 'c',
+'ab'])</FONT></DIV>
+<div>&gt;&gt;&gt; b</DIV>
+<div><font COLOR="#4D6DF3">set(['a', 's', 'b', 'z'])</FONT></DIV>
+<div>&gt;&gt;&gt; a|b #a或者b都没有重复的元素</DIV>
+<div><font COLOR="#4D6DF3">set(['a', 'ac', 'b', 'd', 's', 'z',
+'ab', 'c'])</FONT></DIV>
+<div>&gt;&gt;&gt; a&amp;b #a或者b都存在的元素</DIV>
+<div><font COLOR="#4D6DF3">set(['a', 'b'])</FONT></DIV>
+<div>&gt;&gt;&gt; a^b #a和b都没有重复的元素</DIV>
+<div><font COLOR="#4D6DF3">set(['ac', 'ab', 'd', 'c', 's',
+'z'])</FONT></DIV>
+<div>&gt;&gt;&gt; a-b #去掉a中和b相同的元素</DIV>
+<div><font COLOR="#4D6DF3">set(['c', 'ac', 'ab', 'd'])</FONT></DIV>
+<div>&gt;&gt;&gt; a+b</DIV>
+<div>Traceback (most recent call last):</DIV>
+<div>&nbsp;<wbr> File "", line 1, in</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> a+b</DIV>
+<div>TypeError: unsupported operand type(s) for +: 'set' and
+'set'</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>							
+		</div>

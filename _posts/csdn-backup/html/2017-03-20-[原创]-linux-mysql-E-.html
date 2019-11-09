@@ -1,0 +1,70 @@
+---
+layout: post
+title: "[原创]-linux-mysql-E-"
+date: 2017-03-20 14:43:47
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>mysql&gt; CREATE TABLE IF NOT EXISTS `onces201404` (
+&nbsp;<wbr> `id` int(11) NOT NULL AUTO_INCREMENT,
+&nbsp;<wbr> `station_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `artist_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `song_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `time` datetime DEFAULT NULL, &nbsp;<wbr>
+`pad_id` int(11) DEFAULT NULL, &nbsp;<wbr> PRIMARY KEY
+(`id`), &nbsp;<wbr> KEY `station_id` (`station_id`),
+&nbsp;<wbr> KEY `artist_id` (`artist_id`),
+&nbsp;<wbr> KEY `song_id` (`song_id`), &nbsp;<wbr>
+CONSTRAINT `once201404_ibfk_1` FOREIGN KEY (`station_id`)
+REFERENCES `Station` (`ID`), &nbsp;<wbr> CONSTRAINT
+`once201404_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `Artists`
+(`ID`), &nbsp;<wbr> CONSTRAINT `once201404_ibfk_3` FOREIGN
+KEY (`song_id`) REFERENCES `Songs` (`ID`) ) ENGINE=InnoDB
+AUTO_INCREMENT=243204 DEFAULT CHARSET=utf8
+COLLATE=utf8_unicode_ci;</DIV>
+<div>ERROR 1005 (HY000): Can't create table 'DB_Music.onces201404'
+(errno: 150)</DIV>
+<div>mysql&gt;&nbsp;<wbr></DIV>
+<div>mysql&gt;&nbsp;<wbr></DIV>
+<div>mysql&gt; CREATE TABLE IF NOT EXISTS `onces201404` (
+&nbsp;<wbr> `id` int(11) NOT NULL AUTO_INCREMENT,
+&nbsp;<wbr> `station_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `artist_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `song_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `time` datetime DEFAULT NULL, &nbsp;<wbr>
+`pad_id` int(11) DEFAULT NULL, &nbsp;<wbr> PRIMARY KEY
+(`id`), &nbsp;<wbr> KEY `station_id` (`station_id`),
+&nbsp;<wbr> KEY `artist_id` (`artist_id`),
+&nbsp;<wbr> KEY `song_id` (`song_id`), &nbsp;<wbr>
+CONSTRAINT `once201404_ibfk_1` FOREIGN KEY (`station_id`)
+REFERENCES `Station` (`ID`), &nbsp;<wbr> CONSTRAINT
+`once201404_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `Artists`
+(`ID`), &nbsp;<wbr> CONSTRAINT `once201404_ibfk_3` FOREIGN
+KEY (`song_id`) REFERENCES `Songs` (`ID`) ) ENGINE=MyISAM
+AUTO_INCREMENT=243204 DEFAULT CHARSET=utf8
+COLLATE=utf8_unicode_ci;</DIV>
+<div>Query OK, 0 rows affected (0.19 sec)</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><span STYLE="color: rgb(68, 68, 68); font-family: Tahoma, Arial, sans-serif; line-height: 21px; background-color: rgb(255, 255, 255);">
+set @a=(select a from t where id=1);</SPAN></DIV>
+<div>
+<pre STYLE="margin-top: 0px; margin-bottom: 10px; padding: 5px; border: 0px; vertical-align: baseline; background-color: rgb(238, 238, 238); font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, serif; overflow: auto; width: auto; max-height: 600px; word-wrap: normal; line-height: 17.804800033569336px;">
+
+<code STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, serif; white-space: inherit;"><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(0, 0, 139);">SELECT</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> TRIGGER_NAME
+</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(0, 0, 139);">FROM</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> information_schema</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;">.</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;">triggers
+</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(0, 0, 139);">WHERE</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> TRIGGER_SCHEMA </SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;">=</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> </SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(128, 0, 0);">'db_name'</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> </SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(0, 0, 139);">AND</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> TRIGGER_NAME </SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;">=</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent;"> </SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: transparent; color: rgb(128, 0, 0);">'trigger_name'</SPAN></CODE>
+</PRE></DIV>
+<div>-http://bbs.phpchina.com/thread-51885-1-1.html</DIV>
+-http://stackoverflow.com/questions/11221524/workaround-for-mysql-create-trigger-if-not-exist							
+		</div>

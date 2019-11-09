@@ -1,0 +1,68 @@
+---
+layout: post
+title: "[原创]-下载-安装-bootstrap"
+date: 2017-03-20 14:47:41
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - html
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>主页：http://www.getbootstrap.com</DIV>
+<div>中文支持：http://bootcss.com</DIV>
+<div><br /></DIV>
+<div><span STYLE="line-height: 21px;">#源码安装bootstrap</SPAN></DIV>
+<div><br /></DIV>
+<div>wget
+https://github.com/twbs/bootstrap/archive/v3.3.4.zip</DIV>
+<div>unzip.exe v3.3.4.zip</DIV>
+<div>cd bootstrap-3.3.4/</DIV>
+<div>#编译源码需要用到grunt，安装grunt需要安装ndp(windows)或者npm(linux)</DIV>
+<div><br /></DIV>
+<div>sudo install npm</DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ndp
+install&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">-g&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">grunt-cli</SPAN></DIV>
+<div>ndp install grunt</DIV>
+<div><br /></DIV>
+<div>#编译源码需要用到的模块</DIV>
+<div>ndp install npm-shrinkwrap &nbsp;<wbr>markdown-it
+&nbsp;<wbr>btoa glob &nbsp;<wbr>load-grunt-tasks
+&nbsp;<wbr>time-grunt</DIV>
+<div><br /></DIV>
+<div>ndp install grunt-autoprefixer grunt-banner
+grunt-contrib-qunit grunt-saucelabs</DIV>
+<div>ndp install grunt-contrib-clean grunt-contrib-compress
+grunt-contrib-concat grunt-contrib-connect grunt-contrib-copy
+grunt-contrib-csslint grunt-contrib-cssmin grunt-contrib-jade
+grunt-contrib-jshint grunt-contrib-less grunt-contrib-qunit
+grunt-contrib-uglify grunt-contrib-watch grunt-csscomb grunt-exec
+grunt-html grunt-jekyll grunt-jscs grunt-saucelabs grunt-sed</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>#使用&nbsp;<wbr><span STYLE="line-height: 21px;">grunt
+必须</SPAN>安装node.js</DIV>
+<div>grunt dist (Just compile CSS and JavaScript)</DIV>
+<div>Regenerates the /dist/ directory with compiled and minified
+CSS and JavaScript files. As a Bootstrap user, this is normally the
+command you want.</DIV>
+<div><br /></DIV>
+<div>grunt watch (Watch)</DIV>
+<div>Watches the Less source files and automatically recompiles
+them to CSS whenever you save a change.</DIV>
+<div><br /></DIV>
+<div>grunt test (Run tests)</DIV>
+<div>Runs JSHint and runs the QUnit tests headlessly in
+PhantomJS.</DIV>
+<div><br /></DIV>
+<div>grunt docs (Build &amp; test the docs assets)</DIV>
+<div>Builds and tests CSS, JavaScript, and other assets which are
+used when running the documentation locally via jekyll serve.</DIV>
+<div><br /></DIV>
+<div>grunt (Build absolutely everything and run tests)</DIV>							
+		</div>

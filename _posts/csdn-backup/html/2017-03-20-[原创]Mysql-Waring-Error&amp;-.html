@@ -1,0 +1,50 @@
+---
+layout: post
+title: "[原创]Mysql-Waring-Error&amp;-"
+date: 2017-03-20 14:46:17
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			Mysql中执行&nbsp;<wbr>
+<div>update meta</DIV>
+<div>set meta.name = "Hello-Word" and meta.first_id = 12381</DIV>
+<div>where meta.name = old.meta.name and meta.name="";</DIV>
+<div><br /></DIV>
+<div>命名一句很简单的语句，你能看出有什么问题吗？既然我写出来，肯定是有问题的啦！</DIV>
+<div>这句话执行后，执行成功，但是不会修改数据，0行受影响！！！</DIV>
+<div>
+特别注意，执行成功，0行受影响！(也是我不喜欢用别人写的sqlHelper的原因，增、删、改只返回true和false。。这不易于发现问题，执行成功不代表真的操作成功！)</DIV>
+<div><br /></DIV>
+<div>那么来看下问题所在，返回一个警告-warning。</DIV>
+<div>这是唯一可用的信息了，查看一下警告信息。(紧接着SQL执行后就查询，只记录最近一条执行的waring)</DIV>
+<div>show warings;</DIV>
+<div>可以看到<b>Mysql Truncated incorrect DOUBLE
+value</B>&nbsp;<wbr>"Hello-Word"，意思就是值类型不正确呗。</DIV>
+<div>开始以为是"-"号出了问题，于是换成单引号、用concat、总之就是不行。。。</DIV>
+<div><br /></DIV>
+<div>我是用百度翻了N页没出一条结果，我都怀疑是我的提问语句都不会组织了。。。</DIV>
+<div>上高大上的<a HREF="http://stackoverflow.com/search?q=Truncated+incorrect+DOUBLE+value:+'" TARGET="_blank">stackoverflow</A>，第二条搜索结果《<a HREF="http://stackoverflow.com/a/3456278/3992791" TARGET="_blank">Q:
+Mysql Truncated incorrect DOUBLE value</A>》就能看到正确原因。</DIV>
+<div>
+<div>UPDATE&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+shop_category&nbsp;<wbr></DIV>
+<div>SET&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> name = 'Secolul XVI -
+XVIII'<font COLOR="#FF0000">, --注意，此处应该是','逗号！</FONT></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> name_eng = '16th to 18th
+centuries'&nbsp;<wbr></DIV>
+<div>WHERE&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> category_id = 4768</DIV>
+</DIV>
+<div><br /></DIV>
+<div>逗号和and的区别！切记！</DIV>							
+		</div>

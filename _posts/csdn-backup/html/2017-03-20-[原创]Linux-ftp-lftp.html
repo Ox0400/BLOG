@@ -1,0 +1,210 @@
+---
+layout: post
+title: "[原创]Linux-ftp-lftp"
+date: 2017-03-20 14:43:02
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			用了一下，linux上的ftp真感觉是渣。。。(可能是我肤浅)
+<div>lftp挺好的:</DIV>
+<div><b>sudo apt-get install lftp</B> #(size:450kb)</DIV>
+<div><b>fltp <i>000.000.000.000</I> -u
+<i>usernam</I></B><i><b>e</B></I> (你的ftp文件地址，用户名，回车输入密码即可。)</DIV>
+<div>
+<div><br /></DIV>
+<div>用法: lftp [OPTS]</DIV>
+<div>`lftp' 是在 rc 文件执行后 lftp 执行的第一个命令</DIV>
+<div>&nbsp;<wbr>-f &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+执行文件中的命令后退出</DIV>
+<div>&nbsp;<wbr>-c &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>执行命令后退出</DIV>
+<div>&nbsp;<wbr>--help &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>显示帮助信息后退出</DIV>
+<div>&nbsp;<wbr>--version &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 显示 lftp 版本后退出</DIV>
+<div>&nbsp;<wbr>其他的选项同 `open' 命令</DIV>
+<div>&nbsp;<wbr>-e &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>在选择后执行命令</DIV>
+<div>&nbsp;<wbr>-u [,]
+&nbsp;<wbr>使用指定的用户名/口令进行验证</DIV>
+<div>&nbsp;<wbr>-p &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+连接指定的端口</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>主机名, URL 或书签的名字</DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>进入lftp终端后用法：（有cat file，省事很多！）</DIV>
+<div>
+<div>! (commands) &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> alias [ []]</DIV>
+<div>attach [PID]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>bookmark [SUBCMD]</DIV>
+<div>cache [SUBCMD]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>cat [-b]
+&lt;文件&gt;</DIV>
+<div>cd &nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> chmod [选项] 属性 文件...</DIV>
+<div>close [-a]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>&nbsp;<wbr>[re]cls
+[选项] [路径/][符号]</DIV>
+<div>debug [|off] [-o ]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>du [options]</DIV>
+<div>exit [<code>|bg]&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> get [选项]
+[-o ]</CODE></DIV>
+<div>-b, --bytes print size in bytes<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>help []</DIV>
+<div>history -w file|-r file|-c|-l [cnt] &nbsp;<wbr>jobs
+[-v]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>kill all|</DIV>
+<div>lcd <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>lftp [OPTS]</DIV>
+<div>ln [-s] <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>ls []</DIV>
+<div>mget [选项] &lt;文件&gt;&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> mirror
+[OPTS] [remote [local]]</DIV>
+<div>mkdir [-p] <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>module name [args]</DIV>
+<div>more <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>mput [选项]
+&lt;文件&gt;</DIV>
+<div>mrm <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>mv</DIV>
+<div>[re]nlist [&lt;参数&gt;]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>open [OPTS]</DIV>
+<div>pget [OPTS] [-o ]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>put [选项] &lt;本地文件&gt;
+[-o &lt;远程文件&gt;]</DIV>
+<div>pwd [-p]<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>queue [OPTS] []</DIV>
+<div>quote &nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> repeat [OPTS] [delay]
+[command]</DIV>
+<div>rm [-r] [-f] &lt;文件&gt;<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>mkdir [-f]
+&lt;目录&gt;</DIV>
+<div>scache []<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>set [选项] [&lt;变量&gt;
+[&lt;值&gt;]]</DIV>
+<div>site <span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>source &lt;文件名&gt;</DIV>
+<div>torrent [-O
+<div STYLE="margin-left: 2em">] ...<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>user &lt;用户名｜URL&gt;
+[&lt;密码&gt;]</DIV>
+</DIV>
+<div>wait &lt;工作号&gt;<span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN>zcat [-u]
+&lt;文件名表&gt;</DIV>
+<div>zmore &lt;文件&gt;</DIV>
+</DIV>
+<div><br /></DIV>							
+		</div>

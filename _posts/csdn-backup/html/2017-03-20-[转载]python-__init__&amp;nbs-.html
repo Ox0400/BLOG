@@ -1,0 +1,662 @@
+---
+layout: post
+title: "[转载]python-__init__&amp;nbs-"
+date: 2017-03-20 14:40:41
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;"><b><font STYLE="font-size: 16px;">Python中下划线---完全解读</FONT></B></DIV>
+<span STYLE="; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; line-height: 23px;">Python
+用下划线作为变量前缀和后缀指定特殊变量</SPAN>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+_xxx 不能用’from module import *’导入</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+__xxx__ 系统定义名字</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+__xxx 类中的私有变量名</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+核心风格：避免用下划线作为变量名的开始。</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+&nbsp;<wbr></P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+因为下划线对解释器有特殊的意义，而且是内建标识符所使用的符号，我们建议程序员避免用下划线作为变量名的开始。一般来讲，变量名_xxx被看作是“私有
+的”，在模块或类外不可以使用。当变量是私有的时候，用_xxx 来表示变量是很好的习惯。因为变量名__xxx__对Python
+来说有特殊含义，对于普通的变量应当避免这种命名风格。</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+“单下划线” 开始的成员变量叫做保护变量，意思是只有类对象和子类对象自己能访问到这些变量；<br STYLE="line-height: 23px;" />
+“双下划线” 开始的是私有成员，意思是只有类对象自己能访问，连子类对象也不能访问到这个数据。</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+以单下划线开头（_foo）的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用“from xxx import
+*”而导入；以双下划线开头的（__foo）代表类的私有成员；以双下划线开头和结尾的（__foo__）代表python里特殊方法专用的标识，如
+__init__（）代表类的构造函数。</P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+现在我们来总结下所有的系统定义属性和方法， 先来看下保留属性：</P>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ; text-align: justify;">
+
+&gt;&gt;&gt; Class1.__doc__ # 类型帮助信息 'Class1 Doc.' &gt;&gt;&gt; Class1.__name__ # 类型名称 'Class1' &gt;&gt;&gt; Class1.__module__ # 类型所在模块 '__main__' &gt;&gt;&gt; Class1.__bases__ # 类型所继承的基类 (,) &gt;&gt;&gt; Class1.__dict__ # 类型字典，存储所有类型成员信息。  &gt;&gt;&gt; Class1().__class__ # 类型  &gt;&gt;&gt; Class1().__module__ # 实例类型所在模块 '__main__' &gt;&gt;&gt; Class1().__dict__ # 对象字典，存储所有实例成员信息。 {'i': 1234}
+</PRE>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ; text-align: justify;">
+
+接下来 是保留方法，可以把保留方法分类：
+</PRE>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<strong>类的基础方法</STRONG></H2>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+</H2>
+<table STYLE="line-height: 35px;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th>&#9312;</TH>
+<td STYLE="line-height: 35px;">初始化一个实例</TD>
+<td STYLE="line-height: 35px;"><code>x = MyClass()</CODE></TD>
+<td STYLE="line-height: 35px;"><a HREF="http://docs.python.org/3.1/reference/datamodel.html#object.__init__">
+<code>x.<dfn>__init__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9313;</TH>
+<td STYLE="line-height: 35px;">字符串的“官方”表现形式</TD>
+<td STYLE="line-height: 35px;"><code><dfn>repr</DFN>(x)</CODE></TD>
+<td STYLE="line-height: 35px;"><a HREF="http://docs.python.org/3.1/reference/datamodel.html#object.__repr__">
+<code>x.<dfn>__repr__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9314;</TH>
+<td STYLE="line-height: 35px;">字符串的“非正式”值</TD>
+<td STYLE="line-height: 35px;"><a HREF="http://docs.python.org/3.1/reference/datamodel.html#object.__str__">
+<code><dfn>str</DFN>(x)</CODE></A></TD>
+<td STYLE="line-height: 35px;">
+<code>x.<dfn>__str__</DFN>()</CODE></TD>
+</TR>
+<tr>
+<th>&#9315;</TH>
+<td STYLE="line-height: 35px;">字节数组的“非正式”值</TD>
+<td STYLE="line-height: 35px;">
+<code><dfn>bytes</DFN>(x)</CODE></TD>
+<td STYLE="line-height: 35px;">
+<code>x.<dfn>__bytes__</DFN>()</CODE></TD>
+</TR>
+<tr>
+<th>&#9316;</TH>
+<td STYLE="line-height: 35px;">格式化字符串的值</TD>
+<td STYLE="line-height: 35px;">
+<code>format(x,<var>format_spec</VAR>)</CODE></TD>
+<td STYLE="line-height: 35px;"><a HREF="http://docs.python.org/3.1/reference/datamodel.html#object.__format__">
+<code>x.<dfn>__format__</DFN>(<var>format_spec</VAR>)</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+对&nbsp;<wbr><code>__init__()</CODE>&nbsp;<wbr>方法的调用发生在实例被创建&nbsp;<wbr><em>之后</EM>&nbsp;<wbr>。如果要控制实际创建进程，请使用&nbsp;<wbr><a HREF="http://www.4pang.com/2010/08/20/4%E8%83%96%E5%AD%A6python-%EF%BC%8D-%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93.html#esoterica"><code>__new__()</CODE>&nbsp;<wbr>方法</A>。</LI>
+<li>
+按照约定，&nbsp;<wbr><code>__repr__()</CODE>&nbsp;<wbr>方法所返回的字符串为合法的
+Python 表达式。</LI>
+<li>
+在调用&nbsp;<wbr><code>print(x)</CODE>&nbsp;<wbr>的同时也调用了&nbsp;<wbr><code>__str__()</CODE>&nbsp;<wbr>方法。</LI>
+<li>
+由于&nbsp;<wbr><code>bytes</CODE>&nbsp;<wbr>类型的引入而<em>从
+Python 3 开始出现</EM>。</LI>
+</OL>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+行为方式与迭代器类似的类</H2>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th>&#9312;</TH>
+<td STYLE="line-height: 23px;">遍历某个序列</TD>
+<td STYLE="line-height: 23px;">
+<code><dfn>iter</DFN>(seq)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__iter__">
+<code>seq.<dfn>__iter__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9313;</TH>
+<td STYLE="line-height: 23px;">从迭代器中获取下一个值</TD>
+<td STYLE="line-height: 23px;">
+<code><dfn>next</DFN>(seq)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__next__">
+<code>seq.<dfn>__next__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9314;</TH>
+<td STYLE="line-height: 23px;">按逆序创建一个迭代器</TD>
+<td STYLE="line-height: 23px;">
+<code><dfn>reversed</DFN>(seq)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__reversed__">
+<code>seq.<dfn>__reversed__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+无论何时创建迭代器都将调用&nbsp;<wbr><code>__iter__()</CODE>&nbsp;<wbr>方法。这是用初始值对迭代器进行初始化的绝佳之处。</LI>
+<li>
+无论何时从迭代器中获取下一个值都将调用&nbsp;<wbr><code>__next__()</CODE>&nbsp;<wbr>方法。</LI>
+<li>
+<code>__reversed__()</CODE>&nbsp;<wbr>方法并不常用。它以一个现有序列为参数，并将该序列中所有元素从尾到头以逆序排列生成一个新的迭代器。</LI>
+</OL>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ;">
+
+</PRE>
+<h2 STYLE="line-height: 35px;">计算属性</H2>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th>&#9312;</TH>
+<td STYLE="line-height: 23px;">获取一个计算属性（无条件的）</TD>
+<td STYLE="line-height: 23px;"><code>x.my_property</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getattribute__">
+<code>x.<dfn>__getattribute__</DFN>(<var>'my_property'</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9313;</TH>
+<td STYLE="line-height: 23px;">获取一个计算属性（后备）</TD>
+<td STYLE="line-height: 23px;"><code>x.my_property</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getattr__">
+<code>x.<dfn>__getattr__</DFN>(<var>'my_property'</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9314;</TH>
+<td STYLE="line-height: 23px;">设置某属性</TD>
+<td STYLE="line-height: 23px;"><code>x.my_property =
+value</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__setattr__">
+<code>x.<dfn>__setattr__</DFN>(<var>'my_property'</VAR>,<var>value</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9315;</TH>
+<td STYLE="line-height: 23px;">删除某属性</TD>
+<td STYLE="line-height: 23px;"><code>del x.my_property</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__delattr__">
+<code>x.<dfn>__delattr__</DFN>(<var>'my_property'</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th>&#9316;</TH>
+<td STYLE="line-height: 23px;">列出所有属性和方法</TD>
+<td STYLE="line-height: 23px;"><code>dir(x)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__dir__">
+<code>x.<dfn>__dir__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+如果某个类定义了&nbsp;<wbr><code>__getattribute__()</CODE>&nbsp;<wbr>方法，在&nbsp;<wbr><em>每次引用属性或方法名称时</EM>&nbsp;<wbr>Python
+都调用它（特殊方法名称除外，因为那样将会导致讨厌的无限循环）。</LI>
+<li>
+如果某个类定义了&nbsp;<wbr><code>__getattr__()</CODE>&nbsp;<wbr>方法，Python
+将只在正常的位置查询属性时才会调用它。如果实例&nbsp;<wbr><var>x</VAR>&nbsp;<wbr>定义了属性&nbsp;<wbr><var>color</VAR>，&nbsp;<wbr><code>x.color</CODE>&nbsp;<wbr>将&nbsp;<wbr><em>不会</EM>&nbsp;<wbr>调用<code>x.__getattr__('color')</CODE>；而只会返回&nbsp;<wbr><var>x.color</VAR>&nbsp;<wbr>已定义好的值。</LI>
+<li>
+无论何时给属性赋值，都会调用&nbsp;<wbr><code>__setattr__()</CODE>&nbsp;<wbr>方法。</LI>
+<li>
+无论何时删除一个属性，都将调用&nbsp;<wbr><code>__delattr__()</CODE>&nbsp;<wbr>方法。</LI>
+<li>
+如果定义了&nbsp;<wbr><code>__getattr__()</CODE>&nbsp;<wbr>或&nbsp;<wbr><code>__getattribute__()</CODE>&nbsp;<wbr>方法，&nbsp;<wbr><code>__dir__()</CODE>&nbsp;<wbr>方法将非常有用。通常，调用&nbsp;<wbr><code>dir(x)</CODE>&nbsp;<wbr>将只显示正常的属性和方法。如果&nbsp;<wbr><code>__getattr()__</CODE>方法动态处理&nbsp;<wbr><var>color</VAR>&nbsp;<wbr>属性，&nbsp;<wbr><code>dir(x)</CODE>&nbsp;<wbr>将不会将&nbsp;<wbr><var>color</VAR>&nbsp;<wbr>列为可用属性。可通过覆盖&nbsp;<wbr><code>__dir__()</CODE>&nbsp;<wbr>方法允许将&nbsp;<wbr><var>color</VAR>&nbsp;<wbr>列为可用属性，对于想使用你的类但却不想深入其内部的人来说，该方法非常有益。</LI>
+</OL>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<span STYLE="line-height: 23px; font-family: monospace;"><br STYLE="line-height: 23px;" /></SPAN></P>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+行为方式与函数类似的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+可以让类的实例变得可调用——就像函数可以调用一样——通过定义&nbsp;<wbr><code>__call__()</CODE>&nbsp;<wbr>方法。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">像调用函数一样“调用”一个实例</TD>
+<td STYLE="line-height: 23px;"><code>my_instance()</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__call__">
+<code>my_instance.<dfn>__call__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<a HREF="http://docs.python.org/3.1/library/zipfile.html"><code>zipfile</CODE>&nbsp;<wbr>模块</A>&nbsp;<wbr>通过该方式定义了一个可以使用给定密码<dfn>解密</DFN>&nbsp;<wbr><dfn>经加密</DFN>&nbsp;<wbr><dfn>zip</DFN>&nbsp;<wbr>文件的类。该
+zip&nbsp;<wbr><dfn>解密</DFN>&nbsp;<wbr>算法需要在解密的过程中保存状态。通过将解密器定义为类，使我们得以在
+decryptor
+类的单个实例中对该状态进行维护。状态在<code>__init__()</CODE>&nbsp;<wbr>方法中进行初始化，如果文件&nbsp;<wbr><dfn>经加密</DFN>&nbsp;<wbr>则进行更新。但由于该类像函数一样“可调用”，因此可以将实例作为<code>map()</CODE>&nbsp;<wbr>函数的第一个参数传入，代码如下：</P>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ;">
+
+<code># excerpt from zipfile.py class _ZipDecrypter:     def __init__(self, pwd): <a>        self.key0 = 305419896               &#9312;</A>         self.key1 = 591751049         self.key2 = 878082192         for p in pwd:             self._UpdateKeys(p)  <a>    def __call__(self, c):                  &#9313;</A>         assert isinstance(c, int)         k = self.key2 | 2         c = c ^ (((k * (k^1)) &gt;&gt; <img ALT="8)" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.4pang.com/wp-includes/images/smilies/icon_cool.gif" STYLE="max-width: 100%;"  TITLE="【转载】python&nbsp;<wbr>__init__&nbsp;<wbr>下划线解读" /> &amp; 255)         self._UpdateKeys(c)         return c</CODE> <code> <a>zd = _ZipDecrypter(pwd)                    &#9314;</A> bytes = zef_file.read(12) <a>h = list(map(zd, bytes[0:12]))             &#9315;</A></CODE>
+</PRE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+<code>_ZipDecryptor</CODE>&nbsp;<wbr>类维护了以三个旋转密钥形式出现的状态，该状态稍后将在&nbsp;<wbr><code>_UpdateKeys()</CODE>&nbsp;<wbr>方法中更新（此处未展示）。</LI>
+<li>
+该类定义了一个&nbsp;<wbr><code>__call__()</CODE>&nbsp;<wbr>方法，使得该类可像函数一样调用。在此例中，<code>__call__()</CODE>&nbsp;<wbr>对
+zip 文件的单个字节进行解密，然后基于经解密的字节对旋转密码进行更新。</LI>
+<li>
+<var>zd</VAR>&nbsp;<wbr>是&nbsp;<wbr><code>_ZipDecryptor</CODE>&nbsp;<wbr>类的一个实例。变量&nbsp;<wbr><var>pwd</VAR>&nbsp;<wbr>被传入&nbsp;<wbr><code>__init__()</CODE>&nbsp;<wbr>方法，并在其中被存储和用于首次旋转密码更新。</LI>
+<li>给出 zip 文件的头 12
+个字节，将这些字节映射给&nbsp;<wbr><var>zd</VAR>&nbsp;<wbr>进行解密，实际上这将导致调用&nbsp;<wbr><code>__call__()</CODE>&nbsp;<wbr>方法
+12 次，也就是 更新内部状态并返回结果字节 12 次。</LI>
+</OL>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+行为方式与序列类似的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+如果类作为一系列值的容器出现——也就是说如果对某个类来说，是否“包含”某值是件有意义的事情——那么它也许应该定义下面的特殊方法已，让它的行为方式与序列类似。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">序列的长度</TD>
+<td STYLE="line-height: 23px;">
+<code><dfn>len</DFN>(seq)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__len__">
+<code>seq.<dfn>__len__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">了解某序列是否包含特定的值</TD>
+<td STYLE="line-height: 23px;"><code>x in seq</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__contains__">
+<code>seq.<dfn>__contains__</DFN>(<var>x</VAR>)</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<a HREF="http://docs.python.org/3.1/library/cgi.html"><code>cgi</CODE>&nbsp;<wbr>模块</A>&nbsp;<wbr>在其&nbsp;<wbr><code>FieldStorage</CODE>&nbsp;<wbr>类中使用了这些方法，该类用于表示提交给动态网页的所有表单字段或查询参数。</P>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ;">
+
+<code># A script which responds to http://example.com/search?q=cgi import cgi fs = cgi.FieldStorage() <a>if 'q' in fs:                                               &#9312;</A>   do_search()  # An excerpt from cgi.py that explains how that works class FieldStorage: . . . <a>    def __contains__(self, key):                            &#9313;</A>         if self.list is None:             raise TypeError('not indexable') <a>        return any(item.name == key for item in self.list)  &#9314;</A>  <a>    def __len__(self):                                      &#9315;</A> <a>        return len(self.keys())                             &#9316;</A></CODE>
+</PRE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+一旦创建了&nbsp;<wbr><code>cgi.FieldStorage</CODE>&nbsp;<wbr>类的实例，就可以使用
+“<code>in</CODE>” 运算符来检查查询字符串中是否包含了某个特定参数。</LI>
+<li>
+而&nbsp;<wbr><code>__contains__()</CODE>&nbsp;<wbr>方法是令该魔法生效的主角。</LI>
+<li>如果代码为&nbsp;<wbr><code>if 'q' in fs</CODE>，Python
+将在&nbsp;<wbr><var>fs</VAR>&nbsp;<wbr>对象中查找&nbsp;<wbr><code>__contains__()</CODE>&nbsp;<wbr>方法，而该方法在&nbsp;<wbr><code>cgi.py</CODE>&nbsp;<wbr>中已经定义。<code>'q'</CODE>&nbsp;<wbr>的值被当作&nbsp;<wbr><var>key</VAR>&nbsp;<wbr>参数传入<code>__contains__()</CODE>&nbsp;<wbr>方法。</LI>
+<li>
+同样的&nbsp;<wbr><code>FieldStorage</CODE>&nbsp;<wbr>类还支持返回其长度，因此可以编写代码&nbsp;<wbr><code>len(<var>fs</VAR>)</CODE>&nbsp;<wbr>而其将调用&nbsp;<wbr><code>FieldStorage</CODE>&nbsp;<wbr>的&nbsp;<wbr><code>__len__()</CODE>方法，并返回其识别的查询参数个数。</LI>
+<li>
+<code>self.keys()</CODE>&nbsp;<wbr>方法检查&nbsp;<wbr><code>self.list
+is
+None</CODE>&nbsp;<wbr>是否为真值，因此&nbsp;<wbr><code>__len__</CODE>&nbsp;<wbr>方法无需重复该错误检查。</LI>
+</OL>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+行为方式与字典类似的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+在前一节的基础上稍作拓展，就不仅可以对 “<code>in</CODE>”
+运算符和&nbsp;<wbr><code>len()</CODE>&nbsp;<wbr>函数进行响应，还可像全功能字典一样根据键来返回值。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">通过键来获取值</TD>
+<td STYLE="line-height: 23px;"><code>x[key]</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__getitem__">
+<code>x.<dfn>__getitem__</DFN>(<var>key</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">通过键来设置值</TD>
+<td STYLE="line-height: 23px;"><code>x[key] = value</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__setitem__">
+<code>x.<dfn>__setitem__</DFN>(<var>key</VAR>,&nbsp;<wbr><var>value</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">删除一个键值对</TD>
+<td STYLE="line-height: 23px;"><code>del x[key]</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__delitem__">
+<code>x.<dfn>__delitem__</DFN>(<var>key</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">为缺失键提供默认值</TD>
+<td STYLE="line-height: 23px;"><code>x[nonexistent_key]</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/collections.html#collections.defaultdict.__missing__">
+<code>x.<dfn>__missing__</DFN>(<var>nonexistent_key</VAR>)</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<a HREF="http://docs.python.org/3.1/library/cgi.html"><code>cgi</CODE>&nbsp;<wbr>模块</A>&nbsp;<wbr>的&nbsp;<wbr><a HREF="http://www.4pang.com/2010/08/20/4%E8%83%96%E5%AD%A6python-%EF%BC%8D-%E7%89%B9%E6%AE%8A%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E6%80%BB%E7%BB%93.html#acts-like-list-example"><code>FieldStorage</CODE>&nbsp;<wbr>类</A>&nbsp;<wbr>同样定义了这些特殊方法，也就是说可以像下面这样编码：</P>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ;">
+
+<code># A script which responds to http://example.com/search?q=cgi import cgi fs = cgi.FieldStorage() if 'q' in fs: <a>  do_search(fs['q'])                              &#9312;</A>  # An excerpt from cgi.py that shows how it works class FieldStorage: . . . <a>    def __getitem__(self, key):                   &#9313;</A>         if self.list is None:             raise TypeError('not indexable')         found = []         for item in self.list:             if item.name == key: found.append(item)         if not found:             raise KeyError(key)         if len(found) == 1:             return found[0]         else:             return found</CODE>
+</PRE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+<var>fs</VAR>&nbsp;<wbr>对象是&nbsp;<wbr><code>cgi.FieldStorage</CODE>&nbsp;<wbr>类的一个实例，但仍然可以像&nbsp;<wbr><code>fs['q']</CODE>&nbsp;<wbr>这样估算表达式。</LI>
+<li>
+<code>fs['q']</CODE>&nbsp;<wbr>将&nbsp;<wbr><var>key</VAR>&nbsp;<wbr>参数设置为&nbsp;<wbr><code>'q'</CODE>&nbsp;<wbr>来调用&nbsp;<wbr><code>__getitem__()</CODE>&nbsp;<wbr>方法。然后它将在其内部维护的查询参数列表
+(<var>self.list</VAR>)
+中查找一个&nbsp;<wbr><code>.name</CODE>&nbsp;<wbr>与给定键相符的字典项。</LI>
+</OL>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+可比较的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+我将此内容从前一节中拿出来使其单独成节，是因为“比较”操作并不局限于数字。许多数据类型都可以进行比较——字符串、列表，甚至字典。如果要创建自己的类，且对象之间的比较有意义，可以使用下面的特殊方法来实现比较。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">相等</TD>
+<td STYLE="line-height: 23px;"><code>x == y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__eq__">
+<code>x.<dfn>__eq__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">不相等</TD>
+<td STYLE="line-height: 23px;"><code>x != y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__ne__">
+<code>x.<dfn>__ne__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">小于</TD>
+<td STYLE="line-height: 23px;"><code>x &lt;
+y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__lt__">
+<code>x.<dfn>__lt__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">小于或等于</TD>
+<td STYLE="line-height: 23px;"><code>x &lt;=
+y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__le__">
+<code>x.<dfn>__le__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">大于</TD>
+<td STYLE="line-height: 23px;"><code>x &gt;
+y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__gt__">
+<code>x.<dfn>__gt__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">大于或等于</TD>
+<td STYLE="line-height: 23px;"><code>x &gt;=
+y</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__ge__">
+<code>x.<dfn>__ge__</DFN>(<var>y</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">布尔上上下文环境中的真值</TD>
+<td STYLE="line-height: 23px;"><code>if x:</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__bool__">
+<code>x.<dfn>__bool__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<blockquote STYLE="line-height: 23px; margin: auto 0px auto 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<p STYLE="margin: 0px 0px 10px; padding: 0px;">
+?如果定义了&nbsp;<wbr><code>__lt__()</CODE>&nbsp;<wbr>方法但没有定义&nbsp;<wbr><code>__gt__()</CODE>&nbsp;<wbr>方法，Python
+将通过经交换的算子调用&nbsp;<wbr><code>__lt__()</CODE>&nbsp;<wbr>方法。然而，Python
+并不会组合方法。例如，如果定义了&nbsp;<wbr><code>__lt__()</CODE>&nbsp;<wbr>方法和&nbsp;<wbr><code>__eq()__</CODE>&nbsp;<wbr>方法，并试图测试是否&nbsp;<wbr><code>x
+&lt;= y</CODE>，Python
+不会按顺序调用&nbsp;<wbr><code>__lt__()</CODE>&nbsp;<wbr>和&nbsp;<wbr><code>__eq()__</CODE>&nbsp;<wbr>。它将只调用<code>__le__()</CODE>&nbsp;<wbr>方法。</P>
+</BLOCKQUOTE>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+可序列化的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+Python 支持&nbsp;<wbr><a HREF="http://blog.163.com/jackylau_v/blog/serializing.html">任意对象的序列化和反序列化</A>。（多数
+Python 参考资料称该过程为 “pickling” 和
+“unpickling”）。该技术对与将状态保存为文件并在稍后恢复它非常有意义。所有的&nbsp;<wbr><a HREF="http://blog.163.com/jackylau_v/blog/native-datatypes.html">内置数据类型</A>&nbsp;<wbr>均已支持
+pickling 。如果创建了自定义类，且希望它能够 pickle，阅读&nbsp;<wbr><a HREF="http://docs.python.org/3.1/library/pickle.html">pickle
+协议</A>&nbsp;<wbr>了解下列特殊方法何时以及如何被调用。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">自定义对象的复制</TD>
+<td STYLE="line-height: 23px;"><code>copy.copy(x)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/copy.html"><code>x.<dfn>__copy__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">自定义对象的深度复制</TD>
+<td STYLE="line-height: 23px;"><code>copy.deepcopy(x)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/copy.html"><code>x.<dfn>__deepcopy__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">在 pickling 之前获取对象的状态</TD>
+<td STYLE="line-height: 23px;">
+<code>pickle.dump(x,&nbsp;<wbr><var>file</VAR>)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/pickle.html#pickle-state"><code>
+x.<dfn>__getstate__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">序列化某对象</TD>
+<td STYLE="line-height: 23px;">
+<code>pickle.dump(x,&nbsp;<wbr><var>file</VAR>)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances">
+<code>x.<dfn>__reduce__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">序列化某对象（新 pickling 协议）</TD>
+<td STYLE="line-height: 23px;">
+<code>pickle.dump(x,&nbsp;<wbr><var>file</VAR>,<var>protocol_version</VAR>)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances">
+<code>x.<dfn>__reduce_ex__</DFN>(<var>protocol_version</VAR>)</CODE></A></TD>
+</TR>
+<tr>
+<th>*</TH>
+<td STYLE="line-height: 23px;">控制 unpickling 过程中对象的创建方式</TD>
+<td STYLE="line-height: 23px;"><code>x =
+pickle.load(<var>file</VAR>)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/pickle.html#pickling-class-instances">
+<code>x.<dfn>__getnewargs__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>*</TH>
+<td STYLE="line-height: 23px;">在 unpickling 之后还原对象的状态</TD>
+<td STYLE="line-height: 23px;"><code>x =
+pickle.load(<var>file</VAR>)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/pickle.html#pickle-state"><code>
+x.<dfn>__setstate__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+* 要重建序列化对象，Python
+需要创建一个和被序列化的对象看起来一样的新对象，然后设置新对象的所有属性。<code>__getnewargs__()</CODE>&nbsp;<wbr>方法控制新对象的创建过程，而&nbsp;<wbr><code>__setstate__()</CODE>&nbsp;<wbr>方法控制属性值的还原方式。</P>
+<h2 STYLE="line-height: 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+可在&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块中使用的类</H2>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<code>with</CODE>&nbsp;<wbr>语块定义了&nbsp;<wbr><a HREF="http://www.python.org/doc/3.1/library/stdtypes.html#typecontextmanager">运行时刻上下文环境</A>；在执行&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语句时将“进入”该上下文环境，而执行该语块中的最后一条语句将“退出”该上下文环境。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">
+在进入&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块时进行一些特别操作</TD>
+<td STYLE="line-height: 23px;"><code>with x:</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__enter__">
+<code>x.<dfn>__enter__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">
+在退出&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块时进行一些特别操作</TD>
+<td STYLE="line-height: 23px;"><code>with x:</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__exit__">
+<code>x.<dfn>__exit__</DFN>()</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+以下是&nbsp;<wbr><a HREF="http://blog.163.com/jackylau_v/blog/files.html#with"><code>with&nbsp;<wbr><var>file</VAR></CODE>&nbsp;<wbr>习惯用法</A>&nbsp;<wbr>的运作方式：</P>
+<pre STYLE="line-height: 23px; white-space: pre-wrap; color: rgb(87, 105, 125); ;">
+
+<code># excerpt from io.py: def _checkClosed(self, msg=None):     '''Internal: raise an ValueError if file is closed     '''     if self.closed:         raise ValueError('I/O operation on closed file.'                          if msg is None else msg)  def __enter__(self):     '''Context management protocol.  Returns self.''' <a>    self._checkClosed()                                &#9312;</A> <a>    return self                                        &#9313;</A>  def __exit__(self, *args):     '''Context management protocol.  Calls close()''' <a>    self.close()                                       &#9314;</A></CODE>
+</PRE>
+<ol STYLE="line-height: 23px; margin: 5px 0px 5px 40px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<li>
+该文件对象同时定义了一个&nbsp;<wbr><code>__enter__()</CODE>&nbsp;<wbr>和一个&nbsp;<wbr><code>__exit__()</CODE>&nbsp;<wbr>方法。该&nbsp;<wbr><code>__enter__()</CODE>&nbsp;<wbr>方法检查文件是否处于打开状态；如果没有，&nbsp;<wbr><code>_checkClosed()</CODE>&nbsp;<wbr>方法引发一个例外。</LI>
+<li>
+<code>__enter__()</CODE>&nbsp;<wbr>方法将始终返回&nbsp;<wbr><var>self</VAR>&nbsp;<wbr>——
+这是&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块将用于调用属性和方法的对象</LI>
+<li>
+在&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块结束后，文件对象将自动关闭。怎么做到的？在&nbsp;<wbr><code>__exit__()</CODE>&nbsp;<wbr>方法中调用了&nbsp;<wbr><code>self.close()</CODE>&nbsp;<wbr>.</LI>
+</OL>
+<blockquote STYLE="line-height: 23px; margin: auto 0px auto 35px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<p STYLE="margin: 0px 0px 10px; padding: 0px;">
+?该&nbsp;<wbr><code>__exit__()</CODE>&nbsp;<wbr>方法将总是被调用，哪怕是在&nbsp;<wbr><code>with</CODE>&nbsp;<wbr>语块中引发了例外。实际上，如果引发了例外，该例外信息将会被传递给&nbsp;<wbr><code>__exit__()</CODE>&nbsp;<wbr>方法。查阅&nbsp;<wbr><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#with-statement-context-managers">With
+状态上下文环境管理器</A>&nbsp;<wbr>了解更多细节。</P>
+</BLOCKQUOTE>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<strong>真正神奇的东西</STRONG></P>
+<p STYLE="line-height: 23px; margin: 0px 0px 10px; padding: 0px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+如果知道自己在干什么，你几乎可以完全控制类是如何比较的、属性如何定义，以及类的子类是何种类型。</P>
+<table STYLE="line-height: 23px; color: rgb(87, 105, 125); font-family: Arial, Helvetica, simsun, u5b8bu4f53; ;">
+<tbody>
+<tr>
+<th>序号</TH>
+<th>目的</TH>
+<th>所编写代码</TH>
+<th>Python 实际调用</TH>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">类构造器</TD>
+<td STYLE="line-height: 23px;"><code>x = MyClass()</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__new__">
+<code>x.<dfn>__new__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th>*</TH>
+<td STYLE="line-height: 23px;">类析构器</TD>
+<td STYLE="line-height: 23px;"><code>del x</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__del__">
+<code>x.<dfn>__del__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">只定义特定集合的某些属性</TD>
+<td STYLE="line-height: 23px;"><br STYLE="line-height: 23px;" /></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__slots__">
+<code>x.<dfn>__slots__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">自定义散列值</TD>
+<td STYLE="line-height: 23px;"><code>hash(x)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__hash__">
+<code>x.<dfn>__hash__</DFN>()</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">获取某个属性的值</TD>
+<td STYLE="line-height: 23px;"><code>x.color</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__get__">
+<code>type(x).<dfn>__dict__</DFN>['color'].__get__(x,
+type(x))</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">设置某个属性的值</TD>
+<td STYLE="line-height: 23px;"><code>x.color =
+'PapayaWhip'</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__set__">
+<code>type(x).<dfn>__dict__</DFN>['color'].__set__(x,
+'PapayaWhip')</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">删除某个属性</TD>
+<td STYLE="line-height: 23px;"><code>del x.color</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/doc/3.1/reference/datamodel.html#object.__delete__">
+<code>type(x).<dfn>__dict__</DFN>['color'].__del__(x)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">控制某个对象是否是该对象的实例 your class</TD>
+<td STYLE="line-height: 23px;"><code>isinstance(x,
+MyClass)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/dev/peps/pep-3119/#overloading-isinstance-and-issubclass">
+<code>MyClass.<dfn>__instancecheck__</DFN>(x)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">控制某个类是否是该类的子类</TD>
+<td STYLE="line-height: 23px;"><code>issubclass(C,
+MyClass)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://www.python.org/dev/peps/pep-3119/#overloading-isinstance-and-issubclass">
+<code>MyClass.<dfn>__subclasscheck__</DFN>(C)</CODE></A></TD>
+</TR>
+<tr>
+<th><br STYLE="line-height: 23px;" /></TH>
+<td STYLE="line-height: 23px;">控制某个类是否是该抽象基类的子类</TD>
+<td STYLE="line-height: 23px;"><code>issubclass(C,
+MyABC)</CODE></TD>
+<td STYLE="line-height: 23px;"><a HREF="http://docs.python.org/3.1/library/abc.html#abc.ABCMeta.__subclasshook__">
+<code>MyABC.<dfn>__subclasshook__</DFN>(C)</CODE></A></TD>
+</TR>
+</TBODY>
+</TABLE>
+原来来自：<a HREF="http://blog.163.com/jackylau_v/blog/static/175754040201182113817834/" TARGET="_blank">http://blog.163.com/jackylau_v/blog/static/175754040201182113817834<wbr>/</A>							
+		</div>

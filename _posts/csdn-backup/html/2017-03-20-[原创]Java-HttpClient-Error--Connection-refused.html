@@ -1,0 +1,123 @@
+---
+layout: post
+title: "[原创]Java-HttpClient-Error--Connection-refused"
+date: 2017-03-20 14:49:16
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - java
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><h1 style="font-weight:bold;font-size:1.6em;border-bottom:1px solid rgb(221,221,221);">Java HttpClient Raise Error: Connection <a href="http://www.xxx.com">http://www.xxx.com</a> refused</h1><p>在 Android 上运行 jar,目的是从服务器一直获取消息, 使用 HTTP 服务.</p><p>但是每次启动进程, 当请求次数达到<strong>1010</strong> 时候, 总是会报错: <strong>Connection <a href="http://www.xxx.com">http://www.xxx.com</a> refused</strong><br />很规律, 每次当请求1000次左右的时候就全挂了.</p><p>杀掉进程重新启动, 一切正常,1000次后又是连接被重置.</p><p>检查 HTTP 服务, 用 PC 访问API 正常, 在 Android 上用浏览器访问, API 也正常. 可以确认服务是正常的, 并不是服务器拒绝连接.</p><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">
+adb shell  logcat -c <span style="color:rgb(153,153,153);">#  清除手机的 log</span>
+
+adb shell logcat
+</code>
+</pre><p>通过手机查看 log, 发现了错误提示:<strong>… -EMFILE (Too many open files) …</strong></p><h3 style="font-weight:bold;font-size:1.3em;">原因是: socket连接太多, Android本地拒绝连接服务.</h3><p>有 httpGet/HttpPostclose()/releaseCollection()</p><p>有httpClient.getConnectionManager()closeExpiredConnections()/shutdown()</p><p>HttpGetclose()/releaseCollection 只是虚函数, 没有实例函数, 并不能用.</p><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">正确的方式是</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">httpClient.getConnectionManager().closeExpiredConnections()
+httpClient.getConnectionManager().shutdown()
+</code>
+</pre><h4 style="font-weight:bold;font-size:1.2em;"><em>代码如下</em></h4><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">
+     <span style="color:rgb(102,153,204);"><span style="color:rgb(204,153,204);">public</span> <span style="color:rgb(204,153,204);">static</span> String <span style="color:rgb(153,153,153);">get</span><span style="color:rgb(249,145,87);">(String URL, Map params)</span> </span>{
+
+        String result = <span style="color:rgb(153,204,153);">""</span>;
+
+        String URI = setParams(params);
+
+        <span style="color:rgb(153,153,153);">// System.out.println(URL + "?" + URI);</span>
+
+        httpGet = <span style="color:rgb(204,153,204);">new</span> HttpGet(URL + <span style="color:rgb(153,204,153);">"?"</span> + URI);
+
+        HttpClient httpClient = <span style="color:rgb(204,153,204);">new</span> DefaultHttpClient();
+
+        httpClient.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, CONNECTION_TIMEOUT);
+
+        httpClient.getParams().setIntParameter(CoreConnectionPNames.SO_TIMEOUT, SOCKET_TIMEOUT);
+
+        httpClient.getParams().setLongParameter(ConnManagerPNames.TIMEOUT, MCC_TIMEOUT);
+
+        httpClient.getParams().setLongParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS, <span style="color:rgb(249,145,87);">256</span>);
+
+
+
+        HttpResponse response = <span style="color:rgb(204,153,204);">null</span>;
+
+        <span style="color:rgb(204,153,204);">try</span> {
+
+            response = httpClient.execute(httpGet);
+
+        } <span style="color:rgb(204,153,204);">catch</span> (Exception e) {
+
+            Logger.getLogger(Configure.loggerName).severe(Configure.logTag
+
+                    + String.format(<span style="color:rgb(153,204,153);">"[COUNT: %s] Download failed, url: %s, uri:%s error: %s"</span>, COUNT, URL, URI, e.getMessage()));
+
+            httpClient.getConnectionManager().closeExpiredConnections();
+
+            httpClient.getConnectionManager().shutdown();
+
+            <span style="color:rgb(153,153,153);">//httpGet.close();</span>
+
+            <span style="color:rgb(153,153,153);">//httpGet.releaseConnection();</span>
+
+            <span style="color:rgb(153,153,153);">//e.printStackTrace();</span>
+
+            <span style="color:rgb(204,153,204);">return</span> result;
+
+        }
+
+
+
+        <span style="color:rgb(204,153,204);">try</span> {
+
+            HttpEntity httpEntity = response.getEntity();
+
+            InputStream inputStream = httpEntity.getContent();
+
+            BufferedReader reader = <span style="color:rgb(204,153,204);">new</span> BufferedReader(<span style="color:rgb(204,153,204);">new</span> InputStreamReader(inputStream));
+
+            String line = <span style="color:rgb(153,204,153);">""</span>;
+
+            <span style="color:rgb(204,153,204);">while</span> (<span style="color:rgb(204,153,204);">null</span> != (line = reader.readLine())) {
+
+                result += (line + <span style="color:rgb(153,204,153);">"\n"</span>);
+
+            }
+
+            <span style="color:rgb(153,153,153);">// System.out.println(result);</span>
+
+            inputStream.close();
+
+            reader.close();
+
+            httpClient.getConnectionManager().closeExpiredConnections();
+
+            httpClient.getConnectionManager().shutdown();
+
+            <span style="color:rgb(153,153,153);">// httpGet.close();</span>
+
+            <span style="color:rgb(153,153,153);">// httpGet.releaseConnection();</span>
+
+        } <span style="color:rgb(204,153,204);">catch</span> (Exception e) {
+
+            Logger.getLogger(Configure.loggerName).severe(Configure.logTag
+
+                    + String.format(<span style="color:rgb(153,204,153);">"Download read response failed, url: %s error: %s"</span>, URL, e.getMessage()));
+
+            <span style="color:rgb(153,153,153);">// e.printStackTrace();</span>
+
+        }
+
+
+
+        <span style="color:rgb(204,153,204);">return</span> result;
+
+    }
+</code>
+</pre><p>参考</p><p><a href="http://stackoverflow.com/questions/5656458/java-net-socketexception-too-many-open-files">java.net.SocketException: Too many open files</a></p><div title="MDH:IyBKYXZhIEh0dHBDbGllbnQgUmFpc2UgRXJyb3I6IENvbm5lY3Rpb24gaHR0cDovL3d3dy54eHgu Y29tIHJlZnVzZWQKPGRpdj7lnKggQW5kcm9pZCDkuIrov5DooYwgamFyLCDnm67nmoTmmK/ku47m nI3liqHlmajkuIDnm7Tojrflj5bmtojmga8sIOS9v+eUqCBIVFRQIOacjeWKoS48L2Rpdj4KPGRp dj7kvYbmmK/mr4/mrKHlkK/liqjov5vnqIssIOW9k+ivt+axguasoeaVsOi+vuWIsCAqKjEwMTAq KiDml7blgJksIOaAu+aYr+S8muaKpemUmTogKipDb25uZWN0aW9uIGh0dHA6Ly93d3cueHh4LmNv bSByZWZ1c2VkKio8YnI+CjxkaXY+5b6I6KeE5b6LLCDmr4/mrKHlvZPor7fmsYIxMDAw5qyh5bem 5Y+z55qE5pe25YCZ5bCx5YWo5oyC5LqGLjwvZGl2Pgo8ZGl2PuadgOaOiei/m+eoi+mHjeaWsOWQ r+WKqCwg5LiA5YiH5q2j5bi4LCAxMDAw5qyh5ZCO5Y+I5piv6L+e5o6l6KKr6YeN572uLjwvZGl2 Pgo8ZGl2PuajgOafpSBIVFRQIOacjeWKoSwg55SoIFBDIOiuv+mXriBBUEkg5q2j5bi4LCDlnKgg QW5kcm9pZCDkuIrnlKjmtY/op4jlmajorr/pl64sIEFQSSDkuZ/mraPluLguIOWPr+S7peehruiu pOacjeWKoeaYr+ato+W4uOeahCwg5bm25LiN5piv5pyN5Yqh5Zmo5ouS57ud6L+e5o6lLjwvZGl2 Pgo8ZGl2PmBgYGJhc2g8L2Rpdj4KPGRpdj5hZGIgc2hlbGwgJm5ic3A7bG9nY2F0IC1jICMgJm5i c3A75riF6Zmk5omL5py655qEIGxvZzwvZGl2Pgo8ZGl2PmFkYiBzaGVsbCBsb2djYXQ8L2Rpdj4K PGRpdj5gYGA8L2Rpdj4KPGRpdj7pgJrov4fmiYvmnLrmn6XnnIsgbG9nLCDlj5HnjrDkuobplJno r6/mj5DnpLo6ICoqLi4uIC1FTUZJTEUgKFRvbyBtYW55IG9wZW4gZmlsZXMpIC4uLioqPC9kaXY+ CjwvZGl2Pgo8ZGl2PiMjIyDljp/lm6DmmK86IHNvY2tldOi/nuaOpeWkquWkmiwgQW5kcm9pZOac rOWcsOaLkue7nei/nuaOpeacjeWKoS4mbmJzcDs8L2Rpdj4KPGRpdj48YnI+PC9kaXY+CjxkaXY+ 5pyJIGh0dHBHZXQvSHR0cFBvc3QgY2xvc2UoKS9yZWxlYXNlQ29sbGVjdGlvbigpJm5ic3A7PC9k aXY+CjxkaXY+5pyJIGh0dHBDbGllbnQuZ2V0Q29ubmVjdGlvbk1hbmFnZXIoKSBjbG9zZUV4cGly ZWRDb25uZWN0aW9ucygpL3NodXRkb3duKCk8L2Rpdj4KPGRpdj48YnI+PC9kaXY+CjxkaXY+SHR0 cEdldCBjbG9zZSgpL3JlbGVhc2VDb2xsZWN0aW9uIOWPquaYr+iZmuWHveaVsCwg5rKh5pyJ5a6e 5L6L5Ye95pWwLCDlubbkuI3og73nlKguPC9kaXY+CjxkaXY+IyMg5q2j56Gu55qE5pa55byP5piv Jm5ic3A7PC9kaXY+CjxkaXY+YGBgamF2YTwvZGl2PjxkaXY+aHR0cENsaWVudC5nZXRDb25uZWN0 aW9uTWFuYWdlcigpLmNsb3NlRXhwaXJlZENvbm5lY3Rpb25zKCk8L2Rpdj5odHRwQ2xpZW50Lmdl dENvbm5lY3Rpb25NYW5hZ2VyKCkuc2h1dGRvd24oKQo8ZGl2PmBgYDwvZGl2Pgo8ZGl2Pjxicj48 L2Rpdj4KPGRpdj4jIyMjICrku6PnoIHlpoLkuIsqPC9kaXY+CjxkaXY+YGBgamF2YTwvZGl2Pgo8 ZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNl OnByZSI+CTwvc3Bhbj5wdWJsaWMgc3RhdGljIFN0cmluZyBnZXQoU3RyaW5nIFVSTCwgTWFwIHBh cmFtcykgezwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9Indo aXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+U3RyaW5nIHJlc3VsdCA9ICIiOzwvZGl2Pgo8ZGl2Pjxz cGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3Nw YW4+U3RyaW5nIFVSSSA9IHNldFBhcmFtcyhwYXJhbXMpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+Ly8gU3lz dGVtLm91dC5wcmludGxuKFVSTCArICI/IiArIFVSSSk7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9 IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj5odHRwR2V0 ID0gbmV3IEh0dHBHZXQoVVJMICsgIj8iICsgVVJJKTs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0i QXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPkh0dHBDbGll bnQgaHR0cENsaWVudCA9IG5ldyBEZWZhdWx0SHR0cENsaWVudCgpOzwvZGl2Pgo8ZGl2PjxzcGFu IGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+ aHR0cENsaWVudC5nZXRQYXJhbXMoKS5zZXRJbnRQYXJhbWV0ZXIoQ29yZUNvbm5lY3Rpb25QTmFt ZXMuQ09OTkVDVElPTl9USU1FT1VULCBDT05ORUNUSU9OX1RJTUVPVVQpOzwvZGl2Pgo8ZGl2Pjxz cGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3Nw YW4+aHR0cENsaWVudC5nZXRQYXJhbXMoKS5zZXRJbnRQYXJhbWV0ZXIoQ29yZUNvbm5lY3Rpb25Q TmFtZXMuU09fVElNRU9VVCwgU09DS0VUX1RJTUVPVVQpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+aHR0cENs aWVudC5nZXRQYXJhbXMoKS5zZXRMb25nUGFyYW1ldGVyKENvbm5NYW5hZ2VyUE5hbWVzLlRJTUVP VVQsIE1DQ19USU1FT1VUKTs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4i IHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPmh0dHBDbGllbnQuZ2V0UGFyYW1zKCku c2V0TG9uZ1BhcmFtZXRlcihDb25uTWFuYWdlclBOYW1lcy5NQVhfVE9UQUxfQ09OTkVDVElPTlMs IDI1Nik7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hp dGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj48L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFi LXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPkh0dHBSZXNwb25zZSByZXNw b25zZSA9IG51bGw7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHls ZT0id2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj50cnkgezwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPnJlc3Bv bnNlID0gaHR0cENsaWVudC5leGVjdXRlKGh0dHBHZXQpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+fSBjYXRj aCAoRXhjZXB0aW9uIGUpIHs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4i IHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJCTwvc3Bhbj5Mb2dnZXIuZ2V0TG9nZ2VyKENvbmZp Z3VyZS5sb2dnZXJOYW1lKS5zZXZlcmUoQ29uZmlndXJlLmxvZ1RhZzwvZGl2Pgo8ZGl2PjxzcGFu IGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJCQk8L3Nw YW4+KyBTdHJpbmcuZm9ybWF0KCJbQ09VTlQ6ICVzXSBEb3dubG9hZCBmYWlsZWQsIHVybDogJXMs IHVyaTolcyBlcnJvcjogJXMiLCBDT1VOVCwgVVJMLCBVUkksIGUuZ2V0TWVzc2FnZSgpKSk7PC9k aXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6 cHJlIj4JCQk8L3NwYW4+aHR0cENsaWVudC5nZXRDb25uZWN0aW9uTWFuYWdlcigpLmNsb3NlRXhw aXJlZENvbm5lY3Rpb25zKCk7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFu IiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCQk8L3NwYW4+aHR0cENsaWVudC5nZXRDb25uZWN0 aW9uTWFuYWdlcigpLnNodXRkb3duKCk7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRh Yi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCQk8L3NwYW4+Ly9odHRwR2V0LmNsb3Nl KCk7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUt c3BhY2U6cHJlIj4JCQk8L3NwYW4+Ly9odHRwR2V0LnJlbGVhc2VDb25uZWN0aW9uKCk7PC9kaXY+ CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6cHJl Ij4JCQk8L3NwYW4+Ly9lLnByaW50U3RhY2tUcmFjZSgpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPnJldHVy biByZXN1bHQ7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0i d2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj59PC9kaXY+CjxkaXY+PGJyPjwvZGl2Pgo8ZGl2Pjxz cGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3Nw YW4+dHJ5IHs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3 aGl0ZS1zcGFjZTpwcmUiPgkJCTwvc3Bhbj5IdHRwRW50aXR5IGh0dHBFbnRpdHkgPSByZXNwb25z ZS5nZXRFbnRpdHkoKTs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0 eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJCTwvc3Bhbj5JbnB1dFN0cmVhbSBpbnB1dFN0cmVhbSA9 IGh0dHBFbnRpdHkuZ2V0Q29udGVudCgpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10 YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPkJ1ZmZlcmVkUmVhZGVy IHJlYWRlciA9IG5ldyBCdWZmZXJlZFJlYWRlcihuZXcgSW5wdXRTdHJlYW1SZWFkZXIoaW5wdXRT dHJlYW0pKTs8L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3 aGl0ZS1zcGFjZTpwcmUiPgkJCTwvc3Bhbj5TdHJpbmcgbGluZSA9ICIiOzwvZGl2Pgo8ZGl2Pjxz cGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9z cGFuPndoaWxlIChudWxsICE9IChsaW5lID0gcmVhZGVyLnJlYWRMaW5lKCkpKSB7PC9kaXY+Cjxk aXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4J CQkJPC9zcGFuPnJlc3VsdCArPSAobGluZSArICJcbiIpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNz PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPn08L2Rp dj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpw cmUiPgkJCTwvc3Bhbj4vLyBTeXN0ZW0ub3V0LnByaW50bG4ocmVzdWx0KTs8L2Rpdj4KPGRpdj48 c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJCTwv c3Bhbj5pbnB1dFN0cmVhbS5jbG9zZSgpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10 YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPnJlYWRlci5jbG9zZSgp OzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNw YWNlOnByZSI+CQkJPC9zcGFuPmh0dHBDbGllbnQuZ2V0Q29ubmVjdGlvbk1hbmFnZXIoKS5jbG9z ZUV4cGlyZWRDb25uZWN0aW9ucygpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWIt c3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQkJPC9zcGFuPmh0dHBDbGllbnQuZ2V0Q29u bmVjdGlvbk1hbmFnZXIoKS5zaHV0ZG93bigpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBs ZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4JCQk8L3NwYW4+Ly8gaHR0cEdl dC5jbG9zZSgpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9 IndoaXRlLXNwYWNlOiBwcmU7Ij4JCQk8L3NwYW4+Ly8gaHR0cEdldC5yZWxlYXNlQ29ubmVjdGlv bigpOzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRl LXNwYWNlOnByZSI+CQk8L3NwYW4+fSBjYXRjaCAoRXhjZXB0aW9uIGUpIHs8L2Rpdj4KPGRpdj48 c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJCTwv c3Bhbj5Mb2dnZXIuZ2V0TG9nZ2VyKENvbmZpZ3VyZS5sb2dnZXJOYW1lKS5zZXZlcmUoQ29uZmln dXJlLmxvZ1RhZzwvZGl2Pgo8ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9 IndoaXRlLXNwYWNlOnByZSI+CQkJCQk8L3NwYW4+KyBTdHJpbmcuZm9ybWF0KCJEb3dubG9hZCBy ZWFkIHJlc3BvbnNlIGZhaWxlZCwgdXJsOiAlcyBlcnJvcjogJXMiLCBVUkwsIGUuZ2V0TWVzc2Fn ZSgpKSk7PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hp dGUtc3BhY2U6IHByZTsiPgkJCTwvc3Bhbj4vLyBlLnByaW50U3RhY2tUcmFjZSgpOzwvZGl2Pgo8 ZGl2PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+ CQk8L3NwYW4+fTwvZGl2Pgo8ZGl2Pjxicj48L2Rpdj4KPGRpdj48c3BhbiBjbGFzcz0iQXBwbGUt dGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPnJldHVybiByZXN1bHQ7 PC9kaXY+CjxkaXY+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3Bh Y2U6cHJlIj4JPC9zcGFuPn08L2Rpdj4KPC9kaXY+CjxkaXY+YGBgPC9kaXY+CjxkaXY+PGJyPjwv ZGl2Pgo8ZGl2PuWPguiAgzwvZGl2Pgo8ZGl2PltqYXZhLm5ldC5Tb2NrZXRFeGNlcHRpb246IFRv byBtYW55IG9wZW4gZmlsZXNdKGh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTY1 NjQ1OC9qYXZhLW5ldC1zb2NrZXRleGNlcHRpb24tdG9vLW1hbnktb3Blbi1maWxlcyk8L2Rpdj4K" style="width:0;font-size:0em;">​</div></div></div>

@@ -1,0 +1,132 @@
+---
+layout: post
+title: "[原创]Mysql-ERROR-14-"
+date: 2017-03-20 14:45:11
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<font COLOR="#FF0000">ERROR 145 (HY000): Table './group4/group323'
+is marked as crashed and should be repaired</FONT>
+<div><br />
+<div><font COLOR="#FF0000">...<br /></FONT>
+<div>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+line = cur.execute(sql)</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File
+"/usr/lib/python2.7/dist-packages/MySQLdb/cursors.py", line 161, in
+execute</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr> r
+= self._query(query)</FONT></DIV>
+<div><font COLOR="#FF0000">KeyboardInterrupt</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">...</FONT></DIV>
+<div>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+line = cur.execute(sql)</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File
+"/usr/lib/python2.7/dist-packages/MySQLdb/cursors.py", line 174, in
+execute</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+self.errorhandler(self, exc, value)</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File
+"/usr/lib/python2.7/dist-packages/MySQLdb/connections.py", line 36,
+in defaulterrorhandler</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+raise errorclass, errorvalue</FONT></DIV>
+<div><font COLOR="#FF0000">_mysql_exceptions.InternalError: (145,
+"Table './group4/group339' is marked as crashed and should be
+repaired")</FONT></DIV>
+</DIV>
+<div>今天在python-mysqldb中查询遇到的问题，数据是从windows上MS SQL
+转为Mysql(MyISAM)的，数据直接挂载到目录下就能用。</DIV>
+</DIV>
+</DIV>
+<div>但是查询的时候没有反映，也不报错，没有任何提示，想了想延时的问题，但是延时只能在链接的时间添加参数
+onnect_timeout，execute不支持查询查询超市，除非在数据库中直接设置超时配置。</DIV>
+<div><br /></DIV>
+<div>然后把这句话拷贝的数据库中试了试，</DIV>
+<div>mysql&gt; use group4;select um from group323 where Num =
+32217473;</DIV>
+<div><font COLOR="#FF0000">Reading table information for completion
+of table and column names</FONT></DIV>
+<div><font COLOR="#FF0000">You can turn off this feature to get a
+quicker startup with -A</FONT></DIV>
+<div><font COLOR="#FF0000"><br /></FONT></DIV>
+<div><font COLOR="#FF0000">^CCtrl-C -- exit!</FONT></DIV>
+<div><font COLOR="#FF0000">Aborted</FONT></DIV>
+<div><br /></DIV>
+<div>加上-A(不预读数据库)</DIV>
+<div>mysql -uroot -p -A</DIV>
+<div>
+<div>mysql&gt; use group4;select um from group323 where Num =
+32217473;</DIV>
+<div>Database changed</DIV>
+<div><br /></DIV>
+<div>^CCtrl-C -- sending "KILL QUERY 786" to server ...</DIV>
+<div>Ctrl-C -- query aborted.</DIV>
+<div><font COLOR="#FF0000">ERROR 1317 (70100): Query execution was
+interrupted</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>mysql&gt; select QQNum as qq from group323 where QunNum =
+32217473;</DIV>
+<div><br /></DIV>
+<div>^CCtrl-C -- sending "KILL QUERY 786" to server ...</DIV>
+<div>Ctrl-C -- query aborted.</DIV>
+<div><font COLOR="#FF0000">ERROR 145 (HY000): Table
+'./group4/group323' is marked as crashed and should be
+repaired</FONT></DIV>
+<div>mysql&gt; select um from group323 where Num = 32217473;</DIV>
+<div><br /></DIV>
+<div>^CCtrl-C -- sending "KILL QUERY 786" to server ...</DIV>
+<div>Ctrl-C -- query aborted.</DIV>
+<div><font COLOR="#FF0000">ERROR 1317 (70100): Query execution was
+interrupted</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>查了查145的原因，是因为索引文件损坏了，需要修复。</DIV>
+<div>
+<div>root@ubuntu:~#:<font COLOR="#FF0000"><b>myisamchk -c
+-r</B></FONT> /var/lib/mysql/group4/group323.MYI</DIV>
+<div>- recovering (with keycache) MyISAM-table
+'/var/lib/mysql/group4/group323.MYI'</DIV>
+<div>Data records: 1395199</DIV>
+</DIV>
+<div>
+<div>mysql&gt; select um from group323 where Num = 32217473;</DIV>
+<div>+-----------+</DIV>
+<div>|&nbsp;<wbr><span STYLE="line-height: 21px;">um</SPAN>&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>+-----------+</DIV>
+<div>| 543057109 |</DIV>
+<div>| 772193283 |</DIV>
+<div>| 331913702 |</DIV>
+<div>| 903525121 |</DIV>
+<div>| 632300180 |</DIV>
+<div>| 772687572 |</DIV>
+<div>| &nbsp;<wbr>83959572 |</DIV>
+<div>| 875214751 |</DIV>
+<div>| 125599972 |</DIV>
+<div>| 514400286 |</DIV>
+<div>| 471481228 |</DIV>
+<div>| 312371026 |</DIV>
+<div>| 574164513 |</DIV>
+<div>| 582299288 |</DIV>
+<div>+-----------+</DIV>
+<div>14 rows in set (0.00 sec)</DIV>
+</DIV>
+<div><br /></DIV>
+<div>搞定了，虽然没有加-A参数，也提示Reading table information for completion of
+table and column names，You can turn off this feature to get a
+quicker startup with -A。但是很快就提示了Database changed。</DIV>							
+		</div>

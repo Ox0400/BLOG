@@ -1,0 +1,32 @@
+---
+layout: post
+title: "[原创]mysql查询显示行号"
+date: 2017-03-20 14:46:25
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<pre>
+<code>
+<span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=@</SPAN><span>rowNum</SPAN><span>+</SPAN><span>1</SPAN><span> </SPAN><span>no</SPAN><span>,</SPAN><span> </SPAN><span>video</SPAN><span>.*</SPAN><span> </SPAN><span>FROM</SPAN><span>&nbsp;<wbr>V</SPAN><span>ideo</SPAN><span> </SPAN><span>JOIN</SPAN><span> </SPAN><span>(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=</SPAN><span> </SPAN><span>0</SPAN><span>)</SPAN><span>as</SPAN><span> </SPAN><span>r</SPAN><span>;</SPAN></CODE>
+</PRE>
+<pre>
+<code><span>no序列从1开始。</SPAN></CODE>
+</PRE>
+<pre>
+<code><span><br /></SPAN></CODE>
+</PRE>
+<pre>
+<code><span><code><span>#SELECT</SPAN><span>&nbsp;<wbr></SPAN><span>video</SPAN><span>.*,&nbsp;<wbr></SPAN></CODE><span>@</SPAN><span>rowNum</SPAN><span>:=@</SPAN><span>rowNum</SPAN><span>+</SPAN><span>1</SPAN><span>&nbsp;<wbr></SPAN><span>no</SPAN><span>&nbsp;<wbr></SPAN><span>FROM</SPAN><span>&nbsp;<wbr>V</SPAN><span>ideo</SPAN><span>&nbsp;<wbr></SPAN><span>JOIN</SPAN><span>&nbsp;<wbr></SPAN><span>(</SPAN><span>SELECT</SPAN><span>&nbsp;<wbr></SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=</SPAN><span>&nbsp;<wbr></SPAN><span>0</SPAN><span>)</SPAN><span>as</SPAN><span>&nbsp;<wbr></SPAN><span>r</SPAN><span>;</SPAN></SPAN></CODE>
+</PRE>
+<pre>
+两种查询，显示结果略有不同哦~~&nbsp;<wbr>
+</PRE>							
+		</div>

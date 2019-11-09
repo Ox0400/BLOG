@@ -1,0 +1,122 @@
+---
+layout: post
+title: "[原创]python-使用系统模块-"
+date: 2017-03-20 14:38:00
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			看了development Into python ,用的的import os
+<div>这里方便大家理解，直接用 from os import path</DIV>
+<div>当然这个的坏事是不要在自己的代码中再次定义path这个字段.但是有个好处是不用每次都sys.path ...</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; from os
+import path</DIV>
+<div>&gt;&gt;&gt;
+path.expanduser('~')</DIV>
+<div><i>'C:\\Users\\zhangzhipeng'</I></DIV>
+</DIV>
+<div>【释】expanduser是获取系统当前用户的主目录，MAC无效。</DIV>
+<div>
+<div>&gt;&gt;&gt;
+path.join('c:\Python27\music','summary.mp3')</DIV>
+<div>'c:\\Python27\\music\\summary.mp3'</DIV>
+<span STYLE="line-height: 21px;">【释】拼接路径和文件名。反正我的不需要转义，而且正反斜线都可以获取到正确的路径，大家最好是按照输出结果的路径进行拼接，以防出错。</SPAN>
+<div>&gt;&gt;&gt;
+path.join(path.expanduser('~'),'summary.mp3')</DIV>
+<div>'C:\\Users\\zhangzhipeng\\summary.mp3'</DIV>
+<div>【释】将用户主目录和文件名进行拼接</DIV>
+<div>&gt;&gt;&gt;
+m_summary=path.join('c:\Python27\music','summary.mp3')</DIV>
+<div>&gt;&gt;&gt;
+path.split(m_summary)</DIV>
+<div>('c:\\Python27\\music', 'summary.mp3')</DIV>
+<div>【释】获取一首歌的完整路径名(含文件名)，将路径名分割为路径和文件名字。</DIV>
+<div>&gt;&gt;&gt;
+path.splitext('summary.mp3')</DIV>
+<div>('summary', '.mp3')</DIV>
+<div>【释】将完整文件名分为文件名和后缀</DIV>
+<div>
+<div STYLE="line-height: 21px;">
+&gt;&gt;&gt; m_name,
+m_extension = path.splitext('summary.mp3')</DIV>
+<div STYLE="line-height: 21px;">
+&gt;&gt;&gt; m_name,
+m_extension</DIV>
+<div STYLE="line-height: 21px;">('summary', '.mp3')</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">【释】同上</DIV>
+<div>&gt;&gt;&gt;
+path.splitext(m_summary)</DIV>
+<div>('c:\\Python27\\music\\summary', '.mp3')</DIV>
+</DIV>
+<div>
+【释】假如给定一个完整的路径含文件名和后缀，这样也可以直接获取到文件类型。不过不建议这么做，因为生成的元组中元素1毫无意义。</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; from os
+import listdir as os_dir</DIV>
+<div>&gt;&gt;&gt;
+os_dir('..')</DIV>
+<div><i>['config.sys', 'debug', 'Documents and Settings',
+'eclipse', 'freefallprotection.log', 'hiberfil.sys', 'Hotfix',
+'Intel','Program Files', 'ProgramData', 'Python27','System Volume
+Information', 'Temp', 'Users', 'Windows']</I></DIV>
+<div><i><br /></I></DIV>
+<div>
+<div>&gt;&gt;&gt;
+os_dir('.')</DIV>
+<div><i>['DLLs', 'Doc', 'include', 'Lib', 'libs', 'LICENSE.txt',
+'music', 'mytest', 'NEWS.txt', 'PIL-wininst.log', 'python.exe',
+'pythonw.exe', 'README.txt', 'RemovePIL.exe', 'RemoveTrac.exe',
+'RemoveVideoCapture.exe'</I>...<i>]</I></DIV>
+</DIV>
+<div><i><br /></I></DIV>
+<div>
+<div>&gt;&gt;&gt;
+dirName='C:\Python27'</DIV>
+<div>&gt;&gt;&gt;
+os_dir(dirName)</DIV>
+<div><i>['DLLs', 'Doc', 'include', 'Lib', 'libs', 'LICENSE.txt',
+'music', 'mytest', 'NEWS.txt', 'PIL-wininst.log', 'python.exe',
+'pythonw.exe', 'README.txt', 'RemovePIL.exe',</I> ...<i>]</I></DIV>
+</DIV>
+<div>【释】可以看到，引入模块可以起一个别名，os_dir 等等(一个有意义的名字即可)。 ".." or
+'..\'当前目录或文件的父目录的同级别目录和文件；"." or &nbsp;<wbr>".\"
+当前目录下同级别目录和文件</DIV>
+<div>
+<div>&gt;&gt;&gt;
+os.getcwd()</DIV>
+<div><i>'C:\\Python27'</I></DIV>
+</DIV>
+<div>
+<div>【释】getcwd 获取当前工作目录</DIV>
+<div>&gt;&gt;&gt; [f for f in
+os_dir(<span STYLE="line-height: 21px;">os.getcwd()</SPAN>) if
+path.isfile(path.join(<span STYLE="line-height: 21px;">os.getcwd()</SPAN>,f))]</DIV>
+<div><i>['LICENSE.txt', 'NEWS.txt', 'PIL-wininst.log',
+'python.exe', 'pythonw.exe', 'README.txt', 'RemovePIL.exe',
+'RemoveTrac.exe', 'RemoveVideoCapture.exe', 'Trac-wininst.log',
+'VideoCapture-wininst.log', 'w9xpopen.exe']</I></DIV>
+<div>&gt;&gt;&gt; [f for f in
+os_dir(<span STYLE="line-height: 21px;">os.getcwd()</SPAN>) if
+path.isdir(path.join(<span STYLE="line-height: 21px;">os.getcwd()</SPAN>,f))]</DIV>
+<div><i>['DLLs', 'Doc', 'include', 'Lib', 'libs', 'music',
+'mytest', 'Scripts', 'tcl', 'Tools']</I></DIV>
+</DIV>
+<div>isfile 判断文件是否为文件</DIV>
+<div><span STYLE="line-height: 21px;">isdir</SPAN>判断文件是否为目录</DIV>
+<div><span STYLE="line-height: 21px;">islink</SPAN>判断文件是否为链接</DIV>
+<div><span STYLE="line-height: 21px;">isabs</SPAN>判断文件是否为绝对路径</DIV>
+<div><span STYLE="line-height: 21px;">ismount</SPAN>判断文件是否为驱动器</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><i>原创所有，转载请附明链接。</I><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bc9u.html">http://blog.sina.com.cn/s/blog_83dc494d0101bc9u.html</A></DIV>							
+		</div>

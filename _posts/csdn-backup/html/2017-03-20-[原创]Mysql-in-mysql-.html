@@ -1,0 +1,309 @@
+---
+layout: post
+title: "[原创]Mysql-in-mysql-"
+date: 2017-03-20 14:45:47
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			mysql in 效率是极低的，尤其数据量特别大，并且三表两层in嵌套的时候。
+<div><br /></DIV>
+<div>下面一条SQL：<br />
+<div>
+<pre>
+<code><b><i><span>select</SPAN><span> </SPAN><span>*</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>service</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>serviceId</SPAN><span> </SPAN><span>in</SPAN><span> </SPAN><span>(</SPAN><span>select</SPAN><span> </SPAN><span>serviceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>rel_business_service</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>appBusinessId</SPAN><span> </SPAN><span>in</SPAN><span>(</SPAN><span>select</SPAN><span> </SPAN><span>appBusinessId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>rel_app_business</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>appId</SPAN><span>=</SPAN><span> </SPAN><span>111</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>businessId</SPAN><span>=</SPAN><span> </SPAN><span>2</SPAN><span> </SPAN><span>));&nbsp;<wbr></SPAN></I></B></CODE>
+</PRE>
+<pre>
+<code><span>
+</SPAN></CODE>
+</PRE>
+<pre>
+<code><code><font COLOR="#FF0000"><span>Affected</SPAN><span> </SPAN><span>rows</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>已找到记录</SPAN><span>:</SPAN><span> </SPAN><span>32</SPAN><span>  </SPAN><span>警告</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>持续时间</SPAN><span> </SPAN><span>1</SPAN><span> </SPAN><span>query</SPAN><span>:</SPAN><span> </SPAN><span>3.354</SPAN><span> </SPAN><span>sec</SPAN><span>.&nbsp;<wbr></SPAN></FONT></CODE></CODE>
+</PRE>
+<pre>
+<code><span>执行时间</SPAN><span>3.354</SPAN><span>&nbsp;<wbr></SPAN>s！！</CODE>
+</PRE>
+<pre>
+<code><span><br /></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>优化后：</SPAN></CODE>
+</PRE>
+<pre>
+<code><span><code><i><b><span>select</SPAN><span> </SPAN><span>*</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>service</SPAN><span> </SPAN><span>s</SPAN><span>,</SPAN><span> </SPAN><span>rel_app_business</SPAN><span> </SPAN><span>rab</SPAN><span>,</SPAN><span> </SPAN><span>rel_business_service</SPAN><span> </SPAN><span>rbs</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>rab</SPAN><span>.</SPAN><span>appId</SPAN><span>=</SPAN><span> </SPAN><span>51</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>rab</SPAN><span>.</SPAN><span>businessId</SPAN><span>=</SPAN><span>2</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>rab</SPAN><span>.</SPAN><span>appBusinessId</SPAN><span>=</SPAN><span>rbs</SPAN><span>.</SPAN><span>appBusinessId</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>s</SPAN><span>.</SPAN><span>serviceId</SPAN><span>=</SPAN><span>rbs</SPAN><span>.</SPAN><span>serviceId</SPAN><span>;</SPAN></B></I></CODE></SPAN></CODE>
+</PRE>
+<pre>
+<code><code><font COLOR="#FF0000"><span>Affected</SPAN><span> </SPAN><span>rows</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>已找到记录</SPAN><span>:</SPAN><span> </SPAN><span>32</SPAN><span>  </SPAN><span>警告</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>持续时间</SPAN><span> </SPAN><span>1</SPAN><span> </SPAN><span>query</SPAN><span>:</SPAN><span> </SPAN><span>0.032</SPAN><span> </SPAN><span>sec</SPAN><span>.&nbsp;<wbr></SPAN></FONT></CODE></CODE>
+</PRE>
+<pre>
+<code><span>效率不是很高，再优化如下：</SPAN></CODE>&nbsp;<wbr>
+</PRE>
+<pre>
+<code><span><code><font STYLE="font-size: 16px;"><i><b><span>select</SPAN><span> </SPAN><span>*</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>service</SPAN><span> </SPAN><span>inner</SPAN><span> </SPAN><span>join</SPAN><span> </SPAN><span>(</SPAN><span>select</SPAN><span> </SPAN><span>serviceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>rel_business_service</SPAN><span> </SPAN><span>as</SPAN><span> </SPAN><span>rbs</SPAN><span> </SPAN><span>inner</SPAN><span> </SPAN><span>join</SPAN><span> </SPAN><span>rel_app_business</SPAN><span> </SPAN><span>as</SPAN><span> </SPAN><span>rab</SPAN><span>  </SPAN><span>on</SPAN><span> </SPAN><span>rbs</SPAN><span>.</SPAN><span>appBusinessId</SPAN><span>=</SPAN><span>rab</SPAN><span>.</SPAN><span>appBusinessId</SPAN><span> </SPAN><span>where</SPAN><span>  </SPAN><span>rab</SPAN><span>.</SPAN><span>appId</SPAN><span>=</SPAN><span> </SPAN><span>51</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>rab</SPAN><span>.</SPAN><span>businessId</SPAN><span>=</SPAN><span> </SPAN><span>2</SPAN><span>)</SPAN><span> </SPAN><span>as</SPAN><span> </SPAN><span>nt</SPAN><span> </SPAN><span>on</SPAN><span> </SPAN><span>service</SPAN><span>.</SPAN><span>serviceId</SPAN><span>=</SPAN><span>nt</SPAN><span>.</SPAN><span>serviceId</SPAN><span>;&nbsp;<wbr></SPAN></B></I></FONT></CODE></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>
+</SPAN></CODE>
+</PRE>
+<pre>
+<code><code><font COLOR="#FF0000"><span>Affected</SPAN><span> </SPAN><span>rows</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>已找到记录</SPAN><span>:</SPAN><span> </SPAN><span>32</SPAN><span>  </SPAN><span>警告</SPAN><span>:</SPAN><span> </SPAN><span>0</SPAN><span>  </SPAN><span>持续时间</SPAN><span> </SPAN><span>1</SPAN><span> </SPAN><span>query</SPAN><span>:</SPAN><span> </SPAN><span>0.000</SPAN><span> </SPAN><span>sec</SPAN><span>.&nbsp;<wbr></SPAN></FONT></CODE></CODE>
+</PRE>
+<pre>
+<code><span>尽量使用inner join 代替子查询 in</SPAN></CODE>
+</PRE>
+<pre>
+<br />
+</PRE>
+<pre>
+<code><span>-----------------------------------------------------------------------------------------------------------------</SPAN></CODE>
+</PRE>
+<pre>
+<code><span>附参考文章：http://www.cnblogs.com/xh831213/archive/2012/05/09/2491272.html</SPAN></CODE>
+</PRE>
+<pre>
+<code><span><br STYLE="font-size: 13.3333339691162px; line-height: 21.6666679382324px; margin: 10px auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; background-color: rgb(255, 255, 255);" /></SPAN></CODE>
+</PRE></DIV>
+</DIV>
+<div>
+<div>
+<p>
+现在的CMS系统、博客系统、BBS等都喜欢使用标签tag作交叉链接，因此我也尝鲜用了下。但用了后发现我想查询某个tag的文章列表时速度很慢，达到5秒之久！百思不解(后来终于解决)，我的表结构是下面这样的，文章只有690篇。</P>
+<p>文章表article(id,title,content)<br />
+标签表tag(tid,tag_name)<br />
+标签文章中间表article_tag(id,tag_id,article_id)<br />
+其中有个标签的tid是135，我帮查询标签tid是135的文章列表<br />
+用以下语句时发现速度好慢,我文章才690篇<br />
+select id,title from article where id in(<br />
+select article_id from article_tag where tag_id=135<br />
+)<br />
+其中这条速度很快：select article_id from article_tag where tag_id=135<br />
+查询结果是五篇文章，id为428,429,430,431,432<br />
+我用写死的方式用下面sql来查文章也很快<br />
+select id,title from article where id in(<br />
+428,429,430,431,432<br />
+)<br />
+我在SqlServer中好像不会这样慢，不知MySQL怎样写好点，也想不出慢在哪里。</P>
+<p>后来我找到了解决方法：</P>
+<p><span STYLE="color: #ff0000;">select id,title from article where
+id in(<br />
+<span STYLE="color: #ff0000;">select article_id from (select
+article_id from article_tag where tag_id=135) as tbt</SPAN><br />
+<span STYLE="color: #ff0000;">)</SPAN></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p>&nbsp;<wbr></P>
+<p><strong><span STYLE="color: #000000;">其它解决方法：（举例）</SPAN></STRONG></P>
+<p><span STYLE="color: #000000;"><span>mysql&gt; <span STYLE="color: #0000ff;">select * from abc_number_prop where number_id in
+(select number_id from abc_number_phone where phone =
+'82306839');</SPAN></SPAN></SPAN></P>
+<p><span STYLE="color: #ff0000;">为了节省篇幅，省略了输出内容，下同。</SPAN></P>
+<p>67 rows in set (12.00 sec)</P>
+<p><br /></P>
+<p>
+只有67行数据返回，却花了12秒，而系统中可能同时会有很多这样的查询，系统肯定扛不住。用desc看一下(注：explain也可)</P>
+<p><br /></P>
+<p>mysql&gt; <span STYLE="color: #0000ff;">desc select * from
+abc_number_prop where number_id in (select number_id from
+abc_number_phone where phone = '82306839');</SPAN><br />
++----+--------------------+------------------+--------+-----------------+-------+---------+------------+---------+--------------------------+<br />
+
+| id | select_type | table | type | possible_keys | key | key_len |
+ref | rows | Extra |<br />
++----+--------------------+------------------+--------+-----------------+-------+---------+------------+---------+--------------------------+<br />
+
+| 1 | PRIMARY | abc_number_prop | ALL | NULL | NULL | NULL | NULL |
+<strong>2679838</STRONG> | Using where |<br />
+| 2 | DEPENDENT SUBQUERY | abc_number_phone | eq_ref |
+phone,number_id | phone | 70 | const,func | <strong>1</STRONG> |
+Using where; Using index |<br />
++----+--------------------+------------------+--------+-----------------+-------+---------+------------+---------+--------------------------+<br />
+
+2 rows in set (0.00 sec)</P>
+<p><br /></P>
+<p>从上面的信息可以看出，在执行此查询时会扫描两百多万行，难道是没有创建索引吗，看一下</P>
+<p><br /></P>
+<p>mysql&gt;<span STYLE="color: #0000ff;">show index from
+abc_number_phone;</SPAN><span><br />
++------------------+------------+-------------+--------------+-----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name |
+Collation | Cardinality | Sub_part | Packed | Null | Index_type |
+Comment | Index_comment |<br />
++------------------+------------+-------------+--------------+-----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+| abc_number_phone | 0 | PRIMARY | 1 | number_phone_id | A | 36879
+| NULL | NULL | | BTREE | | |<br />
+| abc_number_phone | 0 | phone | 1 | phone | A | 36879 | NULL |
+NULL | | BTREE | | |<br />
+| abc_number_phone | 0 | phone | 2 | number_id | A | 36879 | NULL |
+NULL | | BTREE | | |<br />
+<strong>| abc_number_phone | 1 | number_id | 1 | number_id | A |
+36879 | NULL | NULL | | BTREE | | |</STRONG></SPAN><br />
+| abc_number_phone | 1 | created_by | 1 | created_by | A | 36879 |
+NULL | NULL | | BTREE | | |<br />
+| abc_number_phone | 1 | modified_by | 1 | modified_by | A | 36879
+| NULL | NULL | YES | BTREE | | |<br />
++------------------+------------+-------------+--------------+-----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+6 rows in set (0.06 sec)<br />
+<br />
+mysql&gt;<span STYLE="color: #0000ff;">show index from
+abc_number_prop;</SPAN><span><br />
++-----------------+------------+-------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name |
+Collation | Cardinality | Sub_part | Packed | Null | Index_type |
+Comment | Index_comment |<br />
++-----------------+------------+-------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+| abc_number_prop | 0 | PRIMARY | 1 | number_prop_id | A | 311268 |
+NULL | NULL | | BTREE | | |<br />
+<strong>| abc_number_prop | 1 | number_id | 1 | number_id | A |
+311268 | NULL | NULL | | BTREE | | |</STRONG></SPAN><br />
+| abc_number_prop | 1 | created_by | 1 | created_by | A | 311268 |
+NULL | NULL | | BTREE | | |<br />
+| abc_number_prop | 1 | modified_by | 1 | modified_by | A | 311268
+| NULL | NULL | YES | BTREE | | |<br />
++-----------------+------------+-------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+<br />
+
+4 rows in set (0.15 sec)</P>
+<p><br /></P>
+<p>从上面的输出可以看出，这两张表在number_id字段上创建了索引的。</P>
+<p><br /></P>
+<p>看看子查询本身有没有问题。</P>
+<p>mysql&gt; <span STYLE="color: #0000ff;">desc select number_id
+from abc_number_phone where phone = '82306839';</SPAN><br />
++----+-------------+------------------+------+---------------+-------+---------+-------+------+--------------------------+<br />
+
+| id | select_type | table | type | possible_keys | key | key_len |
+ref | rows | Extra |<br />
++----+-------------+------------------+------+---------------+-------+---------+-------+------+--------------------------+<br />
+
+| 1 | SIMPLE | abc_number_phone | ref | phone | phone | 66 | const
+| <strong>6</STRONG> | Using where; Using index |<br />
++----+-------------+------------------+------+---------------+-------+---------+-------+------+--------------------------+<br />
+
+1 row in set (0.00 sec)</P>
+<p><br /></P>
+<p>没有问题，只需要扫描几行数据，索引起作用了。查询出来看看</P>
+<p>mysql&gt; <span STYLE="color: #0000ff;">select number_id from
+abc_number_phone where phone = '82306839';</SPAN><br />
++-----------+<br />
+| number_id |<br />
++-----------+<br />
+| 8585 |<br />
+| 10720 |<br />
+| 148644 |<br />
+| 151307 |<br />
+| 170691 |<br />
+| 221897 |<br />
++-----------+<br />
+6 rows in set (0.00 sec)</P>
+<p><br /></P>
+<p>直接把子查询得到的数据放到上面的查询中</P>
+<p>mysql&gt; <span STYLE="color: #0000ff;">select * from
+abc_number_prop where number_id in (8585, 10720, 148644, 151307,
+170691, 221897);</SPAN></P>
+<p>67 rows in set (0.03 sec)</P>
+<p><br /></P>
+<p>速度也快，看来MySQL在处理子查询的时候是不够好。我在MySQL 5.1.42 和 MySQL 5.5.19
+都进行了尝试，都有这个问题。</P>
+<p><br /></P>
+<p>搜索了一下网络，发现很多人都遇到过这个问题：</P>
+<p>参考资料1：使用连接（JOIN）来代替子查询(Sub-Queries) mysql优化系列记录<br />
+http://blog.csdn.net/hongsejiaozhu/article/details/1876181<br />
+参考资料2：网站开发日记(14)-MYSQL子查询和嵌套查询优化<br />
+http://dodomail.iteye.com/blog/250199</P>
+<p>根据网上这些资料的建议，改用join来试试。</P>
+<p><strong>修改前：select * from abc_number_prop where number_id in
+(select number_id from abc_number_phone where phone =
+'82306839');</STRONG></P>
+<p><strong>修改后：select a.* from abc_number_prop a inner join
+abc_number_phone b on a.number_id = b.number_id where phone =
+'82306839';</STRONG></P>
+<p><br /></P>
+<p>mysql&gt; <span STYLE="color: #0000ff;">select a.* from
+abc_number_prop a inner join abc_number_phone b on a.number_id =
+b.number_id where phone = '82306839';</SPAN></P>
+<p>67 rows in set (0.00 sec)</P>
+<p><br /></P>
+<p>效果不错，查询所用时间几乎为0。看一下MySQL是怎么执行这个查询的</P>
+<p><br /></P>
+<p>mysql&gt;<span STYLE="color: #0000ff;">desc select a.* from
+abc_number_prop a inner join abc_number_phone b on a.number_id =
+b.number_id where phone = '82306839';</SPAN><br />
++----+-------------+-------+------+-----------------+-----------+---------+-----------------+------+--------------------------+<br />
+
+| id | select_type | table | type | possible_keys | key | key_len |
+ref | rows | Extra |<br />
++----+-------------+-------+------+-----------------+-----------+---------+-----------------+------+--------------------------+<br />
+
+| 1 | SIMPLE | b | ref | phone,number_id | phone | 66 | const |
+<strong>6</STRONG> | Using where; Using index |<br />
+| 1 | SIMPLE | a | ref | number_id | number_id | 4 |
+eap.b.number_id | <strong>3</STRONG> | |<br />
++----+-------------+-------+------+-----------------+-----------+---------+-----------------+------+--------------------------+<br />
+
+2 rows in set (0.00 sec)</P>
+<p><br /></P>
+<p><strong>小结：当子查询速度慢时，可用JOIN来改写一下该查询来进行优化。</STRONG></P>
+<p><br /></P>
+<p>网上也有文章说，使用JOIN语句的查询不一定总比使用子查询的语句快。</P>
+<p>参考资料3：改变了对Mysql子查询的看法<br />
+<a HREF="http://hi.baidu.com/yzx110/blog/item/e694f536f92075360b55a92b.html">
+http://hi.baidu.com/yzx110/blog/item/e694f536f92075360b55a92b<wbr>.html</A><br />
+</P>
+<p>&nbsp;<wbr></P>
+<p>&nbsp;<wbr></P>
+<p><span STYLE="color: #0000ff;">mysql手册也提到过，具体的原文在mysql文档的这个章节：</SPAN></P>
+<p>I.3. Restrictions on Subqueries</P>
+<p>13.2.8. Subquery Syntax</P>
+<p>摘抄：</P>
+<p>1）关于使用IN的子查询：</P>
+<p>Subquery optimization for IN is not as effective as for the =
+operator or for IN(<em>value_list</EM>) constructs.</P>
+<p>A typical case for poor IN subquery performance is when the
+subquery returns a small number of rows but the outer query returns
+a large number of rows to be compared to the subquery result.</P>
+<p>The problem is that, for a statement that uses an IN subquery,
+the optimizer rewrites it as a correlated subquery. Consider the
+following statement that uses an uncorrelated subquery:</P>
+<pre>
+SELECT ... FROM t1 WHERE t1.a IN (SELECT b FROM t2);
+</PRE>
+<p>The optimizer rewrites the statement to a correlated
+subquery:</P>
+<pre>
+SELECT ... FROM t1 WHERE EXISTS (SELECT 1 FROM t2 WHERE t2.b = t1.a);
+</PRE>
+<p>If the inner and outer queries return <em>M</EM> and <em>N</EM>
+rows, respectively, the execution time becomes on the order of
+O(<em>M</EM>&times;<em>N</EM>), rather than O(<em>M</EM>+<em>N</EM>) as
+it would be for an uncorrelated subquery.</P>
+<p>An implication is that an IN subquery can be much slower than a
+query written using an IN(<em>value_list</EM>) construct that lists
+the same values that the subquery would return.</P>
+<p>2）关于把子查询转换成join的：</P>
+<p>The optimizer is more mature for joins than for subqueries, so
+in many cases a statement that uses a subquery can be executed more
+efficiently if you rewrite it as a join.</P>
+<p>An exception occurs for the case where an IN subquery can be
+rewritten as a SELECT DISTINCT join. Example:</P>
+<pre>
+SELECT col FROM t1 WHERE id_col IN (SELECT id_col2 FROM t2 WHERE <em>condition</EM>);
+</PRE>
+<p>That statement can be rewritten as follows:</P>
+<pre>
+SELECT DISTINCT col FROM t1, t2 WHERE t1.id_col = t2.id_col AND <em>condition</EM>;
+</PRE>
+<p>But in this case, the join requires an extra DISTINCT operation
+and is not more efficient than the subquery</P>
+</DIV>
+</DIV>							
+		</div>

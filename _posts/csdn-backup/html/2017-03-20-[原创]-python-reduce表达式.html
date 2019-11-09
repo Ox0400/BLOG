@@ -1,0 +1,29 @@
+---
+layout: post
+title: "[原创]-python-reduce表达式"
+date: 2017-03-20 14:40:22
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			reduce同<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bvb0.html" TARGET="_blank">filter</A>、<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bvbg.html" TARGET="_blank">lambda&nbsp;<wbr></A>&nbsp;<wbr>有异曲同工的作用，很巧妙。还有一个函数是map,后面再讲。
+<div>
+reduce函数一般来说不能青松的被列表推导式替代，通常用不到这个。它会将序列的前两个元素和指定的函数联合使用，并且将他们的返回值和第三个元素继续联合使用，知道序列处理完毕，得到最终结果。例如求和的算法</DIV>
+<div>
+<div>&gt;&gt;&gt;
+nums=[1,2,3,4,6,7,8,1,4,7,8,5,2,45,756,7,6,74]</DIV>
+<div>&gt;&gt;&gt; sum(nums)</DIV>
+<div>946</DIV>
+<div>&gt;&gt;&gt; reduce(lambda x,y:x+y,nums)</DIV>
+<div>946</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>可以看到，答案是一样的。</DIV>							
+		</div>

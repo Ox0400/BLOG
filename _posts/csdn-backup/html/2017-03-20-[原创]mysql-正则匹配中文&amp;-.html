@@ -1,0 +1,104 @@
+---
+layout: post
+title: "[原创]mysql-正则匹配中文&amp;-"
+date: 2017-03-20 14:43:22
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<span STYLE="line-height: 21px;">含中文：&nbsp;<wbr></SPAN><b>where name
+regexp &nbsp;<wbr>'[^ -~]'</B>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">不含中文： &nbsp;<wbr><b>where name not
+regexp '^[^ -~]'</B></SPAN></DIV>
+<div STYLE="line-height: 21px;">后来说需要查询日文 参考资料得知：</DIV>
+<div STYLE="line-height: 21px;">
+<div>utf-8 (unicode)</DIV>
+<div>/u4e00-/u9fa5 (中文)</DIV>
+<div>/x3130-/x318f (韩文)</DIV>
+<div>/xac00-/xd7a3 (朝鲜文)</DIV>
+<div>/u0800-/u4e00 (日文)</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">汉字正则: e[4-9][0-9a-f]{4}</DIV>
+<div STYLE="line-height: 21px;">含中文：<b>where hex(name) regexp
+‘e[4-9][0-9a-f]{4}’</B></DIV>
+<div STYLE="line-height: 21px;">我表示很纳闷，这个正则如何而来的。</DIV>
+<div STYLE="line-height: 21px;">sql中执行：</DIV>
+<div STYLE="line-height: 21px;"><b>select *,hex(name) from
+test;</B></DIV>
+<div STYLE="line-height: 21px;"><i>'1', '我是中国人',
+'E68891E698AFE4B8ADE59BBD<wbr>E4BABA'</I></DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">
+得知：<i><b>我-E68891，是-E698A，中-E4B8AD，国-E59BBD，人-E4BABA</B></I></DIV>
+<div STYLE="line-height: 21px;">也不知道啥么东西，用chrome “FE
+web前端助手"字符串编码转换后的知是utf8，<b>我-&gt;我</B></DIV>
+<div STYLE="line-height: 21px;">接着就想到在python中获取他的utf8编码：</DIV>
+<div STYLE="line-height: 21px;">
+<div><b>u'我'</B></DIV>
+<div><i>u'\u6211'</I></DIV>
+<div><b>'我'</B></DIV>
+<div><i>'\xe6\x88\x91'</I></DIV>
+</DIV>
+<div STYLE="line-height: 21px;">“我”在sql中对应的HEX
+16进制结果就是E68891，正好符合。</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">上文所提到的正则<b STYLE="line-height: 1.5;">‘e[4-9][0-9a-f]{4}’</B>也就有解了。</DIV>
+<div STYLE="line-height: 21px;">
+<div><b>u'\u4e00'.encode('utf8')</B></DIV>
+<div><i>'\xe4\xb8\x80'</I></DIV>
+<div><b>u'\u9fa5'.encode('utf8')</B></DIV>
+<div><i>&nbsp;<wbr>'\xe9\xbe\xa5'</I></DIV>
+</DIV>
+<div STYLE="line-height: 21px;">
+<b>诈一看，还真是这样，但是b880-bea5区间仅仅用0-f笼统该快太不规范了...不做处理了.</B></DIV>
+<i><b>中文utf8编码区间：</B><b>\u4e00-</B><b>\u9fa5
+--&gt;&nbsp;<wbr></B><b>e4b880-e9bea5
+--&gt;&nbsp;<wbr></B><b STYLE="line-height: 1.5;">e[4-9][0-9a-f]{4}</B></I>
+<div STYLE="line-height: 21px;">
+<i><b>日文utf8编码区间：\u0800-\u4e00&nbsp;<wbr>--&gt; e4b880
+e9bea5</B></I></DIV>
+<div STYLE="line-height: 21px;">
+<div STYLE="font-style: italic; font-weight: bold;">
+e[0-4][0-9a-b][0-8][0-8]0</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+e[0-4][0-9a-a][0-9a-f]{3}</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+e[0-4][0-9a-b][0-8][0-7][0-9a-f]</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+日文正则：e[0-4][0-9a-a][0-9a-f]{3}|e[0-4][0-9a-b][0-8][0-7][0-9a-f]|e[0-4][0-9a-b][0-8][0-8]0|e[0-4][0-9a-b][0-8][0-7][0-9a-f]</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+日文正则(简化)：e[0-4][0-9a-a][0-9a-f]{3}|e[0-4][0-9a-b][0-8][0-7][0-9a-f]</DIV>
+<div STYLE="font-style: italic; font-weight: bold;"><br /></DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+韩文utf8编码区间：\xac00-\xd7a3 --&gt;&nbsp;<wbr>c2ac00
+c397a3</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">正则：</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">
+<div>c[2-2][0-9]6[0-9a-f]{2}</DIV>
+<div>c[2-2][0-9]6[0-9][0-9a-f]</DIV>
+<div>c[2-2][0-9]6[0-9]a[0-3]</DIV>
+<div>c[2-2]a[0-9a-b][0-9a-f]{2}</DIV>
+<div>c[2-2][0-9a-a][0-9a-c]00</DIV>
+</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">...</DIV>
+<div>突然发现：韩文正则将会很多很复杂...</DIV>
+<div>那干脆用十进制吧...</DIV>
+<div STYLE="font-style: italic; font-weight: bold;">select
+conv('c2ac00',16,10),conv('c397a3',16,10);</DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><i>12758016, 12818339</I></DIV>
+<div STYLE="line-height: 21px;">
+貌似需要数值的还要用正则，太麻烦了，用到for循环还不如直接用十六进制between and</DIV>
+<div STYLE="line-height: 21px;">....</DIV>
+<div STYLE="line-height: 21px;">资料：《<a HREF="http://www.shipingzhong.cn/node/1304" TARGET="_blank">正则表达式 中文 日文
+等的验证</A>(php)》《<a HREF="http://wenku.baidu.com/view/4fbf62de3186bceb19e8bb86.html" TARGET="_blank">mysql 正则匹配中文</A>》</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div><br /></DIV>							
+		</div>

@@ -1,0 +1,41 @@
+---
+layout: post
+title: "[原创]-MySQLdb.cursors&amp;nb-"
+date: 2017-03-20 14:44:42
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			原来ubuntu 12.04 python-mysqldb只需要import
+MySQLdb就可以使用MySQLdb.cursors.DictCursor（字典游标）
+<div><br /></DIV>
+<div>不过最近不知道python的原因还是mysqldb的原因，应该是python-mysqldb版本问题吧，</DIV>
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 22,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">AttributeError: 'module' object has no
+attribute 'cursors'</FONT></DIV>
+<div><span STYLE="line-height: 28px; font-family: 'Hiragino sans GB W3', 'Hiragino sans GB', Arial, Helvetica, simsun, u5b8bu4f53; font-size: 16px; color: blue;">
+MySQLdb.cursors</SPAN>&nbsp;<wbr>分离出去了，需要单独import。</DIV>
+<div><br /></DIV>
+<div>针对旧代码解决方案，</DIV>
+<div>一、 行首 import MySQLdb.cursors.DictCursor</DIV>
+<div>二、</DIV>
+<div>1. &nbsp;<wbr>zhipeng@ubuntu:~$ python -c "import
+MySQLdb as mysqldb; print&nbsp;<wbr><span STYLE="line-height: 21px;">mysqldb</SPAN>.__file__"</DIV>
+<div>/usr/lib/python2.7/dist-packages/MySQLdb/__init__.py</DIV>
+<div>2. sudo su</DIV>
+<div>3. echo "import cursors" &gt;&gt;
+/usr/lib/python2.7/dist-packages/MySQLdb/__init__.py</DIV>
+<div>4. zhipeng@ubuntu:~$ python -c "import MySQLdb
+as&nbsp;<wbr><span STYLE="line-height: 21px;">mysqldb</SPAN>;
+print&nbsp;<wbr><span STYLE="line-height: 21px;">mysqldb</SPAN>.cursors"</DIV>							
+		</div>

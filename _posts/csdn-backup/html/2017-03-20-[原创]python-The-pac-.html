@@ -1,0 +1,35 @@
+---
+layout: post
+title: "[原创]python-The-pac-"
+date: 2017-03-20 14:39:33
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>今天安装更新中文输入法的时候报错，如下：</DIV>
+<div>sudo apt-get install fcitx</DIV>
+<div><i>E:Encountered a section with no package:header</I></DIV>
+<div><i>E:Problem with merge list
+/var/lib/apt/lists/tw.archive.ubuntu.com_ubuntu_dists_precise_main_i18n_Translation-en</I></DIV>
+<div><i>E:The package lists or status file could not be parsed oor
+opened.</I></DIV>
+<div><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">
+解释：该</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">软件包列表</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">或</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">状态文件</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">不能被解析</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">层</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; line-height: 22px; background-color: rgb(255, 255, 255);">打开、无法解析或打开软件包的列表或是状态文件解决方案、</SPAN></DIV>
+<div>然后试着更新一下</DIV>
+<div><span STYLE="line-height: 21px;">sudo apt-get
+updates，同上错误。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">解决反感：</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">sudo rm /var/lib/apt/lists/*
+-vf &nbsp;<wbr>//清理文件夹</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">sudo rm spt-get updates
+//更新文件夹</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">成功~</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">原创所有，转载请超链接注明本文地址</SPAN><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bq5w.html">http://blog.sina.com.cn/s/blog_83dc494d0101bq5w.html</A></DIV>							
+		</div>

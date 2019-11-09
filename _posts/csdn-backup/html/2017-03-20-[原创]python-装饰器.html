@@ -1,0 +1,88 @@
+---
+layout: post
+title: "[原创]python-装饰器"
+date: 2017-03-20 14:48:00
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<pre class="python">脑子不好使，不知道为毛，老是忘记装饰器咋用。
+记录一下、、
+
+ 1 def empty(fun):
+ 2     def __empty(*args, **kwargs):
+ 3         print "args", args
+ 4         print "kwargs", kwargs
+ 5         name = fun(*args, **kwargs)
+ 6         print "fun", fun
+ 7         if type(name) == str:
+ 8             return 'str:%s' % name
+ 9         elif type(name) == int:
+10             return 'int:%s' % name
+11         else:
+12             return "%s:%s" % (type(name), name)
+13     return __empty
+14
+15 @empty
+16 def get_name(name):
+17     print "you name is:%s" % name
+18
+19 print "Test 1:\n", get_name("Zhang")
+20 print "Test 2:\n", get_name(1)
+输出是：
+
+ 1 Test 1:
+ 2 args ('Zhang',)
+ 3 kwargs {}
+ 4 you name is:Zhang
+ 5 fun
+ 6 NoneType'&gt;:None
+ 7
+ 8 Test 2:
+ 9 args (1,)
+10 kwargs {}
+11 you name is:1
+12 fun
+13 NoneType'&gt;:None
+-
+我的大致理解如下，可能会帮到各位，如果有错误还请留言指出，或者发送邮箱：qq1126918258@gmail.com 谢谢！
+
+装饰器是把当前函数扔到装饰器里面，在装饰器里面闭包一个函数，参数和当前函数一样，闭包函数可以获取到当前函数的参数列表，进行一些操作后，调用当前函数，获取到当前函数返回值，可以再进行一些操作，闭包函数运行结束，返回处理后的值。
+
+装饰器
+--- 装饰器闭包函数(参数列表) 
+------ 当前函数(参数列表) 
+------ 当前函数返回值
+--- 装饰器闭包函数结束
+--- return 装饰器闭包函数
+装饰器结束
+
+1
+
+ 1 def empty(fun):
+ 2     def __empty(*args, **kwargs):
+ 3         print "args", args
+ 4         print "kwargs", kwargs
+ 5         name = fun(*args, **kwargs)
+ 6         print "fun", fun
+ 7         if type(name) == str:
+ 8             return 'str:%s' % name
+ 9         elif type(name) == int:
+10             return 'int:%s' % name
+11         else:
+12             return "%s:%s" % (type(name), name)
+13     return __empty
+14
+15 @empty
+16 def get_name(name):
+17     return name
+18
+19 print "Test 1:\n", get_name("Zhang")
+20 print "Test 2:\n", get_name(1)
+1</pre><br />

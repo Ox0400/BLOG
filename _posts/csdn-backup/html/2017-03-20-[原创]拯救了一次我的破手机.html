@@ -1,0 +1,67 @@
+---
+layout: post
+title: "[原创]拯救了一次我的破手机"
+date: 2017-03-20 14:43:08
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - 
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			昨天玩游戏，觉得太卡，于是弄了一个扩虚拟内存的软件。
+<div>但是呢，我没有内存卡，手机剩余容量也就200多MB吧。</DIV>
+<div>打开这个软件，默认200缓存，我点了确定，软件退出了。</DIV>
+<div>我以为失败了，又重新进去，写成100，又退出了。</DIV>
+<div>接着手机挂了，怎么挂的呢，我也不知道。</DIV>
+<div>反正重启了，而且再也进不去了，一直停留在这个页面</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t2.qpic.cn/mblogpic/04ede3b2d81e9c67f6ba/460" STYLE="max-width:690px;" WIDTH="460" HEIGHT="336" NAME="image_operate_14091393240065130"  ALT="【原创】拯救了一次我的破手机"  TITLE="【原创】拯救了一次我的破手机" /><br /></DIV>
+<div>大不幸啊，想着把卡装会旧手机诺基亚1050吧，猜想到剪卡了！</DIV>
+<div>果不其然，即使套在卡槽上也识别不出来。</DIV>
+<div>废了，擦！</DIV>
+<div>今天想到我原来高过安桌在Linux上的ADK，命令(adb)这个什么的。</DIV>
+<div>于是，想着怎么让手机进入开发模式，【电源】 +【音量+】【电源】 +【音量-】
+都不行，所幸乱按一通，擦，我也不知道怎么进入的...</DIV>
+<div>里面报了一个错误，faild mount /efs.</DIV>
+<div>搞了半天，哎，仇人，进入 在这个模式下选择恢复系统默认即可。</DIV>
+<div>
+我清除用户数据回复出厂设置，然后清楚缓存，重新开机即可。(建议手机里面装上百度一键Root，然后在windows上删除预装软件。。。。）</DIV>
+<div>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---reboot system now
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>重启手机（每次刷机完毕都要选择此项以重启手机）</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---apply SDcard：update.zip
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>安装存储卡中的update.zip升级包（你可以把刷机包命名为update.zip然后用这个选项直接升级）</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---wipe data / factory reset
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>清除用户数据并恢复出厂设置（刷机前必须执行的选项之一）</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---wipe cache partition
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>清除系统缓存（刷机前必执行之一，另外系统出了问题也可尝试此选项，一般能够解决）</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---install zip from SDcard
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>从SDcard上安装zip刷机包（可以执行任意名称的zip升级包，不限制升级包名称，刷机也从此去）</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---backup and
+restore&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>备份和还原系统</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---mounts and
+storage&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>挂载和存储选项</FONT></P>
+<p STYLE="margin: 0px; padding: 0px; list-style: none; color: rgb(51, 51, 51); font-family: 微软雅黑; line-height: 25px; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">---advanced&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>高级设置</FONT></P>
+</DIV>							
+		</div>

@@ -1,0 +1,44 @@
+---
+layout: post
+title: "[原创]Linux-Ubuntu-12.4&amp;n-"
+date: 2017-03-20 14:39:41
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			有的vim默认都一片黑白~，没有语法提示啊什么的。
+<div>这就需要自己设置一下啦。</DIV>
+<div>1.首先安装vim编辑器</DIV>
+<div><b>sudo apt-get install vim&nbsp;<wbr></B>或者 <b STYLE="line-height: 1.5;">yum -y install vim-enhanced</B></DIV>
+<div>如果没有安装yum 先安装yum：<b>sudo apt-get install yum</B></DIV>
+<div>2.接着，修改用户配置文件。</DIV>
+<div>一：修改全局配置，对所有用户生效</DIV>
+<div># <b>vi /etc/profile</B></DIV>
+<div>在头部添加：<b STYLE="line-height: 1.5;"><i>alias
+vi=vim</I></B></DIV>
+<div>二：修改单用户配置</DIV>
+<div># <b>vi /home/zhangzhipeng/.bashrc</B></DIV>
+<div><span STYLE="line-height: 21px;">在头部添加：<b><i>alias
+vi=vim</I></B></SPAN></DIV>
+<div><b>提示：</B>一、二 酌情考虑</DIV>
+<div>3.应用修改配置</DIV>
+<div># <b>source /etc/profile</B></DIV>
+<div># <b>source /home/zhangzhipeng/.bashrc</B></DIV>
+<div>示例：</DIV>
+<div><span STYLE="line-height: 21px;">#&nbsp;<wbr></SPAN><b>vi
+/etc/profile</B></DIV>
+<div>打开后按【：】进入命令模式，在命令台最后一行的:后输入<b><i>syntax on</I></B>
+，就可以打开高亮，反之<b><i>syntax off</I></B>关闭高亮，黑底白字。</DIV>
+<div><br /></DIV>
+<div>翻译摘自：<a HREF="http://www.tecmint.com/vi-editor-syntax-highlighting-with-vim-on-rhel-centos-fedora/">http://www.tecmint.com/vi-editor-syntax-highlighting-with-vim-on-rhel-centos-fedora/</A></DIV>
+<div>原文：<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101brf0.html">http://blog.sina.com.cn/s/blog_83dc494d0101brf0.html</A></DIV>
+<div>原创所有，转载请超链接注明本文地址及作者。<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101brf0.html" TARGET="_blank">【原创】Linux-Ubuntu 12.4 vim 编辑器
+高亮设置</A></DIV>							
+		</div>

@@ -1,0 +1,19 @@
+---
+layout: post
+title: "[原创]screen-用法"
+date: 2017-03-20 14:48:24
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div>之前发过一篇《<a href="http://blog.sina.com.cn/s/blog_83dc494d0101fvit.html">Linux 终端/Screen查看历史输出</a> 》，没写怎么用。最近发现公司很多人都是在xshell中打开10+个连接,甚至有20多个......</div><div><br /></div><div>screen</div><div>screen -S <strong>name  </strong>--- 创建一个终端管理器<br />screen -ls          --- 查看现有的终端管理器</div><div>screen -r name   --- 重新打开终端管理器（可以理解为最大化</div><div>screen -d name  ---最小化已经打开的终端管理器（用命令行最小化<br />screen -dr <strong>name </strong>---最小化打开的终端管理器并重新打开（可以理解为最大化</div><div>screen -dms <strong>namecommand</strong> ---临时创建一个终端管理器，并执行命令<br /><br /></div><div>进去screen后操作快捷键</div><div>ctrl + A + C 创建一个终端<br />ctrl + A + D 最小化终端管理器<br style="line-height:21px;" /><span style="line-height:21px;">ctrl + A + N 切换到下一个终端</span><br style="line-height:21px;" /><span style="line-height:21px;">ctrl + A +P 切换到上一个终端</span><br />ctrl + A + A 切换到上一次使用的终端（类似windows上的ALT+TAB<br />ctrl + D 关闭终端/ 退出终端管理器 </div><div><br /></div></div><p>还可以从外部创建 screen, 然后发送指令</p><pre class="vb">cd /usr/local/elasticsearch
+screen -dm es
+screen -ls
+screen -S es -X stuff './bin/elasticsearch\n'
+</pre><br />

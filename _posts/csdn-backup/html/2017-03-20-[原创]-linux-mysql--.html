@@ -1,0 +1,56 @@
+---
+layout: post
+title: "[原创]-linux-mysql--"
+date: 2017-03-20 14:41:25
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;">linux-mysql 给单个数据库修改字符集 编码</DIV>
+<hr />
+原创所有，转载请注明本文超链接地址以及作者，谢谢！！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c5fq.html">http://blog.sina.com.cn/s/blog_83dc494d0101c5fq.html</A>
+<hr />
+<div>今天用django
+和mysql做一个blog的时候，遇到了个问题，我记得把setting.py设置了时区和zh-cn这个东东，网站也确实中文的，但是只要一遇到中文添加信息就会出错，才意识到是mysql的问题。</DIV>
+<div>------------------</DIV>
+一般来说mysql的字符集编码都是在创建数据库的时候设置的，但是有的时候忘了设置，添加数据的时候真是头疼，所以搜了一下设置方法如下：
+<div>------------------------&nbsp;<wbr>&nbsp;<wbr>
+<pre STYLE="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: pre-wrap; word-wrap: break-word; font-size: 12px; font-family: 'Courier new' !important;">
+
+<span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">ALTER</SPAN> <span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">DATABASE</SPAN> `<span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(255, 0, 255); font-family: 'Courier new' !important;">db_firstblog</SPAN>` <span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">DEFAULT</SPAN> <span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">CHARACTER</SPAN> <span STYLE="margin: 0px; padding: 0px; line-height: 18px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">SET</SPAN><span STYLE="margin: 0px; padding: 0px; line-height: 18px; font-family: 'Courier new' !important;"> utf8 COLLATE utf8_general_ci; </SPAN>
+</PRE>
+------------------------</DIV>
+<div>说明：把db_Myblog 修改为你要修改的数据库名字即可。
+<div>
+<div>然后查询一下数据库的编码：</DIV>
+<div>------------------------</DIV>
+<div><font STYLE="font-size: 12px;">mysql&gt; show create database
+db_firstblog;</FONT></DIV>
+</DIV>
+<div><font STYLE="font-size: 12px;">-----------------------------</FONT></DIV>
+<div>如图。</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c5fq&url=http://album.sina.com.cn/pic/83dc494dgx6DwEVUxzT85" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s6.sinaimg.cn/mw690/83dc494dgx6DwEVUxzT85&amp;690" NAME="image_operate_67071382102186012"  ALT="【原创】&nbsp;<wbr>linux-mysql&nbsp;<wbr>给单个数据库修改字符集&nbsp;<wbr>编码"  TITLE="【原创】&nbsp;<wbr>linux-mysql&nbsp;<wbr>给单个数据库修改字符集&nbsp;<wbr>编码" /></A></DIV>
+<div><br /></DIV>
+<div>修改单个表字符集编码：很实用!有的表是unicode，用这个就可以修改过来，别的不管用。。。</DIV>
+<div><span STYLE="color: rgb(34, 34, 34); font-family: 'pT serif', Georgia, Times, 'Times new roman', serif; font-size: 22px; line-height: 33.119998931884766px; background-color: rgb(248, 248, 248);">
+alter table test_table convert to character set utf8;</SPAN></DIV>
+详见原文：</DIV>
+<div><span STYLE="color: rgb(44, 44, 44); font-family: simsun; font-weight: bold; line-height: 20px; text-align: center; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">《</FONT></SPAN><a HREF="http://1992mrwang.blog.51cto.com/3265935/1123023" TARGET="_blank">Django 模版当中使用中文 UnicodeDecodeError at / 问题</A><span STYLE="color: rgb(44, 44, 44); font-family: simsun; font-weight: bold; line-height: 20px; text-align: center; background-color: rgb(255, 255, 255);"><font STYLE="font-size: 14px;">》</FONT></SPAN></DIV>
+<div><span STYLE="color: rgb(44, 44, 44); font-family: simsun; font-weight: bold; line-height: 20px; text-align: center; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;">《</FONT></SPAN><a HREF="http://rustyrazorblade.com/2008/08/mysql-error-1267-hy000-illegal-mix-of-collations-utf8_unicode_ciimplicit-and-utf8_general_ciimplicit-for-operation/" TARGET="_blank">MySQL: ERROR 1267 (HY000): Illegal mix of
+collations (utf8_unicode_ci,IMPLICIT)</A><span STYLE="background-color: rgb(255, 255, 255); color: rgb(44, 44, 44); font-weight: bold; text-align: center;">》</SPAN></DIV>
+<div><font STYLE="font-size: 14px;"><span STYLE="color: rgb(44, 44, 44); font-family: simsun; font-weight: bold; line-height: 20px; text-align: center; background-color: rgb(255, 255, 255);">
+<font SIZE="#">《</FONT></SPAN><a HREF="http://www.2cto.com/database/201108/101151.html" TARGET="_blank">Mysql中文乱码问题完美解决方案</A><span STYLE="background-color: rgb(255, 255, 255); font-weight: bold; text-align: center;">》</SPAN></FONT></DIV>
+<div><br /></DIV>
+<hr />
+原创所有，转载请注明本文超链接地址以及作者，谢谢！！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c5fq.html">http://blog.sina.com.cn/s/blog_83dc494d0101c5fq.html</A>
+<hr />							
+		</div>

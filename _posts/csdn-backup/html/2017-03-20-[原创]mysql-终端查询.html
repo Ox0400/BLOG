@@ -1,0 +1,62 @@
+---
+layout: post
+title: "[原创]mysql-终端查询"
+date: 2017-03-20 14:44:45
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			有时候仅仅需要两条很简单的查询，或者在windows上cmd远程链接linux，总之各种麻烦。
+<div>不管在linux还是在windows上，都可以在终端直接执行mysql查询命令，而不用进入mysql进行查询</DIV>
+<div>参数解释</DIV>
+<div><b><font COLOR="#FF0000">mysql -h localhost -u root -p -e
+"show tables" DB_Name</FONT></B></DIV>
+<div>-h #host (默认为localhost,远程访问mysql需要指定localhost)</DIV>
+<div>-P #port (端口，默认为3306，可以不用加)</DIV>
+<div>-u #user name(用户名)</DIV>
+<div>-p #password(密码)</DIV>
+<div>-e #sql command(SQL语句)</DIV>
+<div>&nbsp;<wbr>注意：将DB_Name替换为你的数据库名字</DIV>
+<div>
+<div>C:\Users\zhipeng\Desktop&gt;<i><font COLOR="#FF0000">mysql -h
+***.***.com -P 3307 -u root -p -e &nbsp;<wbr>"select
+Host,User from user limit 2" mysql</FONT></I></DIV>
+<div>Enter password: ******</DIV>
+</DIV>
+<div>
+<div>+-----------+------+</DIV>
+<div>| Host &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>| User |</DIV>
+<div>+-----------+------+</DIV>
+<div>| localhost| root |</DIV>
+<div>| 127.0.0.1 | root |</DIV>
+<div>+-----------+------+</DIV>
+</DIV>
+<div><br /></DIV>
+<div>也可以直接将其保存到txt中</DIV>
+<div>C:\Users\zhipeng\Desktop&gt;<i><font COLOR="#FF0000">mysql -h
+***.***.com -P 3307 -u root -p -e &nbsp;<wbr>"select
+Host,User from user limit 2" mysql &gt; user.txt</FONT></I></DIV>
+<div>
+<div>Enter password: ******</DIV>
+</DIV>
+<div>
+<div>C:\Users\zhipeng\Desktop&gt;cat user.txt</DIV>
+<div>Host &nbsp;<wbr> &nbsp;<wbr>User</DIV>
+<div>% &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+root</DIV>
+<div>127.0.0.1 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> root</DIV>
+</DIV>
+<div><br /></DIV>
+<div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101gb72&url=http://album.sina.com.cn/pic/002pInNzzy6JTGBNPOHdb" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s12.sinaimg.cn/mw690/002pInNzzy6JTGBNPOHdb&amp;690" NAME="image_operate_71251403500354950"  ALT="【原创】mysql&nbsp;<wbr>终端查询"  TITLE="【原创】mysql&nbsp;<wbr>终端查询" /></A><br />
+<br /></DIV>
+<div><br /></DIV>							
+		</div>

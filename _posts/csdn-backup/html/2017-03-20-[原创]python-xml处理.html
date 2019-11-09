@@ -1,0 +1,508 @@
+---
+layout: post
+title: "[原创]python-xml处理"
+date: 2017-03-20 14:38:52
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<p><span STYLE="font-family: 宋体;">写个简单的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">处理，</SPAN><span>russiansample.xml&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">在</SPAN><span>C:\Python\mytest\</SPAN><span STYLE="font-family: 宋体;">目录下，内容如下：</SPAN></P>
+<p><span>&lt;?xml version="1.0" encoding="utf-8"
+?&gt;</SPAN></P>
+<p><span>&lt;tree&gt;</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题一</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题二</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p><span>&lt;/tree&gt;</SPAN></P>
+<p><span STYLE="font-family: 宋体;">附：</SPAN><span>Encoding&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">编码问题见之前的文章：</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>&gt;&gt;&gt; from
+xml.dom import minidom</SPAN></P>
+<p><span>&gt;&gt;&gt;j =
+0</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p><span>&gt;&gt;&gt; all
+=xmldoc.getElementsByTagName_r('title')</SPAN></P>
+<p><span>&gt;&gt;&gt; for i in
+all:</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>print
+str(j),i.firstChild.data.replace('\n\t','').strip('
+').replace('\t','')</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>j+=1</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="color: blue;">2&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="color: blue;">3&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="114" ALT="捕获.PNG" V:SHAPES="图片_x0020_0"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span STYLE="font-family: 宋体;">【释】</SPAN></P>
+<p><span>j&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">用来计数的，可以忽略。</SPAN></P>
+<p><span>Parse&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">意为分析</SPAN><span>xx.xml</SPAN><span STYLE="font-family: 宋体;">文件</SPAN></P>
+<p><span STYLE="font-family: 宋体;">根据</SPAN><span>TagName
+title</SPAN><span STYLE="font-family: 宋体;">获取</SPAN><span>Elements&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">，</SPAN><span>element</SPAN><span STYLE="font-family: 宋体;">列表</SPAN></P>
+<p><span STYLE="font-family: 宋体;">如果直接</SPAN><span>print
+all&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">结果如下：</SPAN></P>
+<p><span>&gt;&gt;&gt;
+all</SPAN></P>
+<p><span STYLE="color: blue;">[&lt;DOM Element: title
+at 0x21f8788&gt;, &lt;DOM Element: title at
+0x21f8828&gt;]</SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="32" ALT="捕获.PNG" V:SHAPES="图片_x0020_1"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span STYLE="font-family: 宋体;">是一个</SPAN><span>element</SPAN><span STYLE="font-family: 宋体;">列表。</SPAN></P>
+<p><span>for</SPAN><span STYLE="font-family: 宋体;">循环列表，获取子项</SPAN><span>(element)</SPAN><span STYLE="font-family: 宋体;">的第一个子节点的数据，然后替换换行、去除前后空格、替换制表符</SPAN><span>TAB</SPAN><span STYLE="font-family: 宋体;">。</SPAN></P>
+<p><span STYLE="font-family: 宋体;">如果直接不这样处理，输出结果如下：</SPAN></P>
+<p><span>&gt;&gt;&gt; for i in
+all:</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>print
+str(j),i.firstChild.data#.replace('\n\t','').strip('
+').replace('\t','')</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>j+=1</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="color: blue;">4</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="color: blue;">5</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="140" ALT="捕获.PNG" V:SHAPES="图片_x0020_2"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family: 宋体;">来看一下解析本地文件的另外方法</SPAN></P>
+<p><span>&gt;&gt;&gt; from
+xml.dom import minidom</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xm=open('./mytest/russiansample.xml')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmldoc=minidom.parse(xm)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xm.close()</SPAN></P>
+<p><span>&gt;&gt;&gt; all
+=xmldoc.getElementsByTagName_r('title')</SPAN></P>
+<p><span>&gt;&gt;&gt; for i in
+all:</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>print
+i.firstChild.data.replace('\n\t','').strip('
+').replace('\t','')</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="137" ALT="捕获.PNG" V:SHAPES="图片_x0020_3"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span STYLE="font-family: 宋体;">既然这样，那是不是也可以解析</SPAN><span>web</SPAN><span STYLE="font-family: 宋体;">上的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">文件呢？来试试</SPAN></P>
+<p><span>&gt;&gt;&gt; from
+xml.dom import minidom</SPAN></P>
+<p><span>&gt;&gt;&gt; import
+urllib</SPAN></P>
+<p><span>&gt;&gt;&gt;
+wm=urllib.urlopen('file:///C:/Python27/mytest/russiansample.xml')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlweb=minidom.parse(wm)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+wm.close()</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlall=xmlweb.getElementsByTagName_r('title')</SPAN></P>
+<p><span>&gt;&gt;&gt; for i in
+xmlall:</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>print
+i.firstChild.data.replace('\n\t','').strip('
+').replace('\t','')</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p>
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="156" ALT="捕获.PNG" V:SHAPES="图片_x0020_4"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span STYLE="font-family: 宋体;">不用在意根节点名字，因为我没联网，暂时用文件系统模拟</SPAN><span>web</SPAN><span STYLE="font-family: 宋体;">上</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">文档。</SPAN></P>
+<p><span><img WIDTH="554" HEIGHT="162" ALT="捕获.PNG" V:SHAPES="图片_x0020_5"  TITLE="【原创】python&nbsp;<wbr>xml处理" /></SPAN></P>
+<p><span STYLE="font-family: 宋体;">由此，大家明白了吧，</SPAN><span>minidom.parse()</SPAN><span STYLE="font-family: 宋体;">可以接受一个文件的地址也可以是一个文件对象。</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlweb.toxml()</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmldoc.toxml()</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>&gt;&gt;&gt;
+xm.read()</SPAN></P>
+<p><span STYLE="color: blue;">'\xef\xbb\xbf&lt;?xml
+version="1.0" encoding="utf-8"
+?&gt;\n&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\xe6\xa0\x87\xe9\xa2\x98\xe4\xb8\x80\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\xe6\xa0\x87\xe9\xa2\x98\xe4\xba\x8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span STYLE="font-family: 宋体;">可以看到，可以将解析后的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">对象</SPAN><span>toxml</SPAN><span STYLE="font-family: 宋体;">转为字符串格式。</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>StringIO.py</SPAN></P>
+<p><span>StringIO</SPAN><span STYLE="font-family: 宋体;">模块只包含一个类也叫</SPAN><span>StringIO</SPAN><span STYLE="font-family: 宋体;">，允许讲一个字符串转换为一个类文件对象，接受字符串作为参数。</SPAN></P>
+<p><span>&gt;&gt;&gt; from
+xml.dom import minidom</SPAN></P>
+<p><span>&gt;&gt;&gt; import
+urllib, StringIO</SPAN></P>
+<p><span>&gt;&gt;&gt;
+wm=urllib.urlopen('file:///C:/Python27/mytest/russiansample.xml')</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlweb=minidom.parse(wm)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+wm.close()</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlall=xmlweb.getElementsByTagName_r('title')</SPAN></P>
+<p><span>&gt;&gt;&gt; for i in
+xmlall:</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>print
+i.firstChild.data.replace('\n\t','').strip('
+').replace('\t','')</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p><span>&gt;&gt;&gt;
+contents=xmlweb.toxml()</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text=StringIO.StringIO(contents) #</SPAN><span STYLE="font-family: 宋体;">将字符串转换成类文件对象</SPAN><span>text</SPAN><span STYLE="font-family: 宋体;">相当于</SPAN><span>open(‘xx.xml’)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.read() #</SPAN><span STYLE="font-family: 宋体;">从当前位置读取至末尾</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.read()</SPAN></P>
+<p><span STYLE="color: blue;">u''</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.seek(0) #</SPAN><span STYLE="font-family: 宋体;">跳转至第</SPAN><span>0</SPAN><span STYLE="font-family: 宋体;">位</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.read(20) #</SPAN><span STYLE="font-family: 宋体;">从第</SPAN><span>0</SPAN><span STYLE="font-family: 宋体;">位读取</SPAN><span>20</SPAN><span STYLE="font-family: 宋体;">位</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.read(20) #</SPAN><span STYLE="font-family: 宋体;">从当前</SPAN><span>21</SPAN><span STYLE="font-family: 宋体;">位读取</SPAN><span>20</SPAN><span STYLE="font-family: 宋体;">位</SPAN></P>
+<p><span STYLE="color: blue;">u'?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.read() #</SPAN><span STYLE="font-family: 宋体;">从当前位置读取至末尾</SPAN></P>
+<p><span STYLE="color: blue;">u'\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.close() #</SPAN><span STYLE="font-family: 宋体;">关闭类文件对象</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text=StringIO.StringIO(contents.encode('utf-8'))
+#</SPAN><span STYLE="font-family: 宋体;">这里字符串编码转换，如果不转换，在</SPAN><span>minidom.parse
+xml</SPAN><span STYLE="font-family: 宋体;">时候会报</SPAN><span STYLE="color: red;">UnicodeEncodeError: 'ascii' codec can't encode
+characters in position 40-42: ordinal not in
+range(128)</SPAN><span>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">异常。</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlwebt=minidom.parse(text)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text.close()</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlwebt.toxml()</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&gt;&gt;&gt; print
+xmlwebt.toxml()</SPAN></P>
+<p><span STYLE="color: blue;">&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p><span STYLE="color: blue;">&lt;/i18n&gt;</SPAN></P>
+<p>
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-family: 宋体;">如下，不转换编码会出编码异常。</SPAN></P>
+<p><span>&gt;&gt;&gt;
+text=StringIO.StringIO(contents)</SPAN></P>
+<p><span>&gt;&gt;&gt;
+xmlwebt=minidom.parse(text)</SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="color: red;">Traceback (most recent call
+last):</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#30&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmlwebt=minidom.parse(text)</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 928, in
+parse</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(file)</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p><span STYLE="color: red;">UnicodeEncodeError: 'ascii' codec
+can't encode characters in position 40-42: ordinal not in
+range(128)</SPAN></P>
+<p><span STYLE="font-family: 宋体;">可以对比一下不转换和转换后的差别：</SPAN></P>
+<p><span>&gt;&gt;&gt;
+contents</SPAN></P>
+<p><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e00\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\u6807\u9898\u4e8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p><span>&gt;&gt;&gt;
+contents.encode('utf-8')</SPAN></P>
+<p><span STYLE="color: blue;">'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\xe6\xa0\x87\xe9\xa2\x98\xe4\xb8\x80\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\xe6\xa0\x87\xe9\xa2\x98\xe4\xba\x8c\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p>
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p><span>Development Into
+python&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">例</SPAN><span>10.6&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">给出这样的例子：</SPAN></P>
+<p><code><b><span STYLE="font-size: 12pt;">openAnything</SPAN></B></CODE><code><b><span STYLE="font-size: 12pt;">：</SPAN></B></CODE></P>
+<p><span>def
+openAnything(source):&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#
+try to open with urllib (if source is http, ftp, or file
+URL)</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>import
+urllib&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>try:&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+urllib.urlopen(source)&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>except
+(IOError,
+OSError):&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>pass&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#
+try to open with native open function (if source is
+pathname)</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>try:&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+open(source)&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>except
+(IOError,
+OSError):&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>pass&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span>&nbsp;<wbr></SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#
+treat source as string</SPAN></P>
+<p>
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>import
+StringIO&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; font-size: 12pt;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><a NAME="OLE_LINK2"></A><a NAME="OLE_LINK1"><span>return
+StringIO.StringIO(str(source))</SPAN></A></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">【释】很简单，接受一个参数，先判断是不是</SPAN><span>web
+xml</SPAN><span STYLE="font-family: 宋体;">，然后解析返回，异常通过；是不是</SPAN><span>local
+xml</SPAN><span STYLE="font-family: 宋体;">，解析返回，异常通过；当作字符串进行解析并且返回。</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">代码很简洁，但是有一个问题就是最后一个</SPAN><span>try</SPAN><span STYLE="font-family: 宋体;">块进行字符串类文件操作，如果是英文的一切</SPAN><span>ok</SPAN><span STYLE="font-family: 宋体;">，</SPAN><span>return
+StringIO.StringIO(source.encode(UTF-8))</SPAN><span STYLE="font-family: 宋体;">也可以，不用</SPAN><span>str</SPAN><span STYLE="font-family: 宋体;">或者什么都不用都可以，但是遇到中文，怎么搞都没辙</SPAN><span>…python</SPAN><span STYLE="font-family: 宋体;">编码是个硬伤啊！</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">单拿字符串转换类文件来看吧，之前有例子进行了</SPAN><span>encode(‘utf-8’)</SPAN><span STYLE="font-family: 宋体;">然后成功解析了。</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+a='''&lt;i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题一</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题二</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&lt;/i18n&gt;'''</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+text=StringIO.StringIO(str(a))</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+xmlwebt=minidom.parse(text)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">Traceback (most recent call last):</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#81&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmlwebt=minidom.parse(text)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 928, in
+parse</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(file)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">ExpatError: not well-formed (invalid token): line 3,
+column 2</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">这个</SPAN><span>anything</SPAN><span STYLE="font-family: 宋体;">不是万能的！难道因为我没有加头标注吗？再试试。</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+a='''&lt;?xml version="1.0"
+encoding="UTF-8"?&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&lt;i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题一</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题二</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&lt;/i18n&gt;'''</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+text=StringIO.StringIO(str(a))</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+xmlwebt=minidom.parse(text)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">Traceback (most recent call last):</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#85&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmlwebt=minidom.parse(text)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 928, in
+parse</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(file)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: red;">ExpatError: not well-formed (invalid token): line 4,
+column 2</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">正如你所看到的，还是失败了。</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">难道</SPAN><span>a=u’’’ … ‘’’?</SPAN><span STYLE="font-family: 宋体;">试试看吧：</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+a=u'''&lt;?xml version="1.0"
+encoding="UTF-8"?&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&lt;i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题一</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">标题二</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&lt;/i18n&gt;'''</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+text=StringIO.StringIO(a.encode('UTF-8')) #</SPAN><span STYLE="font-family: 宋体;">加</SPAN><span>u</SPAN><span STYLE="font-family: 宋体;">之后不能</SPAN><span>str</SPAN><span STYLE="font-family: 宋体;">，否则异常</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+xmlwebt=minidom.parse(text)</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;
+xmlwebt.toxml()</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">u'&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;\n\t&lt;title&gt;\n\t\t\xb1\xea\xcc\xe2\xd2\xbb\n\t&lt;/title&gt;\n\t&lt;title&gt;\n\t\t\xb1\xea\xcc\xe2\xb6\xfe\n\t&lt;/title&gt;\n&lt;/i18n&gt;'</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt; print
+xmlwebt.toxml()</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>±&ecirc;&Igrave;&acirc;&Ograve;&raquo;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>±&ecirc;&Igrave;&acirc;&para;&thorn;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&lt;/i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">噢！终于出来了，当然编码还是有问题，再想想办法。</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">终于找到解决办法了，如下：</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt; print
+xmlwebt.toxml().encode('ISO-8859-1')</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&lt;?xml version="1.0"
+?&gt;&lt;i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题一</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: blue;">标题二</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="color: blue;">&lt;/i18n&gt;</SPAN></P>
+<p STYLE="text-indent: 21.75pt;">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p STYLE="text-indent: 21.75pt;"><span STYLE="font-family: 宋体;">上帝，各种的编码好乱</SPAN><span>…</SPAN></P>
+<div STYLE="line-height: 21px; border-style: none none solid; border-bottom-color: windowtext; border-bottom-width: 1pt; padding: 0cm 0cm 1pt;">
+<p STYLE="text-indent: 21.75pt; border: none; padding: 0cm;">
+<span STYLE="font-family: 宋体;">虽然解决了输出的问题，但是这并不能完善用户输入的字符串都是加</SPAN><span>u</SPAN><span STYLE="font-family: 宋体;">的</SPAN><span>Unicode</SPAN><span STYLE="font-family: 宋体;">字符串。再一次批判</SPAN><span>python</SPAN><span STYLE="font-family: 宋体;">的编码处理真不好使</SPAN><span>…</SPAN></P>
+<p STYLE="text-indent: 21.75pt; border: none; padding: 0cm;">
+<span STYLE="font-family: 宋体;">未完待续</SPAN></P>
+<p STYLE="text-indent: 21.75pt; border: none; padding: 0cm;">
+<span STYLE="font-family: 宋体;">原创所有，转载请附明本文地址，谢谢！</SPAN></P>
+<p STYLE="text-indent: 21.75pt; border: none; padding: 0cm;">
+<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bik0.html">http://blog.sina.com.cn/s/blog_83dc494d0101bik0.html</A></P>
+</DIV>							
+		</div>

@@ -1,0 +1,46 @@
+---
+layout: post
+title: "[原创]mysql-InnoDB、MyIsa-"
+date: 2017-03-20 14:47:05
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			Mysql 引擎一般有InnoDb，MyIsam，等，如图
+<div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102vl03&url=http://album.sina.com.cn/pic/002pInNzzy6Rb1B3xJcce" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s15.sinaimg.cn/mw690/002pInNzzy6Rb1B3xJcce&amp;690" WIDTH="240" HEIGHT="138" NAME="image_operate_95381427952757437"  ALT="【原创】mysql&nbsp;<wbr>InnoDB、MyIsam对比[修改数据库(表)引擎]"  TITLE="【原创】mysql&nbsp;<wbr>InnoDB、MyIsam对比[修改数据库(表)引擎]" /></A><br />
+<br /></DIV>
+<div># The default storage engine that will be used when create new
+tables when</DIV>
+<div>在mysql配置文件中my.ini中，可以看到有
+“<b>default-storage-engine</B>“，默认为InnoDB，可以修改为MyIsam，这样创建表的时候如果不指定engine，则使用默认引擎。</DIV>
+<div><br /></DIV>
+<div><b>InnDB和MyIsam的区别</B></DIV>
+<div><b><br /></B></DIV>
+<div><b>1. 从数据库文件存储方面：</B></DIV>
+<div>
+InnoDB是直接存储在<b>data/ibdata1</B>中，其实这个二进制文件包含所有的InnoDB的数据库文件。只会越来越大，不会因为你删除数据库删除表而减小，空间一直处于占用状态。那么很明显，<font COLOR="#FF0000">所有的InnoDB引擎的数据都存放在一个二进制文件里</FONT>，不是很好。<font COLOR="#FF0000">不能直接复制到别的服务器</FONT>。</DIV>
+<div>MyIsam效果就很好了，使用MyIsam会在<b>data/Test_DB</B>/中生成每一张表<font COLOR="#FF0000">单独的</FONT><b>.MYD</B><font COLOR="#FF0000">数据文件</FONT>。<font COLOR="#FF0000">复制到别的mysql服务器</FONT><b>data/DB/</B><font COLOR="#FF0000">下直接使用</FONT>！</DIV>
+<div><br /></DIV>
+<div><b>2. 从读写方面：</B></DIV>
+<div>InnoDB<font COLOR="#FF0000">支持事务</FONT>，(代码)每次插入、修改<font COLOR="#FF0000">必须显示commit</FONT>。</DIV>
+<div>MyIsam不支持事务，<span STYLE="line-height: 21px;">(代码)</SPAN>每次插入、修改<font COLOR="#FF0000">直接生效，无须commit</FONT>。</DIV>
+<div><br /></DIV>
+<div><b>3. 从数据结构方面：</B></DIV>
+<div>InnoDB支持主键外键等</DIV>
+<div>MyIsam虽然也能创建主键、外键，但是<font COLOR="#FF0000">外键等约束是以index(索引)的方式存在</FONT></DIV>
+<div>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">
+PS：其实，我之前一直认为引擎建好以后就无法修改了，但是今天用HeiDiSQL(可视化)时，发现是可以更改已经存在的表引擎。</DIV>
+<div STYLE="line-height: 21px;"><b>修改数据库引擎的SQ</B>L是：<b><span>ALTER</SPAN><span>&nbsp;<wbr></SPAN><span>TABLE</SPAN><span>&nbsp;<wbr></SPAN><span>`My_DataDB`</SPAN><span>.</SPAN><span>`My_Table`</SPAN><span>&nbsp;<wbr></SPAN><span>ENGINE</SPAN><span>&nbsp;<wbr></SPAN><span><font COLOR="#FF0000">MyISAM</FONT></SPAN><span>;</SPAN></B></DIV>
+</DIV>
+<div><b><span><br /></SPAN></B></DIV>							
+		</div>

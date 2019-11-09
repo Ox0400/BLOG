@@ -1,0 +1,138 @@
+---
+layout: post
+title: "[原创]-python-MySQLdb-异常总结"
+date: 2017-03-20 14:42:29
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			MySQLdb 常见错误
+<div>有时候需要链接，这种情况下切记不要用一个函数来return conn，否则会报超时。</DIV>
+<div>例如：</DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> def
+get_conn():</B></DIV>
+<div>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> conn=Mysqldb.connect(</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+host='localhost',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+user='root',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+passwd='123',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+port=3306,</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+db='dataservice',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+charset='utf8'</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+)</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> conn.set_character_set("utf8")</B></DIV>
+</DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return conn</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> conn =
+get_conn()</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> cur =
+conn.cursor()</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> exec =
+cur.execute("select * from tb_test")</B></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> ...
+...&nbsp;<wbr></DIV>
+<div>这种写法可能可以用来查询，但是一般情况下增，删，改等都会报错的：</DIV>
+<div><font COLOR="#FF0000">OperationalError: (1205, 'Lock wait
+timeout exceeded; try restarting transaction')</FONT></DIV>
+<div>
+这是错误是个什么情况，什么锁啊之类的超时造成的。遇到这种情况，会直接导致一个问题，当你尝试去删除表中的所有数据的时候：</DIV>
+<div><b>truncate table&nbsp;<wbr><span STYLE="line-height: 21px;">tb_test</SPAN>;</B></DIV>
+<div>也会上报上述错误，解决办法是：</DIV>
+<div>打开终端，重启mysql："<b>sudo server mysql
+restart</B>",然后重新truncate就可以。</DIV>
+<div>正确的写法应该是：</DIV>
+<div>
+<div><b>class MainClass(object):</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> """docstring for
+MainClass"""</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> def
+__init__(self):</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> super(MainClass, self).__init__()</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> conn=Mysqldb.connect(</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+host='localhost',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+user='root',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+passwd='123',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+port=3306,</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+db='dataservice',</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+charset='utf8'</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+)</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> conn.set_character_set("utf8")</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.conn = conn</B></DIV>
+</DIV>
+<div><i>......</I></DIV>
+<div><i>然后在代码中直接引用self.conn即可。</I></DIV>
+<div>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> def
+update_status(self, id):</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> cur=self.conn.cursor()</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> a = cur.execute("update tb_test set status='%s'
+where id='%s'" % (id)</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.conn.commit() #记得提价更改</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> cur.close() #记得关闭游标，否则下次使用游标会报错的噢～～</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return a</B></DIV>
+</DIV>
+<div>结束。</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">ERROR 1267 (HY000): Illegal mix of
+collations (utf8_ unicode _ci,IMPLICIT) and (utf8_ general
+_ci,IMPLICIT) for operation '&lt;='</FONT></DIV>
+<div>
+这是今天遇到的一个问题，存储过程出来的Bug，自己的电脑上就木有问题，上了服务器就出问题了。我的mysql版本是5.5.35，服务器是5.5.34，开始以为是sql版本的问题，后来重新看了一下错误提示，跟数据库编码和存储过程编码有问题。</DIV>
+<div>CREATE PROCEDURE `fs`(s_time varchar(10),e_time varchar(10)
+charset 'utf8')</DIV>
+<div>... ...</DIV>
+<div>
+数据库默认编码是general，而我存储过程是utf8(unicode)，导致sql中的for循环有一个大于小于等于比较报错《<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101edej.html" TARGET="_blank">mysql while do循环，时间分片</A>》~~</DIV>
+<div><span STYLE="line-height: 21px;">CREATE PROCEDURE `fs`(s_time
+varchar(10),e_time varchar(10))
+即可，有中文再加字符集就可以了，这个不需要加的~~</SPAN></DIV>							
+		</div>

@@ -1,0 +1,206 @@
+---
+layout: post
+title: "[原创]-linux-python-MySQL-"
+date: 2017-03-20 14:42:09
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>贴部分代码上来，linux-python-MySQL-MySQLdb insert commit .</DIV>
+<div>切记，数据库操作一定要commit() &nbsp;<wbr> !!!!</DIV>
+<div>如下代码：</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> try:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+conn=Mysqldb.connect(</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+host='localhost',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+user='root',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+passwd='********',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+port=3306,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+db='dataservice',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+charset='utf8')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> cur =
+conn.cursor(Mysqldb.cursors.DictCursor)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> sql_
+= "INSERT INTO
+song_play_log(song_id,artist_id,play_num,play_time,time,hot) SELECT
+* FROM add_yesDay;"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> ex =
+cur.execute(sql_)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> is_ok
+= 1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.save_dict["Data_Date"] = self.default_YesDay_Date</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.save_dict["Operate_Date"] = self.default_ToDay_Date</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+ex:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.save_dict["DB_Qeury"] = True</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.flush_content("Query OK,Update DB,Add new
+row %s" % ex)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.mail_sub += "Update DB, Query OK!"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> is_ok = 1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+else:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.save_dict["DB_Qeury"] = False</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.flush_content("Query Error,Update
+dataservice_song_play_log,Add new row %s" % ex)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.mail_sub += "Update DB, [Query
+Error]"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> is_ok = 2</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.save_dict["DB_Add_Row"] = ex if ex&gt;=0 else -1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.save_log(2,self.content)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+cur.close()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+conn.close()</DIV>
+<div>看起来比较完善的代码，数据库的量非常大！每天都要记录7k-8k的数据。</DIV>
+<div>21号22号23号24号我一直在本机调试，挺顺利的嘛，哈哈，邮件也能收到通知。</DIV>
+<div>24号下午，我正式把代码上线了！！！Bug！！Bug！！！我没有发现，</DIV>
+<div>
+21-24号的数据为2.2w+，今天也就是2013-12-02号，因为项目需求，我想到了看看自己的得意之作～～这得有多少量啦，我ssh远程登录后mysql中执行如下：</DIV>
+<div>select * from song_play_log order by time desc limit
+1-20;</DIV>
+<div>为什么time是全部是2013-11-24！！！！我懵了，这一周的数据哪去了！！！</DIV>
+<div>少了几w记录，完了。。。</DIV>
+<div>可是每天都能收到邮件：</DIV>
+<div>From:*********@gmail.com</DIV>
+<div>Sub:Update DB, Query OK!</DIV>
+<div>To:*********@gmail.com</DIV>
+<div>Content:</DIV>
+<div>
+<pre WRAP="">
+Start Update DB log.&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+DB YesDay_Date and Operate_Date,Is True.&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+Stat Update the dataservice&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+Query OK,Update DB,Add new row 4997&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+End Update the dataservice&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+Updated Every Day Log&nbsp;<wbr>
+</PRE>
+<pre WRAP="">
+End Update DB
+</PRE></DIV>
+可是数据哪去了，我开始查找Mysql日志，/var/log/mysql.log ，空！ 日志根本没开。
+<div>问老板有MySQL备份没，没。</DIV>
+<div>查找SQL语句执行记录，无！</DIV>
+<div>我懵了。。。</DIV>
+<div>我是真懵了，东西哪去了。。。</DIV>
+<div>知道后来，我才想到，我之前一直玩的SQL Server，在项目中其他的语句也都是用的proc。</DIV>
+<div>我试着google mysqldb insert commit ，结果你懂的。。。</DIV>
+<div>commit！！！最关键的东西我竟然没写。</DIV>
+<div>于是乎，补救吧，先改代码修改如下：</DIV>
+<div>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> try:</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> conn=Mysqldb.connect(</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> host='localhost',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> user='root',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> passwd='********',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> port=3306,</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> db='dataservice',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> charset='utf8')</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+conn.autocommit(1)</FONT></DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> cur =
+conn.cursor(Mysqldb.cursors.DictCursor)</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ... ... （数据库连接之后设置
+自动提交。）</DIV>
+<div STYLE="line-height: 21px;">或者</DIV>
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> try:</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> conn=Mysqldb.connect(</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> host='localhost',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> user='root',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> passwd='********',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> port=3306,</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> db='dataservice',</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> charset='utf8')</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> cur =
+conn.cursor(Mysqldb.cursors.DictCursor)</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> sql_ = "INSERT INTO
+song_play_log(song_id,artist_id,play_num,play_time,time,hot) SELECT
+* FROM add_yesDay;"</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ex = cur.execute(sql_)</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+conn.commit()</FONT></DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ... ...（insert语句执行后
+手动提交）</DIV>
+<div STYLE="line-height: 21px;">切记！！！commit！！</DIV>
+<div STYLE="line-height: 21px;">增，删，改一定要commit！</DIV>
+</DIV>
+</DIV>							
+		</div>

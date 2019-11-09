@@ -1,0 +1,231 @@
+---
+layout: post
+title: "[原创]python-rq&amp;nbsp;Redis-Queue"
+date: 2017-03-20 14:48:49
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family">相信大家都看过官方文档，不过需要提醒一个大家，网上的示例代码，包括官方文档，又有坑，大坑！<div>在获取job的result或者return_value之前，需要job显示调用一个函数，这个函数到底是什么呢，我对着官方文档看啊看啊，打开各种搜索，搜啊搜啊，没有，真真的从中午弄到下午5点！！！！</div><div>这个函数是：<strong>perform()</strong> ！！！</div><div><br /></div><div>写一段结合gevent、rq的 生产者和消费者模式的例子。</div><div>文件一共有</div><div>config.py 配置信息</div><div>myfun.py 生产函数（必须单独写道一个文件或者模块中）</div><div>creater.py 生产者，必须：from myfun import xxxx</div><div>eater.py 消费者</div><div>server.py 服务中心</div><div><br /></div><div>哎呀，键盘出问题了，ESC和TAB失灵了，明天再写吧，睡觉了</div><div><br /></div><div>继续写完这篇</div><div>1. config.py </div><div><pre style="font-size:13px;color:rgb(255,255,255);line-height:normal;background-color:rgb(0,0,0);">
+<span style="font-size:1em;color:rgb(255,255,0);">1 </span><span style="font-size:1em;color:rgb(0,255,255);"># -*- coding: utf8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);">2 </span><span style="font-size:1em;color:rgb(0,255,255);"># author: zhipeng</span>
+<span style="font-size:1em;color:rgb(255,255,0);">3 </span><span style="font-size:1em;color:rgb(0,255,255);"># date: 2016-02-28</span>
+<span style="font-size:1em;color:rgb(255,255,0);">4 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">5 </span>HOST = <span style="font-size:1em;color:rgb(255,255,0);">"127.0.0.1"</span>
+<span style="font-size:1em;color:rgb(255,255,0);">6 </span>PORT = <span style="font-size:1em;color:rgb(255,255,0);">7379</span>
+<span style="font-size:1em;color:rgb(255,255,0);">7 </span>RQ_NAME = <span style="font-size:1em;color:rgb(255,255,0);">"test"</span>
+</pre></div><div>2. rq-server.py</div><div><pre style="font-size:13px;color:rgb(255,255,255);line-height:normal;background-color:rgb(0,0,0);">
+<span style="font-size:1em;color:rgb(255,255,0);"> 1 </span><span style="font-size:1em;color:rgb(0,255,255);"># -*- coding: utf-8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 2 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 3 </span><span style="font-size:1em;color:rgb(0,255,255);"># author: zhipeng</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 4 </span><span style="font-size:1em;color:rgb(0,255,255);"># data: 2016-02-28</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 5 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 6 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> __future__ <span style="font-size:1em;color:rgb(255,64,255);">import</span> (absolute_import, division, print_function,
+<span style="font-size:1em;color:rgb(255,255,0);"> 7 </span>                        unicode_literals)
+<span style="font-size:1em;color:rgb(255,255,0);"> 8 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 9 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> rq <span style="font-size:1em;color:rgb(255,64,255);">import</span> Connection, Queue, Worker
+<span style="font-size:1em;color:rgb(255,255,0);">10 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> redis <span style="font-size:1em;color:rgb(255,64,255);">import</span> Redis
+<span style="font-size:1em;color:rgb(255,255,0);">11 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">12 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> config
+<span style="font-size:1em;color:rgb(255,255,0);">13 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">14 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">15 </span><span style="font-size:1em;color:rgb(255,255,0);">if</span> __name__ == <span style="font-size:1em;color:rgb(255,255,0);">'__main__'</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">16 </span>    listen = [config.RQ_NAME]
+<span style="font-size:1em;color:rgb(255,255,0);">17 </span>    <span style="font-size:1em;color:rgb(255,255,0);">with</span> Connection(Redis(HOST, PORT)):
+<span style="font-size:1em;color:rgb(255,255,0);">18 </span>        <span style="font-size:1em;color:rgb(0,255,255);">#queue = Queue("test")</span>
+<span style="font-size:1em;color:rgb(255,255,0);">19 </span>        worker = Worker(<span style="font-size:1em;color:rgb(0,255,255);">map</span>(Queue, listen))
+<span style="font-size:1em;color:rgb(255,255,0);">20 </span>        worker.work()
+</pre></div><div>3. create.py</div><div><pre style="font-size:13px;color:rgb(255,255,255);line-height:normal;background-color:rgb(0,0,0);">
+<span style="font-size:1em;color:rgb(255,255,0);"> 1 </span><span style="font-size:1em;color:rgb(0,255,255);"># -*- coding: utf-8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 2 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 3 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> __future__ <span style="font-size:1em;color:rgb(255,64,255);">import</span> (absolute_import, division, print_function,
+<span style="font-size:1em;color:rgb(255,255,0);"> 4 </span>                        unicode_literals)
+<span style="font-size:1em;color:rgb(255,255,0);"> 5 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 6 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> os
+<span style="font-size:1em;color:rgb(255,255,0);"> 7 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> time
+<span style="font-size:1em;color:rgb(255,255,0);"> 8 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 9 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> rq <span style="font-size:1em;color:rgb(255,64,255);">import</span> Connection, Queue
+<span style="font-size:1em;color:rgb(255,255,0);">10 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> redis <span style="font-size:1em;color:rgb(255,64,255);">import</span> Redis
+<span style="font-size:1em;color:rgb(255,255,0);">11 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">12 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> config
+<span style="font-size:1em;color:rgb(255,255,0);">13 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> myfun <span style="font-size:1em;color:rgb(255,64,255);">import</span> build_id, set_status
+<span style="font-size:1em;color:rgb(255,255,0);">14 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">15 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">16 </span><span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">main</span>():
+<span style="font-size:1em;color:rgb(255,255,0);">17 </span>    <span style="font-size:1em;color:rgb(0,255,255);"># Range of Fibonacci numbers to compute</span>
+<span style="font-size:1em;color:rgb(255,255,0);">18 </span>    num = <span style="font-size:1em;color:rgb(255,255,0);">90</span>
+<span style="font-size:1em;color:rgb(255,255,0);">19 </span>    fib_range = <span style="font-size:1em;color:rgb(0,255,255);">range</span>(num, num + <span style="font-size:1em;color:rgb(255,255,0);">10</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">20 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">21 </span>    <span style="font-size:1em;color:rgb(0,255,255);"># Kick off the tasks asynchronously</span>
+<span style="font-size:1em;color:rgb(255,255,0);">22 </span>    async_results = {}
+<span style="font-size:1em;color:rgb(255,255,0);">23 </span>    q = Queue(config.RQ_NAME)
+<span style="font-size:1em;color:rgb(255,255,0);">24 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"empty? "</span>,q.is_empty())
+<span style="font-size:1em;color:rgb(255,255,0);">25 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"set status"</span>, <span style="font-size:1em;color:rgb(0,255,255);">False</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">26 </span>    status = q.enqueue(set_status, args=(<span style="font-size:1em;color:rgb(0,255,255);">False</span>, ))
+<span style="font-size:1em;color:rgb(255,255,0);">27 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"set status"</span>, status)
+<span style="font-size:1em;color:rgb(255,255,0);">28 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> x <span style="font-size:1em;color:rgb(255,255,0);">in</span> fib_range:
+<span style="font-size:1em;color:rgb(255,255,0);">29 </span>        <span style="font-size:1em;color:rgb(0,255,255);"># enqueue 添加boj，第一个参数是一个函数名，至关重要，这个函数必须单独写在一个文件或者模块中!</span>
+<span style="font-size:1em;color:rgb(255,255,0);">30 </span>        set_obj = q.enqueue(build_id, args=(x, x/<span style="font-size:1em;color:rgb(255,255,0);">2</span>+<span style="font-size:1em;color:rgb(255,255,0);">1</span>))
+<span style="font-size:1em;color:rgb(255,255,0);">31 </span>        <span style="font-size:1em;color:rgb(0,255,255);"># perform() 显示调用至关重要, 最好写在消费者中! </span>
+<span style="font-size:1em;color:rgb(255,255,0);">32 </span>        <span style="font-size:1em;color:rgb(0,255,255);"># 如果在这里显示调用，生产者会把创建好的job运行，消费者会永远阻塞，等待生产结果。</span>
+<span style="font-size:1em;color:rgb(255,255,0);">33 </span>        <span style="font-size:1em;color:rgb(0,255,255);"># 从官方文档、官方demo、百度、谷歌等等出来的答案里面，有没有提到这个函数。</span>
+<span style="font-size:1em;color:rgb(255,255,0);">34 </span>        <span style="font-size:1em;color:rgb(0,255,255);"># 这次为了程序连贯，注释perform，如想看过程，可以去掉注释perform(), 查看对比输入。</span>
+<span style="font-size:1em;color:rgb(255,255,0);">35 </span>        # set_obj.perform()
+<span style="font-size:1em;color:rgb(255,255,0);">36 </span>        <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"set: "</span>, set_obj)
+<span style="font-size:1em;color:rgb(255,255,0);">37 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"set status"</span>, <span style="font-size:1em;color:rgb(0,255,255);">True</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">38 </span>    status = q.enqueue(set_status, args=(<span style="font-size:1em;color:rgb(0,255,255);">True</span>, ))
+<span style="font-size:1em;color:rgb(255,255,0);">39 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"set status"</span>, status)
+<span style="font-size:1em;color:rgb(255,255,0);">40 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">41 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"empty? "</span>,q.is_empty(),)
+<span style="font-size:1em;color:rgb(255,255,0);">42 </span>    get_obj = q.dequeue()
+<span style="font-size:1em;color:rgb(255,255,0);">43 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"get: "</span>, q.dequeue())
+<span style="font-size:1em;color:rgb(255,255,0);">44 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"queue method: "</span>, <span style="font-size:1em;color:rgb(0,255,255);">dir</span>(q))
+<span style="font-size:1em;color:rgb(255,255,0);">45 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"="</span>*<span style="font-size:1em;color:rgb(255,255,0);">20</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">46 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(0,255,255);">dir</span>(set_obj))
+<span style="font-size:1em;color:rgb(255,255,0);">47 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"--&gt; set queue: "</span>, set_obj)
+<span style="font-size:1em;color:rgb(255,255,0);">48 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"--&gt; set value:"</span>, set_obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">49 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"="</span>*<span style="font-size:1em;color:rgb(255,255,0);">20</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">50 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(0,255,255);">dir</span>(get_obj))
+<span style="font-size:1em;color:rgb(255,255,0);">51 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"--&gt; get queue: "</span>, get_obj)
+<span style="font-size:1em;color:rgb(255,255,0);">52 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"--&gt; get value:"</span>, get_obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">53 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"==&gt; get value:"</span>, get_obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">54 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"==&gt; get value(return):"</span>, get_obj.return_value)
+<span style="font-size:1em;color:rgb(255,255,0);">55 </span>    <span style="font-size:1em;color:rgb(0,255,255);">#print("==&gt; get value(return):", get_obj())</span>
+<span style="font-size:1em;color:rgb(255,255,0);">56 </span>    <span style="font-size:1em;color:rgb(255,255,0);">while</span> get_obj.result <span style="font-size:1em;color:rgb(255,255,0);">is</span> <span style="font-size:1em;color:rgb(0,255,255);">None</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">57 </span>        <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"="</span>*<span style="font-size:1em;color:rgb(255,255,0);">30</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">58 </span>        <span style="font-size:1em;color:rgb(255,255,0);">for</span> key <span style="font-size:1em;color:rgb(255,255,0);">in</span> <span style="font-size:1em;color:rgb(0,255,255);">dir</span>(get_obj):
+<span style="font-size:1em;color:rgb(255,255,0);">59 </span>            <span style="font-size:1em;color:rgb(255,255,0);">if</span> key[<span style="font-size:1em;color:rgb(255,255,0);">0</span>] == <span style="font-size:1em;color:rgb(255,255,0);">"_"</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">60 </span>                <span style="font-size:1em;color:rgb(255,255,0);">continue</span>
+<span style="font-size:1em;color:rgb(255,255,0);">61 </span>            <span style="font-size:1em;color:rgb(255,255,0);">try</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">62 </span>                <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"call--&gt;"</span>, key, <span style="font-size:1em;color:rgb(0,255,255);">getattr</span>(get_obj, key)())
+<span style="font-size:1em;color:rgb(255,255,0);">63 </span>            <span style="font-size:1em;color:rgb(255,255,0);">except</span> <span style="font-size:1em;color:rgb(0,255,0);">TypeError</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">64 </span>                <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"get--&gt;"</span>, key, <span style="font-size:1em;color:rgb(0,255,255);">getattr</span>(get_obj, key))
+<span style="font-size:1em;color:rgb(255,255,0);">65 </span>            <span style="font-size:1em;color:rgb(255,255,0);">except</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">66 </span>                <span style="font-size:1em;color:rgb(255,255,0);">pass</span>
+<span style="font-size:1em;color:rgb(255,255,0);">67 </span>        <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"="</span>*<span style="font-size:1em;color:rgb(255,255,0);">30</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">68 </span>        time.sleep(<span style="font-size:1em;color:rgb(255,255,0);">1</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">69 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"|==&gt; run obj.job:"</span>, get_obj.perform())
+<span style="font-size:1em;color:rgb(255,255,0);">70 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"|==&gt; get obj result:"</span>, get_obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">71 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">72 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">73 </span><span style="font-size:1em;color:rgb(255,255,0);">if</span> __name__ == <span style="font-size:1em;color:rgb(255,255,0);">'__main__'</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">74 </span>    <span style="font-size:1em;color:rgb(255,255,0);">with</span> Connection(Redis(config.HOST, config.PORT)):
+<span style="font-size:1em;color:rgb(255,255,0);">75 </span>        main()
+</pre></div><div>4. eat.py</div><div><pre style="font-size:13px;color:rgb(255,255,255);line-height:normal;background-color:rgb(0,0,0);">
+<span style="font-size:1em;color:rgb(255,255,0);"> 1 </span><span style="font-size:1em;color:rgb(0,255,255);"># -*- coding: utf-8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 2 </span><span style="font-size:1em;color:rgb(0,255,255);"># author: zhipeng</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 3 </span><span style="font-size:1em;color:rgb(0,255,255);"># date: 2016-02-28</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 4 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 5 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> __future__ <span style="font-size:1em;color:rgb(255,64,255);">import</span> (absolute_import, division, print_function,
+<span style="font-size:1em;color:rgb(255,255,0);"> 6 </span>                        unicode_literals)
+<span style="font-size:1em;color:rgb(255,255,0);"> 7 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 8 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> os
+<span style="font-size:1em;color:rgb(255,255,0);"> 9 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> time
+<span style="font-size:1em;color:rgb(255,255,0);">10 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">11 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> gevent
+<span style="font-size:1em;color:rgb(255,255,0);">12 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> gevent <span style="font-size:1em;color:rgb(255,64,255);">import</span> Greenlet
+<span style="font-size:1em;color:rgb(255,255,0);">13 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">14 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> rq <span style="font-size:1em;color:rgb(255,64,255);">import</span> Connection, Queue
+<span style="font-size:1em;color:rgb(255,255,0);">15 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> redis <span style="font-size:1em;color:rgb(255,64,255);">import</span> Redis
+<span style="font-size:1em;color:rgb(255,255,0);">16 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">17 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> config
+<span style="font-size:1em;color:rgb(255,255,0);">18 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">19 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">20 </span><span style="font-size:1em;color:rgb(255,255,0);">class</span> <span style="font-size:1em;color:rgb(0,255,255);">GreenThread</span>(Greenlet):
+<span style="font-size:1em;color:rgb(255,255,0);">21 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">22 </span>    <span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">__init__</span>(self, n, queue):
+<span style="font-size:1em;color:rgb(255,255,0);">23 </span>        Greenlet.__init__(self)
+<span style="font-size:1em;color:rgb(255,255,0);">24 </span>        self.name = <span style="font-size:1em;color:rgb(255,255,0);">"Thread-%s"</span> % n
+<span style="font-size:1em;color:rgb(255,255,0);">25 </span>        self._queue = queue
+<span style="font-size:1em;color:rgb(255,255,0);">26 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">27 </span>    <span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">run</span>(self):
+<span style="font-size:1em;color:rgb(255,255,0);">28 </span>        done = <span style="font-size:1em;color:rgb(0,255,255);">False</span>
+<span style="font-size:1em;color:rgb(255,255,0);">29 </span>        <span style="font-size:1em;color:rgb(255,255,0);">while</span> <span style="font-size:1em;color:rgb(0,255,255);">True</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">30 </span>            <span style="font-size:1em;color:rgb(255,255,0);">if</span> self._queue.is_empty():
+<span style="font-size:1em;color:rgb(255,255,0);">31 </span>                <span style="font-size:1em;color:rgb(0,255,255);">#  如果队列为空，并且没有标记完成，等待任务</span>
+<span style="font-size:1em;color:rgb(255,255,0);">32 </span>                <span style="font-size:1em;color:rgb(255,255,0);">if</span> <span style="font-size:1em;color:rgb(255,255,0);">not</span> done:
+<span style="font-size:1em;color:rgb(255,255,0);">33 </span>                    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"queue is empty, wait 2sec..."</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">34 </span>                    gevent.sleep(<span style="font-size:1em;color:rgb(255,255,0);">3</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">35 </span>                    <span style="font-size:1em;color:rgb(255,255,0);">continue</span>
+<span style="font-size:1em;color:rgb(255,255,0);">36 </span>                <span style="font-size:1em;color:rgb(0,255,255);"># 如果队列为空，并且标记完成，任务结束</span>
+<span style="font-size:1em;color:rgb(255,255,0);">37 </span>                <span style="font-size:1em;color:rgb(255,255,0);">else</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">38 </span>                    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"queue is empty, done mark is: True. end all job."</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">39 </span>                    <span style="font-size:1em;color:rgb(255,255,0);">break</span>
+<span style="font-size:1em;color:rgb(255,255,0);">40 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">41 </span>            obj = self._queue.dequeue()
+<span style="font-size:1em;color:rgb(255,255,0);">42 </span>            <span style="font-size:1em;color:rgb(0,255,255);"># 这是坑，一定要显示调用perform函数! 写在生产者里面任务就自己完成了。</span>
+<span style="font-size:1em;color:rgb(255,255,0);">43 </span>            <span style="font-size:1em;color:rgb(0,255,255);"># 如果perform在这里调用，可以认为，生产者只是生产了任务(函数)，这里才是真正意思开始生产，并消费。</span>
+<span style="font-size:1em;color:rgb(255,255,0);">44 </span>            <span style="font-size:1em;color:rgb(0,255,255);">obj.perform()</span>
+<span style="font-size:1em;color:rgb(255,255,0);">45 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"obj:"</span>, obj)
+<span style="font-size:1em;color:rgb(255,255,0);">46 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"try get-&gt; result"</span>, obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">47 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"try get-&gt; return value"</span>, obj.return_value)
+<span style="font-size:1em;color:rgb(255,255,0);">48 </span>            time.sleep(<span style="font-size:1em;color:rgb(255,255,0);">2</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">49 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"re try get-&gt; result"</span>, obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">50 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"re try get-&gt; return value"</span>, obj.return_value)
+<span style="font-size:1em;color:rgb(255,255,0);">51 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">52 </span>            <span style="font-size:1em;color:rgb(0,255,255);"># 如果一直没有结果，则一直等待任务执行完成.</span>
+<span style="font-size:1em;color:rgb(255,255,0);">53 </span>            <span style="font-size:1em;color:rgb(255,255,0);">while</span> obj.return_value <span style="font-size:1em;color:rgb(255,255,0);">is</span> <span style="font-size:1em;color:rgb(0,255,255);">None</span> <span style="font-size:1em;color:rgb(255,255,0);">and</span> obj.result <span style="font-size:1em;color:rgb(255,255,0);">is</span> <span style="font-size:1em;color:rgb(0,255,255);">None</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">54 </span>                <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"job return value is None, wait..."</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">55 </span>                gevent.sleep(<span style="font-size:1em;color:rgb(255,255,0);">2</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">56 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">57 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"==&gt; result"</span>, obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">58 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"==&gt; return value"</span>, obj.return_value)
+<span style="font-size:1em;color:rgb(255,255,0);">59 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">60 </span>            <span style="font-size:1em;color:rgb(255,255,0);">if</span> obj.result == <span style="font-size:1em;color:rgb(0,255,255);">True</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">61 </span>                done = <span style="font-size:1em;color:rgb(0,255,255);">True</span>
+<span style="font-size:1em;color:rgb(255,255,0);">62 </span>                <span style="font-size:1em;color:rgb(255,255,0);">continue</span>
+<span style="font-size:1em;color:rgb(255,255,0);">63 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">64 </span>            self._do_some(obj.result)
+<span style="font-size:1em;color:rgb(255,255,0);">65 </span>            <span style="font-size:1em;color:rgb(255,255,0);">continue</span>
+<span style="font-size:1em;color:rgb(255,255,0);">66 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">67 </span>    <span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">_do_some</span>(self, create_value):
+<span style="font-size:1em;color:rgb(255,255,0);">68 </span>        <span style="font-size:1em;color:rgb(0,255,255);">print</span>(self.name, <span style="font-size:1em;color:rgb(255,255,0);">"I'm got a creater.job value:"</span>, create_value)
+<span style="font-size:1em;color:rgb(255,255,0);">69 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">70 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">71 </span><span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">main</span>():
+<span style="font-size:1em;color:rgb(255,255,0);">72 </span>    queue = Queue(config.RQ_NAME)
+<span style="font-size:1em;color:rgb(255,255,0);">73 </span>    threads = []
+<span style="font-size:1em;color:rgb(255,255,0);">74 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> <span style="font-size:1em;color:rgb(0,255,255);">range</span>(<span style="font-size:1em;color:rgb(255,255,0);">10</span>):
+<span style="font-size:1em;color:rgb(255,255,0);">75 </span>        threads.append(GreenThread(i, queue))
+<span style="font-size:1em;color:rgb(255,255,0);">76 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">77 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> threads:
+<span style="font-size:1em;color:rgb(255,255,0);">78 </span>        i.start()
+<span style="font-size:1em;color:rgb(255,255,0);">79 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">80 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> threads:
+<span style="font-size:1em;color:rgb(255,255,0);">81 </span>        <span style="font-size:1em;color:rgb(255,255,0);">try</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">82 </span>            i.join()
+<span style="font-size:1em;color:rgb(255,255,0);">83 </span>        <span style="font-size:1em;color:rgb(255,255,0);">except</span> gevent.hub.LoopExit, e:
+<span style="font-size:1em;color:rgb(255,255,0);">84 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"join error"</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">85 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">'Done'</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">86 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">87 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">88 </span><span style="font-size:1em;color:rgb(255,255,0);">if</span> __name__ == <span style="font-size:1em;color:rgb(255,255,0);">'__main__'</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">89 </span>    <span style="font-size:1em;color:rgb(255,255,0);">with</span> Connection(Redis(config.HOST, config.PORT)):
+<span style="font-size:1em;color:rgb(255,255,0);">90 </span>        main()
+<span style="font-size:1em;color:rgb(255,255,0);">91 </span>
+</pre></div><div>5. myfun.py</div><div><pre style="font-size:13px;color:rgb(255,255,255);line-height:normal;background-color:rgb(0,0,0);">
+<span style="font-size:1em;color:rgb(255,255,0);"> 1 </span><span style="font-size:1em;color:rgb(0,255,255);"># -*- coding: utf-8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 2 </span><span style="font-size:1em;color:rgb(0,255,255);"># author: zhipeng</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 3 </span><span style="font-size:1em;color:rgb(0,255,255);"># date: 2016-02-28</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 4 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 5 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 6 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> __future__ <span style="font-size:1em;color:rgb(255,64,255);">import</span> (absolute_import, division, print_function,
+<span style="font-size:1em;color:rgb(255,255,0);"> 7 </span>                        unicode_literals)
+<span style="font-size:1em;color:rgb(255,255,0);"> 8 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 9 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> time
+<span style="font-size:1em;color:rgb(255,255,0);">10 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">11 </span><span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">build_id</span>(x, y):
+<span style="font-size:1em;color:rgb(255,255,0);">12 </span>    time.sleep(x % <span style="font-size:1em;color:rgb(255,255,0);">3</span> + <span style="font-size:1em;color:rgb(255,255,0);">3</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">13 </span>    num = x*y <span style="font-size:1em;color:rgb(255,255,0);">if</span> x % <span style="font-size:1em;color:rgb(255,255,0);">3</span> == <span style="font-size:1em;color:rgb(255,255,0);">1</span> <span style="font-size:1em;color:rgb(255,255,0);">else</span> x
+<span style="font-size:1em;color:rgb(255,255,0);">14 </span>    <span style="font-size:1em;color:rgb(0,255,255);">print</span> (<span style="font-size:1em;color:rgb(255,255,0);">"call slow fib result:"</span>, num)
+<span style="font-size:1em;color:rgb(255,255,0);">15 </span>    <span style="font-size:1em;color:rgb(255,255,0);">return</span> num
+<span style="font-size:1em;color:rgb(255,255,0);">16 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">17 </span><span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">set_status</span>(status=<span style="font-size:1em;color:rgb(0,255,255);">False</span>):
+<span style="font-size:1em;color:rgb(255,255,0);">18 </span>    <span style="font-size:1em;color:rgb(255,255,0);">return</span> status
+</pre></div><div><br /></div><div>运行效果如下：</div><div>1. rq-server.py</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzgy6ZL1G1AuPbf"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="648" height="581" name="image_operate_18121456766317924" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>2. create.py</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzgy6ZL1HFkdv1d"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" name="image_operate_85911456766350049" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzgy6ZL1Jbb3u9c"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="690" height="522" name="image_operate_9871456766372909" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>3. eat.py</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzgy6ZL1KRaRK84"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="690" height="383" name="image_operate_63101456766386412" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>嗯，可以看到，先把serverrun起来，然后creater和eater顺序随意启动，生产者创建任务，消费者获取到任务，显示调用perform()开始执行函数。</div><div>但有个BUG，不知道你们是否发现，就是消费者没有按照预定的生产者的status标记退出循环，而是一直等待中。</div><div>原因是：我在消费者中注释掉perform，生产者创建好任务后，看server，就会发现，server竟然在run任务。也就是说，会和perform()抢着run任务。。。等run完以后，我run消费者，发现一直是空队列。。。。</div><div><br /></div><div>----</div><div>为了解决这个BUG，查看了一下源码，发现在<strong>/usr/lib/python2.7/site-packages/rq/worker.py</strong>中work函数中，大概431行，<strong>self.execute_job(job)</strong>，坑爹啊，本应是服务端只做调度，竟然生产数据，导致的结果是消费者拿不到生产者的result~当然，人家类名叫worker，本身就是生成和消费的一体的</div><div>我是好奇，如果不通过dequeue().result的方式获取数据，还有什么函数或者方式可以获取生产者的结果呢？</div><div>首先验证一下数据有没有存进Redis，Key值为rq:job</div><span style="line-height:21px;">hgetall"rq:job:2ee02db4-dabc-465e-9b18-08777b7ea9b7"</span><div><span style="line-height:21px;">hget"rq:job:2ee02db4-dabc-465e-9b18-08777b7ea9b7" result</span></div><span style="line-height:21px;">hmget"rq:job:2ee02db4-dabc-465e-9b18-08777b7ea9b7" result</span><div><span style="line-height:21px;">============</span></div><div><div>127.0.0.1:7379&gt; hgetall"rq:job:5ac70054-8e0c-4e5b-8d4f-8c020c13d541"</div><div> 1) "status"</div><div> 2) "finished"</div><div> 3) "origin"</div><div> 4) "test"</div><div> 5) "description"</div><div> 6) "myfun.build_id(93, 47.5)"</div><div> 7) "created_at"</div><div> 8) "2016-03-01T10:57:05Z"</div><div> 9) "enqueued_at"</div><div>10) "2016-03-01T10:57:05Z"</div><div>11) "timeout"</div><div>12) "180"</div><div>13) "data"</div><div>14)"\x80\x02(X\x0e\x00\x00\x00myfun.build_idq\x01NK]G@G\xc0\x00\x00\x00\x00\x00\x86q\x02}q\x03tq\x04."</div><div>15) "ended_at"</div><div>16) "2016-03-01T10:57:11Z"</div><div>17) "result"</div><div>18) "\x80\x02K]."</div><div>19) "ttl"</div><div>20) "-1"</div></div><div><span style="line-height:21px;">============</span></div><div><div>127.0.0.1:7379&gt; hgetall"rq:job:5ac70054-8e0c-4e5b-8d4f-8c020c13d541"</div><div>(empty list or set)</div><div style="line-height:21px;">============</div></div><div>数据确实存在于Redis，但result结果是做过处理的，理应是float类型，但<span style="line-height:21px;">"\x80\x02K]."什么鬼</span>...</div><div>其实就是说，只要把<strong>work.execute_job(job)-&gt;main_work_horse(self,job) --&gt; perform_job(self, job)</strong> 重载一下就可以避免serverrun任务了。</div><div>尝试一下 重载main_work_horse</div><div>在rq-server中定义函数 </div><div>worker = Worker(map(Queue, listen))</div><div>worker.main_work_horse = (lambda x: 1) 即可</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMCFKf36dc"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="657" height="270" name="image_operate_28851456857914657" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>把server run起来，create一下任务，可以看到server，任务没有被运行了。</div><div>执行一下eat，竟然是空队列，看着这个函数不能改，那只能对<strong>perform_job</strong> 下手试试看效果。</div><div>结果还是不行，看来只能对perform_job进行重构，不能直接pass.发现也不行，里面也不行。我一直试了一个小时，然后静下心来想，jobjob，已经拿到job了！这是从消息队列里面取出来的，无论做什么操作，都白搭！我开始以为server(worker)这边是消费者生产者发来的通知，不会影响消息队列大小。错误，错误。</div><div>需要在 对work()中调用的 <strong>self.dequeue_job_and_maintain_ttl()</strong>做重构，因为这里面会dequeue_any()，导致消费者任务异常，怎么改呢？</div><div>这样改最合适</div><div>def work(self, burst=False, <strong><span style="color:#FF0000;">call_func=True</span></strong>):</div><div>    do some... </div><div>    try:</div><div>       while True:</div><div>           do some....</div><div>           timeout =None if burst else max(1, self.default_worker_ttl - 60)</div><div>          <strong><span style="color:#FF0000;">if not call_func:</span></strong></div><div><strong><span style="color:#FF0000;">              time.sleep(1)</span></strong></div><div><strong><span style="color:#FF0000;">              continue</span></strong></div><div>           result =self.dequeue_job_and_maintain_ttl(timeout)</div><div>    except:</div><div>       pass</div><div>红色部分添加是添加的代码，<strong>可以直接继承Worker重写work；</strong>也可以<strong>直接修改源码</strong>，这样做并不会影响其他任何程序。</div><div>然后在rq-server.py中worker.work()改成worker.work(call_func=False)</div><div><br /></div><div>源码修改示例：</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMIsMweU5c"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="678" height="708" name="image_operate_10431456859867514" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>server端就没有任何输出了，生产者不变（生产函数），消费者运行生产者函数。</div><div>坑爹，消费者协程模式run不起来了，不用join，改成主线程while True也是这样。阻塞了。。。</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMKLuNA642"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="690" height="481" name="image_operate_9151456860603182" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>暂时先不管这个了，还有个问题要说。。。</div><div>这个模式里面感觉其实还是有问题的，perform默认是会返回数据的。</div><div>试着把生产者create.py中的perform不注释，把eat.py 中的perform注释掉。</div><div>发现竟然可以一边生产函数、执行函数返回结果，另一半消费者可以直接拿到数据了。生产了14条，有5条拿到了return_value。也是个Bug啊。。。。</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMLBFVJz95"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="690" height="398" name="image_operate_3731456861366835" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMLHlnJu08"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="648" height="376" name="image_operate_52801456861367208" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>这个问题其实可以解决，理论上：既然eat中能拿到job-id，只是没有返回值。在rq源码job.py中，把perform也稍稍微改改，或者直接在在create.py中改，先将obj状态改回，然后obj.save()将job重新写入redis，eat.py中dequeue的时候是从redis中根据任务id获取到任务列表，然后再去获取job的，如果这样获取不到只能那id直接从redis查询。</div><div><br /></div><div>2016-03-02 03:42:54  不搞了，睡觉(～﹃～)~zZ</div><div>-------</div><div><br /></div><div><br /></div><div>而且这个是会定时清理Redis队列的，解决办法：enqueue(fun,args)的时候，加上参数result_ttl=-1，0表示立即删除。</div><div>就会变成这样子如下：</div><div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102w8ew&amp;url=http://album.sina.com.cn/pic/002pInNzzy6ZMBqGvvb39"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="690" height="579" name="image_operate_91121456861032627" alt="【原创】python-rq &lt;wbr&gt;Redis-Queue" title="【原创】python-rq &lt;wbr&gt;Redis-Queue" /></a><br /><br /></div><div>具体可以查看代码：/usr/lib/python2.7/site-packages/rq/worker.py557行左右：<strong>perform_job(self, job)</strong> </div><div>还有一个参数是ttl 这个默认就可以，作用是创建任务后，多久没消费就删除任务。</div><div><br /></div></div>

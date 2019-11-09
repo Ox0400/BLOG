@@ -1,0 +1,69 @@
+---
+layout: post
+title: "[原创]Java-JNI-参数"
+date: 2017-03-20 14:49:14
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - java
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><h1 style="font-weight:bold;font-size:1.6em;border-bottom:1px solid rgb(221,221,221);">反编译一个 APP 时候, 一个<em>.so通过 loadLibrary加载. 把</em>. so 逆向后, 函数名已经混淆,但无法根据参数信息获取究竟哪一个才是对外提供的接口.</h1><p>所以了解一下 JNI,so文件中代码如何编码, 参数如何定义</p><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">a. 无参数 HelloJNI.Java</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
+   <span style="color:rgb(51,51,51);"><strong>static</strong></span> {
+      System.loadLibrary(<span style="color:rgb(221,17,68);">"hello"</span>); <span style="color:rgb(153,153,136);"><em>// hello.dll (Windows) or libhello.so (Unixes)</em></span>
+   }
+
+   <span style="color:rgb(153,153,136);"><em>// Declare native method</em></span>
+   <span><span style="color:rgb(51,51,51);"><strong>private</strong></span> <span style="color:rgb(51,51,51);"><strong>native</strong></span> <span style="color:rgb(51,51,51);"><strong>void</strong></span> <span style="color:rgb(153,0,0);"><strong>sayHello</strong></span><span>()</span></span>;
+
+   <span style="color:rgb(153,153,136);"><em>// Test Driver</em></span>
+   <span><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span style="color:rgb(51,51,51);"><strong>static</strong></span> <span style="color:rgb(51,51,51);"><strong>void</strong></span> <span style="color:rgb(153,0,0);"><strong>main</strong></span><span>(String[] args)</span> </span>{
+      <span style="color:rgb(51,51,51);"><strong>new</strong></span> HelloJNI().sayHello();  <span style="color:rgb(153,153,136);"><em>// invoke the native method</em></span>
+   }
+}
+</code>
+</pre><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">a. 无参数 HelloJNI.c</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> "HelloJNI.h"</strong></span>
+
+JNIEXPORT <span style="color:rgb(51,51,51);"><strong>void</strong></span> HelloJNI  {
+   <span style="color:rgb(0,134,179);">printf</span>(<span style="color:rgb(221,17,68);">"Hello World!\n"</span>);
+   <span style="color:rgb(51,51,51);"><strong>return</strong></span>;
+}
+</code>
+</pre><h3 style="font-weight:bold;font-size:1.3em;">可以看到, java无参数调用接口时, *.c中定义的接口是有两个默认参数的. 一个 JNIEnv 一个 jobject.JNIEnv可以理解为 JNI 虚拟环境相关对象, jobject thisObj 看意思应该是类本身, 类似 java 中的this 或者 python 中的 self</h3><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">再看一个有参数的</h2><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">b. 有参数 HelloJNI.java</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
+   <span style="color:rgb(51,51,51);"><strong>static</strong></span> {
+      System.loadLibrary(<span style="color:rgb(221,17,68);">"myjni"</span>); <span style="color:rgb(153,153,136);"><em>// myjni.dll (Windows) or libmyjni.so (Unixes)</em></span>
+   }
+
+   <span style="color:rgb(153,153,136);"><em>// Declare a native method average() that receives two ints and return a double containing the average</em></span>
+   <span><span style="color:rgb(51,51,51);"><strong>private</strong></span> <span style="color:rgb(51,51,51);"><strong>native</strong></span> <span style="color:rgb(51,51,51);"><strong>double</strong></span> <span style="color:rgb(153,0,0);"><strong>average</strong></span><span>(<span style="color:rgb(51,51,51);"><strong>int</strong></span> n1, <span style="color:rgb(51,51,51);"><strong>int</strong></span> n2)</span></span>;
+
+   <span style="color:rgb(153,153,136);"><em>// Test Driver</em></span>
+   <span><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span style="color:rgb(51,51,51);"><strong>static</strong></span> <span style="color:rgb(51,51,51);"><strong>void</strong></span> <span style="color:rgb(153,0,0);"><strong>main</strong></span><span>(String args[])</span> </span>{
+      System.out.println(<span style="color:rgb(221,17,68);">"In Java, the average is "</span> + <span style="color:rgb(51,51,51);"><strong>new</strong></span> TestJNIPrimitive().average(<span style="color:rgb(0,128,128);">3</span>, <span style="color:rgb(0,128,128);">2</span>));
+   }
+}
+</code>
+</pre><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">b. 有参数 HelloJNI.c</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
+<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> "HelloJNI.h"</strong></span>
+
+JNIEXPORT jdouble JNICALL Java_TestJNIPrimitive_average
+          (JNIEnv *env, jobject thisObj, jint n1, jint n2) {
+   jdouble result;
+   <span style="color:rgb(0,134,179);">printf</span>(<span style="color:rgb(221,17,68);">"In C, the numbers are %d and %d\n"</span>, n1, n2);
+   result = ((jdouble)n1 + n2) / <span style="color:rgb(0,128,128);">2.0</span>;
+   <span style="color:rgb(153,153,136);"><em>// jint is mapped to int, jdouble is mapped to double</em></span>
+   <span style="color:rgb(51,51,51);"><strong>return</strong></span> result;
+}
+</code>
+</pre><h3 style="font-weight:bold;font-size:1.3em;">可以确认, 第一二个形参为默认参数, 之后的形参才是 java 调用时的实参.</h3><p>参考: <a href="https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html">JavaProgramming Tutorial </a></p><div title="MDH:I+WPjee8luivkeS4gOS4qiBBUFAg5pe25YCZLCDkuIDkuKoqLnNv6YCa6L+HIDxzcGFuIHN0eWxl PSJjb2xvcjogcmdiKDc4LCAxNDQsIDExNCk7IGZvbnQtZmFtaWx5OiBNb25hY287IGZvbnQtc2l6 ZTogMTFweDsiPmxvYWRMaWJyYXJ5PC9zcGFuPuWKoOi9vS4g5oqKKi4gc28g6YCG5ZCR5ZCOLCDl h73mlbDlkI3lt7Lnu4/mt7fmt4YsIOS9huaXoOazleagueaNruWPguaVsOS/oeaBr+iOt+WPluep tuern+WTquS4gOS4quaJjeaYr+WvueWkluaPkOS+m+eahOaOpeWPoy48ZGl2Pjxicj48ZGl2PuaJ gOS7peS6huino+S4gOS4iyBKTkksIHNv5paH5Lu25Lit5Luj56CB5aaC5L2V57yW56CBLCDlj4Lm lbDlpoLkvZXlrprkuYk8L2Rpdj48L2Rpdj48ZGl2PiMjIGEuICZuYnNwO+aXoOWPguaVsCBIZWxs b0pOSS5KYXZhPC9kaXY+PGRpdj5gYGBqYXZhPC9kaXY+PGRpdj48ZGl2PnB1YmxpYyBjbGFzcyBI ZWxsb0pOSSB7PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7c3RhdGljIHs8L2Rpdj48ZGl2PiZuYnNw OyAmbmJzcDsgJm5ic3A7IFN5c3RlbS5sb2FkTGlicmFyeSgiaGVsbG8iKTsgLy8gaGVsbG8uZGxs IChXaW5kb3dzKSBvciBsaWJoZWxsby5zbyAoVW5peGVzKTwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNw O308L2Rpdj48ZGl2PiZuYnNwOzwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOy8vIERlY2xhcmUgbmF0 aXZlIG1ldGhvZDwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwO3ByaXZhdGUgbmF0aXZlIHZvaWQgc2F5 SGVsbG8oKTs8L2Rpdj48ZGl2PiZuYnNwOzwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOy8vIFRlc3Qg RHJpdmVyPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7cHVibGljIHN0YXRpYyB2b2lkIG1haW4oU3Ry aW5nW10gYXJncykgezwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgbmV3IEhlbGxvSk5J KCkuc2F5SGVsbG8oKTsgJm5ic3A7Ly8gaW52b2tlIHRoZSBuYXRpdmUgbWV0aG9kPC9kaXY+PGRp dj4mbmJzcDsgJm5ic3A7fTwvZGl2PjxkaXY+fTwvZGl2PjwvZGl2PjxkaXY+YGBgPC9kaXY+PGRp dj4jIyBhLiAmbmJzcDvml6Dlj4LmlbAgSGVsbG9KTkkuYzwvZGl2PjxkaXY+YGBgYzwvZGl2Pjxk aXY+PGRpdj4jaW5jbHVkZSAmbHQ7am5pLmgmZ3Q7PC9kaXY+PGRpdj4jaW5jbHVkZSAmbHQ7c3Rk aW8uaCZndDs8L2Rpdj48ZGl2PiNpbmNsdWRlICJIZWxsb0pOSS5oIjwvZGl2PjxkaXY+Jm5ic3A7 PC9kaXY+PGRpdj5KTklFWFBPUlQgdm9pZCBIZWxsb0pOSSZuYnNwO0phdmFfSGVsbG9KTklfc2F5 SGVsbG8oSk5JRW52ICplbnYsIGpvYmplY3QgdGhpc09iaikgezwvZGl2PjxkaXY+Jm5ic3A7ICZu YnNwO3ByaW50ZigiSGVsbG8gV29ybGQhXG4iKTs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtyZXR1 cm47PC9kaXY+PGRpdj59PC9kaXY+PC9kaXY+PGRpdj5gYGA8L2Rpdj48ZGl2PiMjIyDlj6/ku6Xn nIvliLAsIGphdmHml6Dlj4LmlbDosIPnlKjmjqXlj6Pml7YsICouY+S4reWumuS5ieeahOaOpeWP o+aYr+acieS4pOS4qum7mOiupOWPguaVsOeahC4g5LiA5LiqIEpOSUVudiDkuIDkuKogam9iamVj dC4gSk5JRW525Y+v5Lul55CG6Kej5Li6IEpOSSDomZrmi5/njq/looPnm7jlhbPlr7nosaEsIGpv YmplY3QgdGhpc09iaiDnnIvmhI/mgJ3lupTor6XmmK/nsbvmnKzouqssIOexu+S8vCBqYXZhIOS4 reeahCB0aGlzIOaIluiAhSBweXRob24g5Lit55qEIHNlbGY8L2Rpdj48ZGl2Pjxicj48L2Rpdj48 ZGl2PiMjIOWGjeeci+S4gOS4quacieWPguaVsOeahDwvZGl2PjxkaXY+IyMgYi4g5pyJ5Y+C5pWw IEhlbGxvSk5JLmphdmE8L2Rpdj48ZGl2PmBgYGphdmE8L2Rpdj48ZGl2PjxkaXY+cHVibGljIGNs YXNzIEhlbGxvSk5JJm5ic3A7ezwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwO3N0YXRpYyB7PC9kaXY+ PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyBTeXN0ZW0ubG9hZExpYnJhcnkoIm15am5pIik7IC8v IG15am5pLmRsbCAoV2luZG93cykgb3IgbGlibXlqbmkuc28gKFVuaXhlcyk8L2Rpdj48ZGl2PiZu YnNwOyAmbmJzcDt9PC9kaXY+PGRpdj4mbmJzcDs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsvLyBE ZWNsYXJlIGEgbmF0aXZlIG1ldGhvZCBhdmVyYWdlKCkgdGhhdCByZWNlaXZlcyB0d28gaW50cyBh bmQgcmV0dXJuIGEgZG91YmxlIGNvbnRhaW5pbmcgdGhlIGF2ZXJhZ2U8L2Rpdj48ZGl2PiZuYnNw OyAmbmJzcDtwcml2YXRlIG5hdGl2ZSBkb3VibGUgYXZlcmFnZShpbnQgbjEsIGludCBuMik7PC9k aXY+PGRpdj4mbmJzcDs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsvLyBUZXN0IERyaXZlcjwvZGl2 PjxkaXY+Jm5ic3A7ICZuYnNwO3B1YmxpYyBzdGF0aWMgdm9pZCBtYWluKFN0cmluZyBhcmdzW10p IHs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7IFN5c3RlbS5vdXQucHJpbnRsbigiSW4g SmF2YSwgdGhlIGF2ZXJhZ2UgaXMgIiArIG5ldyBUZXN0Sk5JUHJpbWl0aXZlKCkuYXZlcmFnZSgz LCAyKSk7PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7fTwvZGl2PjxkaXY+fTwvZGl2PjwvZGl2Pjxk aXY+YGBgPC9kaXY+PGRpdj4jIyBiLiAmbmJzcDvmnInlj4LmlbAgSGVsbG9KTkkuYzwvZGl2Pjxk aXY+PGJyPjwvZGl2PjxkaXY+YGBgYzwvZGl2PjxkaXY+PGRpdj4jaW5jbHVkZSAmbHQ7am5pLmgm Z3Q7PC9kaXY+PGRpdj4jaW5jbHVkZSAmbHQ7c3RkaW8uaCZndDs8L2Rpdj48ZGl2PiNpbmNsdWRl ICJIZWxsb0pOSS5oIjwvZGl2PjxkaXY+Jm5ic3A7PC9kaXY+PGRpdj5KTklFWFBPUlQgamRvdWJs ZSBKTklDQUxMIEphdmFfVGVzdEpOSVByaW1pdGl2ZV9hdmVyYWdlPC9kaXY+PGRpdj4mbmJzcDsg Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IChKTklFbnYgKmVudiwgam9iamVjdCB0aGlzT2Jq LCBqaW50IG4xLCBqaW50IG4yKSB7PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7amRvdWJsZSByZXN1 bHQ7PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7cHJpbnRmKCJJbiBDLCB0aGUgbnVtYmVycyBhcmUg JWQgYW5kICVkXG4iLCBuMSwgbjIpOzwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwO3Jlc3VsdCA9ICgo amRvdWJsZSluMSArIG4yKSAvIDIuMDs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsvLyBqaW50IGlz IG1hcHBlZCB0byBpbnQsIGpkb3VibGUgaXMgbWFwcGVkIHRvIGRvdWJsZTwvZGl2PjxkaXY+Jm5i c3A7ICZuYnNwO3JldHVybiByZXN1bHQ7PC9kaXY+PGRpdj59PC9kaXY+PC9kaXY+PGRpdj5gYGA8 L2Rpdj48ZGl2PiMjIyDlj6/ku6Xnoa7orqQsIOesrOS4gOS6jOS4quW9ouWPguS4uum7mOiupOWP guaVsCwgJm5ic3A75LmL5ZCO55qE5b2i5Y+C5omN5pivIGphdmEg6LCD55So5pe255qE5a6e5Y+C LjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+W0phdmEgUHJvZ3JhbW1p bmcgVHV0b3JpYWwgSmF2YSBOYXRpdmUgSW50ZXJmYWNlIChKTkkpXShodHRwczovL3d3dzMubnR1 LmVkdS5zZy9ob21lL2VoY2h1YS9wcm9ncmFtbWluZy9qYXZhL0phdmFOYXRpdmVJbnRlcmZhY2Uu aHRtbCk8L2Rpdj4=" style="width:0;font-size:0em;">​</div></div></div>

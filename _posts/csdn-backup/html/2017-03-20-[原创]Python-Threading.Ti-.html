@@ -1,0 +1,45 @@
+---
+layout: post
+title: "[原创]Python-Threading.Ti-"
+date: 2017-03-20 14:45:09
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			前文《<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0102uxb4.html" TARGET="_blank">Python 定时器
+threding.Timer&nbsp;<wbr></A>》简单说了一下timer定时器，
+<div>
+<div>
+<div>import time</DIV>
+<div>import threading &nbsp;<wbr></DIV>
+</DIV>
+<div>def a(): &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+threading.Timer(1,a).start()</DIV>
+</DIV>
+<div>threading.Timer(1,a).start()</DIV>
+<div><br /></DIV>
+<div>
+这是有一个缺点的，Timer线程是以root用户的，线程不结束，主线程退出也没有，会一直处于僵死?（假死）状态，总之是杀不掉的，需要在shell中kill进程号，但是work还会存在/</DIV>
+<div><br /></DIV>
+<div>
+递归调用需要加判断条件，必须有出口。但是加了判断也不行，假设时间长度为一个小时几个小时，线程就会停顿几个小时，【Ctrl】+【C】
+是结束不掉的，必须kill，exit(-9)， sys.exit(-9)这些都杀不掉进程，即使用root
+执行python也杀不掉定时任务。。。</DIV>
+<div>所以当任务已完成，需要退出程序的时候，需要先stop子线程，</DIV>
+<div>
+threading.currentThread()是获取不到Timer线程的！需要用到threading.enumerate()，</DIV>
+<div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxj1&url=http://album.sina.com.cn/pic/002pInNzzy6KH4jS5eF61" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s2.sinaimg.cn/mw690/002pInNzzy6KH4jS5eF61&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="546" HEIGHT="705" NAME="image_operate_66891406176820446"  ALT="【原创】Python&nbsp;<wbr>Threading.Timer&nbsp;<wbr>多线程无法退出"  TITLE="【原创】Python&nbsp;<wbr>Threading.Timer&nbsp;<wbr>多线程无法退出" /></A><br />
+如果子线程中有用到timer，光杀死子线程也是没有用的，必须先在子线程中杀死timer线程。</DIV>							
+		</div>

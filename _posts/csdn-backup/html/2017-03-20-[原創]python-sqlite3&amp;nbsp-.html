@@ -1,0 +1,296 @@
+---
+layout: post
+title: "[原創]python-sqlite3&amp;nbsp-"
+date: 2017-03-20 14:47:16
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			sqllite3默認查詢到的結果是list[tuple(value, value...)]
+<div>找了半天，也沒有發現類似Mysqldb 的DictCursor，最後在官方網站看到說明</DIV>
+<div>
+<h2 STYLE="font-family: 'Trebuchet Ms', sans-serif; font-weight: normal; color: rgb(32, 67, 92); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); margin: 20px -20px 10px; padding: 3px 0px 3px 10px; font-size: 19.2000007629395px; line-height: normal; background-color: rgb(242, 242, 242);">
+<a HREF="https://docs.python.org/2/library/sqlite3.html#row-objects" TARGET="_blank">11.13.4. Row Objects</A><a HREF="https://docs.python.org/2/library/sqlite3.html#row-objects" TITLE="Permalink to this headline"></A></H2>
+<dl STYLE="margin-bottom: 15px; font-family: sans-serif; font-size: 12px; line-height: normal; background-color: rgb(255, 255, 255);">
+<dt><em>class&nbsp;<wbr></EM><tt STYLE="padding: 0px 1px; font-size: 0.95em; background-color: transparent;">sqlite3.</TT><tt STYLE="padding: 0px 1px; font-size: 1.2em; font-weight: bold; background-color: transparent;">Row</TT><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Row" TITLE="Permalink to this definition"></A></DT>
+<dd STYLE="margin-top: 3px; margin-bottom: 10px; margin-left: 30px; text-align: justify; line-height: 15.6000003814697px;">
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">
+A&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Row" TITLE="sqlite3.Row"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>Row</SPAN></TT></A>&nbsp;<wbr>instance
+serves as a highly optimized&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.row_factory" TITLE="sqlite3.Connection.row_factory"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>row_factory</SPAN></TT></A>&nbsp;<wbr>for&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection" TITLE="sqlite3.Connection"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>Connection</SPAN></TT></A>&nbsp;<wbr>objects.
+It tries to mimic a tuple in most of its features.</P>
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">It
+supports mapping access by column name and index, iteration,
+representation, equality testing and&nbsp;<wbr><a HREF="https://docs.python.org/2/library/functions.html#len" TITLE="len"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>len()</SPAN></TT></A>.</P>
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">If
+two&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Row" TITLE="sqlite3.Row"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>Row</SPAN></TT></A>&nbsp;<wbr>objects
+have exactly the same columns and their members are equal, they
+compare equal.</P>
+<div>
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">
+<span STYLE="font-style: italic;">Changed
+in version 2.6:&nbsp;<wbr></SPAN>Added iteration and
+equality (hashability).</P>
+</DIV>
+<dl STYLE="margin-bottom: 15px;">
+<dt><tt STYLE="padding: 0px 1px; font-size: 1.2em; font-weight: bold; background-color: transparent;">
+keys</TT><big>(</BIG><big>)</BIG><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Row.keys" TITLE="Permalink to this definition"></A></DT>
+<dd STYLE="margin-top: 3px; margin-bottom: 10px; margin-left: 30px; line-height: 15.6000003814697px;">
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">This
+method returns a list of column names. Immediately after a query,
+it is the first member of each tuple in&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Cursor.description" TITLE="sqlite3.Cursor.description"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>Cursor.description</SPAN></TT></A>.</P>
+<div>
+<p STYLE="margin-top: 0px; line-height: 15.6000003814697px;">
+<span STYLE="font-style: italic;">New in
+version 2.6.</SPAN></P>
+</DIV>
+</DD>
+</DL>
+</DD>
+</DL>
+<p STYLE="text-align: justify; line-height: 15.6000003814697px; font-family: sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);">
+Let’s assume we initialize a table as in the example given
+above:</P>
+<div STYLE="font-family: sans-serif; font-size: 12px; line-height: normal; position: relative; background-color: rgb(255, 255, 255);">
+<div STYLE="background: rgb(238, 255, 204);">
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>conn</SPAN> <span STYLE="color: rgb(102, 102, 102);">=</SPAN> <span>sqlite3</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>connect</SPAN><span>(</SPAN><span STYLE="color: rgb(64, 112, 160);">":memory:"</SPAN><span>)</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>c</SPAN> <span STYLE="color: rgb(102, 102, 102);">=</SPAN> <span>conn</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>cursor</SPAN><span>()</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>c</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>execute</SPAN><span>(</SPAN><span STYLE="color: rgb(64, 112, 160);">'''create table stocks</SPAN>
+<span STYLE="color: rgb(64, 112, 160);">(date text, trans text, symbol text,</SPAN>
+<span STYLE="color: rgb(64, 112, 160);"> qty real, price real)'''</SPAN><span>)</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>c</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>execute</SPAN><span>(</SPAN><span STYLE="color: rgb(64, 112, 160);">"""insert into stocks</SPAN>
+<span STYLE="color: rgb(64, 112, 160);">          values ('2006-01-05','BUY','RHAT',100,35.14)"""</SPAN><span>)</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>conn</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>commit</SPAN><span>()</SPAN>
+<span>c</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>close</SPAN><span>()</SPAN>
+</PRE></DIV>
+</DIV>
+<p STYLE="text-align: justify; line-height: 15.6000003814697px; font-family: sans-serif; font-size: 12px; background-color: rgb(255, 255, 255);">
+Now we plug&nbsp;<wbr><a HREF="https://docs.python.org/2/library/sqlite3.html#sqlite3.Row" TITLE="sqlite3.Row"><tt STYLE="padding: 0px 1px; font-size: 0.95em; font-weight: bold; background-color: transparent;"><span>Row</SPAN></TT></A>&nbsp;<wbr>in:</P>
+<div STYLE="font-family: sans-serif; font-size: 12px; line-height: normal; position: relative; background-color: rgb(255, 255, 255);">
+<div STYLE="background: rgb(238, 255, 204);">
+<span TITLE="Hide the prompts and output">
+&gt;&gt;&gt;</SPAN>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>conn</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>row_factory</SPAN> <span STYLE="color: rgb(102, 102, 102);">=</SPAN> <span>sqlite3</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>Row</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>c</SPAN> <span STYLE="color: rgb(102, 102, 102);">=</SPAN> <span>conn</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>cursor</SPAN><span>()</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>c</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>execute</SPAN><span>(</SPAN><span STYLE="color: rgb(64, 112, 160);">'select * from stocks'</SPAN><span>)</SPAN>
+&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>r</SPAN> <span STYLE="color: rgb(102, 102, 102);">=</SPAN> <span>c</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>fetchone</SPAN><span>()</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span STYLE="color: rgb(0, 112, 32);">type</SPAN><span>(</SPAN><span>r</SPAN><span>)</SPAN>
+&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>r</SPAN>
+<span>(u'2006-01-05', u'BUY', u'RHAT', 100.0, 35.14)</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span STYLE="color: rgb(0, 112, 32);">len</SPAN><span>(</SPAN><span>r</SPAN><span>)</SPAN>
+<span>5</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>r</SPAN><span>[</SPAN><span STYLE="color: rgb(32, 128, 80);">2</SPAN><span>]</SPAN>
+<span>u'RHAT'</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>r</SPAN><span STYLE="color: rgb(102, 102, 102);">.</SPAN><span>keys</SPAN><span>()</SPAN>
+<span>['date', 'trans', 'symbol', 'qty', 'price']</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span>r</SPAN><span>[</SPAN><span STYLE="color: rgb(64, 112, 160);">'qty'</SPAN><span>]</SPAN>
+<span>100.0</SPAN>&nbsp;<wbr>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span STYLE="color: rgb(198, 93, 9); font-weight: bold;">&gt;&gt;&gt; </SPAN><span STYLE="color: rgb(0, 112, 32); font-weight: bold;">for</SPAN> <span>member</SPAN> <span STYLE="color: rgb(0, 112, 32); font-weight: bold;">in</SPAN> <span>r</SPAN><span>:&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 112, 32); font-weight: bold;">print</SPAN><span STYLE="line-height: 14.3999996185303px;"> </SPAN><span>member,</SPAN>
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<br />
+</PRE>
+<pre STYLE="overflow-x: auto; overflow-y: hidden; padding: 5px; color: rgb(51, 51, 51); line-height: 14.3999996185303px; border-top-width: 1px; border-bottom-width: 1px; border-style: solid none; border-top-color: rgb(170, 204, 153); border-bottom-color: rgb(170, 204, 153);">
+
+<span>2006-01-05</SPAN>
+<span>BUY</SPAN>
+<span>RHAT</SPAN>
+<span>100.0</SPAN>
+<span>35.14</SPAN>
+</PRE></DIV>
+</DIV>
+</DIV>
+<div>-</DIV>
+<div>那其实我们可以看到，用法就是用自定义的一个Row类，其实这个类可以自己写的、</DIV>
+<div>Row源码如下：</DIV>
+<div>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">class </SPAN>Row(<span STYLE="color: rgb(0, 0, 128);">object</SPAN>):<br />
+    <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr> # no doc<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN>keys(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, *args, **kwargs): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" Returns the keys of the row. """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__eq__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__eq__(y) &lt;==&gt; x==y """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__getitem__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__getitem__(y) &lt;==&gt; x[y] """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__ge__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__ge__(y) &lt;==&gt; x&gt;=y """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__gt__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__gt__(y) &lt;==&gt; x&gt;y """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__hash__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__hash__() &lt;==&gt; hash(x) """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__init__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, *args, **kwargs): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__iter__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__iter__() &lt;==&gt; iter(x) """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__len__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__len__() &lt;==&gt; len(x) """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__le__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__le__(y) &lt;==&gt; x&lt;=y """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__lt__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__lt__(y) &lt;==&gt; x</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128);">@</SPAN><span STYLE="color: rgb(0, 0, 178);">staticmethod </SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;"># known case of __new__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__new__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">S</SPAN>, *more): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" T.__new__(S, ...) -&gt; a new object with type S, a subtype of T """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__ne__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, y): <span STYLE="color: rgb(128, 128, 128); font-style: italic;"># real signature unknown; restored from __doc__<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">""" x.__ne__(y) &lt;==&gt; x!=y """</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">pass</SPAN>
+</PRE></DIV>
+<div>
+如果我们自己写，应该怎么写呢，下面是我自己写的一小段，init第一个参数应当为Cursor类，这里写一个none就可以了。</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>
+<pre STYLE="background-color: rgb(255, 255, 255);">
+<font STYLE="font-family: Consolas; font-size: 14px;"><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">class </SPAN>UserEntity(<span STYLE="color: rgb(0, 0, 128);">dict</SPAN>):<br />
+<span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr> # </SPAN><span STYLE="color: rgb(0, 0, 255); font-weight: bold; font-style: italic;">todo: </SPAN><span STYLE="color: rgb(0, 0, 255); font-weight: bold; font-style: italic; font-family: 宋体;">需要跟数据库列完全对应</SPAN><span STYLE="color: rgb(0, 0, 255); font-weight: bold; font-style: italic;"> ..<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__init__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, <span STYLE="color: rgb(128, 128, 128);">none=None</SPAN>, name=<span STYLE="color: rgb(0, 0, 128);">None</SPAN>, id=<span STYLE="color: rgb(0, 0, 128);">None</SPAN>):<br />
+        <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="font-family: Consolas; color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="font-family: Consolas; color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas; color: rgb(0, 0, 128);">super</SPAN><span STYLE="font-family: Consolas;">(TaskEntity, </SPAN><span STYLE="font-family: Consolas; color: rgb(148, 85, 141);">self</SPAN><span STYLE="font-family: Consolas;">).</SPAN><span STYLE="font-family: Consolas; color: rgb(178, 0, 178);">__init__</SPAN><span STYLE="font-family: Consolas;">(</SPAN><font COLOR="#660099">id</FONT><span STYLE="font-family: Consolas;">=id, </SPAN><span STYLE="font-family: Consolas; color: rgb(102, 0, 153);">name</SPAN><span STYLE="font-family: Consolas;">=name</SPAN><span STYLE="font-family: Consolas;">)</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+</PRE>
+<pre STYLE="font-family: Consolas;">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN>get(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, k, d=<span STYLE="color: rgb(0, 0, 128);">None</SPAN>):<br />
+    <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">return </SPAN><span STYLE="color: rgb(148, 85, 141);">self</SPAN>.<span STYLE="color: rgb(178, 0, 178);">__getitem__</SPAN>(k, d)<br />
+<br />
+<span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN><span STYLE="color: rgb(178, 0, 178);">__getitem__</SPAN>(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, item, default=<span STYLE="color: rgb(0, 0, 128);">None</SPAN>):<br />
+<span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas;">value = </SPAN><span STYLE="color: rgb(0, 0, 128);">super</SPAN><span STYLE="font-family: Consolas;">(TaskEntity, </SPAN><span STYLE="color: rgb(148, 85, 141);">self</SPAN><span STYLE="font-family: Consolas;">).</SPAN><span STYLE="color: rgb(178, 0, 178);">__getitem__</SPAN><span STYLE="font-family: Consolas;">(item)</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas;">
+<font STYLE="font-size: 14px;">    <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">if </SPAN><span STYLE="font-family: Consolas;">value:</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas;">
+<font STYLE="font-size: 14px;">        <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">return </SPAN><span STYLE="font-family: Consolas;">value[</SPAN><span STYLE="color: rgb(0, 0, 255);">0</SPAN><span STYLE="font-family: Consolas;">]</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas;">
+<font STYLE="font-size: 14px;">    <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">else</SPAN><span STYLE="font-family: Consolas;">:</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas;">
+<font STYLE="font-size: 14px;">        <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">return </SPAN><span STYLE="font-family: Consolas;">default</SPAN>
+</PRE>
+<pre STYLE="font-family: Consolas; background-color: rgb(255, 255, 255);">
+<font STYLE="font-size: 14px;"><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128);">@</SPAN><span STYLE="color: rgb(0, 0, 178);">property<br /></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN>id(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>):<br />
+        <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">return </SPAN><span STYLE="color: rgb(148, 85, 141);">self</SPAN>.get(<span STYLE="color: rgb(0, 128, 0); font-weight: bold;">"id"</SPAN>)<br />
+<br />
+<span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN>@<span STYLE="background-color: rgb(228, 228, 255);">id</SPAN>.setter<br />
+    <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(0, 0, 128); font-weight: bold;">def </SPAN>id(<span STYLE="color: rgb(148, 85, 141);">self</SPAN>, <span STYLE="background-color: rgb(228, 228, 255);">id</SPAN>):<br />
+        <span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN></FONT><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr> &nbsp;<wbr></SPAN><span STYLE="color: rgb(128, 128, 128); font-style: italic;">&nbsp;<wbr></SPAN><span STYLE="color: rgb(148, 85, 141);">self</SPAN><span STYLE="font-family: Consolas;">[</SPAN><span STYLE="color: rgb(0, 128, 0); font-weight: bold;">"id"</SPAN><span STYLE="font-family: Consolas;">] = </SPAN><span STYLE="background-color: rgb(228, 228, 255);">id</SPAN>
+</PRE></DIV>
+测试一下：
+<div>
+<div>&gt;&gt;&gt; from User_entity import UserEntity as user</DIV>
+<div>&gt;&gt;&gt; import sqlite3 as sql</DIV>
+<div>&gt;&gt;&gt; conn = sql.connect("my.db")</DIV>
+<div>&gt;&gt;&gt; conn.row_factory =&nbsp;<wbr><span STYLE="line-height: 21px;">user</SPAN></DIV>
+<div>&gt;&gt;&gt; cur = conn.cursor()</DIV>
+<div>&gt;&gt;&gt; ex = cur.execute("select * from users")</DIV>
+<div>&gt;&gt;&gt; rows = ex.fetchall()</DIV>
+<div>&gt;&gt;&gt; rows</DIV>
+<div>[{'name': (u'zhang',), 'id': None,'age': None}]</DIV>
+<div>
+<div>&gt;&gt;&gt; print rows[0].name</DIV>
+<div>zhang</DIV>
+<div>&gt;&gt;&gt; print rows[0]["name"]</DIV>
+<div>zhang</DIV>
+</DIV>
+</DIV>
+<div><br /></DIV>							
+		</div>

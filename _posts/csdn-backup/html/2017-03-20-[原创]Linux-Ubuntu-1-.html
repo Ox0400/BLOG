@@ -1,0 +1,93 @@
+---
+layout: post
+title: "[原创]Linux-Ubuntu-1-"
+date: 2017-03-20 14:44:06
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			Linux Ubuntu 12.04 E: Some index files failed to download, they
+have been ignored, or old ones used instead
+<div>sudo apt-get update&nbsp;<wbr></DIV>
+<div>
+<div><br /></DIV>
+<div><br /></DIV>
+</DIV>
+<div>解决方案一：</DIV>
+<div>
+<div STYLE="line-height: 21px;">下载 22.4 MB，耗时 13分 43秒 (27.2 kB/s)
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></DIV>
+<div STYLE="line-height: 21px;">W: 无法下载
+bzip2:/var/lib/apt/lists/partial/ppa.launchpad.net_phablet-team_tools_ubuntu_dists_precise_main_binary-i386_Packages
+&nbsp;<wbr>Hash 校验和不符</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">E: Some index files failed to
+download. They have been ignored, or old ones used instead.</DIV>
+</DIV>
+<div><b>sudo rm /var/lib/apt/lists/* -v</B></DIV>
+<div><b><br /></B></DIV>
+<div>解决方案二：</DIV>
+<div>
+<div>W: GPG 错误：http://cn.archive.ubuntu.com precise-backports
+Release: 下列签名无效： BADSIG 40976EAF437D05B5 Ubuntu &nbsp;<wbr>
+&nbsp;<wbr> Archive Automatic Signing Key</DIV>
+<div>W: 无法下载
+gzip:/var/lib/apt/lists/partial/cn.archive.ubuntu.com_ubuntu_dists_precise_multiverse_source_Sources
+&nbsp;<wbr>Hash 校验和不符</DIV>
+</DIV>
+<div>
+<div><b>gpg --keyserver subkeys.pgp.net --recv
+40976EAF437D05B5</B></DIV>
+<div><b>gpg --export --armor 40976EAF437D05B5 | sudo apt-key add
+-</B></DIV>
+</DIV>
+<div><b><br /></B></DIV>
+<div>
+<div STYLE="">解决方案三：</DIV>
+<div STYLE="">W: 无法下载
+http://archive.ubuntu.com/ubuntu/dists/precise-backports/restricted/binary-i386/Packages
+&nbsp;<wbr>404 &nbsp;<wbr>Not Found [IP: 91.189.91.14
+80]</DIV>
+<div><br /></DIV>
+<div>E: Some index files failed to download. They have been
+ignored, or old ones used instead.</DIV>
+<div STYLE="font-weight: bold;">软件源的问题了...</DIV>
+</DIV>
+<div>
+<div>sudo cp /etc/apt/sources.list ~/&nbsp;<wbr></DIV>
+<div>sudo wget "<font COLOR="#FF0000">http://pastebin.com/raw.php?i=uzhrtg5M</FONT>" -O
+/etc/apt/sources.list&nbsp;<wbr></DIV>
+<div>sudo apt-get update</DIV>
+<div>sudo rm /etc/apt/sources.list.d/ubuntu-extras.list</DIV>
+<div>sudo apt-get update</DIV>
+</DIV>
+<div>标红色位置内容直接修改sources.list内容即可。参考：<a HREF="http://mirrors.aliyun.com/help/ubuntu" TARGET="_blank">Aliyun Open Source Mirror Site</A></DIV>
+<div><br /></DIV>
+<div>参见：<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101fqpy.html" TARGET="_blank">Ununtu源&nbsp;<wbr></A>&nbsp;<wbr><a HREF="http://wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8" TARGET="_blank">源列表</A>&nbsp;<wbr></DIV>
+<div>参考：</DIV>
+<div><a HREF="http://my.oschina.net/kiwivip/blog/120887" TARGET="_blank">Ubuntu 更新时出现的问题＆解决方案</A></DIV>
+<div><a HREF="http://askubuntu.com/questions/329450/e-some-index-files-failed-to-download-they-have-been-ignored-or-old-ones-used" TARGET="_blank">E: Some index files failed to download. They have
+been ignored, or old ones used instead after apt-get
+update</A></DIV>
+<div><b><br /></B></DIV>							
+		</div>

@@ -1,0 +1,63 @@
+---
+layout: post
+title: "[原创]Linux-vi-vim--"
+date: 2017-03-20 14:45:14
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			今天突发奇想，也不想用别的插件，我就是想在vi里选中几行，然后将他保存到 .vimrc
+配置文件中，用快捷键快速输入这几行值，就是传说中的模板而已....
+<div><span STYLE="line-height: 21px;">（"一辈子相守不离" .....
+下文中有错别字，这不重要，请不要在意这些细节。。）</SPAN><br />
+<div>看过别的教程了，但是人家的内容短啊，:reg
+直接就可以复制了，咱好几行坑爹的粘贴不上-。-&nbsp;<wbr>
+<div>看下：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPCj8UJYf2" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s3.sinaimg.cn/mw690/002pInNzzy6KPCj8UJYf2&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="165" NAME="image_operate_67611406639200489"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+<br /></DIV>
+<div>我就需要将下面6行值当作vi变量，只要按快捷键就插入这几行。</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPznu8tN37" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s8.sinaimg.cn/mw690/002pInNzzy6KPznu8tN37&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_98101406637955505"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+一：【Shift】+【v】选中这几行</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPzuNc0W22" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s3.sinaimg.cn/mw690/002pInNzzy6KPzuNc0W22&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="185" NAME="image_operate_78811406637789690"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+二：输入【"+y】(右下角会有命令输入提示，输入y后暂时截不到图)</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPzKsrkKd2" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s3.sinaimg.cn/mw690/002pInNzzy6KPzKsrkKd2&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="190" NAME="image_operate_23731406636077313"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+<br />
+左下角提示复制成功</DIV>
+<a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPzMeOyX2f" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s16.sinaimg.cn/mw690/002pInNzzy6KPzMeOyX2f&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="183" NAME="image_operate_23601406636272574"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+三：【du】进入宏录制模式
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPA9rb75db" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s12.sinaimg.cn/mw690/002pInNzzy6KPA9rb75db&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="162" NAME="image_operate_72741406636349779"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+四：【i】进入vi插入模式，【Ctrl】+【Shift】【V】粘贴</DIV>
+<a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPAncDswd4" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s5.sinaimg.cn/mw690/002pInNzzy6KPAncDswd4&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="257" NAME="image_operate_35501406636375635"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+五：<span STYLE="line-height: 21px;">【Esc】退出编辑模式，</SPAN><span STYLE="line-height: 21px;">【q】完成录制。</SPAN>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPAsJKAK36" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s7.sinaimg.cn/mw690/002pInNzzy6KPAsJKAK36&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="263" NAME="image_operate_65971406636575642"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+<a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPAuB5td1f" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s16.sinaimg.cn/mw690/002pInNzzy6KPAuB5td1f&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="263" NAME="image_operate_88941406636974250"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+六：【"up】将寄存器中录制的宏打印出来，切记是以i开头</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPAISrJQd6" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s7.sinaimg.cn/mw690/002pInNzzy6KPAISrJQd6&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="261" NAME="image_operate_81761406637258100"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br /></DIV>
+<div>七：将第16行复制到剪贴板【"+yy】</DIV>
+<div>八：新开一个标签页，vi ~/.vimrc</DIV>
+<div>九：【"+p】粘贴到当前行</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBcKSwc14" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s5.sinaimg.cn/mw690/002pInNzzy6KPBcKSwc14&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="210" NAME="image_operate_4891406637348997"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+十：【i】进入编辑模式，设置对应的快捷键map ixxxxxx 或者 imap xxxxxx
+(map是命令模式，必须有i开头，会自动插入i后面的文字；imap是插入模式，后面的文字全部以文字输入)</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBv9Wii1e" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s15.sinaimg.cn/mw690/002pInNzzy6KPBv9Wii1e&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_95491406637383896"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+十一：打开文件，命令模式按<span STYLE="line-height: 21px;">【F6】或者插入模式</SPAN>【F6】</DIV>
+<div><span STYLE="line-height: 21px;">命令模式：</SPAN></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBBIuSjaf" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s16.sinaimg.cn/mw690/002pInNzzy6KPBBIuSjaf&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_39351406637550348"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A></DIV>
+<div><br /></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBElxby48" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s9.sinaimg.cn/mw690/002pInNzzy6KPBElxby48&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_36001406637586698"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+插入模式：</DIV>
+<a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBPT8HN53" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s4.sinaimg.cn/mw690/002pInNzzy6KPBPT8HN53&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="209" NAME="image_operate_84841406638101136"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+<a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxt3&url=http://album.sina.com.cn/pic/002pInNzzy6KPBStwI4c4" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s5.sinaimg.cn/mw690/002pInNzzy6KPBStwI4c4&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="690" HEIGHT="211" NAME="image_operate_52661406637680717"  ALT="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)"  TITLE="【原创】Linux&nbsp;<wbr>vi/vim&nbsp;<wbr>宏/寄存器&nbsp;<wbr>配置模板(快速插入作者/日期等)" /></A><br />
+到这就结束了。
+<div>当然了，一、二步是可以跳过的，可以直接从网页或者别的地方复制文字，然后再进入vi获取宏过程。错别字请原谅。。。</DIV>
+<div>“一辈子相守不离”</DIV>
+</DIV>
+</DIV>							
+		</div>

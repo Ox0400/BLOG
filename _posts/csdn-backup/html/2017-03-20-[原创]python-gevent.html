@@ -1,0 +1,61 @@
+---
+layout: post
+title: "[原创]python-gevent"
+date: 2017-03-20 14:48:46
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><pre style="background-color:rgb(0,0,0);"><span style="color:rgb(255,255,255);font-size:13px;line-height:normal;">
+<span style="font-size:1em;color:rgb(255,255,0);"> 1 </span><span style="font-size:1em;color:rgb(0,255,255);">#-*- coding:utf8 -*-</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 2 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 3 </span><span style="font-size:1em;color:rgb(255,64,255);">import</span> gevent
+<span style="font-size:1em;color:rgb(255,255,0);"> 4 </span><span style="font-size:1em;color:rgb(255,64,255);">from</span> gevent <span style="font-size:1em;color:rgb(255,64,255);">import</span> Greenlet
+<span style="font-size:1em;color:rgb(255,255,0);"> 5 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 6 </span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 7 </span><span style="font-size:1em;color:rgb(255,255,0);">class</span> <span style="font-size:1em;color:rgb(0,255,255);">GreenThread</span>(Greenlet):
+<span style="font-size:1em;color:rgb(255,255,0);"> 8 </span><span style="font-size:1em;color:rgb(0,255,255);"># 将gevent模仿为我们熟悉的Threading.Thread OR Thread</span>
+<span style="font-size:1em;color:rgb(255,255,0);"> 9 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">10 </span>    <span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">__init__</span>(self, message, n, name=<span style="font-size:1em;color:rgb(255,255,0);">"null"</span>):
+<span style="font-size:1em;color:rgb(255,255,0);">11 </span>        Greenlet.__init__(self)
+<span style="font-size:1em;color:rgb(255,255,0);">12 </span>        self.message = message
+<span style="font-size:1em;color:rgb(255,255,0);">13 </span>        self._name = name
+<span style="font-size:1em;color:rgb(255,255,0);">14 </span>        self.name = <span style="font-size:1em;color:rgb(0,255,255);">str</span>(self.__class__).split(<span style="font-size:1em;color:rgb(255,255,0);">"."</span>)[-<span style="font-size:1em;color:rgb(255,255,0);">1</span>][:-<span style="font-size:1em;color:rgb(255,255,0);">2</span>] + <span style="font-size:1em;color:rgb(255,255,0);">"-"</span> + <span style="font-size:1em;color:rgb(0,255,255);">str</span>(n)
+<span style="font-size:1em;color:rgb(255,255,0);">15 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">16 </span>    <span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">run</span>(self):
+<span style="font-size:1em;color:rgb(255,255,0);">17 </span>        gevent.sleep(<span style="font-size:1em;color:rgb(255,255,0);">1</span>)
+<span style="font-size:1em;color:rgb(255,255,0);">18 </span>        <span style="font-size:1em;color:rgb(0,255,255);">print</span>(self.name, self.message, self._name)
+<span style="font-size:1em;color:rgb(255,255,0);">19 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">20 </span><span style="font-size:1em;color:rgb(255,255,0);">def</span> <span style="font-size:1em;color:rgb(0,255,255);">test</span>(thread_num=<span style="font-size:1em;color:rgb(255,255,0);">5</span>):
+<span style="font-size:1em;color:rgb(255,255,0);">21 </span>    threads = []
+<span style="font-size:1em;color:rgb(255,255,0);">22 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> <span style="font-size:1em;color:rgb(0,255,255);">range</span>(thread_num):
+<span style="font-size:1em;color:rgb(255,255,0);">23 </span>        threads.append(GreenThread(<span style="font-size:1em;color:rgb(255,255,0);">"Hi, My Stu ID-Card num is:"</span>, i, <span style="font-size:1em;color:rgb(255,255,0);">"No.0001%s"</span> % i))
+<span style="font-size:1em;color:rgb(255,255,0);">24 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">25 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> threads:
+<span style="font-size:1em;color:rgb(255,255,0);">26 </span>        i.start()
+<span style="font-size:1em;color:rgb(255,255,0);">27 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">28 </span>    <span style="font-size:1em;color:rgb(255,255,0);">for</span> i <span style="font-size:1em;color:rgb(255,255,0);">in</span> threads:
+<span style="font-size:1em;color:rgb(255,255,0);">29 </span>        <span style="font-size:1em;color:rgb(255,255,0);">try</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">30 </span>            i.join()
+<span style="font-size:1em;color:rgb(255,255,0);">31 </span>        <span style="font-size:1em;color:rgb(255,255,0);">except</span> gevent.hub.LoopExit:
+<span style="font-size:1em;color:rgb(255,255,0);">32 </span>            <span style="font-size:1em;color:rgb(0,255,255);"># 线程如果过快结束，join会报错.</span>
+<span style="font-size:1em;color:rgb(255,255,0);">33 </span>            <span style="font-size:1em;color:rgb(255,255,0);">pass</span>
+<span style="font-size:1em;color:rgb(255,255,0);">34 </span>        <span style="font-size:1em;color:rgb(255,255,0);">except</span> <span style="font-size:1em;color:rgb(0,255,0);">Exception</span>, e:
+<span style="font-size:1em;color:rgb(255,255,0);">35 </span>            <span style="font-size:1em;color:rgb(0,255,255);">print</span>(<span style="font-size:1em;color:rgb(255,255,0);">"Join Thread Error: %s"</span> % e)
+<span style="font-size:1em;color:rgb(255,255,0);">36 </span>
+<span style="font-size:1em;color:rgb(255,255,0);">37 </span><span style="font-size:1em;color:rgb(255,255,0);">if</span> __name__ == <span style="font-size:1em;color:rgb(255,255,0);">"__main__"</span>:
+<span style="font-size:1em;color:rgb(255,255,0);">38 </span>    test()</span>
+</pre><pre style="background-color:rgb(0,0,0);"><span style="color:#FFFFFF;"><span style="font-size:13px;line-height:19.5px;">zhipeng@www.zhangzhipeng2023.cn:~/test/gevent$ python test.py
+('GreenThread-0', 'Hi, My Stu ID-Card num is:', 'No.00010')
+('GreenThread-1', 'Hi, My Stu ID-Card num is:', 'No.00011')
+('GreenThread-2', 'Hi, My Stu ID-Card num is:', 'No.00012')
+('GreenThread-3', 'Hi, My Stu ID-Card num is:', 'No.00013')
+('GreenThread-4', 'Hi, My Stu ID-Card num is:', 'No.00014')</span></span><span style="color:rgb(255,255,255);font-size:13px;line-height:normal;">
+</span>
+</pre><div><br /></div></div>

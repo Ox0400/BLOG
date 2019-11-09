@@ -1,0 +1,59 @@
+---
+layout: post
+title: "[原创]python-assert-断言"
+date: 2017-03-20 14:40:14
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			assert语句是一种插入调试断点到程序的一种便捷的方式。<br />
+使用格式<br />
+<span STYLE="font-size: 12px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">
+assert</SPAN> <span STYLE="font-family: 'Courier new'; font-size: 12px; line-height: normal;">
+expression</SPAN><br />
+等价于:<br />
+<span STYLE="font-size: 12px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">
+if</SPAN> <span STYLE="font-size: 12px; color: rgb(128, 0, 128); font-family: 'Courier new' !important;">
+__debug__</SPAN><span STYLE="font-size: 12px; font-family: 'Courier new' !important;">:</SPAN>
+<pre STYLE="margin-top: 0px; margin-bottom: 0px; white-space: pre-wrap; word-wrap: break-word; font-size: 12px; line-height: normal; font-family: 'Courier new' !important;">
+
+<span STYLE="font-family: 'Courier new' !important;">    </SPAN><span STYLE="color: rgb(0, 0, 255); font-family: 'Courier new' !important;">if</SPAN> <span STYLE="color: rgb(0, 0, 255); font-family: 'Courier new' !important;">not</SPAN> expression: <span STYLE="color: rgb(0, 0, 255); font-family: 'Courier new' !important;">raise</SPAN> AssertionError
+</PRE>
+<br />
+assert也可以用于多个表达式的断言<br />
+<span STYLE="font-size: 12px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">
+assert</SPAN> <span STYLE="font-family: 'Courier new'; font-size: 12px; line-height: normal;">
+expression1, expression2</SPAN>
+<hr />
+<div>&gt;&gt;&gt; assert 1 == 1</DIV>
+<div>&gt;&gt;&gt; assert 1 != 1</DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+assert 1 != 1</FONT></DIV>
+<div><font COLOR="#FF0000">AssertionError</FONT></DIV>
+<div>&gt;&gt;&gt; assert 1 == '1'</DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+assert 1 == '1'</FONT></DIV>
+<div><font COLOR="#FF0000">AssertionError</FONT></DIV>
+如果没有断言assert机制，程序通常会使用if else then 或许 switch case
+进行assert检查，而且检查的数据类型也不完全相同。
+<div>所以，assert可以用来快排bug ..</DIV>
+<div><br /></DIV>
+<div>原创所有，转载请以超链接附明本文地址及作者。</DIV>							
+		</div>

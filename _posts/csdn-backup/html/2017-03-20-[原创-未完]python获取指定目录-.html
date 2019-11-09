@@ -1,0 +1,75 @@
+---
+layout: post
+title: "[原创-未完]python获取指定目录-"
+date: 2017-03-20 14:38:09
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>在指定的目录下，获取指定的文件类型(后缀名)的文件列表</DIV>
+<div>码自《development into python》.</DIV>
+<div>这几段代码中我认为有点技巧的蓝线标注。</DIV>
+<div>&gt;&gt;&gt; import os,
+sys</DIV>
+<div>&gt;&gt;&gt; from UserDict
+import UserDict</DIV>
+<div>&gt;&gt;&gt; class
+FileInfo(UserDict):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "store file
+metadata"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def __init__(self,
+filename=None):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> UserDict.__init__(self)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self["name"] = filename</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; def
+listDirectory(directory, fileExtList):
+&nbsp;<wbr>#获取指定目录下、指定文件类型列表(后缀名)的文件列表</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "get list of file info
+objects for files of particular extensions"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> <font COLOR="#000BFF">fileList = [os.path.normcase(f) for f in
+os.listdir(directory)]</FONT>
+#获取目录下所有文夹和文件，转化为正规文件路径格式，比如path.normcase('C:\Python27\LICENSE.txt')→'c:\\python27\\license.txt'</DIV>
+<div><font COLOR="#000BFF">&nbsp;<wbr> &nbsp;<wbr>
+fileList = [os.path.join(directory, f) for f in fileList if
+os.path.splitext(f)[1] in fileExtList]</FONT>
+#将文件添加至列表，如果文件在指定文件夹(上一句fileList结果)列表中，并且文件类型(后缀名)在指定文件类型列表中。(列表结果是指定文件夹中的指定类型文件列表。)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def
+getFileInfoClass(filename, <font COLOR="#0033FF">module=sys.modules[FileInfo.__module__]</FONT>):#函数中的函数，这个在其他语言没有吧？呵呵~</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> "get file info class from filename
+extension"#根据文件类型(扩展名)获取文件信息</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> subclass = "%sFileInfo" %
+os.path.splitext(filename)[1].upper()[1:]
+#根据文件名声称对应字符串，字符串格式化从其中生成一个类名，比如Summary.mp3 结果是 MP3FileInfo</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> <font COLOR="#0026FC">return hasattr(module,
+subclass) and getattr(module, subclass) or FileInfo</FONT>
+#这个你懂的，and or
+连用，之前有关于and/or的博文。在生成完处理这个文件的处理类的名字之后，我们查阅在这个模块中是否存在这个处理类；如果存在，我们返回这个类，否则我们返回基类
+<code STYLE="line-height: 1.5;">FileInfo</CODE>。这一点很重要：<span><em>这个函数返回一个类</EM></SPAN>。不是类的实例，而是类本身，所以就需要传两次参数噢！</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> return [<font COLOR="#0032FF">getFileInfoClass(f)(f)</FONT> for f in fileList]
+#传两次参数，同上说明。对每个属于我们 “<span>感兴趣文件</SPAN>” 列表 (<code STYLE="line-height: 1.5;">fileList</CODE>)中的文件，我们用文件名 (<code STYLE="line-height: 1.5;">f</CODE>) 来调用 <code STYLE="line-height: 1.5;">getFileInfoClass</CODE>。调用 <code STYLE="line-height: 1.5;">getFileInfoClass(f)</CODE>
+返回一个类；我们并不知道确切是哪一个类，但是我们并不关心。接着我们创建这个类 (不管它是什么) 的一个实例，传入文件名 (又是
+<code STYLE="line-height: 1.5;">f</CODE>) 给 <code STYLE="line-height: 1.5;">__init__</CODE> 方法。<code STYLE="line-height: 1.5;">FileInfo</CODE> 的 <code STYLE="line-height: 1.5;">__init__</CODE> 方法设置了 <code STYLE="line-height: 1.5;">self["name"]</CODE>，它将引发 <code STYLE="line-height: 1.5;">__setitem__</CODE> 的调用，而 <code STYLE="line-height: 1.5;">__setitem__</CODE> 在子类 (<code STYLE="line-height: 1.5;">MP3FileInfo</CODE>)
+中被覆盖掉了，用来适当地对文件进行分析，取出文件的元数据。我们对所有感兴趣的文件进行处理，返回结果实例的一个 list。</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt;
+listDirectory('.',['.txt'])</DIV>
+<div><i>[{'name': '.\\license.txt'}, {'name': '.\\news.txt'},
+{'name': '.\\readme.txt'}]</I></DIV>
+<div><br /></DIV>
+<div>未完，待续...</DIV>
+<div>原创所有，转载请附明本文链接，谢谢！</DIV>
+<div><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bcde.html">http://blog.sina.com.cn/s/blog_83dc494d0101bcde.html</A></DIV>							
+		</div>

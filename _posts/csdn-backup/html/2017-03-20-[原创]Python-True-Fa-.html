@@ -1,0 +1,64 @@
+---
+layout: post
+title: "[原创]Python-True-Fa-"
+date: 2017-03-20 14:44:58
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>在python中，任何对象都可以判断其真假值：True，False</DIV>
+<div>在if或while条件判断中，下面的情况值为False：</DIV>
+<div>1.None</DIV>
+<div>2.Flase</DIV>
+<div>3.数值为0的情况，如：0,0.0,0j</DIV>
+<div>4.所有空序列，如：'',(),[]</DIV>
+<div>5.所有空mapping，如：{}</DIV>
+<div>6.instances of user-defined classes, if the class defines a
+__bool__() or __len__() method,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>when that method returns
+the integer zero or bool value False.</DIV>
+<div><br /></DIV>
+<div>All other values are considered true — so objects of many
+types are always true.(所有的其他值都可以认为True --- 所以，许多类型的对象总为True)</DIV>
+<div><br /></DIV>
+<div>很多时候我们会使用find这个函数，比如：</DIV>
+<div>if find 'OK' in 'task:\t101\t' continue; else you code
+...</DIV>
+<div>很多时候我们的思维会认为find找不到值为-1，负数!=False 。负数=True，负数 !== True</DIV>
+<div>....</DIV>
+<div><br /></DIV>
+<div>看下图</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCarsZAbc7" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s8.sinaimg.cn/mw690/002pInNzzy6KCarsZAbc7&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_30741405909617379"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A></DIV>
+<div><span STYLE="line-height: 21px;">这张图说明了 -1 为True！</SPAN></DIV>
+<div><br /></DIV>
+<div>接着看下图：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCaufkqO76" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s7.sinaimg.cn/mw690/002pInNzzy6KCaufkqO76&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_66781405909926774"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A><br />
+1!=True --&gt; False，说明1为True.</DIV>
+<div>-1!=True --&gt; True，说明-1为False.</DIV>
+<div><br /></DIV>
+<div>再看：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCaHFBP59b" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s12.sinaimg.cn/mw690/002pInNzzy6KCaHFBP59b&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_79851405909925451"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A><br />
+-1 != False --&gt; True，说明-1为True。</DIV>
+<div>1 != False --&gt; True，说明1为True。</DIV>
+<div><br /></DIV>
+<div>这可以说明Python(负数)真假值判断是有问题的吗？</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>至于find。。且看下图：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCb1obhzdd" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s14.sinaimg.cn/mw690/002pInNzzy6KCb1obhzdd&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_41461405910414512"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A><br />
+find结果是字符在字符串中的位置。</DIV>
+<div>可能出现在0位，可能出现在&gt;1位，出现在-1位，就是不存在(为真)。</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCbjZZbh17" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s8.sinaimg.cn/mw690/002pInNzzy6KCbjZZbh17&amp;690" STYLE="margin: 0pt auto;display:block" NAME="image_operate_83541405910466488"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A><br /></DIV>
+<div><br /></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102ux98&url=http://album.sina.com.cn/pic/002pInNzzy6KCbzXd0Hd7" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s8.sinaimg.cn/mw690/002pInNzzy6KCbzXd0Hd7&amp;690" STYLE="margin: 0pt auto;display:block"  ALT="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find"  TITLE="【原创】Python&nbsp;<wbr>True&nbsp;<wbr>False&nbsp;<wbr>真值假值之坑...Find" /></A><br />
+<br />
+到这里，想必都明白了，突然想到一句话，曹雪芹说:“真亦假时假亦真,无为有处有还无”。。。</DIV>
+<div>真等于和真假值判断要谨慎呐。。</DIV>							
+		</div>

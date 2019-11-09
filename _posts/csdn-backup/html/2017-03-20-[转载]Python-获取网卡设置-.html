@@ -1,0 +1,52 @@
+---
+layout: post
+title: "[转载]Python-获取网卡设置-"
+date: 2017-03-20 14:43:25
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			https://code.google.com/p/python-ifconfig/
+<div>下载地址：<a HREF="https://python-ifconfig.googlecode.com/files/python-ifconfig-0.1.tar.gz" TARGET="_blank">https://python-ifconfig.googlecode.com/files/python-ifconfig-0.1.tar.gz</A></DIV>
+<div>
+<h1 STYLE="font-size: x-large; margin-top: 0px; background-image: none; background-color: rgb(255, 255, 255); border: 0px; padding-left: 0px; max-width: 700px; font-family: arial, sans-serif; line-height: normal;">
+Install</H1>
+<pre STYLE="font-size: 12px; padding: 0.5em; overflow: auto; font-family: Monaco, 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Lucida Console', monospace; max-width: 70em; background-color: rgb(238, 238, 238); line-height: normal;">
+
+<span>sudo wget &nbsp;<wbr>https://python-ifconfig.googlecode.com/files/python-ifconfig-0.1.tar.gz &amp;&amp; tar -zxvf &nbsp;<wbr>python-ifconfig-0.1.tar.gz &amp;&amp; rm&nbsp;<wbr></SPAN>python-ifconfig-0.1.tar.gz &amp;&amp;&nbsp;<wbr><span>cd&nbsp;<wbr></SPAN><span STYLE="font-family: Monaco, 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Lucida Console', monospace; line-height: normal;">python-ifconfig-0.1</SPAN><span STYLE="font-family: Monaco, 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Lucida Console', monospace; line-height: normal;">&nbsp;<wbr>&amp;&amp; python setup.py install &amp;&amp; cd .. &amp;&amp; rm -rf&nbsp;<wbr></SPAN>python-ifconfig-0.1
+</PRE>
+<h1 STYLE="font-size: x-large; margin-top: 0px; background-image: none; background-color: rgb(255, 255, 255); border: 0px; padding-left: 0px; max-width: 700px; font-family: arial, sans-serif; line-height: normal;">
+<a NAME="Usage"></A>Usage</H1>
+<pre STYLE="font-size: 12px; padding: 0.5em; overflow: auto; font-family: Monaco, 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Lucida Console', monospace; max-width: 70em; background-color: rgb(238, 238, 238); line-height: normal;">
+
+<span STYLE="color: rgb(102, 102, 0);">&gt;&gt;&gt;</SPAN><span> </SPAN><span STYLE="color: rgb(0, 0, 136);">from</SPAN><span> ifconfig </SPAN><span STYLE="color: rgb(0, 0, 136);">import</SPAN><span> ifconfig<br /></SPAN><span STYLE="color: rgb(102, 102, 0);">&gt;&gt;&gt;</SPAN><span> ifconfig</SPAN><span STYLE="color: rgb(102, 102, 0);">(</SPAN><span STYLE="color: rgb(0, 136, 0);">'eth0'</SPAN><span STYLE="color: rgb(102, 102, 0);">)</SPAN><span><br /></SPAN><span STYLE="color: rgb(102, 102, 0);">{</SPAN><span STYLE="color: rgb(0, 136, 0);">'hwaddr'</SPAN><span STYLE="color: rgb(102, 102, 0);">:</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'00:13:72:85:e8:fb'</SPAN><span STYLE="color: rgb(102, 102, 0);">,</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'netmask'</SPAN><span STYLE="color: rgb(102, 102, 0);">:</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'255.255.254.0'</SPAN><span STYLE="color: rgb(102, 102, 0);">,</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'addr'</SPAN><span STYLE="color: rgb(102, 102, 0);">:</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'10.182.120.78'</SPAN><span STYLE="color: rgb(102, 102, 0);">,</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'brdaddr'</SPAN><span STYLE="color: rgb(102, 102, 0);">:</SPAN><span> </SPAN><span STYLE="color: rgb(0, 136, 0);">'10.182.121.255'</SPAN><span STYLE="color: rgb(102, 102, 0);">}</SPAN>
+</PRE></DIV>
+In [14]: ifconfig.ifconfig('lo')
+<div>Out[14]:&nbsp;<wbr></DIV>
+<div>{'addr': '127.0.0.1',</DIV>
+<div>&nbsp;<wbr>'brdaddr': '0.0.0.0',</DIV>
+<div>&nbsp;<wbr>'hwaddr': '00:00:00:00:00:00',</DIV>
+<div>&nbsp;<wbr>'netmask': '255.0.0.0'}</DIV>
+<div><br /></DIV>
+<div>In [15]: ifconfig.ifconfig('wlan0')</DIV>
+<div>Out[15]:&nbsp;<wbr></DIV>
+<div>{'addr': '172.16.6.177',</DIV>
+<div>&nbsp;<wbr>'brdaddr': '172.16.6.255',</DIV>
+<div>&nbsp;<wbr>'hwaddr': '78:92:9c:88:62:92',</DIV>
+<div>&nbsp;<wbr>'netmask': '255.255.255.0'}</DIV>
+<div><br /></DIV>
+<div>In [16]: ifconfig.ifconfig('eth0')</DIV>
+<div>Out[16]:&nbsp;<wbr></DIV>
+<div>{'addr': '0.29.33.212',</DIV>
+<div>&nbsp;<wbr>'brdaddr': '0.29.33.212',</DIV>
+<div>&nbsp;<wbr>'hwaddr': 'c8:60:00:1d:21:d4',</DIV>
+<div>&nbsp;<wbr>'netmask': '0.29.33.212'}</DIV>
+<div><br /></DIV>							
+		</div>

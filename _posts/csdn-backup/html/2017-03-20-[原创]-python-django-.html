@@ -1,0 +1,444 @@
+---
+layout: post
+title: "[原创]-python-django-"
+date: 2017-03-20 14:41:42
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div><br /></DIV>
+<div>从Model类中生成的formset,每个表具有一下属性。---&gt; formset
+从views post到UI.</DIV>
+<div>
+<div STYLE="line-height: 21px;">for form in formset:</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> for fiel in form:</DIV>
+</DIV>
+<div>fiel.as_hidden &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.auto_id &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>fiel.field &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.html_initial_name
+&nbsp;<wbr>fiel.label</DIV>
+<div>fiel.as_text &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.css_classes &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>fiel.form
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> fiel.html_name &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.label_tag</DIV>
+<div>fiel.as_textarea &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>fiel.data &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+fiel.help_text &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.id_for_label &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> fiel.name</DIV>
+<div>fiel.as_widget &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>fiel.errors
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+fiel.html_initial_id &nbsp;<wbr>
+&nbsp;<wbr>fiel.is_hidden &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>fiel.value</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>view.py 中自定义表单的时候，&nbsp;<wbr><span STYLE="background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-family: Anonymous, Consolas, 'Courier new'; font-size: 12px; line-height: 18px;">required=False</SPAN>用来指定是否可选填。<span STYLE="background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-family: Anonymous, Consolas, 'Courier new'; font-size: 12px; line-height: 18px;">widget=forms.Textarea</SPAN>，可以指定对应的form显示格式。</DIV>
+<div>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+from django import forms<br />
+class ContactForm(forms.Form):<br />
+&nbsp;<wbr> &nbsp;<wbr> subject =
+forms.CharField()<br />
+&nbsp;<wbr> &nbsp;<wbr> email =
+forms.EmailField(required=False,<span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">label='Your
+e-mail address</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">)#邮箱为选填项，其他为默认必填项。同时label用于替换verbose_name提示标签信息。</SPAN></DIV>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+&nbsp;<wbr> &nbsp;<wbr> message =
+forms.CharField(<span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">widget=forms.Textarea</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">)#CharField默认为input
+type=text，修改为显示&lt;Textarea&gt;</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;"><br />
+
+&nbsp;<wbr> &nbsp;<wbr> def
+clean_message(self):#自定义表单验证.<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> message = self.cleaned_data['message']<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> num_words = len(message.split())<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if num_words &lt; 4:<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> raise
+forms.ValidationError("Not enough words!")<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return message</SPAN></DIV>
+<div>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+initial 用来给表单填写默认值。</DIV>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+re_form = ContaceForm(<br />
+<span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr> initial={'subject': 'I love your
+site!'}</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;"><br />
+
+)</SPAN></DIV>
+</DIV>
+html中的容错块,放在form上面即可</DIV>
+<div>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+{% if form.errors %}<br />
+&nbsp;<wbr> &lt;p style="color:
+red;"&gt;<br />
+&nbsp;<wbr> &nbsp;<wbr> Please correct the error{{
+form.errors|pluralize }} below.<br />
+&nbsp;<wbr> &lt;/p&gt;<br />
+{% endif %}</DIV>
+css渲染：错误列表&nbsp;<wbr><span STYLE="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);">&lt;ul
+class=”errorlist”&gt;</SPAN></DIV>
+<div>
+<p STYLE="margin: 0.6em 0px 1em; padding: 0px 0px 0.1em; position: relative; font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; background-color: rgb(255, 255, 255); line-height: 1.8 !important; color: rgb(51, 51, 51) !important;">
+&nbsp;<wbr></P>
+<div><br /></DIV>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+&lt;style type="text/css"&gt;<br />
+&nbsp;<wbr> &nbsp;<wbr> ul.errorlist {<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> margin: 0;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> padding: 0;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> }<br />
+&nbsp;<wbr> &nbsp;<wbr> .errorlist li {<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> background-color: red;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> color: white;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> display: block;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> font-size: 10px;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> margin: 0 0 3px;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> padding: 4px 5px;<br />
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> }<br />
+&lt;/style&gt;</DIV>
+<div>
+<p>虽然，自动生成HTML是很方便的，但是在某些时候，你会想覆盖默认的显示。
+{{form.as_table}}和其它的方法在开发的时候是一个快捷的方式，form的显示方式也可以在form中被方便地重写。</P>
+<p>每一个字段部件(&lt;input type=”text”&gt;,
+&lt;select&gt;,
+&lt;textarea&gt;,
+或者类似)都可以通过访问{{form.字段名}}进行单独的渲染。</P>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div>
+<div STYLE="white-space: pre-wrap;">
+&lt;html&gt;</DIV>
+</DIV>
+<div STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+&lt;head&gt;
+&lt;title&gt;Contact
+us&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Contact
+us&lt;/h1&gt; {% if form.errors %}
+&lt;p style="color: red;"&gt; Please
+correct the error{{ form.errors|pluralize }} below.
+&lt;/p&gt; {% endif %} &lt;form
+action="" method="post"&gt; &lt;div
+class="field"&gt; {{ form.subject.errors }}
+&lt;label
+for="id_subject"&gt;Subject:&lt;/label&gt;
+{{ form.subject }} &lt;/div&gt;
+&lt;div class="field"&gt; {{
+form.email.errors }} &lt;label
+for="id_email"&gt;Your e-mail
+address:&lt;/label&gt; {{ form.email }}
+&lt;/div&gt; &lt;div
+class="field"&gt; {{ form.message.errors }}
+&lt;label
+for="id_message"&gt;Message:&lt;/label&gt;
+{{ form.message }} &lt;/div&gt;
+&lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</DIV>
+</DIV>
+<p><tt><span>{{</SPAN> <span>form.message.errors</SPAN>
+<span>}}</SPAN></TT> 会在 <tt><span>&lt;ul</SPAN>
+<span>class="errorlist"&gt;</SPAN></TT>
+里面显示，如果字段是合法的，或者form没有被绑定，就显示一个空字符串。 我们还可以把
+<tt><span>form.message.errors</SPAN></TT> 当作一个布尔值或者当它是list在上面做迭代，
+例如：</P>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div STYLE="white-space: pre-wrap;">&lt;div
+class="field{% if form.message.errors %} errors{% endif
+%}"&gt; &nbsp;<wbr></DIV>
+<div STYLE="white-space: pre-wrap;">{% if form.message.errors %}
+&lt;ul&gt; {% for error in
+form.message.errors %}
+&lt;li&gt;&lt;strong&gt;{{
+error
+}}&lt;/strong&gt;&lt;/li&gt;
+{% endfor %} &lt;/ul&gt; {% endif %}
+&lt;label
+for="id_message"&gt;Message:&lt;/label&gt;
+{{ form.message }} &lt;/div&gt;</DIV>
+</DIV>
+<p>在校验失败的情况下,
+这段代码会在包含错误字段的div的class属性中增加一个”errors”，在一个有序列表中显示错误信息。</P>
+<p><br /></P>
+<p>urls.py 配置文件可以这样写：</P>
+<p STYLE="margin: 0.6em 0px 1em; padding: 0px 0px 0.1em; position: relative; font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; background-color: rgb(255, 255, 255); line-height: 1.8 !important; color: rgb(51, 51, 51) !important;">
+旧的:</P>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div>from django.conf.urls.defaults import
+*&nbsp;<wbr></DIV>
+<div>urlpatterns = patterns('',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> (r'^hello/$',
+'mysite.views.hello'),&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> (r'^time/$',
+'mysite.views.current_datetime'),&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+(r'^time/plus/(\d{1,2})/$',
+'mysite.views.hours_ahead'),&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> (r'^tag/(\w+)/$',
+'weblog.views.tag'),&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> )</DIV>
+</DIV>
+</DIV>
+</DIV>
+<span STYLE="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 1.8;">新的:urlpatterns
+是可以叠加的。</SPAN>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+from django.conf.urls.defaults import
+*&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+urlpatterns =
+patterns('mysite.views',&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^hello/$',
+'hello'),&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^time/$',
+'current_datetime'),&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^time/plus/(\d{1,2})/$',
+'hours_ahead'),&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr></SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">(r'^articles/(\d{4})/(\d{2})/$',
+views.month_archive),#1</SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr></SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">(r'^articles/(?P&lt;year&gt;\d{4})/(?P&lt;month&gt;\d{2})/$',
+views.month_archive),#2</SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^mydata/birthday/$', views.my_view, {'month':
+'jan', 'day': '06'}),#3 访问/</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">mydata/birthday/</SPAN>等价于访问<span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">/</SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">mydata/2013/06/</SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^mydata/(?P&lt;month&gt;\w{3})/(?P&lt;day&gt;\d\d)/$',
+views.my_view),#4</SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+<br /></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+)&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+urlpatterns +=
+patterns('weblog.views',&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr>(r'^tag/(\w+)/$',
+'tag'),&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+)</SPAN></DIV>
+</DIV>
+<div>url 访问模式<br />
+假设访问localhost:8000/articles/2013/06&nbsp;<wbr></DIV>
+<div><span STYLE="background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-size: 12px;">
+#1</SPAN>&nbsp;<wbr> &nbsp;<wbr>
+相当于函数调用--&gt; &nbsp;<wbr><span STYLE="background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-family: Anonymous, Consolas, 'Courier new'; font-size: 12px; line-height: 18px;">month_archive(request,
+'2013', '06')</SPAN><br />
+<span STYLE="background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-size: 12px;">
+#2</SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> 相当于函数调用--&gt;
+&nbsp;<wbr></SPAN><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px; background-color: rgb(224, 255, 184); color: rgb(35, 79, 50); font-size: 12px;">month_archive(request,
+year='2013', month='06')</SPAN><br />
+<span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">
+有时你会发现你写的视图函数是十分类似的，只有一点点的不同。
+比如说，你有两个视图，它们的内容是一致的，除了它们所用的模板不太一样：</SPAN>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+# urls.py&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+from django.conf.urls.defaults import
+*&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+from mysite import views&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+urlpatterns = patterns('',&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+(r'^foo/$', views.foo_view),&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+(r'^bar/$', views.bar_view),&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+)&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+# views.py&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+from django.shortcuts import
+render_to_response&nbsp;<wbr></SPAN></DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+from mysite.models
+import&nbsp;<wbr></SPAN>MyModel&nbsp;<wbr></DIV>
+<div STYLE=" white-space: pre-wrap;">def
+foo_view(request):&nbsp;<wbr></DIV>
+<div STYLE=" white-space: pre-wrap;">m_list =
+MyModel.objects.filter(is_new=True)</DIV>
+<div STYLE=" white-space: pre-wrap;">return
+render_to_response('template1.html', {'m_list':
+m_list})&nbsp;<wbr></DIV>
+<div STYLE=" white-space: pre-wrap;">def
+bar_view(request):&nbsp;<wbr></DIV>
+<div STYLE=" white-space: pre-wrap;">m_list =
+MyModel.objects.filter(is_new=True)</DIV>
+<div STYLE=" white-space: pre-wrap;"><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal;">
+return render_to_response('template2.html',
+{'m_list':m_list})</SPAN></DIV>
+</DIV>
+<div><br /></DIV>
+</DIV>
+可以如下改进：</DIV>
+<div>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div><span STYLE=" white-space: pre-wrap;"># urls.py</SPAN></DIV>
+<div><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+from django.conf.urls.defaults import * from mysite import views
+urlpatterns = patterns('', (r'^foo/$', views.foobar_view,
+{'template_name': 'foo.html'}), (r'^bar/$', views.foobar_view,
+{'template_name': 'bar.html'}), ) # views.py from django.shortcuts
+import render_to_response from mysite.models import MyModel def
+foobar_view(request, template_name): m_list =
+MyModel.objects.filter(is_new=True) return
+render_to_response(template_name, {'m_list': m_list})</SPAN></DIV>
+</DIV>
+<span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">URLconf指定了&nbsp;<wbr></SPAN><tt STYLE="line-height: 1.5; white-space: nowrap; color: rgb(35, 79, 50); background-color: rgb(255, 255, 255);"><span STYLE="font-weight: 800 !important; font-size: 12px !important; line-height: normal !important; font-family: Consolas, 'Courier new' !important;">template_name</SPAN></TT><span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">&nbsp;<wbr>，视图函数会把它当成一个参数。</SPAN></DIV>
+<div><span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">
+#3 #4 -- &gt;访问</SPAN><tt STYLE="line-height: 1.5; white-space: nowrap; color: rgb(35, 79, 50); background-color: rgb(255, 255, 255);"><span STYLE="font-weight: 800 !important; font-size: 12px !important; line-height: normal !important; font-family: Consolas, 'Courier new' !important;">/mydata/birthday/</SPAN></TT><span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">&nbsp;<wbr>，
+等价于访问&nbsp;<wbr></SPAN><tt STYLE="line-height: 1.5; white-space: nowrap; color: rgb(35, 79, 50); background-color: rgb(255, 255, 255);"><span STYLE="font-weight: 800 !important; font-size: 12px !important; line-height: normal !important; font-family: Consolas, 'Courier new' !important;">/mydata/jan/06/</SPAN></TT><span STYLE="color: rgb(51, 51, 51); font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; line-height: 24px; background-color: rgb(255, 255, 255);">&nbsp;<wbr></SPAN></DIV>
+<div>
+<p STYLE="margin: 0.6em 0px 1em; padding: 0px 0px 0.1em; position: relative; font-family: 'Microsoft YaHei', 'Lucida Grande', Verdana; background-color: rgb(255, 255, 255); line-height: 1.8 !important; color: rgb(51, 51, 51) !important;">
+抽取出我们代码中共性的东西是一个很好的编程习惯。 比如，像以下的两个Python函数：</P>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+def say_hello(person_name):&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr> &nbsp;<wbr> print 'Hello, %s' %
+person_name&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+def say_goodbye(person_name):&nbsp;<wbr></SPAN></DIV>
+<div><span STYLE="font-family: Anonymous, Consolas, 'Courier new'; line-height: 18px;">
+&nbsp;<wbr> &nbsp;<wbr> print 'Goodbye, %s' %
+person_name</SPAN></DIV>
+</DIV>
+<div><span><br /></SPAN></DIV>
+我们可以把问候语提取出来变成一个参数：
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div>def greet(person_name, greeting):&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print '%s, %s' %
+(greeting, person_name)</DIV>
+<div><span><br /></SPAN></DIV>
+</DIV>
+</DIV>
+<br />
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div><span STYLE=" white-space: pre-wrap;"># urls.py</SPAN></DIV>
+<div><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+from django.conf.urls.defaults import * from mysite import views
+urlpatterns = patterns('', (r'^events/$', views.event_list),
+(r'^blog/entries/$', views.entry_list), ) # views.py from
+django.shortcuts import render_to_response from mysite.models
+import Event, BlogEntry def event_list(request): obj_list =
+Event.objects.all() return
+render_to_response('mysite/event_list.html', {'event_list':
+obj_list}) def entry_list(request): obj_list =
+BlogEntry.objects.all() return
+render_to_response('mysite/blogentry_list.html', {'entry_list':
+obj_list})</SPAN></DIV>
+</DIV>
+<div>在重构以后：</DIV>
+<div>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+# urls.py&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; c font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+from django.conf.urls.defaults import
+*&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+from mysite import models, views url</SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+patterns = patterns('',&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+(r'^events/$', views.object_list, {'model': models.Event}),
+(r'^blog/entries/$', views.object_list, {'model':
+models.BlogEntry}),&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+)&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+# views.py&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+from django.shortcuts import
+render_to_response&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+def object_list(request,model):&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+obj_list = model.objects.all()&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+template_name ='mysite/%s_list.html' %
+model.__name__.lower()&nbsp;<wbr></SPAN></DIV>
+<div STYLE="line-height: 21px; font-size: 14px;"><span STYLE="font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+return render_to_response(template_name,
+{'object_list':obj_list})</SPAN></DIV>
+<div><span STYLE=" font-family: 'dejavu sans mono', monospace; line-height: normal; white-space: pre-wrap;">
+<br /></SPAN></DIV>
+</DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div><br />
+&nbsp;<wbr>
+<div STYLE="padding: 0.3em 0.4em; font-size: 12px; background-color: rgb(224, 255, 184); border-style: solid; border-color: rgb(148, 218, 58); border-width: 1px 0px; overflow: hidden; width: 682px; color: rgb(35, 79, 50); position: relative; line-height: 18px; font-family: Anonymous, Consolas, 'Courier new' !important;">
+<div>代码块</DIV>
+</DIV>
+&lt;pre class="cn literal-block" id="cn146"
+style="padding: 0.3em 0.4em; font-size: 12px; background-color:
+rgb(224, 255, 184); border-style: solid; border-color: rgb(148,
+218, 58); border-width: 1px 0px; overflow: hidden; width: 682px;
+color: rgb(35, 79, 50); position: relative; line-height: 18px;
+font-family: Anonymous, Consolas, 'Courier New'
+!important;"&gt;代码块&lt;/pre&gt;</DIV>							
+		</div>

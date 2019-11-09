@@ -1,0 +1,86 @@
+---
+layout: post
+title: "[原创]浅析我喜欢自己写SQL而不-"
+date: 2017-03-20 14:45:20
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			ORM确实简单，写好映射关系就可以了，SQL需要自己写语句，而且容易被注入、建库建表什么的、、
+<div>
+自己写SQL，我认为数据库很多时候并不局限于几张表，视图啊、存储过程之类的，这些在ORM中不是很好用吧?视图是不可以直接修改或者删除的，因为视图本来就是虚拟数据。一旦涉及到分表，ORM就不是那么容易了。</DIV>
+<div><br /></DIV>
+<div>
+ORM优点：使用ORM无论是于数据库交互还是于前端交互，直截了当，不需要字段重命名之类，整套过程直接class.clumn就可以做到，快速开发。</DIV>
+<div><span STYLE="line-height: 21px;">ORM容易暴露数据库字段，大多时候ORM传递给前端的数据都是数据库映射关系(一般情况下都是以字典)，很少有人会对字段名重命名，重命名的话需要遍历列表或者字典，直接修改字典Key可能会抛出RuntimeError等错误，而且这样做性能不是很好，毕竟时间复杂度有增无减；直接扔到模版中，如果处理不得当，html解析完成后很可能暴露数据库字段，不安全原因之一。（不要说这些都可以控制的，没有什么错误是不可能不发生的，一切皆有可能。我在其他网站html中见过暴露字段的代码的不少，而且不需要看html源，直接在页面就能看到...）</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">有的人就说了，ORM
+查询一般都有as，可以重命名字段名，我想说，别把自己标榜的那么勤奋，看看自己的代码，有几个真正as
+字段名的。。。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ORM优点：加入数据库需要迁徙到另一种数据库，ORM可观，易于理解。(但这种需求真心不是很大，有点杞人忧天，但说实话，如果语句过长，反而不如SQL易于理解，SQL有语句格式化工具)</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ORM定义数据库字段、类型方便，快捷，但是真心感觉，没有写实实在在的SQL语句建库建表更实在。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ORM优点：ORM查询语句简短，所以所以呢不少人认为ORM易于理解。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">其实不然，ORM执行过程还是需要先翻译为SQL语句，SQL作为原生态的语言，跟数据库更贴切。这么说吧，就像C和python一样，学C的再学Python应该不是很难，但是学python的再去学C难度不小(例子不恰当,orm和sql比这更复杂)。理解了SQL真实的执行语句再用ORM或许是是更好的选择。但是一味的追求效率而使用ORM不学SQL，SQL盲，不易于SQL优化。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ORM优点：防注入！</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">我相信，很多朋友选择ORM有这一部分原因。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">简单一说吧，SQL注入原因主要是有‘ = ; and or
+' 等这类数据库关键字和需要转义的特殊符号的存在造成的。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">比如&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">select &nbsp;<wbr>id, name, pwd, email,
+phone from user where id =&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr>1;</SPAN></DIV>
+<div>注入的原因是没有对值做类型检查和特殊符号转义。</DIV>
+<div>比如输入了&nbsp;<wbr><b>1 and
+&nbsp;<wbr>1!=2</B></DIV>
+<div>SQL语句就成了： select &nbsp;<wbr>id, name, pwd, email, phone
+from users where id = 1 and &nbsp;<wbr>1!=2;</DIV>
+<div><br /></DIV>
+<div><span STYLE="line-height: 21px;">1!=
+永远为真，所以表中所有的数据就都被获取到了。</SPAN></DIV>
+<div>
+<div>所以无论用SQL还是ORM，必须做类型检查，即便某些时候可能多余。</DIV>
+<div>有的人说了，int 类型orm会判断什么的，那么再试试这个。</DIV>
+</DIV>
+<div>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">select &nbsp;<wbr>id, name, pwd, email,
+phone from user where name =&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;"><b>&nbsp;<wbr></B>'<b><font COLOR="#FF0000">zhipeng</FONT></B>';</SPAN></DIV>
+<span STYLE="line-height: 21px;">select &nbsp;<wbr>id, name,
+pwd, email, phone from user where name
+=&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;"><b>&nbsp;<wbr></B>'</SPAN><b><font COLOR="#FF0000"><span STYLE="line-height: 21px;">zhipeng'
+and 1 !=2 ;</SPAN>&nbsp;<wbr>show databases; use mysql; drop
+database mysql</FONT></B><span STYLE="line-height: 21px;"><b><font COLOR="#FF0000">;&nbsp;<wbr>and '' = '</FONT></B>';</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">这么一写就完全变味了。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">只要给关键字符转义，类型检查，sql注入是可以避免的，但同样SQL注入在ORM中也是存在的。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">ORM语句相当于火星语，SQL最原生。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">MVC是数据访问层、逻辑层、UI层，数据库是不能被忽略的。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">数据库、</SPAN>数据访问层、逻辑层、UI层，四层说法最合适。(个人理解)</DIV>
+<div>ORM摒弃了数据库层(视图、存储过程)，并且使得四层字段一模一样，无可非议，这样是不安全的。</DIV>
+<div>摒弃ORM，将数据库返回的数据全部字段重命名，作为单独的一个封闭模块不用真是太可惜了，MVC更安全。</DIV>
+<div>
+有需求才有任务，前端需要什么东西，一层一层传递到数据库层，而数据库层返回的数据字段全部重命名，MVC无论哪一层都无法暴露字段名。</DIV>
+<div>有的人就说了，我就一个人开发， 分工没那么细，这是借口 ...</DIV>
+<div>一栋楼无论多么结实，材料多实在，工程师多牛，根基安全、稳，一切才安全，天塌了，地还在。。</DIV>
+<div>而数据库层，就是根基。</DIV>
+<div><br /></DIV>
+<div><span STYLE="line-height: 21px;">总结一下吧，ORM是方便，但我认为ORM局限于小型数据库和非密复杂性查询。涉及到安全方面、中大型数据库、关系特别复杂的数据库，我相信大多数人会选择纯SQL语句，而不是ORM。尤其是很多时候要用到存储过程（存储过程是预编译，执行效率高，可以最大化屏蔽数据库字段）、视图、分表(分表种类很多，可能根据当前日期增长可能根据数据日期增长，业务不同横向、纵向分表，分库等等，ORM过于局限)。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">况且，SQL作为一种语言，多练习练习，也是一种技能。ORM确实好用，我用过一段时间ORM(</SPAN>sqlalchemy)，DJango的Model，局限性太多，不适合复杂操作。所以我还是喜欢写SQL。</DIV>
+<div><br /></DIV>
+<div>----------</DIV>
+<div>2015-03-10 14:57:24</DIV>
+<div>意外发现一篇文章，说《<a HREF="http://www.importnew.com/15291.html" TARGET="_blank">Java开发者写SQL时常犯的10个错误</A>》，英文原文<a HREF="http://blog.jooq.org/2013/07/30/10-common-mistakes-java-developers-make-when-writing-sql/" TARGET="_blank">《10 Common Mistakes Java Developers Make when
+Writing SQL》</A>，已墙。</DIV>
+<div>里面第十条<span STYLE="line-height: 21px;">提到ORM</SPAN>：</DIV>
+<div><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102v1do&url=http://album.sina.com.cn/pic/002pInNzzy6QAvY9dCj13" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s4.sinaimg.cn/mw690/002pInNzzy6QAvY9dCj13&amp;690" WIDTH="690" HEIGHT="417" NAME="image_operate_38961425971025327"  ALT="【原创】浅析我喜欢自己写SQL而不喜欢用ORM的原因"  TITLE="【原创】浅析我喜欢自己写SQL而不喜欢用ORM的原因" /></A><br />
+<br /></DIV>							
+		</div>

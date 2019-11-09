@@ -1,0 +1,70 @@
+---
+layout: post
+title: "[原创]mysql-update-t-"
+date: 2017-03-20 14:46:27
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			今天有个需求，把一张id没有规律的数据进行归类，唯一可用的信息就是limit 0-2000是一个分类，limit 4000,
+2000又一个分类。<b>(不能进行任何排序)</B>
+<div>直接update table set xxx=xxx limit 0, 100
+会报警告，并且不会修改成功。mysql是不允许这样使用的、<br />
+<div>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>0</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>2000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>4000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>6000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>8000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>10000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+<code><span>select</SPAN><span> </SPAN><span>id</SPAN><span>,</SPAN><span> </SPAN><span>name</SPAN><span>,</SPAN><span> </SPAN><span>datasourceId</SPAN><span> </SPAN><span>from</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>limit</SPAN><span> </SPAN><span>12000</SPAN><span>,</SPAN><span>2000</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+用简单一句SQL，就是如下：
+</PRE>
+<pre>
+<code><span>一，先给表设置行号</SPAN></CODE>
+</PRE>
+<pre>
+<code><span><span STYLE="white-space:pre">    </SPAN>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=@</SPAN><span>rowNum</SPAN><span>+</SPAN><span>1</SPAN><span> </SPAN><span>no</SPAN><span>,</SPAN><span> </SPAN><span>video</SPAN><span>.*</SPAN><span> </SPAN><span>FROM</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>JOIN</SPAN><span> </SPAN><span>(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=</SPAN><span> </SPAN><span>0</SPAN><span>)</SPAN><span>as</SPAN><span> </SPAN><span>r</SPAN><span>;&nbsp;<wbr></SPAN></CODE>
+</PRE>
+<pre>
+二，update 表
+</PRE>
+<pre>
+<span STYLE="white-space:pre">  </SPAN><span>UPDATE</SPAN><span> </SPAN><span>video</SPAN><span>,(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=@</SPAN><span>rowNum</SPAN><span>+</SPAN><span>1</SPAN><span> </SPAN><span>no</SPAN><span>,</SPAN><span> </SPAN><span>video</SPAN><span>.*</SPAN><span> </SPAN><span>FROM</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>JOIN</SPAN><span> </SPAN><span>(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=</SPAN><span> </SPAN><span>0</SPAN><span>)</SPAN><span>as</SPAN><span> </SPAN><span>r</SPAN><span>)</SPAN><span> </SPAN><span>as</SPAN><span> </SPAN><span>v</SPAN><span> </SPAN><span>SET</SPAN><span> </SPAN><span>video</SPAN><span>.</SPAN><span>`datasourceId`</SPAN><span>=</SPAN><span>10</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>video</SPAN><span>.</SPAN><span>id</SPAN><span> </SPAN><span>=</SPAN><span> </SPAN><span>v</SPAN><span>.</SPAN><span>id</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>v</SPAN><span>.</SPAN><span>no</SPAN><span> </SPAN><span>between</SPAN><span> </SPAN><span>0</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>2001</SPAN><span>;&nbsp;<wbr></SPAN>
+</PRE>
+<pre>
+<span><span STYLE="white-space:pre"> </SPAN>UPDATE</SPAN><span> </SPAN><span>video</SPAN><span>,(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=@</SPAN><span>rowNum</SPAN><span>+</SPAN><span>1</SPAN><span> </SPAN><span>no</SPAN><span>,</SPAN><span> </SPAN><span>video</SPAN><span>.*</SPAN><span> </SPAN><span>FROM</SPAN><span> </SPAN><span>video</SPAN><span> </SPAN><span>JOIN</SPAN><span> </SPAN><span>(</SPAN><span>SELECT</SPAN><span> </SPAN><span>@</SPAN><span>rowNum</SPAN><span>:=</SPAN><span> </SPAN><span>0</SPAN><span>)</SPAN><span>as</SPAN><span> </SPAN><span>r</SPAN><span>)</SPAN><span> </SPAN><span>as</SPAN><span> </SPAN><span>v</SPAN><span> </SPAN><span>SET</SPAN><span> </SPAN><span>video</SPAN><span>.</SPAN><span>`datasourceId`</SPAN><span>=</SPAN><span>3</SPAN><span> </SPAN><span>where</SPAN><span> </SPAN><span>video</SPAN><span>.</SPAN><span>id</SPAN><span> </SPAN><span>=</SPAN><span> </SPAN><span>v</SPAN><span>.</SPAN><span>id</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>v</SPAN><span>.</SPAN><span>no</SPAN><span> </SPAN><span>between</SPAN><span> </SPAN><span>2001</SPAN><span> </SPAN><span>and</SPAN><span> </SPAN><span>4001</SPAN><span>;</SPAN>
+</PRE>
+<pre>
+<code><span>&nbsp;<wbr><br /></SPAN></CODE>
+</PRE>
+<pre>
+参考：《<a HREF="http://stackoverflow.com/questions/14960388/mysql-update-query-limit-not-working-if-i-join-two-tables" TARGET="_blank">Mysql update query limit not working if i join two tables(ERROR 1221 (HY000): Incorrect usage of UPDATE and LIMIT)</A>》
+</PRE>
+<pre>
+<br />
+</PRE></DIV>
+</DIV>							
+		</div>

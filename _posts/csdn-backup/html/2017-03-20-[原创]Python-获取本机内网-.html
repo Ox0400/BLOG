@@ -1,0 +1,112 @@
+---
+layout: post
+title: "[原创]Python-获取本机内网-"
+date: 2017-03-20 14:43:41
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			Python - Get localhost IP,Linux和Windows通用。
+<div><br /></DIV>
+<div>代码：</DIV>
+<div>
+---------------------------------------------------------------------------------</DIV>
+<div>
+<div>#!/usr/bin/env python</DIV>
+<div># -*- coding: utf-8 -*-</DIV>
+<div><br /></DIV>
+<div>import os</DIV>
+<div>import socket</DIV>
+<div><br /></DIV>
+<div>#nt -- &gt; windows</DIV>
+<div>if os.name != "nt":</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> import fcntl</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> import struct</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def
+get_interface_ip(ifname):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> s = socket.socket(socket.AF_INET,
+socket.SOCK_DGRAM)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return socket.inet_ntoa(fcntl.ioctl(s.fileno(),
+0x8915, struct.pack('256s',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> ifname[:15]))[20:24])</DIV>
+<div><br /></DIV>
+<div>def get_lan_ip():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> ip =
+socket.gethostbyname(socket.gethostname())</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if ip.startswith("127.")
+and os.name != "nt":</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> interfaces = [</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"eth0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"eth1",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"eth2",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"wlan0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"wlan1",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"wifi0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"ath0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"ath1",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"ppp0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> ]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for ifname in interfaces:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> try:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ip =
+get_interface_ip(ifname)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> break</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> except
+IOError:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> pass</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> return ip</DIV>
+</DIV>
+<div><br /></DIV>
+<div>if __name__ == '__main__'</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print get_lan_ip()</DIV>
+<div><span STYLE="line-height: 21px;">---------------------------------------------------------------------------------</SPAN></DIV>
+<div><br /></DIV>
+<div>参考网址：</DIV>
+<div>《<a HREF="http://my.oschina.net/memorybox/blog/94184" TARGET="_blank">如何用Python获取本机ip</A>》</DIV>
+<div>《<a HREF="http://www.pythonclub.org/python-network-application/get-ip-address" TARGET="_blank">使用Python获得本机IP地址</A>》#这种东西太让人觉得恶心...无聊</DIV>
+<div>《<a HREF="http://stackoverflow.com/questions/11735821/python-get-localhost-ip" TARGET="_blank">Python - Get localhost IP [duplicate]</A>》</DIV>							
+		</div>

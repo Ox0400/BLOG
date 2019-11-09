@@ -1,0 +1,159 @@
+---
+layout: post
+title: "[转载]ubuntu12.04-安装lin-"
+date: 2017-03-20 14:42:52
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+看了网上很多关于用linux操作系统搭建网站服务器的教程，于是我自己也测试了很多，但今天所测试的 Ubuntu
+12.04下搭建Web网站服务器
+（MySQL+PHP+Apache环境），感觉这个适合新手。所以这里就跟大家分享下。其实这个网上也有教程的，但我这里算是优化前辈们的教程吧，因为我当时按照他们的操作时卡了几次，因为他们的有的地方没讲清楚。</P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+Ubuntu 12.04(代号Precise Pangolin)是一个LTS长期支持版本，已如约正式发布。Ubuntu
+12.04是第16代Ubuntu，作为长期支持版本其生命周期为5年。</P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+Ubuntu 12.04采用Linux内核3.2和GNOME 3.4桌面环境，并且集成了Unity界面。Ubuntu
+12.04主要组件/功能包括：Unity 3D interface 5.10;Unity 2D interface
+5.10;GNOME 3.4.1;Linux kernel 3.2.12;X.Org 7.6;Xorg Server
+1.11.4;Upstart 1.5;GCC 4.6.3 toolchain;Python 2.7.3 and Python
+3.2.3;Compiz Fusion 0.9.7.6。</P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+Ubuntu 12.04包括以下版本：Ubuntu Desktop、Ubuntu Server、Ubuntu Cloud
+Server、Ubuntu Netboot、Ubuntu Core、Ubuntu
+Studio、Edubuntu、Kubuntu、Xubuntu、Lubuntu、Mythbuntu。</P>
+<h3 STYLE="margin: 0px; padding: 0px; font-size: 14.8px; line-height: 23.68000030517578px; font-family: 'Microsoft Yahei';">
+<a HREF="http://mgzyxz.com/blog/wp-content/uploads/2012/04/1.png">
+<img WIDTH="694" HEIGHT="473" ALT="" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.2ky.cn/uploads/allimg/120623/2213513642-0.png" TITLE="1" STYLE="border: 1px solid rgb(0, 0, 0); font-size: 14.8px; line-height: 23.68000030517578px;" /></A></H3>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">1.开始说明</STRONG></P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+下面很多可能参照网上其中以为前辈的，但有所改进吧。这些设置可能会有所不同,你需要根据不同情况进行修改。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">安装apache2</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">2.切换管理员身份</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+在ubuntu中需要用root身份进行操作,所以用下面的命令确保以root身份登录:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+sudo su</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">3.开始安装mysql5</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-get install mysql-server mysql-client</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+你将被要求提供一个mysql的root用户的密码,我们需要在红色区域设置密码。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+new password for the mysql root user: repeat password for the mysql
+root user:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">4.安装apache2</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apache2的是作为一个ubuntu的软件包,因此我们可以直接用下面命令安装它:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-get install apache2</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+现在,您的浏览器到http://localhost,你应该看到apache2的测试页:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+如果顺利的话会出现：</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<span STYLE="font-size: 14.8px; line-height: 23.68000030517578px; color: rgb(255, 0, 0);">
+<strong STYLE="font-size: 14.8px;">It worke！</STRONG></SPAN></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<span STYLE="font-size: 14.8px; line-height: 23.68000030517578px; color: rgb(255, 0, 0);">
+<strong STYLE="font-size: 14.8px;">然后下面后有点。</STRONG></SPAN></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apache的默认文档根目录是在ubuntu上的/var/www目录 ,配置文件是/
+etc/apache2/apache2.conf。配置存储在的子目录在/etc/apache2目录。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">安装php5</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">5.安装php5</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+我们可以直接安装php5和apache的php5的模块,如下:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-get install php5 libapache2-mod-php5</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+安装完需要重启</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+/etc/init.d/apache2 restart</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">6.测试的php5并获取php5</STRONG><strong STYLE="font-size: 14.8px;">安装的</STRONG><strong STYLE="font-size: 14.8px;">详细信</STRONG><strong STYLE="font-size: 14.8px;">&nbsp;<wbr>息</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+默认网站的文件根目录是在/var/www下中。现在我们将在该目录中创建一个小型php文件(info.php的)在浏览器中调用它。该文件将显示很多关于我们的php安装,如安装的php版本和有用的一些细节。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+vi /var/www/info.php</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+这里说明下，如果不会命令行操作的话（当然建议大家既然用linux应该习惯学会用会命令行）。可以手动建立，也就是在系统文件/var/www/下建立文件info.php，里面编写</P>
+<pre TITLE="" STYLE="margin-top: 0px; padding: 0px; font-family: 'Courier new', monospace; font-size: 15px; width: 601.90625px; overflow: auto; background-color: rgb(247, 247, 247); line-height: 23.68000030517578px;">
+
+
+</PRE>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+这里说明下：也是我遇到的问题，我开始安装好ubuntu
+12.04后，在这里发现我没权限操作，虽然已经获得root权限了，这里给大家讲下，<br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+我们应该怎么设置文件及文件目录的可读写权限。<br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+大家多知道，我们用虚拟主机都知道设置777什么的，其实这里也是一样的，有很多方法可以用，我就讲其中一种吧。<br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+这里我们用到chmod ，比如我们要设置我们的www目录读写，就是chmod 777
+/var/www/。具体大家可以参考百度百科这个命令的用法<br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+http://baike.baidu.com/view/1229012.htm.<br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+现在,我们可以用浏览器访问例如http://localhost/info.php</P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<a HREF="http://www.2ky.cn/uploads/allimg/120623/2213514354-1.png">
+<img WIDTH="600" HEIGHT="589" ALT="" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.2ky.cn/uploads/allimg/120623/2213514354-1.png" TITLE="2" STYLE="border: 1px solid rgb(0, 0, 0); font-size: 14.8px; line-height: 23.68000030517578px;" /></A><br STYLE="font-size: 14.8px; line-height: 23.68000030517578px;" />
+
+正如你所看到的,php5正常工作,它通过apache
+2.0的处理程序,在服务器api线。如果你继续向下滚动,你会看到所有在php5中已经启用的模块。mysql是没有列出,这意味着我们没有在php5支持mysql。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">php5获得mysql的支持</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">7.php5获得mysql的支持</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+让php在mysql中获得支持,我们可以安装的php-mysql软件包。安装一些其他的php5模块,以及您可能需要的应用程序,这是一个好主意:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-cache search php5</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+还安装需要安装的</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-get install php5-mysql php5-curl php5-gd php5-idn php-pear
+php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps
+php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc
+php5-xsl</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+现在重新启动apache2的:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+/etc/init.d/apache2 restart</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+现在,重载http://localhost/info.php在您的浏览器,并再次向下滚动到模块部分。现在,你应该找到许多新的模块,包括mysql模块:</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<a HREF="http://www.2ky.cn/uploads/allimg/120623/221351A11-2.png">
+<img WIDTH="606" HEIGHT="611" ALT="" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.2ky.cn/uploads/allimg/120623/221351A11-2.png" TITLE="3" STYLE="border: 1px solid rgb(0, 0, 0); font-size: 14.8px; line-height: 23.68000030517578px;" /></A></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">安装phpmyadmin</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<strong STYLE="font-size: 14.8px;">8.安装phpmyadmin</STRONG></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+phpmyadmin是一个网络接口,通过它可以管理你的mysql数据库。</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+apt-get install phpmyadmin</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+这时我又要纠正写那个前辈的不足之处，他这里没讲清楚。这里应该是：会自动安装在/usr/share/phpMyAdmin下，然后将phpMyAdmin拷贝到/var/www目录下面，运行http://localhost/phpmyadmin/即可</P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+<a HREF="http://www.2ky.cn/uploads/allimg/120623/2213514511-3.png">
+<img WIDTH="437" HEIGHT="554" ALT="" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.2ky.cn/uploads/allimg/120623/2213514511-3.png" TITLE="4" STYLE="border: 1px solid rgb(0, 0, 0); font-size: 14.8px; line-height: 23.68000030517578px;" /></A></P>
+<p ALIGN="left" STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+注意上面的用户名是root，密码就是大家前面设置好的数据库密码！</P>
+<p STYLE="margin: 12px auto; padding: 0px; line-height: 23.68000030517578px; word-break: break-all; font-size: 15px; font-family: 'Microsoft Yahei'; clear: both;">
+好了，现在我们就完工了！</P>
+<p STYLE="margin: 12px auto; padding: 0px; word-break: break-all; clear: both;">
+<font FACE="Microsoft Yahei"><span STYLE="font-size: 15px; line-height: 23.68000030517578px;">来源：</SPAN></FONT><a HREF="http://news.2ky.cn/Linux/ubuntu-12.04-web-server.htm" TARGET="_blank">Ubuntu 12.04下搭建Web服务器
+（MySQL+PHP+Apache）教程</A></P>							
+		</div>

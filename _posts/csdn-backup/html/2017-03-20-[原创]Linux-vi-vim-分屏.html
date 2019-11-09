@@ -1,0 +1,183 @@
+---
+layout: post
+title: "[原创]Linux-vi-vim-分屏"
+date: 2017-03-20 14:45:04
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			以竖屏方式打开新文件:(只输入vs，会默认再次垂直打开当前文件)
+<div>:vs new.txt</DIV>
+<div><span STYLE="line-height: 21px;">以横屏方式打开新文件:(只输入sp，会默认再次水平打开当前文件)</SPAN></DIV>
+<div>:sp new.txt</DIV>
+<div><br /></DIV>
+<div>【Ctrl】 + 【w】 + 【-】减小高度</DIV>
+<div><span STYLE="line-height: 21px;">【Ctrl】 + 【w】 +
+【+】增加高度</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">【Ctrl】 + 【w】 +
+【&lt;】向左/右移动（在左右竖屏操作，效果会相反）</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">【Ctrl】 + 【w】 +
+【&gt;】向右/左移动</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div>
+<div STYLE="line-height: 21px;">【Ctrl】 + 【w】 + 【_】全屏显示（横屏）</DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">【Ctrl】 + 【w】 + 【|】全屏显示（竖屏）</SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">【Ctrl】 + 【w】 +
+【=】恢复调整中分宽度或高度（全屏效果也会恢复至中分）</SPAN></DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div STYLE="line-height: 21px;">参见vi文档：</DIV>
+<div>
+<div>:[N]sp[lit] [++opt] [+cmd] {file} *:split_f*</DIV>
+<div>Create a new window and start editing file {file} in it.
+&nbsp;<wbr>This</DIV>
+<div>behaves like a ":split" first, and then an ":e" command.</DIV>
+<div>If [+cmd] is given, execute the command when the file has
+been</DIV>
+<div>loaded |+cmd|.</DIV>
+<div>Also see |++opt|.</DIV>
+<div>Make new window N high (default is to use half the
+existing</DIV>
+<div>height). &nbsp;<wbr>Reduces the current window height
+to create room</DIV>
+<div>(and others, if the 'equalalways' option is set).</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+</DIV>
+<div>
+<div>:[N]vs[plit] [++opt] [+cmd] [file] *:vs* *:vsplit*</DIV>
+<div>Like |:split|, but split vertically. &nbsp;<wbr>The
+windows will be</DIV>
+<div>spread out horizontally if</DIV>
+<div>1. a width was not specified,</DIV>
+<div>2. 'equalalways' is set,</DIV>
+<div>3. 'eadirection' isn't "ver", and</DIV>
+<div>4. one of the other windows is wider than the current or
+new</DIV>
+<div>&nbsp;<wbr> window.</DIV>
+<div>Note: In other places CTRL-Q does the same as CTRL-V, but
+here</DIV>
+<div>it doesn't!</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+</DIV>
+<div>
+<div>
+==============================================================================</DIV>
+<div>6. Window resizing *window-resize*</DIV>
+<div><br /></DIV>
+<div>*CTRL-W_=*</DIV>
+<div>CTRL-W = Make all windows (almost) equally high and wide, but
+use</DIV>
+<div>'winheight' and 'winwidth' for the current window.</DIV>
+<div>Windows with 'winfixheight' set keep their height and
+windows</DIV>
+<div>with 'winfixwidth' set keep their width.</DIV>
+<div><br /></DIV>
+<div>:res[ize] -N *:res* *:resize* *CTRL-W_-*</DIV>
+<div>CTRL-W - Decrease current window height by N (default
+1).</DIV>
+<div>If used after |:vertical|: decrease width by N.</DIV>
+<div><br /></DIV>
+<div>:res[ize] +N *CTRL-W_+*</DIV>
+<div>CTRL-W + Increase current window height by N (default
+1).</DIV>
+<div>If used after |:vertical|: increase width by N.</DIV>
+<div><br /></DIV>
+<div>:res[ize] [N]</DIV>
+<div>CTRL-W CTRL-_ *CTRL-W_CTRL-_* *CTRL-W__*</DIV>
+<div>CTRL-W _ Set current window height to N (default: highest
+possible).</DIV>
+<div><br /></DIV>
+<div>z{nr} Set current window height to {nr}.</DIV>
+<div><br /></DIV>
+<div>*CTRL-W_&lt;*</DIV>
+<div>CTRL-W &lt;&lt;span class="Apple-tab-span"
+style="white-space:pre"&gt; Decrease current window width by N
+(default 1).</DIV>
+<div><br /></DIV>
+<div>*CTRL-W_&gt;*</DIV>
+<div>CTRL-W &gt; Increase current window width by N (default
+1).</DIV>
+<div><br /></DIV>
+<div>:vertical res[ize] [N] *:vertical-resize* *CTRL-W_bar*</DIV>
+<div>CTRL-W | Set current window width to N (default: widest
+possible).</DIV>
+<div><br /></DIV>
+<div>You can also resize a window by dragging a status line up or
+down with the</DIV>
+<div>mouse. &nbsp;<wbr>Or by dragging a vertical separator
+line left or right. &nbsp;<wbr>This only</DIV>
+<div>works if the version of Vim that is being used supports the
+mouse and the</DIV>
+<div>'mouse' option has been set to enable it.</DIV>
+<div><br /></DIV>
+<div>The option 'winheight' ('wh') is used to set the minimal
+window height of the</DIV>
+<div>current window. &nbsp;<wbr>This option is used each
+time another window becomes the</DIV>
+<div>current window. &nbsp;<wbr>If the option is '0', it is
+disabled. &nbsp;<wbr>Set 'winheight' to a</DIV>
+<div>very large value, e.g., '9999', to make the current window
+always fill all</DIV>
+<div>available space. &nbsp;<wbr>Set it to a reasonable
+value, e.g., '10', to make editing in</DIV>
+<div>the current window comfortable.</DIV>
+<div><br /></DIV>
+<div>The equivalent 'winwidth' ('wiw') option is used to set the
+minimal width of</DIV>
+<div>the current window.</DIV>
+<div><br /></DIV>
+<div>When the option 'equalalways' ('ea') is set, all the windows
+are automatically</DIV>
+<div>made the same size after splitting or closing a window.
+&nbsp;<wbr>If you don't set this</DIV>
+<div>option, splitting a window will reduce the size of the current
+window and</DIV>
+<div>leave the other windows the same. &nbsp;<wbr>When
+closing a window, the extra lines are</DIV>
+<div>given to the window above it.</DIV>
+<div><br /></DIV>
+<div>The 'eadirection' option limits the direction in which the
+'equalalways'</DIV>
+<div>option is applied. &nbsp;<wbr>The default "both"
+resizes in both directions. &nbsp;<wbr>When the</DIV>
+<div>value is "ver" only the heights of windows are equalized.
+&nbsp;<wbr>Use this when you</DIV>
+<div>have manually resized a vertically split window and want to
+keep this width.</DIV>
+<div>Likewise, "hor" causes only the widths of windows to be
+equalized.</DIV>
+<div><br /></DIV>
+<div>The option 'cmdheight' ('ch') is used to set the height of the
+command-line.</DIV>
+<div>If you are annoyed by the |hit-enter| prompt for long
+messages, set this</DIV>
+<div>option to 2 or 3.</DIV>
+<div><br /></DIV>
+<div>If there is only one window, resizing that window will also
+change the command</DIV>
+<div>line height. &nbsp;<wbr>If there are several windows,
+resizing the current window will</DIV>
+<div>also change the height of the window below it (and sometimes
+the window above</DIV>
+<div>it).</DIV>
+<div><br /></DIV>
+<div>The minimal height and width of a window is set with
+'winminheight' and</DIV>
+<div>'winminwidth'. &nbsp;<wbr>These are hard values, a
+window will never become smaller.</DIV>
+<div><br /></DIV>
+<div>
+==============================================================================</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+</DIV>							
+		</div>

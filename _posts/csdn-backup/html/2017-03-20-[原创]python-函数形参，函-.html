@@ -1,0 +1,168 @@
+---
+layout: post
+title: "[原创]python-函数形参，函-"
+date: 2017-03-20 14:39:53
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div><u>原创所有，转载请注明</U><u STYLE="line-height: 1.5;">本文</U><u STYLE="line-height: 1.5;">超链接地址</U><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101btol.html" TARGET="_blank">【原创】python 函数形参，函数列表收集</A><u STYLE="line-height: 1.5;">及作者张志鹏yi</U></DIV>
+<div><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101btol.html">http://blog.sina.com.cn/s/blog_83dc494d0101btol.html</A></DIV>
+<div><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101btol.html"><br /></A>在python中，函数的收集、参数列表的写法挺多的</DIV>
+<div><br />
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+import sys</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+def fun():</FONT></DIV>
+<div><font STYLE="font-size: 12px;">return 'No params'</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun()</FONT></DIV>
+<div><span STYLE="line-height: 21px;"><font STYLE="font-size: 12px;" COLOR="#4D6DF3">'No params'</FONT></SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><font STYLE="font-size: 12px;">#空参数列表,使用函数不可以传参</FONT></SPAN></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;&nbsp;<wbr></FONT></DIV>
+<div>
+<div>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+def fun_0(a,b,c):</FONT></DIV>
+<div><font STYLE="font-size: 12px;">return a,b,c</FONT></DIV>
+<div><font STYLE="font-size: 12px;"><br /></FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun_0('a','b',3)</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">('a', 'b',
+3)</FONT></DIV>
+<div><font STYLE="font-size: 12px;">#一般的参数列表,需要对应好参数固定位置和数量</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;&nbsp;<wbr></FONT></DIV>
+</DIV>
+</DIV>
+<div>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+def fun_1(a,b,*c):</FONT></DIV>
+<div><font STYLE="font-size: 12px;">print a</FONT></DIV>
+<div><font STYLE="font-size: 12px;">print b</FONT></DIV>
+<div><font STYLE="font-size: 12px;">print c</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun_1('a','b')</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">a</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">b</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">()</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun_1('a','b','c')</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">a</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">b</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">('c',)</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun_1('a','b','c','d','e')</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">a</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">b</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">('c', 'd',
+'e')</FONT></DIV>
+<div><font STYLE="font-size: 12px;">#带有*的参数列表，*会把对应位置一般函数之后的所有参数容纳进来。*一定要放在一般参数的最后</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;&nbsp;<wbr></FONT></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+def fun_2(a,b,c='c'):</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+a</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+b</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+c</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+fun_2('a','b')</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">a</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">b</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">c</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+fun_2('a','b','cd')</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">a</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">b</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">cd</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+fun_2('a','b',c='cd')</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">a</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">b</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">cd</FONT></SPAN></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt;
+fun_2('a',c='cd','b')</DIV>
+<div><font COLOR="#FF0000">SyntaxError: non-keyword arg after
+keyword arg</FONT></DIV>
+<div>
+#带有"="的参数列表，同一般参数一样，要对应好位置，可以为空，但是要尽量放在一般参数列表后面，否则可能会引起异常。</DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;&nbsp;<wbr></FONT></DIV>
+</DIV>
+<div>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+def fun_3(a,b,c='c',*ds):</FONT></DIV>
+<div><font STYLE="font-size: 12px;">print a,b,c</FONT></DIV>
+<div><font STYLE="font-size: 12px;">print ds</FONT></DIV>
+<div><font STYLE="font-size: 12px;">&gt;&gt;&gt;
+fun_3('a','b','c',1,2,4,5,6,7,'d')</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">a b
+c</FONT></DIV>
+<div><font STYLE="font-size: 12px;" COLOR="#4D6DF3">(1, 2, 4, 5, 6,
+7, 'd')</FONT></DIV>
+</DIV>
+<div><font STYLE="font-size: 12px;">#带*的函数列表</FONT></DIV>
+<div>
+<div STYLE="font-size: 12px; line-height: 18px;">
+<font>&gt;&gt;&gt; def
+fun_3(a,b,c='c',**ds):</FONT></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">print a,b,c</DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">print ds</DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">
+&gt;&gt;&gt;
+fun_3('a','b','c',1,2,4,5,6,7,'d')</DIV>
+<div STYLE="font-size: 12px; line-height: 18px;"><br /></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#FF0000">Traceback (most recent call last):</FONT></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1, in</FONT></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+fun_3('a','b','c',1,2,4,5,6,7,'d')</FONT></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#FF0000">TypeError: fun_3() takes at most 3 arguments (10
+given)</FONT></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">
+&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">
+<div>&gt;&gt;&gt;
+fun_3('a','b','c',d='d',m='m')</DIV>
+<div><font COLOR="#4D6DF3">a b c</FONT></DIV>
+<div><font COLOR="#4D6DF3">{'m': 'm', 'd': 'd'}</FONT></DIV>
+</DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">#带**的的函数列表，不接受直接传参，需要用赋值的形式</SPAN>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+def fun_4(a,b,c='c',*ds,**es):</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+a,b,c</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+ds</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">print
+es</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+fun_4('a','b','c',1,2,4,5,6,7,'d',e='e',f='f')</SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">a b c</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">(1, 2, 4, 5, 6, 7, 'd')</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;"><font COLOR="#4D6DF3">{'e': 'e', 'f': 'f'}</FONT></SPAN></DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;&nbsp;<wbr></SPAN></DIV>
+</DIV>
+<div><span STYLE="font-size: 12px; line-height: 18px;">将一般参数、"="参数、"*"参数、"**"参数整合到一块，可以发现，尽量要依次写他们的顺序。</SPAN></DIV>
+<div>
+<div><span STYLE="font-size: 12px; line-height: 18px;">&gt;&gt;&gt;
+def fun_4(a,b,c='c',*ds,**es<font COLOR="#FF0000">,</FONT>*fs):</SPAN></DIV>
+<div><font COLOR="#FF0000">SyntaxError: invalid syntax</FONT></DIV>
+<div>
+&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">
+由此可见，**参数是最后的，不能再添别的参数。</DIV>
+<div STYLE="font-size: 12px; line-height: 18px;">
+当然，类似的处理有系统自带sys.argv 命令行的处理</DIV>
+</DIV>
+</DIV>							
+		</div>

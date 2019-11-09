@@ -1,0 +1,47 @@
+---
+layout: post
+title: "c#-vs2010-directsound&amp;-"
+date: 2017-03-20 14:41:56
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>在vs2010 默认.Net
+4.0的directsound运行时提示异常bug：“混合模式程序集是针对“v1.1.4322”版的运行时生成的，在没有配置其他信息的情况下，无法在
+4.0 运行时中加载该程序集”。</DIV>
+<div>解决方案：</DIV>
+<div>右键项目，添加新建项 -- &gt;配置文件app.config</DIV>
+<div>默认为：</DIV>
+<div>&lt;&lt;/sdivan&gt;configuration&gt;</DIV>
+<div ALIGN="left">
+&lt;&lt;/sdivan&gt;startudiv&gt;</DIV>
+<div ALIGN="left">
+&lt;&lt;/sdivan&gt;sudivdivortedRuntime version="v4.0"
+sku=".NETFramework,Version=v4.0"/&gt;</DIV>
+<div ALIGN="left">
+&lt;/&lt;/sdivan&gt;startudiv&gt;</DIV>
+<div ALIGN="left"></DIV>
+<div ALIGN="left">
+&lt;/&lt;/sdivan&gt;configuration&gt;</DIV>
+修改为即可：
+<div ALIGN="left">
+&lt;&lt;/sdivan&gt;configuration&gt;</DIV>
+<div ALIGN="left">&lt;&lt;/sdivan&gt;startudiv
+useLegacyV2RuntimeActiva<wbr>tionDIVolicy="true"&gt;</DIV>
+<div ALIGN="left">
+&lt;&lt;/sdivan&gt;sudivdivortedRuntime version="v4.0"
+sku=".NETFramework,Version=v4.0"/&gt;</DIV>
+<div ALIGN="left">
+&lt;/&lt;/sdivan&gt;startudiv&gt;</DIV>
+<div ALIGN="left"></DIV>
+<div ALIGN="left">
+&lt;/&lt;/sdivan&gt;configuration&gt;</DIV>
+<div ALIGN="left"><br /></DIV>							
+		</div>

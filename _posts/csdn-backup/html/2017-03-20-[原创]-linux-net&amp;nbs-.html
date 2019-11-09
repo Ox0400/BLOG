@@ -1,0 +1,145 @@
+---
+layout: post
+title: "[原创]-linux-net&amp;nbs-"
+date: 2017-03-20 14:43:55
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			各种奇葩网络问题。。。
+<div>#清理hosts文件</DIV>
+<div>/etc/hosts google smarthost</DIV>
+<div>
+<div>127.0.0.1 &nbsp;<wbr> localhost</DIV>
+<div>127.0.1.1 &nbsp;<wbr> ubuntu-laptop</DIV>
+<div>127.0.1.1 &nbsp;<wbr> ubuntu.ubuntu-domain
+&nbsp;<wbr> &nbsp;<wbr>ubuntu</DIV>
+<div>&nbsp;<wbr># The following lines are desirable for IPv6
+capable hosts</DIV>
+<div>::1 &nbsp;<wbr> &nbsp;<wbr> ip6-localhost
+ip6-loopback</DIV>
+<div>fe00::0 ip6-localnet</DIV>
+<div>ff00::0 ip6-mcastprefix</DIV>
+<div>ff02::1 ip6-allnodes</DIV>
+<div>ff02::2 ip6-allrouters</DIV>
+</DIV>
+<div><br /></DIV>
+<div>#修改路由表</DIV>
+<div>route 查看所有路由表</DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~$ route</DIV>
+<div>内核 IP 路由表</DIV>
+<div>目标 &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>网关
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>子网掩码
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>标志 &nbsp;<wbr>跃点 &nbsp;<wbr> 引用
+&nbsp;<wbr>使用 接口</DIV>
+<div>127.0.0.0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> * &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 255.0.0.0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> U &nbsp;<wbr>
+&nbsp;<wbr> 0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 eth0</DIV>
+<div>127.0.0.0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> * &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 255.0.0.0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> U &nbsp;<wbr>
+&nbsp;<wbr> 0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 wlan0</DIV>
+<div>127.0.0.0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> * &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 255.0.0.0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> U &nbsp;<wbr>
+&nbsp;<wbr> 0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 lo</DIV>
+<div>169.254.0.0 &nbsp;<wbr> &nbsp;<wbr> *
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 255.255.0.0 &nbsp;<wbr>
+&nbsp;<wbr> U &nbsp;<wbr> &nbsp;<wbr> 1000
+&nbsp;<wbr> 0 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 wlan0</DIV>
+<div>192.168.1.0 &nbsp;<wbr> &nbsp;<wbr> *
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 255.255.255.0 &nbsp;<wbr> U
+&nbsp;<wbr> &nbsp;<wbr> 0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>0
+eth0</DIV>
+<div>192.168.1.0 &nbsp;<wbr> &nbsp;<wbr> *
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 255.255.255.0 &nbsp;<wbr> U
+&nbsp;<wbr> &nbsp;<wbr> 2 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>0
+wlan0</DIV>
+<div>zhipeng@ubuntu:~$ sudo route del -net 127.0.0.0 netmask
+255.0.0.0 dev eth0</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ sudo route del -net 127.0.0.0 netmask
+255.0.0.0 dev lo</DIV>
+</DIV>
+<div>zhipeng@ubuntu:~$&nbsp;<wbr>sudo route del -net
+127.0.0.0 netmask 255.0.0.0 dev wlan0</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ sudo route del -net 169.254.0.0 netmask
+255.255.0.0 dev wlan0</DIV>
+<div>zhipeng@ubuntu:~$ sudo route del -net 192.168.1.0 netmask
+255.255.255.0 dev wlan0</DIV>
+<div>zhipeng@ubuntu:~$ sudo route del -net 192.168.1.0 netmask
+255.255.255.0 dev eth0</DIV>
+</DIV>
+<div><br /></DIV>
+<div>#添加路由表</DIV>
+<div>sudo route add -net 192.168.1.0 netmask 255.255.255.0 dev
+wlan0</DIV>
+<div>sudo route add default gw 192.168.1.1</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~$ route</DIV>
+<div>内核 IP 路由表</DIV>
+<div>目标 &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>网关
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>子网掩码
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>标志 &nbsp;<wbr>跃点 &nbsp;<wbr> 引用
+&nbsp;<wbr>使用 接口</DIV>
+<div>default &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 192.168.1.1
+&nbsp;<wbr> &nbsp;<wbr> 0.0.0.0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> UG
+&nbsp;<wbr> &nbsp;<wbr>0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>0
+wlan0</DIV>
+<div>192.168.1.0 &nbsp;<wbr> &nbsp;<wbr> *
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 255.255.255.0 &nbsp;<wbr> U
+&nbsp;<wbr> &nbsp;<wbr> 0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>0 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>0
+wlan0</DIV>
+</DIV>
+<div><br /></DIV>							
+		</div>

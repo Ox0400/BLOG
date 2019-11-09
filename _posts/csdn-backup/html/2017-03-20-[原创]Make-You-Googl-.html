@@ -1,0 +1,106 @@
+---
+layout: post
+title: "[原创]Make-You-Googl-"
+date: 2017-03-20 14:44:22
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - tool
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			自己造了一个Google Chrome Extensions 谷歌浏览器的扩展应用.
+<div>删除百度音乐play.baidu.com的广告位.</DIV>
+<div>目录如下:</DIV>
+<div>
+<div>Baidu-Music去广告:</DIV>
+<div>content.js &nbsp;<wbr>manifest.json</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+------------------------------------------manifest.json------------------------------------------</DIV>
+<div>
+<div>{</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "name":"Clear Baidu
+Music..",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "version":"1.0.0",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+"permissions":["tabs","contextMenus",""],</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "manifest_version":
+2,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "browser_action":
+{</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> "dafault_title":"Clear Baidu Music"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> },
+&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> "content_scripts":
+[</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> { &nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> "matches":
+[""],</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> "js":
+["content.js"],</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+"run_at":"document_end"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> } &nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> ]
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>}</DIV>
+</DIV>
+<div><br /></DIV>
+<div>------------------------------------------<span STYLE="line-height: 21px;">content.js</SPAN>------------------------------------------</DIV>
+<div>
+<div>function hide(){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if (document.domain ==
+"play.baidu.com"){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> var a =
+document.getElementByIdx_x_x('right-ads');</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if (a){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+a.remove();</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+true;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> } &nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> }
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>}</DIV>
+<div><br /></DIV>
+<div>window.setTimeout(hide, 1000);</DIV>
+<div>var v = false</DIV>
+<div>function main(){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if (hide()){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if (v){</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+window.clearInterval(vid);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> } &nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> }
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>}</DIV>
+<div>var vid = window.setInterval(main, 3000);</DIV>
+<div>v = true</DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">------------------------------------------END</SPAN>------------------------------------------</DIV>
+<div><br /></DIV>
+<div>虽然很粗糙,但是起码我造好了=.= 上传Google APP了,但是没法验证账户,不能交纳5$.....</DIV>
+<div>只能自个瞎用咯...</DIV>
+<div>百度网盘:<a HREF="http://pan.baidu.com/s/1dDkqstN" TARGET="_blank">http://pan.baidu.com/s/1dDkqstN</A></DIV>
+<div>下载后选中.crx 文件,直接托放到谷歌浏览器&nbsp;<wbr><a HREF="chrome://extensions/" TARGET="_blank">chrome://extensions/</A>&nbsp;<wbr>即可安装.</DIV>							
+		</div>

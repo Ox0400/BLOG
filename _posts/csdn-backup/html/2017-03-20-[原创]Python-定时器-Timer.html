@@ -1,0 +1,27 @@
+---
+layout: post
+title: "[原创]Python-定时器-Timer"
+date: 2017-03-20 14:45:01
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><pre class="python">import time
+import threading          
+def mtimer():                 
+    print time.time()
+threading.Timer(1, mtimer).start()
+1405940684.98
+
+# 使用定时器做循环任务
+def mtimer():                 
+    print time.time()
+    threading.Timer(1, mtimer).start()
+
+threading.Timer(1, mtimer).start()</pre></div><div>1405940710.73</div><div>1405940711.74</div><div>... ...</div><p>1405940722.77<a href="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxb4&amp;url=http://album.sina.com.cn/pic/002pInNzzy6KCKKj7ir9b"><br /></a></p></div>

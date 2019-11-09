@@ -1,0 +1,45 @@
+---
+layout: post
+title: "[原创]python-Reuqests&amp;nbs-"
+date: 2017-03-20 14:47:33
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>Python requests 模拟https请求报错：</DIV>
+<div>
+c:\Python27\lib\site-packages\requests-2.6.0-py2.7.egg\requests\packages\urllib3\util\ssl_.py:79:
+InsecurePlatformWarning: <b><font COLOR="#FF0000">A true SSLContext
+object is not available.</FONT></B> <b>This prevents urllib3 from
+configuring SSL appropriately and may cause certain SSL connections
+to fail.</B> For more information, see
+https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning.</DIV>
+<div>&nbsp;<wbr> InsecurePlatformWarning</DIV>
+<div><br /></DIV>
+<div>解决办法：</DIV>
+<div><br /></DIV>
+<div>一、取消使用SSL验证。 requests.get("https://www.baidu.com",
+verify=False)</DIV>
+<div>二、安装openssl第三方库</DIV>
+<div>
+<pre STYLE="margin-top: 0px; padding: 5px; border: 0px; font-size: 13px; overflow: auto; width: auto; max-height: 600px; font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, sans-serif; color: rgb(57, 51, 24); word-wrap: normal; background-color: rgb(238, 238, 238);">
+
+<code STYLE="margin: 0px; padding: 0px; border: 0px; font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, sans-serif; white-space: inherit;"><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">easy_install requests</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">[</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">security</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">] &nbsp;<wbr></SPAN></CODE><span STYLE="white-space: inherit; margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">pyopenssl ndg</SPAN><span STYLE="white-space: inherit; margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">-</SPAN><span STYLE="white-space: inherit; margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">httpsclient pyasn1&nbsp;<wbr></SPAN>
+</PRE></DIV>
+如果是Ubuntu或者树莓派可能需要安装系统依赖
+<div>
+<pre STYLE="margin-top: 0px; padding: 5px; border: 0px; font-size: 13px; overflow: auto; width: auto; max-height: 600px; font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, sans-serif; color: rgb(57, 51, 24); word-wrap: normal; background-color: rgb(238, 238, 238);">
+
+<code STYLE="margin: 0px; padding: 0px; border: 0px; font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu sans Mono', 'Bitstream Vera sans Mono', 'Courier new', monospace, sans-serif; white-space: inherit;"><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">apt</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">-</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">get install libffi</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">-</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">dev libssl</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">-</SPAN><span STYLE="margin: 0px; padding: 0px; border: 0px; color: rgb(0, 0, 0);">dev</SPAN></CODE>
+</PRE>
+<div>
+http://stackoverflow.com/questions/29134512/insecureplatformwarning-a-true-sslcontext-object-is-not-available-this-prevent</DIV>
+</DIV>							
+		</div>

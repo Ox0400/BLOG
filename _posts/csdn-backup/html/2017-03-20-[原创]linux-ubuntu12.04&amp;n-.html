@@ -1,0 +1,49 @@
+---
+layout: post
+title: "[原创]linux-ubuntu12.04&amp;n-"
+date: 2017-03-20 14:42:54
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			linux 500 Invalid PORT Command.
+<div>解决方式一：</DIV>
+<div><a HREF="http://serverfault.com/questions/450651/500-illegal-port-command-using-command-line-ftp" TARGET="_blank">http://serverfault.com/questions/450651/500-illegal-port-command-using-command-line-ftp</A></DIV>
+<div><b>ls</B></DIV>
+<div><i><b>500 Illegal PORT command.</B></I></DIV>
+<div><b>pass</B></DIV>
+<div><i><b>Passive mode on.</B></I></DIV>
+<div>这不还是错误的吗- -于是乎，找到这个帖子：《<a HREF="http://blog.csdn.net/simmerlee/article/details/8269029" TARGET="_blank">Ubuntu使用FTP时显示500 Illegal PORT command</A>》</DIV>
+<div>直接输入：</DIV>
+<div><span STYLE="color: rgb(51, 51, 51); font-family: Arial; line-height: 26px;">ftp&gt;</SPAN><b STYLE="color: rgb(51, 51, 51); font-family: Arial; line-height: 26px;">&nbsp;<wbr></B><span STYLE="font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);"><b><font COLOR="#FF0000">passive
+mode</FONT></B></SPAN></DIV>
+<div>
+<div><span STYLE="color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+ftp&gt; <b>put index_wx.php</B></SPAN></DIV>
+<div STYLE="font-weight: bold;">local: index_wx.php remote:
+index_wx.php</DIV>
+<div STYLE="font-weight: bold;">200 PORT command successful.</DIV>
+<div STYLE="font-weight: bold;">150 Opening ASCII mode data
+connection for index_wx.php.</DIV>
+<div STYLE="font-weight: bold;">226 Transfer complete.</DIV>
+<div STYLE="font-weight: bold;">4919 bytes sent in 0.00 secs
+(28938.0 kB/s)</DIV>
+</DIV>
+<div><font COLOR="#333333" FACE="Arial"><span STYLE="line-height: 26px; background-color: rgb(255, 255, 255);">OK，搞定。</SPAN></FONT></DIV>
+<div><font COLOR="#333333" FACE="Arial"><span STYLE="line-height: 26px; background-color: rgb(255, 255, 255);"><br /></SPAN></FONT></DIV>
+<div>
+<div STYLE="color: rgb(51, 51, 51);"><span STYLE="background-color: rgb(255, 255, 255);">FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。</SPAN></DIV>
+<div STYLE="color: rgb(51, 51, 51);"><br /></DIV>
+<div><font COLOR="#333333">PORT（主动）方式的连接过程是：</FONT><font COLOR="#23FF0A">客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，客户端在命令链路上用PORT命令告诉服务器：“我打开了XXXX端口，你过来连接我”。于是服务器从20端口向客户端的XXXX端口发送连接请求，建立一条数据链路来传送数据。</FONT></DIV>
+<div STYLE="color: rgb(51, 51, 51);"><br /></DIV>
+<div><span STYLE="color: rgb(51, 51, 51);">PASV（被动）方式的连接过程是：</SPAN><font COLOR="#20FF07">客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV命令告诉客户端：“我打开了XXXX端口，你过来连接我”。于是客户端向服务器的XXXX端口发送连接请求，建立一条数据链路来传送数据。</FONT></DIV>
+<div>更多详见：《<a HREF="http://blog.sina.com.cn/s/blog_5cdb72780100jwjt.html" TARGET="_blank">500 Illegal PORT command的问题（主被动模式）</A>》</DIV>
+</DIV>							
+		</div>

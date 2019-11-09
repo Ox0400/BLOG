@@ -1,0 +1,36 @@
+---
+layout: post
+title: "[原创]linux目录突然消失的解决-"
+date: 2017-03-20 14:43:00
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			今天突然遇到一个问题
+<div>我在/var/www/下替换 /etc/nginx/nginx.conf~的时候，用了一个命令</DIV>
+<div><b>mv /etc/nginx/nginx.conf ~ /etc/nginx/nginx.conf</B></DIV>
+<div><b><font COLOR="#FF0000">发现报错了，提示nginx.conf不是目录修改了一下</FONT></B></DIV>
+<div><b>mv /etc/nginx/nginx.conf ~ /etc/nginx/</B></DIV>
+<div><b><font COLOR="#FF0000">可是发现nginx.conf~没有更名...，仔细看原来~之前多了一个空格</FONT></B></DIV>
+<div><b>mv /etc/nginx/nginx.conf~ /etc/nginx/nginx.conf</B></DIV>
+<div>接着我cp 主目录下的文件到www下，按tab一直没反映，发现所有的文件都没了。。。看桌面，一刷新空空的</DIV>
+<div>当时我就懵了，好在的是我所有的代码都提交服务器了，但是图片书籍文件什么都没了，更主要图片没了...</DIV>
+<div>
+焦急了一会，想到我没用rm，更没有用-rf啊，认为这是ubuntu的一个大bug，想了一会，没办法，听同事的关机重启一下试试，把网页什么都关了，我突然就按了一下
+<b STYLE="line-height: 1.5;">Ctrl+Alt+T</B>，发现主目录不是<b STYLE="line-height: 1.5;"><i>z</I></B><i STYLE="line-height: 1.5;"><b>hipeng@ubuntu:~$</B>，</I><span STYLE="line-height: 1.5;">而是</SPAN><b><i>zhipeng@ubuntu:/etc/nginx/zhipeng$</I></B>。我瞬间明白了，是mv过去的，但是怎么mv过去的呢？也没去想，总之汗流颊背的那种样子，也算大落大起。。</DIV>
+<div>算弄回来再说吧：<i><b>sudo mv zhipeng/ /home/</B></I></DIV>
+<div>
+虽然代码都提交到了github上，但是也算让我明白了提交代码的重要性，因为不久前，同事的一个盘符突然就挂掉了，代码全崩，重写。。。</DIV>
+<div>
+公司开完年会，回来后看history发现也没有记录，于是回忆操作步骤，想到了第二条命令，没有报错但没有更名成功的那条<b STYLE="line-height: 1.5;">mv /etc/nginx/nginx.conf ~
+/etc/nginx/</B><span STYLE="line-height: 1.5;">，中间的~之前有空格，可不就是把nginx.conf 和我的主目录
+移动到了</SPAN><span STYLE="line-height: 1.5;">/etc/nginx/下吗-
+-,找到问题了，<font COLOR="#FF0000"><b>mv文件的时候空格惹的祸</B></FONT></SPAN>。</DIV>							
+		</div>

@@ -1,0 +1,269 @@
+---
+layout: post
+title: "[原创]最新最全的省市县三级表"
+date: 2017-03-20 14:42:32
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			发一个比较完善的最新省市县三级表
+<div><br /></DIV>
+<div><br /></DIV>
+<div>原表结构如下：</DIV>
+<div>
+<div>+---------+-----------+-----+------+</DIV>
+<div>| Area_ID | Title &nbsp;<wbr> &nbsp;<wbr> | PID
+| Sort |</DIV>
+<div>+---------+-----------+-----+------+</DIV>
+<div>| &nbsp;<wbr>110000 | 北京市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>1 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>120000 | 天津市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>2 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>130000 | 河北省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>3 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>140000 | 山西省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>4 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>150000 | 内蒙古 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>5 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>210000 | 辽宁省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>6 |&nbsp;<wbr></DIV>
+<div>| &nbsp;<wbr>220000 | 吉林省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>7 |</DIV>
+<div>| &nbsp;<wbr>230000 | 黑龙江 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>8 |</DIV>
+<div>| &nbsp;<wbr>310000 | 上海市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>9 |</DIV>
+<div>| &nbsp;<wbr>320000 | 江苏省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr> 10
+|</DIV>
+<div>+---------+-----------+-----+------+</DIV>
+</DIV>
+<div>我稍作修改，因为也就几千条数据，每次都自查询岂不是闲的蛋疼。</DIV>
+<div>所以修改如下：</DIV>
+<div><br /></DIV>
+<div>
+<div>mysql&gt; select * from Area limit 10;</DIV>
+<div>+---------+-----------+-----+------+-----------+</DIV>
+<div>| Area_ID | Title &nbsp;<wbr> &nbsp;<wbr> | PID
+| Sort | Content &nbsp;<wbr> |</DIV>
+<div>+---------+-----------+-----+------+-----------+</DIV>
+<div>| &nbsp;<wbr>110000 | 北京市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>1 | 北京市 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>120000 | 天津市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>2 | 天津市 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>130000 | 河北省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>3 | 河北省 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>140000 | 山西省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>4 | 山西省 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>150000 | 内蒙古 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>5 | 内蒙古 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>210000 | 辽宁省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>6 | 辽宁省 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>220000 | 吉林省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>7 | 吉林省 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>230000 | 黑龙江 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>8 | 黑龙江 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>310000 | 上海市 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr>
+&nbsp;<wbr>9 | 上海市 &nbsp;<wbr>
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>320000 | 江苏省 &nbsp;<wbr>
+&nbsp;<wbr>| &nbsp;<wbr> 0 | &nbsp;<wbr> 10 |
+江苏省 &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>+---------+-----------+-----+------+-----------+</DIV>
+<div>10 rows in set (0.00 sec)</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>mysql&gt; select * from Area limit 100,10;</DIV>
+<div>
++---------+--------------------+--------+------+------------------------------+</DIV>
+<div>| Area_ID | Title &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| PID
+&nbsp;<wbr> &nbsp;<wbr>| Sort | Content
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>
++---------+--------------------+--------+------+------------------------------+</DIV>
+<div>| &nbsp;<wbr>230700 | 伊春市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> | 230000 | &nbsp;<wbr>
+&nbsp;<wbr>7 | 黑龙江 伊春市 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>230800 | 佳木斯市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>| 230000 | &nbsp;<wbr> &nbsp;<wbr>8
+| 黑龙江 佳木斯市 &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>230900 | 七台河市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>| 230000 | &nbsp;<wbr> &nbsp;<wbr>9
+| 黑龙江 七台河市 &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>231000 | 牡丹江市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>| 230000 | &nbsp;<wbr> 10 | 黑龙江 牡丹江市
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> |</DIV>
+<div>| &nbsp;<wbr>231100 | 黑河市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| 230000 |
+&nbsp;<wbr> 11 | 黑龙江 黑河市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>231200 | 绥化市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| 230000 |
+&nbsp;<wbr> 12 | 黑龙江 绥化市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>232700 | 大兴安岭地区 &nbsp;<wbr> |
+230000 | &nbsp;<wbr> 13 | 黑龙江 大兴安岭地区
+&nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>310100 | 市辖区 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| 310000 |
+&nbsp;<wbr> &nbsp;<wbr>1 | 上海市 市辖区 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>| &nbsp;<wbr>310200 | 县 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> | 310000 |
+&nbsp;<wbr> &nbsp;<wbr>2 | 上海市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>| &nbsp;<wbr>320100 | 南京市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| 320000 |
+&nbsp;<wbr> &nbsp;<wbr>1 | 江苏省 南京市 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>
++---------+--------------------+--------+------+------------------<span STYLE="line-height: 21px;">-</SPAN>------------+</DIV>
+<div>10 rows in set (0.00 sec)</DIV>
+</DIV>
+<div>
+<div>mysql&gt; select * from Area limit 1500,10;</DIV>
+<div>
++---------+-----------+--------+------+-------------------------------+</DIV>
+<div>| Area_ID | Title &nbsp;<wbr> &nbsp;<wbr> | PID
+&nbsp;<wbr> &nbsp;<wbr>| Sort | Content
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>
++---------+-----------+--------+------+-------------------------------+</DIV>
+<div>| &nbsp;<wbr>341525 | 霍山县 &nbsp;<wbr>
+&nbsp;<wbr>| 341500 | &nbsp;<wbr> &nbsp;<wbr>8
+| 安徽省 六安市 霍山县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341601 | 市辖区 &nbsp;<wbr>
+&nbsp;<wbr>| 341600 | &nbsp;<wbr> &nbsp;<wbr>1
+| 安徽省 亳州市 市辖区 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341602 | 谯城区 &nbsp;<wbr>
+&nbsp;<wbr>| 341600 | &nbsp;<wbr> &nbsp;<wbr>2
+| 安徽省 亳州市 谯城区 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341621 | 涡阳县 &nbsp;<wbr>
+&nbsp;<wbr>| 341600 | &nbsp;<wbr> &nbsp;<wbr>3
+| 安徽省 亳州市 涡阳县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341622 | 蒙城县 &nbsp;<wbr>
+&nbsp;<wbr>| 341600 | &nbsp;<wbr> &nbsp;<wbr>4
+| 安徽省 亳州市 蒙城县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341623 | 利辛县 &nbsp;<wbr>
+&nbsp;<wbr>| 341600 | &nbsp;<wbr> &nbsp;<wbr>5
+| 安徽省 亳州市 利辛县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341701 | 市辖区 &nbsp;<wbr>
+&nbsp;<wbr>| 341700 | &nbsp;<wbr> &nbsp;<wbr>1
+| 安徽省 池州市 市辖区 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341702 | 贵池区 &nbsp;<wbr>
+&nbsp;<wbr>| 341700 | &nbsp;<wbr> &nbsp;<wbr>2
+| 安徽省 池州市 贵池区 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341721 | 东至县 &nbsp;<wbr>
+&nbsp;<wbr>| 341700 | &nbsp;<wbr> &nbsp;<wbr>3
+| 安徽省 池州市 东至县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| &nbsp;<wbr>341722 | 石台县 &nbsp;<wbr>
+&nbsp;<wbr>| 341700 | &nbsp;<wbr> &nbsp;<wbr>4
+| 安徽省 池州市 石台县 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>
++---------+-----------+--------+------+-------------------------------+</DIV>
+<div>10 rows in set (0.00 sec)</DIV>
+</DIV>
+<div><br /></DIV>
+<div>sql文件地址：<b>http://pan.baidu.com/s/1o6yhwoy</B></DIV>
+<div>顺便提以一下如何导入：</DIV>
+<div>1.下载后假设文件地址在
+&nbsp;<wbr><b>/home/zhipeng/Download/Area_SQL.sql</B></DIV>
+<div>2.Linux 打开<b>mysql -u root -p</B></DIV>
+<div>3.<b>create database StuManager charset utf8;</B>
+(注释：创建数据库，编码设置utf8)</DIV>
+<div>4.<b>use StuManager;</B> (注释：选中数据库)</DIV>
+<div>5.(注释：创建表)</DIV>
+<div><b>delimiter $$</B></DIV>
+<div><b>CREATE TABLE `Area` (</B></DIV>
+<div><b>&nbsp;<wbr> `Area_ID` int(11) NOT NULL
+AUTO_INCREMENT COMMENT '地区ID',</B></DIV>
+<div><b>&nbsp;<wbr> `Title` varchar(255) CHARACTER SET utf8
+COLLATE utf8_bin NOT NULL COMMENT '地区名称',</B></DIV>
+<div><b>&nbsp;<wbr> `PID` int(11) NOT NULL COMMENT
+'父级地区ID',</B></DIV>
+<div><b>&nbsp;<wbr> `Sort` int(11) NOT NULL COMMENT
+'排序值',</B></DIV>
+<div><b>&nbsp;<wbr> `Content` varchar(255) NOT NULL COMMENT
+'全地址',</B></DIV>
+<div><b>&nbsp;<wbr> PRIMARY KEY (`Area_ID`),</B></DIV>
+<div><b>&nbsp;<wbr> KEY `PID` (`PID`)</B></DIV>
+<div><b>) ENGINE=MyISAM AUTO_INCREMENT=910011 DEFAULT
+CHARSET=utf8$$</B></DIV>
+<div>6.<b>source
+/home/zhipeng/Download/Area_SQL.sql;</B>(注释：导入数据)</DIV>
+<div>以上步骤都在linux 终端中进行。</DIV>							
+		</div>

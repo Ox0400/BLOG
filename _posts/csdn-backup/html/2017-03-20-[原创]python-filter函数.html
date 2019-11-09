@@ -1,0 +1,55 @@
+---
+layout: post
+title: "[原创]python-filter函数"
+date: 2017-03-20 14:40:17
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>&gt;&gt;&gt; #<font COLOR="#C68F4A">filter函数可以对返回布尔值的函数进行元素过滤为真的元素列表</FONT></DIV>
+<div>&gt;&gt;&gt; def fu(x):</DIV>
+<div>return x.isdigit()#isdigit 判断是否为纯数字</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; li=['Boy','41','Tim','QQ','1125891']</DIV>
+<div>&gt;&gt;&gt; filter(fu,li)</DIV>
+<div><font COLOR="#4D6DF3">['41', '1125891']</FONT></DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div>
+<div>&gt;&gt;&gt; li=('Boy','41','Tim','QQ','1125891')</DIV>
+<div>&gt;&gt;&gt; filter(fu,li)</DIV>
+<div><font COLOR="#4D6DF3">('41', '1125891')</FONT></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; li = 'boy 41 tim qq 112'</DIV>
+<div>&gt;&gt;&gt; filter(fu,li)</DIV>
+<div><font COLOR="#4D6DF3">'41112'</FONT></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; li = 'boy-41-tim-qq-112'</DIV>
+<div>&gt;&gt;&gt; filter(fu,li)</DIV>
+<div><font COLOR="#4D6DF3">'41112'</FONT></DIV>
+</DIV>
+<div>可以用内置函数__doc__或者help()查看filter的说明：</DIV>
+<div>
+<div>&gt;&gt;&gt; print filter.__doc__</DIV>
+<div>filter(function or None, sequence) -&gt; list, tuple, or
+string</DIV>
+<div><br /></DIV>
+<div>Return those items of sequence for which function(item) is
+true. &nbsp;<wbr>If</DIV>
+<div>function is None, return the items that are true.
+&nbsp;<wbr>If sequence is a tuple</DIV>
+<div>or string, return the same type, else return a list.</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>支持列表、元组、字符串。</DIV>
+<div>
+传入的参数是什么类型输出参数就是什么类型，对字符串会以空格等字符的自动分割（这应该跟我在函数里面的isdigit函数有关），结果会拼接为字符串。</DIV>							
+		</div>

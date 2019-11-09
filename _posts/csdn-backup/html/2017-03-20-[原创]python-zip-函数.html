@@ -1,0 +1,126 @@
+---
+layout: post
+title: "[原创]python-zip-函数"
+date: 2017-03-20 14:40:28
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>这是一个二维列表，那么如何将横竖颠倒呢?</DIV>
+<div>即变为：</DIV>
+<div>
+<div STYLE="line-height: 21px;"><font COLOR="#7FFF23">1 4
+7</FONT></DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#7FFF23">2 5
+8</FONT></DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#7FFF23">3 6
+9</FONT></DIV>
+</DIV>
+<div>&gt;&gt;&gt; ls = [</DIV>
+<div>[1,2,3],</DIV>
+<div>[4,5,6],</DIV>
+<div>[7,8,9]</DIV>
+<div>]</DIV>
+<div>&gt;&gt;&gt; ls</DIV>
+<div><font COLOR="#4D6DF3">[[1, 2, 3], [4, 5, 6], [7, 8,
+9]]</FONT></DIV>
+<div>&gt;&gt;&gt; [y[i] for y in ls for i in range(3)]</DIV>
+<div><font COLOR="#4D6DF3">[1, 2, 3, 4, 5, 6, 7, 8, 9]</FONT></DIV>
+<div>&gt;&gt;&gt; [[y[i]] for y in ls for i in range(3)]</DIV>
+<div><font COLOR="#4D6DF3">[[1], [2], [3], [4], [5], [6], [7], [8],
+[9]]</FONT></DIV>
+<div>&gt;&gt;&gt; [[y[i] for y in ls] for i in range(3)]</DIV>
+<div><font COLOR="#4D6DF3">[[1, 4, 7], [2, 5, 8], [3, 6,
+9]]</FONT></DIV>
+<div>
+<div>&gt;&gt;&gt; for i in ls:</DIV>
+<div>for j in range(len(i)):</DIV>
+<div>print i[j]</DIV>
+<div>print</DIV>
+<div><br /></DIV>
+<div><font COLOR="#4D6DF3">1</FONT></DIV>
+<div><font COLOR="#4D6DF3">2</FONT></DIV>
+<div><font COLOR="#4D6DF3">3</FONT></DIV>
+<div><font COLOR="#4D6DF3"><br /></FONT></DIV>
+<div><font COLOR="#4D6DF3">4</FONT></DIV>
+<div><font COLOR="#4D6DF3">5</FONT></DIV>
+<div><font COLOR="#4D6DF3">6</FONT></DIV>
+<div><font COLOR="#4D6DF3"><br /></FONT></DIV>
+<div><font COLOR="#4D6DF3">7</FONT></DIV>
+<div><font COLOR="#4D6DF3">8</FONT></DIV>
+<div><font COLOR="#4D6DF3">9</FONT></DIV>
+<div>
+<div STYLE="line-height: 21px;">&gt;&gt;&gt; for i in ls:</DIV>
+<div STYLE="line-height: 21px;">for j in range(len(i)):</DIV>
+<div STYLE="line-height: 21px;">print i[j],</DIV>
+<div STYLE="line-height: 21px;">print</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#4D6DF3">1 2
+3</FONT></DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#4D6DF3">4 5
+6</FONT></DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#4D6DF3">7 8
+9</FONT></DIV>
+</DIV>
+<div>&gt;&gt;&gt; for i in range(len(ls[0])):</DIV>
+<div>for j in ls:</DIV>
+<div>print j[i]</DIV>
+<div>print</DIV>
+<div><br /></DIV>
+<div><font COLOR="#4D6DF3">1</FONT></DIV>
+<div><font COLOR="#4D6DF3">4</FONT></DIV>
+<div><font COLOR="#4D6DF3">7</FONT></DIV>
+<div><font COLOR="#4D6DF3"><br /></FONT></DIV>
+<div><font COLOR="#4D6DF3">2</FONT></DIV>
+<div><font COLOR="#4D6DF3">5</FONT></DIV>
+<div><font COLOR="#4D6DF3">8</FONT></DIV>
+<div><font COLOR="#4D6DF3"><br /></FONT></DIV>
+<div><font COLOR="#4D6DF3">3</FONT></DIV>
+<div><font COLOR="#4D6DF3">6</FONT></DIV>
+<div><font COLOR="#4D6DF3">9</FONT></DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; for i in range(len(ls[0])):</DIV>
+<div>for j in ls:</DIV>
+<div>print j[i],</DIV>
+<div>print</DIV>
+<div><br /></DIV>
+<div><font COLOR="#4D6DF3">1 4 7</FONT></DIV>
+<div><font COLOR="#4D6DF3">2 5 8</FONT></DIV>
+<div><font COLOR="#4D6DF3">3 6 9</FONT></DIV>
+<div><br /></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; zip(ls)</DIV>
+<div><font COLOR="#4D6DF3">[([1, 2, 3],), ([4, 5, 6],), ([7, 8,
+9],)]</FONT></DIV>
+<div>&gt;&gt;&gt; zip(*ls)</DIV>
+<div><font COLOR="#4D6DF3">[(1, 4, 7), (2, 5, 8), (3, 6,
+9)]</FONT></DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>不知道大家看到没，for循环后面打一个","有出奇的作用</DIV>
+<div>zip使用也一定要加 * ，这样就可以颠倒行与列。</DIV>
+<div>来看看zip的使用：</DIV>
+<div>
+<div>&gt;&gt;&gt; f_name=['A','B','C','E']</DIV>
+<div>&gt;&gt;&gt; l_name=['F','G','H','I']</DIV>
+<div>&gt;&gt;&gt; n_name=['J','K','L','M']</DIV>
+<div>&gt;&gt;&gt; zip(f_name,l_name)</DIV>
+<div><font COLOR="#4D6DF3">[('A', 'F'), ('B', 'G'), ('C', 'H'),
+('E', 'I')]</FONT></DIV>
+<div>&gt;&gt;&gt; zip(f_name,l_name,n_name)</DIV>
+<div><font COLOR="#4D6DF3">[('A', 'F', 'J'), ('B', 'G', 'K'), ('C',
+'H', 'L'), ('E', 'I', 'M')]</FONT></DIV>
+<div>&gt;&gt;&gt; zip(*zip(f_name,l_name,n_name))</DIV>
+<div><font COLOR="#4D6DF3">[('A', 'B', 'C', 'E'), ('F', 'G', 'H',
+'I'), ('J', 'K', 'L', 'M')]</FONT></DIV>
+</DIV>
+<div><br /></DIV>							
+		</div>

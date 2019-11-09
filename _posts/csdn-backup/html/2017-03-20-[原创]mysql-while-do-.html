@@ -1,0 +1,96 @@
+---
+layout: post
+title: "[原创]mysql-while-do-"
+date: 2017-03-20 14:43:17
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			有一个需求，将某个时间段按照指定时间长度分割成小的时间片段，本来吧要用python写的，又觉得python时间处理模块麻烦了点，所幸用SQL试试吧，才发现没有办法分行，不能分就不能分吧，就当练习一下sql~~
+<div><br />
+<div>
+<div>比如将2013-11-11 01:00:00 &nbsp;<wbr>--- 2013-11-11
+03:00:00 分割如下：</DIV>
+<div><span STYLE="line-height: 21px;">2013-11-11 01:00:00
+---&nbsp;<wbr></SPAN>2013-11-11 02:00:00</DIV>
+<div><span STYLE="line-height: 21px;">2013-11-11 02:00:00
+---&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">2013-11-11 03:00:00</SPAN></DIV>
+<div>本来想用for循环的，就用while do吧。</DIV>
+<div>
+<div><b>drop procedure ff;</B></DIV>
+<div><br /></DIV>
+<div><b>DELIMITER $$</B></DIV>
+<div><b>CREATE PROCEDURE `ff`(s_time varchar(10),e_time varchar(10)
+charset 'utf8')</B></DIV>
+<div><b>BEGIN</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> declare time
+longtext;#最后显示的的时间字符串</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> declare n_time
+varchar(25);#不断更新的时间</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> declare i
+int;#标示第多少个小时</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> set time =
+date_sub(s_time,interval 0 hour);#初始化结果为开始日期的时间类型</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> set n_time =
+date_sub(s_time,interval 0 hour);#初始化当前时间为开始日期的时间类型</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> set s_time =
+date_sub(s_time,interval 0 hour);#初始化开始日期为时间类型</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> set e_time =
+date_sub(e_time,interval 0 hour);#初始化结束时间为时间类型</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> set i =
+0;#初始化当前循环第0次，第0个小时</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> while n_time &gt;=
+s_time and n_time &lt;= e_time do</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> begin</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+#操作</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> set i =i +
+1;#循环+1次，标识要延后一个小时</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #select
+date_sub(s_time,interval i hour);</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> set n_time
+= date_sub(s_time,interval <font COLOR="#FF0000">-i</FONT>
+hour);#设置当前时间为开始时间延后一个小时，注意是"-i"</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> SET
+time=concat(time,'|',date_sub(s_time,interval -i
+hour));#用"|"符号将前一个小时和当前时间拼接起来。</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #select
+time,n_time;</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> end;</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> end while;</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> select
+time;#结束循环后，打印结果</B></DIV>
+<div><b>END$$</B></DIV>
+<div><br /></DIV>
+<div><b>call ff('2012-11-11','2012-11-12');</B></DIV>
+</DIV>
+<div><i>2012-11-11 00:00:00|2012-11-11 01:00:00|2012-11-11
+02:00:00|2012-11-11 03:00:00|2012-11-11 04:00:00|2012-11-11
+05:00:00|2012-11-11 06:00:00|2012-11-11 07:00:00|2012-11-11
+08:00:00|2012-11-11 09:00:00|2012-11-11 10:00:00|2012-11-11
+11:00:00|2012-11-11 12:00:00|2012-11-11 13:00:00|2012-11-11
+14:00:00|2012-11-11 15:00:00|2012-11-11 16:00:00|2012-11-11
+17:00:00|2012-11-11 18:00:00|2012-11-11 19:00:00|2012-11-11
+20:00:00|2012-11-11 21:00:00|2012-11-11 22:00:00|2012-11-11
+23:00:00|2012-11-12 00:00:00</I></DIV>
+</DIV>
+</DIV>
+<div><i><br /></I></DIV>
+<div>其实想了想，应该是可以的，sql中设置自增长...</DIV>
+<div>暂且这样吧，参数列表最好加上时间长度，以秒为单位最合适，这样更灵活。</DIV>							
+		</div>

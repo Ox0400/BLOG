@@ -1,0 +1,74 @@
+---
+layout: post
+title: "[原创]-Window7-mysql-"
+date: 2017-03-20 14:44:39
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			有一种说法，在<b>C:\Program Files\MySQL\MySQL Server 5.5\my.ini</B>
+中添加&nbsp;<wbr><i>innodb_file_per_table = 1</I>，设置分表存储。
+<div>
+我尝试了一下，确实可以，data文件中每张表多了一个.ibd的数据文件(但是不能移动到别的地方用，可以用，还没研究)</DIV>
+<div><br /></DIV>
+<div>然后考虑了innodb和myisam引擎的区别</DIV>
+<div>首先它们存储位置都默认位于&nbsp;<wbr><b>C:\ProgramData\MySQL\MySQL
+Server 5.5\data</B></DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t2.qpic.cn/mblogpic/a9440ee36e71249b8180/2000" STYLE="max-width:690px;" NAME="image_operate_5151403080197691"  ALT="【原创】&nbsp;<wbr>Window7&nbsp;<wbr>mysql&nbsp;<wbr>数据库创建到指定文件"  TITLE="【原创】&nbsp;<wbr>Window7&nbsp;<wbr>mysql&nbsp;<wbr>数据库创建到指定文件" /><br /></DIV>
+<div><br /></DIV>
+<div>innodb 默认数据默存放于ibdata1、ibdata2
+之类文件中，索引数据都在这里存放，所有的数据库、表都存放在这个文件中。一个很大的缺点，不仅不方便分库管理，而且当你删除数据时，这个文件并不会减少...它只有增，没有减。对应数据库名文件夹下只有.opt是库编码，.frm为表结构&nbsp;<wbr></DIV>
+<div>MyIsam 默认数据在对应数据库名文件夹下，.opt是库编码，.frm为表结构
+，.MYD为表数据，.MYI是表索引文件.</DIV>
+<div><br /></DIV>
+<div>知道了这个，可以利用MyIsam文件结构存放数据库文件。</DIV>
+<div>1.修改<b STYLE="line-height: 1.5;">C:\Program Files\MySQL\MySQL
+Server 5.5\my.ini&nbsp;<wbr></B>配置文件</DIV>
+<div><br /></DIV>
+<div>
+<div>#Path to the database root</DIV>
+<div>#datadir="C:/ProgramData/MySQL/MySQL Server 5.5/Data/"</DIV>
+<div>#将默认文件路径修改为你的硬盘目录，确保目录已存在</DIV>
+<div>datadir="H:/mysql-data/"</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div># The default storage engine that will be used when create new
+tables when</DIV>
+<div>#default-storage-engine=INNODB</DIV>
+<div>default-storage-engine=MYISAM</DIV>
+</DIV>
+<div>#修改数据库建表的时候默认引擎为MyIsam</DIV>
+<div><br /></DIV>
+<div>保存my.ini</DIV>
+<div><br /></DIV>
+<div>按开始或者Win键，输入cmd，然后鼠标右键，以管理员权限运行，</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t2.qpic.cn/mblogpic/8b9af03772dcd1ad78c4/2000" STYLE="max-width:690px;" WIDTH="416" HEIGHT="740" NAME="image_operate_56091403081372779"  ALT="【原创】&nbsp;<wbr>Window7&nbsp;<wbr>mysql&nbsp;<wbr>数据库创建到指定文件"  TITLE="【原创】&nbsp;<wbr>Window7&nbsp;<wbr>mysql&nbsp;<wbr>数据库创建到指定文件" /><br /></DIV>
+<div><br /></DIV>
+<div>停止mysql服务:net stop mysql</DIV>
+<div><span STYLE="line-height: 21px;">开启mysql服务:net start
+mysql</SPAN></DIV>
+<div>一定要以管理员权限运行，会报错。《<a HREF="http://blog.sina.com.cn/s/blog_7e56997901012x9m.html" TARGET="_blank">windows下重启mysql</A>》</DIV>
+<div>但是还是会报错</DIV>
+<div>windows mysql 修改datadir 后 提示：</DIV>
+<div><font COLOR="#FF0000">MySQL
+服务无法启动。&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#FF0000">系统出错。&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#FF0000">发生系统错误&nbsp;<wbr>1067</FONT></DIV>
+<div>这种情况是因为mysql
+mysql数据库不存在的原因，进入到<b>H:/mysql-data/</B>&nbsp;<wbr>可以看到</DIV>
+<div>ib_logfile0 &nbsp;<wbr>ib_logfile1
+&nbsp;<wbr>ibdata1&nbsp;<wbr>&nbsp;<wbr>zhipeng-PC.err
+文件已经存在，缺少mysql 文件夹，回“<b>C:\ProgramData\MySQL\MySQL Server
+5.5\data</B>”将mysql 和 performance_schema 都拷贝到 “<b STYLE="line-height: 1.5;">H:/mysql-data/</B>”</DIV>
+<div>重新运行 net start mysql</DIV>
+<div>mysql就成功启动了，如果C盘下的ibdata没有你需要保留的数据，直接删了就可以。</DIV>
+<div>然后建库、建表什么的，数据文件都会保存在硬盘了，数据库文件可以直接移动。</DIV>							
+		</div>

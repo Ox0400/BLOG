@@ -1,0 +1,252 @@
+---
+layout: post
+title: "[原创]python处理-面试题：回文-"
+date: 2017-03-20 14:39:08
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - 
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<h3 STYLE="margin: 0px; padding: 0px; font-size: 16px; font-weight: normal; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; line-height: 24px; background-color: rgb(248, 247, 245);">
+<strong>今日面试题：回文分割</STRONG></H3>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+对一个字符串按照回文进行分割，例如aba|b|bbabb|a|b|aba就是字符串ababbbabbababa的一个回文分割，每一个字串都是一个回文。请找到可以分割的最少的字串数。例如：</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<br /></P>
+<ol STYLE="list-style-position: inside; list-style-image: initial; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+ababbbabbababa最少4个字符串，分割三次：a|babbbab|b|ababa</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+如果字符串整体是回文，则需要0次分割，最少1个字符串</P>
+</LI>
+</OL>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<br /></P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+==========================================================<br /></P>
+<h3 STYLE="margin: 0px; padding: 0px; font-size: 16px; font-weight: normal; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; line-height: 24px; background-color: rgb(248, 247, 245);">
+<strong>删除字符分析</STRONG></H3>
+<h4 STYLE="margin: 0px; padding: 0px; font-size: 16px; font-weight: normal; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; line-height: 24px; background-color: rgb(248, 247, 245);">
+<strong>原题</STRONG></H4>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+删除字符串中的“b”和“ac”，需要满足如下的条件：</P>
+<ol STYLE="list-style-position: inside; list-style-image: initial; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+字符串只能遍历一次</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+不能够使用额外的空间</P>
+</LI>
+</OL>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+例如：</P>
+<ol STYLE="list-style-position: inside; list-style-image: initial; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">acbac
+&nbsp;<wbr> ==&gt; &nbsp;<wbr>""</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">aaac
+&nbsp;<wbr> &nbsp;<wbr>==&gt;
+&nbsp;<wbr>aa</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">ababac
+&nbsp;<wbr>==&gt; &nbsp;<wbr>aa</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">bbbbd
+&nbsp;<wbr> ==&gt; &nbsp;<wbr>d</P>
+</LI>
+</OL>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+进一步思考：如何处理aaccac呢，需要做哪些改变呢？</P>
+<h4 STYLE="margin: 0px; padding: 0px; font-size: 16px; font-weight: normal; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; line-height: 24px; background-color: rgb(248, 247, 245);">
+<strong>分析</STRONG></H4>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+首先要明白从字符串中删除某些字符该如何实现，显而易见我们可以把保留的字符拷贝新的字符串中来实现删除。但是题目要求不能使用额外的空间。那就是将要删除的字符全部交换到字符串的尾部，然后设置一个'\0'表示字符串的结尾。</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+其次，如果要删除的都是单个字符的字符串，就很直接：我们使用i和j两个变量遍历字符串，i表示不会删除的字符的位置，j从0开始，只要i所在位置
+的字符不是要删除的字符，就str[j]=str[i]（str表示字符串），然后j++指向下一个位置。一次遍历即可，不需要额外申请空间，只需要两个
+变量。</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+但是，现在删除的字符串中有多个字符的，如：“ac”。那要如何处理呢？这里介绍一个小技巧：状态机。这里，我们有两个状态：ONE和TWO。TWO表示，前一个字符时‘a’的状态，其他的都用ONE表示。还是采用前面所描述的遍历方法：</P>
+<ol STYLE="list-style-position: inside; list-style-image: initial; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+如果当前状态为ONE，则拷贝：str[j]=str[i];但如果当前字符满足以下两种状态的任一个，则不进行拷贝：</P>
+</LI>
+<li STYLE="list-style: none">
+<ol STYLE="list-style: lower-alpha inside;">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+当前字符是‘b’，因为我们要删除b</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+当前字符是‘a’，我们要考虑下一个字符是c</P>
+</LI>
+</OL>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+如果当前状态为TWO：</P>
+</LI>
+<li STYLE="list-style: none">
+<ol STYLE="list-style: lower-alpha inside;">
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+当前字符不是‘c’，那么我们要先拷贝前一个字符‘a’</P>
+</LI>
+<li>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em;">
+然后考虑当前字符，如果不是‘b’或者‘a’，则拷贝字符</P>
+</LI>
+</OL>
+</LI>
+</OL>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+状态转换非常简单，就是每次都检查，是前一个字符为‘a’。基本代码如下：</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://mmsns.qpic.cn/mmsns/uVhqWvaiaiaPPxn9FohLoAxiamXZ23E1KPiciaqQOa0NX2fUCI4rMzjJNEA/0" STYLE="max-width: 100%; height: auto !important;"  ALT="【原创】python处理&nbsp;<wbr>面试题：回文分割、及删除字符分析"  TITLE="【原创】python处理&nbsp;<wbr>面试题：回文分割、及删除字符分析" /></P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+下面进一步考虑:
+根据上面的算法，我们考虑aaccac，最终得到ac。ac在题目中要求的也是要删除的。是否要删除这个ac，就需要和面试官进行交流了，无论如何，总是
+要考虑这种情况。还是采用上面的算法，怎么解决删除之后还可以删除的情况？其实非常简单，只需要做很小的修改，我们在循环最后加上这个代码即可：</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://mmsns.qpic.cn/mmsns/uVhqWvaiaiaPPxn9FohLoAxiamXZ23E1KPic7yvJD8JAuWII2NxtRrTEOg/0" STYLE="max-width: 100%; height: auto !important;"  ALT="【原创】python处理&nbsp;<wbr>面试题：回文分割、及删除字符分析"  TITLE="【原创】python处理&nbsp;<wbr>面试题：回文分割、及删除字符分析" /></P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+<br /></P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+【分析完毕】</P>
+<p STYLE="margin: 0px; padding: 0px; min-height: 1.5em; color: rgb(62, 62, 62); font-family: Helvetica, 'sTHeiti sTxihei', 'Microsoft JhengHei', 'Microsoft YaHei', Tohoma, Arial; font-size: 16px; line-height: 24px; background-color: rgb(248, 247, 245);">
+转自：<a HREF="http://mp.weixin.qq.com/mp/appmsg/show?__biz=MjM5ODIzNDQ3Mw==&amp;appmsgid=10000249&amp;itemidx=1&amp;sign=43fc32e7e6365d78a94bad779668045c" TARGET="_blank">微信</A>&nbsp;<wbr></P>
+<div>试着用python写写</DIV>
+<hr />
+<div>&gt;&gt;&gt; <font COLOR="#FFCE0B">def</FONT> <font COLOR="#1856FE">work</FONT>(string):</DIV>
+<div>state=1</DIV>
+<div>loc=0</DIV>
+<div>st=''</DIV>
+<div><font COLOR="#FFBE0A">for</FONT> i <font COLOR="#FFC407">in</FONT> <font COLOR="#B17CC9">range</FONT>(<font COLOR="#B37CCA">len</FONT>(string)):</DIV>
+<div><font COLOR="#FDA109" STYLE="line-height: 1.5;">if</FONT>
+state == 1 <font COLOR="#FDA908" STYLE="line-height: 1.5;">and</FONT> string[i] != <font COLOR="#72E966" STYLE="line-height: 1.5;">'a'</FONT> <font COLOR="#FCB40F" STYLE="line-height: 1.5;">and</FONT> string[i] != <font COLOR="#75EA63" STYLE="line-height: 1.5;">'b'</FONT>:</DIV>
+<div>st +=string[i]</DIV>
+<div>loc += 1</DIV>
+<div><font COLOR="#FEB808" STYLE="line-height: 1.5;">if</FONT>
+state == 2 <font COLOR="#FCB80C" STYLE="line-height: 1.5;">and</FONT> string[i] != <font COLOR="#52F46A" STYLE="line-height: 1.5;">'c'</FONT>:</DIV>
+<div>st += <font COLOR="#5EED75" STYLE="line-height: 1.5;">'a'</FONT></DIV>
+<div>loc += 1</DIV>
+<div><font COLOR="#FBB008" STYLE="line-height: 1.5;">if</FONT>
+string[i] != <font COLOR="#6CE47E" STYLE="line-height: 1.5;">'a'</FONT> <font COLOR="#FEB808" STYLE="line-height: 1.5;">and</FONT> string[i] != <font COLOR="#67E87F" STYLE="line-height: 1.5;">'b'</FONT>:</DIV>
+<div>st +=string[i]</DIV>
+<div>loc += 1</DIV>
+<div>state = (string[i] == <font COLOR="#6CE17F" STYLE="line-height: 1.5;">'a'</FONT>) <font COLOR="#FDAC0E" STYLE="line-height: 1.5;">and</FONT> 2 <font COLOR="#FFC81A" STYLE="line-height: 1.5;">or</FONT> 1</DIV>
+<div><font COLOR="#FDAA0B">if</FONT> state == 2:</DIV>
+<div>st += <font COLOR="#5FEB77" STYLE="line-height: 1.5;">'a'</FONT></DIV>
+<div>loc += 1</DIV>
+<div><font COLOR="#FFC117">return</FONT> st</DIV>
+<hr />
+<div><br /></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#5EEE78">'aaccac'</FONT>)</DIV>
+<div><font COLOR="#3150FD">'ac'</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#5CEE86">'abcac'</FONT>)</DIV>
+<div><font COLOR="#2E59FD">'ac'</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#5FEC74">'abbac'</FONT>)</DIV>
+<div><font COLOR="#4642F4">'a'</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#6DE479">'acbac'</FONT>)</DIV>
+<div><font COLOR="#4F4DF1">''</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#6CE27C">'aaac'</FONT>)</DIV>
+<div><font COLOR="#5059F1">'aa'</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#6BE490">'ababac'</FONT>)</DIV>
+<div><font COLOR="#685FEB">'aa'</FONT></DIV>
+<div>&gt;&gt;&gt;
+work(<font COLOR="#60ED8A">'bbbbd'</FONT>)</DIV>
+<div><font COLOR="#6263EA">'d'</FONT></DIV>
+<div>
+&gt;&gt;&gt;&nbsp;<wbr></DIV>
+如上所示，虽然是照着代码搬下来的，但是成功了哦~
+<div>特别提醒：<span STYLE="line-height: 21px;">state = (string[i]
+==&nbsp;<wbr></SPAN><font COLOR="#6CE17F" STYLE="line-height: 1.5;">'a'</FONT><span STYLE="line-height: 21px;">)&nbsp;<wbr></SPAN><font COLOR="#FDAC0E" STYLE="line-height: 1.5;">and</FONT><span STYLE="line-height: 21px;">&nbsp;<wbr>2&nbsp;<wbr></SPAN><font COLOR="#FFC81A" STYLE="line-height: 1.5;">or</FONT><span STYLE="line-height: 21px;">&nbsp;<wbr>1
+同三元运算符有相同的效果，python不支持三元运算符，但是and or
+在python中是十分强大的功能,前面有文章提到的《</SPAN><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bc6z.html" TARGET="_blank">python&nbsp;<wbr>Boolean/Bool&nbsp;<wbr>-&nbsp;<wbr>and,&nbsp;<wbr>or,&nbsp;<wbr>not</A>》</DIV>
+<div>三元运算符这么写的：<b><span STYLE="line-height: 21px;">state =
+(string[i] ==&nbsp;<wbr></SPAN><font STYLE="line-height: 1.5;">'a'</FONT><span STYLE="line-height: 21px;">)
+?&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">2&nbsp;<wbr></SPAN><font STYLE="line-height: 1.5;">:</FONT><span STYLE="line-height: 21px;">&nbsp;<wbr>1</SPAN></B></DIV>
+接着再看，原题，假如运行之后结果是ac，是否需要再次处理：
+<div>
+<hr />
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">
+&gt;&gt;&gt;&nbsp;<wbr><font COLOR="#FFCE0B">def</FONT>&nbsp;<wbr><font COLOR="#1856FE">work</FONT>(string):</DIV>
+<div STYLE="line-height: 21px;">state=1</DIV>
+<div STYLE="line-height: 21px;">loc=0</DIV>
+<div STYLE="line-height: 21px;">st=''</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FFBE0A">for</FONT>&nbsp;<wbr>i&nbsp;<wbr><font COLOR="#FFC407">in</FONT>&nbsp;<wbr><font COLOR="#B17CC9">range</FONT>(<font COLOR="#B37CCA">len</FONT>(string)):</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FDA109" STYLE="line-height: 1.5;">if</FONT>&nbsp;<wbr>state ==
+1&nbsp;<wbr><font COLOR="#FDA908" STYLE="line-height: 1.5;">and</FONT>&nbsp;<wbr>string[i]
+!=&nbsp;<wbr><font COLOR="#72E966" STYLE="line-height: 1.5;">'a'</FONT>&nbsp;<wbr><font COLOR="#FCB40F" STYLE="line-height: 1.5;">and</FONT>&nbsp;<wbr>string[i]
+!=&nbsp;<wbr><font COLOR="#75EA63" STYLE="line-height: 1.5;">'b'</FONT>:</DIV>
+<div STYLE="line-height: 21px;">st +=string[i]</DIV>
+<div STYLE="line-height: 21px;">loc += 1</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FEB808" STYLE="line-height: 1.5;">if</FONT>&nbsp;<wbr>state ==
+2&nbsp;<wbr><font COLOR="#FCB80C" STYLE="line-height: 1.5;">and</FONT>&nbsp;<wbr>string[i]
+!=&nbsp;<wbr><font COLOR="#52F46A" STYLE="line-height: 1.5;">'c'</FONT>:</DIV>
+<div STYLE="line-height: 21px;">st +=&nbsp;<wbr><font COLOR="#5EED75" STYLE="line-height: 1.5;">'a'</FONT></DIV>
+<div STYLE="line-height: 21px;">loc += 1</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FBB008" STYLE="line-height: 1.5;">if</FONT>&nbsp;<wbr>string[i]
+!=&nbsp;<wbr><font COLOR="#6CE47E" STYLE="line-height: 1.5;">'a'</FONT>&nbsp;<wbr><font COLOR="#FEB808" STYLE="line-height: 1.5;">and</FONT>&nbsp;<wbr>string[i]
+!=&nbsp;<wbr><font COLOR="#67E87F" STYLE="line-height: 1.5;">'b'</FONT>:</DIV>
+<div STYLE="line-height: 21px;">st +=string[i]</DIV>
+<div STYLE="line-height: 21px;">loc += 1</DIV>
+<div STYLE="line-height: 21px;">state = (string[i]
+==&nbsp;<wbr><font COLOR="#6CE17F" STYLE="line-height: 1.5;">'a'</FONT>)&nbsp;<wbr><font COLOR="#FDAC0E" STYLE="line-height: 1.5;">and</FONT>&nbsp;<wbr>2&nbsp;<wbr><font COLOR="#FFC81A" STYLE="line-height: 1.5;">or</FONT>&nbsp;<wbr>1</DIV>
+<div STYLE="line-height: 21px;">
+<div><font COLOR="#FEB315">if</FONT>&nbsp;<wbr><font COLOR="#8682AD">len</FONT>(st)&gt;1&nbsp;<wbr><font COLOR="#FDA20C">and</FONT>&nbsp;<wbr>st[-1]==&nbsp;<wbr><font COLOR="#41FD27">'c'</FONT>&nbsp;<wbr><font COLOR="#FBAB0B">and</FONT>&nbsp;<wbr>st[-2]==<font COLOR="#54F37A">'a'</FONT>:</DIV>
+<div>st=st[0:-2]</DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FDAA0B">if</FONT>&nbsp;<wbr>state == 2:</DIV>
+<div STYLE="line-height: 21px;">st +=&nbsp;<wbr><font COLOR="#5FEB77" STYLE="line-height: 1.5;">'a'</FONT></DIV>
+<div STYLE="line-height: 21px;">loc += 1</DIV>
+<div STYLE="line-height: 21px;"><font COLOR="#FFC117">return</FONT>&nbsp;<wbr>st</DIV>
+<div><br /></DIV>
+</DIV>
+<hr />
+<div>&gt;&gt;&gt;
+work(<font COLOR="#4BF760">'abcac'</FONT>)</DIV>
+<font COLOR="#654FF3">''</FONT></DIV>
+<div>&gt;&gt;&gt;</DIV>
+<div>可以看到，同原题一样在for循环最后加了一个判断</DIV>
+<div>
+<div STYLE="line-height: 21px;"><font COLOR="#FEB315">if</FONT>&nbsp;<wbr><font COLOR="#8682AD">len</FONT>(st)&gt;1&nbsp;<wbr><font COLOR="#FDA20C">and</FONT>&nbsp;<wbr>st[-1]==&nbsp;<wbr><font COLOR="#41FD27">'c'</FONT>&nbsp;<wbr><font COLOR="#FBAB0B">and</FONT>&nbsp;<wbr>st[-2]==<font COLOR="#54F37A">'a'</FONT>:</DIV>
+<div STYLE="line-height: 21px;">st=st[0:-2]</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">这是python数据类型特有的分片，简单介绍一下，list tuple
+通用。</DIV>
+<div STYLE="line-height: 21px;">st='abcdefg'</DIV>
+<div STYLE="line-height: 21px;">st[0:2] --&gt;
+'abc'</DIV>
+<div STYLE="line-height: 21px;">st[2:]
+&nbsp;<wbr>--&gt; 'cdefg'</DIV>
+<div STYLE="line-height: 21px;">st[:-2] --'abcde'</DIV>
+<div STYLE="line-height: 21px;">[x:] 第x位开始，至末尾（0开始）</DIV>
+<div STYLE="line-height: 21px;">[x:y] 第x位至第y位</DIV>
+<div STYLE="line-height: 21px;">[:-x]0位开始，至倒数x位</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>							
+		</div>

@@ -1,0 +1,91 @@
+---
+layout: post
+title: "[原创]mysql-python安装-dj-"
+date: 2017-03-20 14:41:11
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;">linux下easy_install mysql-python
+&nbsp;<wbr>： ImportError: Entry point ('console_scripts',
+'easy_install') not found</DIV>
+<hr />
+原创所有，转载附明本文超链接地址以及作者，谢谢！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c3fs.html">http://blog.sina.com.cn/s/blog_83dc494d0101c3fs.html</A>
+<hr />
+今天第一次碰django的东西，是看youtube上的一个视频《<a HREF="http://youtu.be/bRnm8f6Wavk" TARGET="_blank">Python from Scratch -
+Creating a Dynamic Website -
+YouTube</A>》，需翻墙，视频很长的，59分钟~可以翻墙学习一下噢~英文/无字幕/<br />
+<div>---------------------------------------</DIV>
+<div>http://www.youtube.com/embed/bRnm8f6Wavk</DIV>
+<embed allowScriptAccess="never" allowNetworking="internal" autostart="0"   PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer" FRAMEBORDER="0" ALLOWFULLSCREEN="" TYPE="application/x-shockwave-flash" NAME="ssss" WIDTH="100" HEIGHT="3"></EMBED>
+<div>---------------------------------------</DIV>
+<div>有一步操作，brew 这个是mac机器上的等同于apt-get ，不用理会。</DIV>
+<div>在操作19：15的时候，easy_install mysql-python 出现的错误。</DIV>
+<div>ImportError: Entry point ('console_scripts', 'easy_install')
+not found</DIV>
+<div>看了一下 牛皮糖的Blog 在 《<a HREF="http://www.cnblogs.com/yuxc/archive/2012/08/28/2660668.html" TARGET="_blank">Ubuntu上修复Python</A><span STYLE="font-family: verdana, Arial, Helvetica, sans-serif; line-height: 24px;">》中提到是因为easy_install有两个路径，果不其然</SPAN></DIV>
+<div><span STYLE="line-height: 24px;">which -a
+easy_install</SPAN></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c3fs&url=http://album.sina.com.cn/pic/83dc494dgx6DrYriAtIa2" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s3.sinaimg.cn/mw690/83dc494dgx6DrYriAtIa2&amp;690" WIDTH="690" HEIGHT="121" NAME="image_operate_31161381849437814"  ALT="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp"  TITLE="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp" /></A><br />
+然后我显现，在/usr/local/bin 其实还有一个easy_install-2.7</DIV>
+<div>同样也会报错，对比命令的错误那一行“”，这就可以排除牛皮糖同学的说法，不是冲突的问题，</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c3fs&url=http://album.sina.com.cn/pic/83dc494dgx6Ds03FUJW68" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s9.sinaimg.cn/mw690/83dc494dgx6Ds03FUJW68&amp;690" NAME="image_operate_51541381851575133"  ALT="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp"  TITLE="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp" /></A><br />
+看2.7的这个内容：</DIV>
+<div>---------------------------------------------</DIV>
+<div>
+<div>#!/usr/bin/python</DIV>
+<div># EASY-INSTALL-ENTRY-SCRIPT:
+'distribute','console_scripts','easy_install-2.7'</DIV>
+<div>__requires__ = 'distribute'</DIV>
+<div>import sys</DIV>
+<div>from pkg_resources import load_entry_point</DIV>
+<div><br /></DIV>
+<div>if __name__ == '__main__':</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> sys.exit(</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> load_entry_point('distribute',
+'console_scripts', 'easy_install-2.7')()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> )</DIV>
+</DIV>
+<div>------------------------------------------------</DIV>
+<div><a HREF="http://pythoner.org/wiki/830/">http://pythoner.org/wiki/830/</A>&nbsp;<wbr>一文中提到更新安装<span STYLE="font-size: 13px; line-height: 20px;">distribute_setup.py，同牛皮糖是一个想法，</SPAN></DIV>
+<div><font SIZE="2"><span STYLE="line-height: 20px;">根据作者的提示：</SPAN></FONT></DIV>
+<div>
+<div STYLE="line-height: 20px;"><font SIZE="2">curl -O
+http://python-distribute.org/distribute_setup.py</FONT></DIV>
+<div>sudo python distribute_setup.py</DIV>
+<div>再运行easy_install mysql-python</DIV>
+<div>报错：EnvironmentError: mysql_config not found</DIV>
+<div>还是报错：这次语气好点，提示权限不足，再sudo试试看。</DIV>
+<div><span STYLE="line-height: 19px;">按照Alex Zhou 《</SPAN><a HREF="http://zhoujianghai.iteye.com/blog/1520666" TARGET="_blank">python学习：安装mysql-mython</A><span STYLE="line-height: 19px;">》一文做法：</SPAN></DIV>
+<div>
+<div><span STYLE="line-height: 19px;">sudo apt-get install
+libmysqld-dev</SPAN></DIV>
+<div>再试试：sudo easy_install-2.7 mysql-python &nbsp;<wbr> #
+-----ok！</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c3fs&url=http://album.sina.com.cn/pic/83dc494dgx6Ds1S8Ybu38" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s9.sinaimg.cn/mw690/83dc494dgx6Ds1S8Ybu38&amp;690" WIDTH="690" HEIGHT="433" NAME="image_operate_43491381851385508"  ALT="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp"  TITLE="【原创】mysql-python安装&nbsp;<wbr>django&nbsp;<wbr>&nbsp;<wbr>linux&nbsp;<wbr>easy_install：&nbsp;<wbr>ImportError:&amp;nbsp" /></A><br />
+提示完成了。</DIV>
+<div>然后find / -name mysql_config</DIV>
+<div>也找到了mysql_config 。</DIV>
+<div>当然：期间我安装了一下软件。如果大家安装失败，可以选择性安装如下软件，或者一次性sudo apt-get install
+软1 软2 .. 空格隔开即可。</DIV>
+</DIV>
+</DIV>
+<div><span STYLE="font-size: small;">mysql-workbench
+&nbsp;<wbr></SPAN><span STYLE="font-size: small;">mysql-utilities&nbsp;<wbr></SPAN><span STYLE="font-size: small;">python-pysqlite2-doc
+python-pysqlite2-dbg &nbsp;<wbr></SPAN>python-gdbm-dbg
+python-tk-dbg&nbsp;<wbr></DIV>
+<div><span STYLE="line-height: 21px;">结束语：至此本文结束。</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<hr />
+&nbsp;<wbr>原创所有，转载附明本文超链接地址以及作者，谢谢！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c3fs.html">http://blog.sina.com.cn/s/blog_83dc494d0101c3fs.html</A>
+<hr />
+<br />							
+		</div>

@@ -1,0 +1,49 @@
+---
+layout: post
+title: "[原创]Python-获取IP地理位置"
+date: 2017-03-20 14:44:25
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>#!/usr/bin/env python</DIV>
+<div># -*- coding: utf-8 -*-</DIV>
+<div><br /></DIV>
+<div>import urllib2</DIV>
+<div>import re</DIV>
+<div><br /></DIV>
+<div>u = urllib2.urlopen('http://zhangzhipeng2023.cn/ip.txt')</DIV>
+<div>r = u.readlines()</DIV>
+<div>result = 'result_ip_address'</DIV>
+<div>with file(result,'w')as f:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> f.write('')</DIV>
+<div><br /></DIV>
+<div>for i in r:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> time,ip = i.split('
+&nbsp;<wbr>')[0:2]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> u =
+urllib2.urlopen('http://ip138.com/ips138.asp?ip=%s' %
+ip)&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> rr =
+u.read().decode('gbk').encode('utf8')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> with file(result,'a')as
+f:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> s = '%s\t%s\t%s' % (time,ip,'
+'.join(re.findall(r'参考数据.+?：(.+?)',rr)))</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> s = s.replace('\n','').replace('\r','')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print s</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> f.write(s + '\n')</DIV>
+<div><br /></DIV>
+<div><br /></DIV>							
+		</div>

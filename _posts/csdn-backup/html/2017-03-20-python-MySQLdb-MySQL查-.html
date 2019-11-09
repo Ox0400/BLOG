@@ -1,0 +1,179 @@
+---
+layout: post
+title: "python-MySQLdb-MySQL查-"
+date: 2017-03-20 14:42:04
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>
+<div STYLE="text-align: center;">python MySQLdb
+MySQL查询,以及解决中文乱码示例</DIV>
+<div>原创所有，转载请以超链接注明本文链接，以及作者。</DIV>
+<div><br /></DIV>
+<div>
+在python使用MySQLdb对MySQL数据库读取的时候，获取到的值是乱码，如下数据库查询结果，但是同样语句在python脚本中结果完全不同。</DIV>
+<div>mysql&gt; select * from song where
+id&lt;5;</DIV>
+<div>
++----+--------------------------+---------------------+-------+-----------+</DIV>
+<div>| id | name &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> | artist &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| album |
+artist_id |</DIV>
+<div>
++----+--------------------------+---------------------+-------+-----------+</DIV>
+<div>| &nbsp;<wbr>1 | 爱久见人心 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> | 梁静茹
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>| NULL &nbsp;<wbr>| &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 |</DIV>
+<div>| &nbsp;<wbr>2 | 孤独的人是可耻的 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> | 张楚
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>| NULL &nbsp;<wbr>|
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> 2 |</DIV>
+<div>| &nbsp;<wbr>3 | 繁华拢是梦 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> | 陈美凤_伍浩哲
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> | NULL
+&nbsp;<wbr>| &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 3 |</DIV>
+<div>| &nbsp;<wbr>4 | 在一起 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> | 庾澄庆 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>| NULL
+&nbsp;<wbr>| &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> 4 |</DIV>
+<div>
++----+--------------------------+---------------------+-------+-----------+</DIV>
+<div>4 rows in set (0.00 sec)</DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">-----------------------------------------------------------------------------------------------------------------------</SPAN></DIV>
+<div>#!/usr/bin/python</DIV>
+<div>#!coding:'utf-8'</DIV>
+<div>import MySQLdb</DIV>
+<div><br /></DIV>
+<div>try:</DIV>
+<div>&nbsp;<wbr> conn=MySQLdb.connect(</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> host='localhost',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> user='root',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> passwd='123',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> port=3306,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> db='dataservice'</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+)</DIV>
+<div>&nbsp;<wbr> #cur=conn.cursor()</DIV>
+<div>&nbsp;<wbr>
+cur=conn.cursor(MySQLdb.cursors.DictCursor)#以字典方式获取</DIV>
+<div>&nbsp;<wbr> a = cur.execute('select * from song where
+id&lt;5')</DIV>
+<div>&nbsp;<wbr> r = cur.fetchall()#获取所有</DIV>
+<div>
+<div>&nbsp;<wbr> print 'Result count:',a</DIV>
+<div>&nbsp;<wbr> for i in r:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> for j in
+i.items():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> for x
+in j:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print x,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print''</DIV>
+<div>&nbsp;<wbr> cur.close()</DIV>
+<div>&nbsp;<wbr> conn.close()</DIV>
+</DIV>
+<div>except MySQLdb.Error,e:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print e.args</DIV>
+<div>运行结果:</DIV>
+<div><span STYLE="line-height: 21px;">----------------------------------------------------------------------</SPAN></DIV>
+<div>
+<div>zhipeng@ubuntu:~$ python mysql_test.py&nbsp;<wbr></DIV>
+<div>
+<div>Result count: 4</DIV>
+<div>album None artist_id 1 artist ??? id 1 name
+?????&nbsp;<wbr></DIV>
+<div>album None artist_id 2 artist ?? id 2 name
+????????&nbsp;<wbr></DIV>
+<div>album None artist_id 3 artist ???_??? id 3 name
+?????&nbsp;<wbr></DIV>
+<div>album None artist_id 4 artist ??? id 4 name
+???&nbsp;<wbr></DIV>
+</DIV>
+<div>zhipeng@ubuntu:~$&nbsp;<wbr></DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">-----------------------------------------------------------------------------------------------------------------------</SPAN></DIV>
+<div>解决办法就是设置链接数据库编码：</DIV>
+<div>conn.set_character_set('utf8')</DIV>
+<div>最终代码如下：</DIV>
+<div>
+-----------------------------------------------------------------------------------------------------------------------</DIV>
+<div>
+<div>#!/usr/bin/python</DIV>
+<div>#!coding:'utf-8'</DIV>
+<div>import MySQLdb</DIV>
+<div><br /></DIV>
+<div>try:</DIV>
+<div>&nbsp;<wbr> conn=MySQLdb.connect(</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> host='localhost',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> user='root',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> passwd='123',</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> port=3306,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> db='dataservice'</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+)</DIV>
+<div>&nbsp;<wbr> #cur=conn.cursor()</DIV>
+<div>&nbsp;<wbr> conn.set_character_set('utf8')</DIV>
+<div>&nbsp;<wbr>
+cur=conn.cursor(MySQLdb.cursors.DictCursor)</DIV>
+<div>&nbsp;<wbr> a = cur.execute('select * from song where
+id&lt;5')</DIV>
+<div>&nbsp;<wbr> r = cur.fetchall()</DIV>
+<div>&nbsp;<wbr> print 'Result count:',a</DIV>
+<div>&nbsp;<wbr> for i in r:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> for j in
+i.items():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> for x
+in j:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print x,</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print''</DIV>
+<div>&nbsp;<wbr> cur.close()</DIV>
+<div>&nbsp;<wbr> conn.close()</DIV>
+<div>except MySQLdb.Error,e:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print e.args</DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">----------------------------------------------------------------------</SPAN></DIV>
+<div>运行效果如下:</DIV>
+<div>
+<div>Result count: 4</DIV>
+<div>
+<div>album None artist_id 1 artist 梁静茹 id 1 name
+爱久见人心&nbsp;<wbr></DIV>
+<div>album None artist_id 2 artist 张楚 id 2 name
+孤独的人是可耻的&nbsp;<wbr></DIV>
+<div>album None artist_id 3 artist 陈美凤_伍浩哲 id 3 name
+繁华拢是梦&nbsp;<wbr></DIV>
+<div>album None artist_id 4 artist 庾澄庆 id 4 name
+在一起&nbsp;<wbr></DIV>
+</DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">-----------------------------------------------------------------------------------------------------------------------</SPAN></DIV>
+<div>总结，获取到的值乱码只需要设置数据库对应的编码即可。</DIV>
+<div>MySQLdb.connect().<span STYLE="line-height: 21px;">set_character_set('utf8')</SPAN></DIV>							
+		</div>

@@ -1,0 +1,101 @@
+---
+layout: post
+title: "[原创]Linux-xargs-转义"
+date: 2017-03-20 14:44:55
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>zhipeng@ubuntu:~/test$ <b>find ../mid/ -name *17岁*
+-print</B></DIV>
+<div>../mid/17岁的烦恼 MIDI.zip</DIV>
+<div>查找某个目录下 文件名含‘17岁’的文件</DIV>
+<div><br /></DIV>
+<div>zhipeng@ubuntu:~/test$ <b>find ../mid/ -name *17岁* -print |
+xargs unzip</B></DIV>
+<div>unzip: &nbsp;<wbr>cannot find or open ../mid/17岁的烦恼,
+../mid/17岁的烦恼.zip or ../mid/17岁的烦恼.ZIP.</DIV>
+<div>使用xargs 其解压到当前目录，但文件名有空格，xargs会将管道前的输出当作标准输入：unzip
+../mid/17岁的烦恼 MIDI.zip，这样执行肯定是错误的，需要转移，或者将输出当作一个参数输入</DIV>
+<div><br /></DIV>
+<div>zhipeng@ubuntu:~/test$ <b>find ../mid/ -name *17岁* -print |
+<font COLOR="#FF0000"><font STYLE="font-size: 16px;">xargs
+-i</FONT></FONT> unzip <font STYLE="font-size: 16px;"><font COLOR="#FF0000">{}</FONT></FONT></B></DIV>
+<div>Archive: &nbsp;<wbr>../电脑游戏MIDI/17岁的烦恼 MIDI.zip</DIV>
+<div>&nbsp;<wbr> inflating: y14.mid &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> inflating: y05.mid &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>zhipeng@ubuntu:~/test$ l</DIV>
+<div>y14.mid &nbsp;<wbr>y15.mid</DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ <b>ls .. | xargs -i
+find ../{}/result/result | xargs -i cp "{}" .</B></DIV>
+<div>cp: 略过目录"../alas/result/result"</DIV>
+<div>find: `../file-midi/result/result':
+没有那个文件或目录(当前目录没有双层result目录)</DIV>
+</DIV>
+<div>
+<div>cp: 略过目录"../midicn/result/result"</DIV>
+<div><font COLOR="#FF0000">cp: 无法创建普通文件"./0056.MID":
+权限不够</FONT></DIV>
+<div><font COLOR="#FF0000">cp: 无法创建普通文件"./┬а║г.mid":
+权限不够</FONT></DIV>
+</DIV>
+<div>...</DIV>
+<div>
+<div><font COLOR="#FF0000">xargs: 未匹配的 单 引用；默认情况下，引用是针对 xargs
+的，除非您使用了 -0 选项</FONT></DIV>
+<div><font COLOR="#FF0000">xargs: find：因信号 13 而终止</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ <b>ls .. | xargs -i
+find -H ../{}/result/result -iname '*mid*' -type f <font COLOR="#FF0000">-exec</FONT> cp {} . <font COLOR="#FF0000">\;</FONT></B></DIV>
+<div><b>cp: 无法获取"alas" 的文件状态(stat): 没有那个文件或目录</B></DIV>
+<div><b>cp: 无法获取"alas" 的文件状态(stat): 没有那个文件或目录</B></DIV>
+<div>......</DIV>
+<div>^C</DIV>
+<div>递归层数太多造成?</DIV>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ ls ..</DIV>
+<div>alas &nbsp;<wbr>file-midi &nbsp;<wbr>midicn
+&nbsp;<wbr>midishow &nbsp;<wbr>midyy</DIV>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ <b>find -H
+../alas/result/result -iname '*mid*' -type f -exec cp {} .
+\;</B></DIV>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ <b>find -H
+../midicn/result/result -iname '*mid*' -type f -exec cp {} .
+\;</B></DIV>
+<div>cp: 无法创建普通文件"./<span STYLE="line-height: 21px;">0024</SPAN>.MID": 权限不够</DIV>
+<div>cp: 无法创建普通文件"./<span STYLE="line-height: 21px;">0025</SPAN>.MID": 权限不够</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ <b>find -H
+../midicn/result/result -iname '*mid*' -type f -exec sudo cp {} .
+\;</B></DIV>
+</DIV>
+<div>
+<div>[sudo] password for zhipeng:&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>zhipeng@ubuntu:~/music/MIDI/file-midi$ ls ./0024.MID</DIV>
+<div>./0024.MID</DIV>
+</DIV>
+<div><br /></DIV>
+<div>参考“<a HREF="http://www.linuxdiyf.com/bbs/thread-415168-1-1.html" TARGET="_blank">find、xargs命令使用及方法详解</A>”</DIV>							
+		</div>

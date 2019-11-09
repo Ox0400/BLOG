@@ -1,0 +1,77 @@
+---
+layout: post
+title: "[原创]-linux-Screen-使用"
+date: 2017-03-20 14:43:05
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			写几个关于linux上screen的用法。
+<div>screen -S new #给一个screen命名</DIV>
+<div>screen -ls #查看screen列表</DIV>
+<div>screen -r new #打开名字为 new的screen(可以填写ls结果的id)</DIV>
+<div>screen -d new #杀掉远程用户</DIV>
+<div><br /></DIV>
+<div>
+<div>zhipeng@ubuntu:~$ <b>screen -ls</B></DIV>
+<div>There are screens on:</DIV>
+<div><b><i>27123.movie (01/24/14 19:31:20) (Attached)</I></B></DIV>
+<div><b><i>4611.sniffer (01/24/14 15:55:02)
+(Detached)</I></B></DIV>
+</DIV>
+<div>
+<div>说明：查看screen列表，Attached有用户在登录，Detached无用户登录</DIV>
+<div>zhipeng@ubuntu:~$ <b>screen -r movie</B></DIV>
+<div>There is a screen on:</DIV>
+<div><i><b>27123.movie (01/24/14 19:31:19) (Attached)</B></I></DIV>
+<div><i><b>There is no screen to be resumed matching
+movie.</B></I></DIV>
+</DIV>
+<div>
+<div>说明：登录movie，但是已经有用户在登录，所以登录失败。等效于：<b STYLE="line-height: 1.5;">screen -r&nbsp;<wbr></B><b STYLE="line-height: 1.5;"><i>27123</I></B></DIV>
+<div>zhipeng@ubuntu:~$ <b>screen -d movie</B></DIV>
+<div><b><i>[27123.movie detached.]</I></B></DIV>
+</DIV>
+<div>
+<div STYLE="line-height: 21px;">说明：注销已登录用户，恢复到无人登录状态</DIV>
+<div STYLE="line-height: 21px;">
+zhipeng@ubuntu:~$&nbsp;<wbr><b>screen -ls</B></DIV>
+<div STYLE="line-height: 21px;">There are screens on:</DIV>
+<div STYLE="line-height: 21px;"><b><i>27123.movie (01/24/14
+19:31:20) (</I></B><b><i>Detached</I></B><b><i>)</I></B></DIV>
+<div STYLE="line-height: 21px;"><b><i>4611.sniffer (01/24/14
+15:55:02) (Detached)</I></B></DIV>
+</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ <b>screen -r movie</B></DIV>
+<div>中止远程操作 ---&nbsp;<wbr><b>Ctrl+a+d</B></DIV>
+<div><span STYLE="line-height: 21px;"><b><i>[detached from
+27123.movie]</I></B></SPAN></DIV>
+<div>输入命令行 -- <b>Ctrl+a</B></DIV>
+<div>关闭并<span STYLE="line-height: 1.5;">退出 --
+<b>exit</B></SPAN></DIV>
+<div><br /></DIV>
+</DIV>
+<div><br /></DIV>
+<div>screen 中文编码问题。</DIV>
+<div>zhipeng@ubuntu:~$ <b>vi ~/.screenrc</B></DIV>
+<div>
+<div><i>defencoding utf8</I></DIV>
+<div><i>encoding utf8 utf8</I></DIV>
+</DIV>
+<div>保存退出，即可。</DIV>
+<div><br /></DIV>
+<div>但是发现首次进入，中文编码正确，Ctrl a d 后 再screen -r
+进入后中文还是乱码，甚至满屏输出...</DIV>
+<div>解决办法进入screen后，</DIV>
+<div><b>Ctrl+A</B></DIV>
+<div><b>:encoding utf8 utf8</B></DIV>
+<div>一定要记住不要少冒号，是两个utf8。</DIV>							
+		</div>

@@ -1,0 +1,57 @@
+---
+layout: post
+title: "[原创]mongodb添加到windows系统-"
+date: 2017-03-20 14:46:36
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			上篇<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0102vjub.html" TARGET="_blank">《windows mongodb
+源码安装src》</A>讲了如何在windows上安装mongodb，但是没有写如何安装成一个windows服务。
+<div><span STYLE="line-height: 21px;">首先
+cd到源码文件夹，执行如下命令：</SPAN><br />
+<div><b>mongod --install --serviceName MongoDB --serviceDisplayName
+MongoDB --logpath D:\MongoDB\log\MongoDB.log --dbpath
+D:\MongoDB\data --directoryperdb</B></DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>--install <b>安装mongodb服务</B></DIV>
+<div>--serverName&nbsp;<wbr><b><span STYLE="line-height: 21px;">Windows</SPAN><span STYLE="line-height: 1.5;">服务名称</SPAN></B></DIV>
+<div>--serverDisplayName <b>Windows服务管理器中显示的服务名</B></DIV>
+<span STYLE="line-height: 21px;">--logpath
+<b>日志文件路径(含文件名)</B></SPAN>
+<div><span STYLE="line-height: 21px;">--dbpath
+<b>数据库文件夹路径</B></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">--</SPAN><span STYLE="line-height: 1.5;">directoryperdb</SPAN> <b STYLE="line-height: 1.5;">根据数据库名建立文件夹</B></DIV>
+<div><br /></DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq224qj2uhj20rp0ca43i.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq224qj2uhj20rp0ca43i.jpg" WIDTH="997" HEIGHT="442" NAME="image_operate_52041426076779028"  ALT="【原创】mongodb添加到windows系统服务"  TITLE="【原创】mongodb添加到windows系统服务" /></A><br />
+<br /></DIV>
+<div>注意：log日志所在的文件夹和数据库所在的文件夹必须已经存在。</DIV>
+<div>安装完成后，我们就可以看到日志中已经有记录了</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq228whyf4j20ra02t3zu.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq228whyf4j20ra02t3zu.jpg" WIDTH="982" HEIGHT="101" NAME="image_operate_79401426076808099"  ALT="【原创】mongodb添加到windows系统服务"  TITLE="【原创】mongodb添加到windows系统服务" /></A><br />
+<div><i>2015-03-11T20:14:21.874+0800 Trying to install Windows
+service 'MongoDB'</I></DIV>
+<div><i>2015-03-11T20:14:28.268+0800 Service 'MongoDB' (MongoDB)
+installed with command line '"D:\Program
+Files\mongodb-src-r2.6.8\mongod.exe" --logpath
+D:\MongoDB\log\MongoDB.log --dbpath D:\MongoDB\data
+--directoryperdb --service'</I></DIV>
+<div><i>2015-03-11T20:14:28.268+0800 Service can be started from
+the command line with 'net start MongoDB'</I></DIV>
+</DIV>
+<div><br /></DIV>
+<div>刷新windows服务即可看到</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq22e2oyhcj20p405dq5g.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq22e2oyhcj20p405dq5g.jpg" WIDTH="904" HEIGHT="193" NAME="image_operate_79181426077259136"  ALT="【原创】mongodb添加到windows系统服务"  TITLE="【原创】mongodb添加到windows系统服务" /></A><br />
+<br /></DIV>
+<div>也可以在CMD中使用 net start MongoDB启动服务，net stop MongoDB即可关闭</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq22h7n6emj20fp06vmxs.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq22h7n6emj20fp06vmxs.jpg" WIDTH="565" HEIGHT="247"  ALT="【原创】mongodb添加到windows系统服务"  TITLE="【原创】mongodb添加到windows系统服务" /></A><br />
+<br /></DIV>							
+		</div>

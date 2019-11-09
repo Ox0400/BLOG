@@ -1,0 +1,46 @@
+---
+layout: post
+title: "[原创]python-enumerate遍历数组"
+date: 2017-03-20 14:40:35
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>
+一般来说，我们在python中遍历数组如下，但是是没有序号的，这是个问题，但是用enumerate可以很好的解决这个问题，如下代码所示：</DIV>
+&gt;&gt;&gt; ls = ['a','b','ac','ab','a','c','d']
+<div>
+<div>&gt;&gt;&gt; for i in ls:</DIV>
+<div>print i,</DIV>
+<div><br /></DIV>
+<div>a b ac ab a c d</DIV>
+<div>&gt;&gt;&gt; for i,j in enumerate(ls):</DIV>
+<div>print i,j</DIV>
+<div><br /></DIV>
+<div>0 a</DIV>
+<div>1 b</DIV>
+<div>2 ac</DIV>
+<div>3 ab</DIV>
+<div>4 a</DIV>
+<div>5 c</DIV>
+<div>6 d</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; for i,j in enumerate(ls):</DIV>
+<div>print i,j,</DIV>
+<div><br /></DIV>
+<div>0 a 1 b 2 ac 3 ab 4 a 5 c 6 d</DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>原创所有，转载请附明本文超链接地址及作者。</DIV>							
+		</div>

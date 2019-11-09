@@ -1,0 +1,1395 @@
+---
+layout: post
+title: "[原创]utf8-语言编码(表)区间"
+date: 2017-03-20 14:48:08
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<table BORDER="0" CELLSPACING="1" CELLPADDING="3" ALIGN="center" STYLE="color: rgb(0, 0, 0); font-family: Arial; line-height: 26px; width: 780px; background-color: rgb(255, 255, 255);">
+<tbody>
+<tr HEIGHT="24">
+<td COLSPAN="2" WIDTH="16%" STYLE="font-size: 12px; font-weight: bold;">十进制</TD>
+<td COLSPAN="2" WIDTH="16%" STYLE="font-size: 12px;"><span STYLE="font-weight: bold;">十六进制<span>&nbsp;<wbr></SPAN></SPAN><br STYLE="height: 1px; font-size: 1px;" /></TD>
+<td WIDTH="8%" STYLE="font-size: 12px; font-weight: bold;">字符数</TD>
+<td WIDTH="20%" STYLE="font-size: 12px; font-weight: bold;">
+编码分类（中文）</TD>
+<td WIDTH="40%" STYLE="font-size: 12px; font-weight: bold;">
+编码分类（英文）</TD>
+</TR>
+<tr HEIGHT="24">
+<td WIDTH="8%" STYLE="font-size: 12px;">起始</TD>
+<td WIDTH="8%" STYLE="font-size: 12px;">终止</TD>
+<td WIDTH="8%" STYLE="font-size: 12px;">起始</TD>
+<td WIDTH="8%" STYLE="font-size: 12px;">终止</TD>
+<td WIDTH="8%" STYLE="font-size: 12px;">(个)</TD>
+<td WIDTH="20%" STYLE="font-size: 12px;"><br STYLE="height: 1px; font-size: 1px;" /></TD>
+<td WIDTH="40%" STYLE="font-size: 12px;"><br STYLE="height: 1px; font-size: 1px;" /></TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">0</TD>
+<td STYLE="font-size: 12px;">127</TD>
+<td STYLE="font-size: 12px;">0000</TD>
+<td STYLE="font-size: 12px;">007F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/1/" TARGET="_blank">C0控制符及基本拉丁文</A></TD>
+<td STYLE="font-size: 12px;">C0 Control and Basic Latin</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;">255</TD>
+<td STYLE="font-size: 12px;">0080</TD>
+<td STYLE="font-size: 12px;">00FF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/2/" TARGET="_blank">C1控制符及拉丁文补充-1</A></TD>
+<td STYLE="font-size: 12px;">C1 Control and Latin 1 Supplement</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;">383</TD>
+<td STYLE="font-size: 12px;">0100</TD>
+<td STYLE="font-size: 12px;">017F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/3/" TARGET="_blank">拉丁文扩展-A</A></TD>
+<td STYLE="font-size: 12px;">Latin Extended-A</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">384</TD>
+<td STYLE="font-size: 12px;">591</TD>
+<td STYLE="font-size: 12px;">0180</TD>
+<td STYLE="font-size: 12px;">024F</TD>
+<td STYLE="font-size: 12px;">208</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/4/" TARGET="_blank">拉丁文扩展-B</A></TD>
+<td STYLE="font-size: 12px;">Latin Extended-B</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">592</TD>
+<td STYLE="font-size: 12px;">687</TD>
+<td STYLE="font-size: 12px;">0250</TD>
+<td STYLE="font-size: 12px;">02AF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/5/" TARGET="_blank">国际音标扩展</A></TD>
+<td STYLE="font-size: 12px;">IPA Extensions</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">688</TD>
+<td STYLE="font-size: 12px;">767</TD>
+<td STYLE="font-size: 12px;">02B0</TD>
+<td STYLE="font-size: 12px;">02FF</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/6/" TARGET="_blank">空白修饰字母</A></TD>
+<td STYLE="font-size: 12px;">Spacing Modifiers</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">768</TD>
+<td STYLE="font-size: 12px;">879</TD>
+<td STYLE="font-size: 12px;">0300</TD>
+<td STYLE="font-size: 12px;">036F</TD>
+<td STYLE="font-size: 12px;">112</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/7/" TARGET="_blank">结合用读音符号</A></TD>
+<td STYLE="font-size: 12px;">Combining Diacritics Marks</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">880</TD>
+<td STYLE="font-size: 12px;">1023</TD>
+<td STYLE="font-size: 12px;">0370</TD>
+<td STYLE="font-size: 12px;">03FF</TD>
+<td STYLE="font-size: 12px;">144</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/8/" TARGET="_blank">希腊文及科普特文</A></TD>
+<td STYLE="font-size: 12px;">Greek and Coptic</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">1024</TD>
+<td STYLE="font-size: 12px;">1279</TD>
+<td STYLE="font-size: 12px;">0400</TD>
+<td STYLE="font-size: 12px;">04FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/9/" TARGET="_blank">西里尔字母</A></TD>
+<td STYLE="font-size: 12px;">Cyrillic</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">1280</TD>
+<td STYLE="font-size: 12px;">1327</TD>
+<td STYLE="font-size: 12px;">0500</TD>
+<td STYLE="font-size: 12px;">052F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/10/" TARGET="_blank">西里尔字母补充</A></TD>
+<td STYLE="font-size: 12px;">Cyrillic Supplement</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">1328</TD>
+<td STYLE="font-size: 12px;">1423</TD>
+<td STYLE="font-size: 12px;">0530</TD>
+<td STYLE="font-size: 12px;">058F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/11/" TARGET="_blank">亚美尼亚语</A></TD>
+<td STYLE="font-size: 12px;">Armenian</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">1424</TD>
+<td STYLE="font-size: 12px;">1535</TD>
+<td STYLE="font-size: 12px;">0590</TD>
+<td STYLE="font-size: 12px;">05FF</TD>
+<td STYLE="font-size: 12px;">112</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/12/" TARGET="_blank">希伯来文</A></TD>
+<td STYLE="font-size: 12px;">Hebrew</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">1536</TD>
+<td STYLE="font-size: 12px;">1791</TD>
+<td STYLE="font-size: 12px;">0600</TD>
+<td STYLE="font-size: 12px;">06FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/13/" TARGET="_blank">阿拉伯文</A></TD>
+<td STYLE="font-size: 12px;">Arabic</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">1792</TD>
+<td STYLE="font-size: 12px;">1871</TD>
+<td STYLE="font-size: 12px;">0700</TD>
+<td STYLE="font-size: 12px;">074F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/14/" TARGET="_blank">叙利亚文</A></TD>
+<td STYLE="font-size: 12px;">Syriac</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">1872</TD>
+<td STYLE="font-size: 12px;">1919</TD>
+<td STYLE="font-size: 12px;">0750</TD>
+<td STYLE="font-size: 12px;">077F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/15/" TARGET="_blank">阿拉伯文补充</A></TD>
+<td STYLE="font-size: 12px;">Arabic Supplement</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">1920</TD>
+<td STYLE="font-size: 12px;">1983</TD>
+<td STYLE="font-size: 12px;">0780</TD>
+<td STYLE="font-size: 12px;">07BF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/16/" TARGET="_blank">马尔代夫语</A></TD>
+<td STYLE="font-size: 12px;">Thaana</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">1984</TD>
+<td STYLE="font-size: 12px;">2047</TD>
+<td STYLE="font-size: 12px;">07C0</TD>
+<td STYLE="font-size: 12px;">07FF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/17/" TARGET="_blank">西非書面語言</A></TD>
+<td STYLE="font-size: 12px;">N'Ko</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">2048</TD>
+<td STYLE="font-size: 12px;">2143</TD>
+<td STYLE="font-size: 12px;">0800</TD>
+<td STYLE="font-size: 12px;">085F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/18/" TARGET="_blank">阿维斯塔语及巴列维语</A></TD>
+<td STYLE="font-size: 12px;">Avestan and Pahlavi</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">2144</TD>
+<td STYLE="font-size: 12px;">2175</TD>
+<td STYLE="font-size: 12px;">0860</TD>
+<td STYLE="font-size: 12px;">087F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/19/" TARGET="_blank">Mandaic</A></TD>
+<td STYLE="font-size: 12px;">Mandaic</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">2176</TD>
+<td STYLE="font-size: 12px;">2223</TD>
+<td STYLE="font-size: 12px;">0880</TD>
+<td STYLE="font-size: 12px;">08AF</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/20/" TARGET="_blank">撒马利亚语</A></TD>
+<td STYLE="font-size: 12px;">Samaritan</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">2304</TD>
+<td STYLE="font-size: 12px;">2431</TD>
+<td STYLE="font-size: 12px;">0900</TD>
+<td STYLE="font-size: 12px;">097F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/21/" TARGET="_blank">天城文书</A></TD>
+<td STYLE="font-size: 12px;">Devanagari</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">2432</TD>
+<td STYLE="font-size: 12px;">2559</TD>
+<td STYLE="font-size: 12px;">0980</TD>
+<td STYLE="font-size: 12px;">09FF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/22/" TARGET="_blank">孟加拉语</A></TD>
+<td STYLE="font-size: 12px;">Bengali</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">2560</TD>
+<td STYLE="font-size: 12px;">2687</TD>
+<td STYLE="font-size: 12px;">0A00</TD>
+<td STYLE="font-size: 12px;">0A7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/23/" TARGET="_blank">锡克教文</A></TD>
+<td STYLE="font-size: 12px;">Gurmukhi</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">2688</TD>
+<td STYLE="font-size: 12px;">2815</TD>
+<td STYLE="font-size: 12px;">0A80</TD>
+<td STYLE="font-size: 12px;">0AFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/24/" TARGET="_blank">古吉拉特文</A></TD>
+<td STYLE="font-size: 12px;">Gujarati</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">2816</TD>
+<td STYLE="font-size: 12px;">2943</TD>
+<td STYLE="font-size: 12px;">0B00</TD>
+<td STYLE="font-size: 12px;">0B7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/25/" TARGET="_blank">奥里亚文</A></TD>
+<td STYLE="font-size: 12px;">Oriya</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">2944</TD>
+<td STYLE="font-size: 12px;">3071</TD>
+<td STYLE="font-size: 12px;">0B80</TD>
+<td STYLE="font-size: 12px;">0BFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/26/" TARGET="_blank">泰米尔文</A></TD>
+<td STYLE="font-size: 12px;">Tamil</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">3072</TD>
+<td STYLE="font-size: 12px;">3199</TD>
+<td STYLE="font-size: 12px;">0C00</TD>
+<td STYLE="font-size: 12px;">0C7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/27/" TARGET="_blank">泰卢固文</A></TD>
+<td STYLE="font-size: 12px;">Telugu</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">3200</TD>
+<td STYLE="font-size: 12px;">3327</TD>
+<td STYLE="font-size: 12px;">0C80</TD>
+<td STYLE="font-size: 12px;">0CFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/28/" TARGET="_blank">卡纳达文</A></TD>
+<td STYLE="font-size: 12px;">Kannada</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">3328</TD>
+<td STYLE="font-size: 12px;">3455</TD>
+<td STYLE="font-size: 12px;">0D00</TD>
+<td STYLE="font-size: 12px;">0D7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/29/" TARGET="_blank">德拉维族语</A></TD>
+<td STYLE="font-size: 12px;">Malayalam</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">3456</TD>
+<td STYLE="font-size: 12px;">3583</TD>
+<td STYLE="font-size: 12px;">0D80</TD>
+<td STYLE="font-size: 12px;">0DFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/30/" TARGET="_blank">僧伽罗语</A></TD>
+<td STYLE="font-size: 12px;">Sinhala</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">3584</TD>
+<td STYLE="font-size: 12px;">3711</TD>
+<td STYLE="font-size: 12px;">0E00</TD>
+<td STYLE="font-size: 12px;">0E7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/31/" TARGET="_blank">泰文</A></TD>
+<td STYLE="font-size: 12px;">Thai</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">3712</TD>
+<td STYLE="font-size: 12px;">3839</TD>
+<td STYLE="font-size: 12px;">0E80</TD>
+<td STYLE="font-size: 12px;">0EFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/32/" TARGET="_blank">老挝文</A></TD>
+<td STYLE="font-size: 12px;">Lao</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">3840</TD>
+<td STYLE="font-size: 12px;">4095</TD>
+<td STYLE="font-size: 12px;">0F00</TD>
+<td STYLE="font-size: 12px;">0FFF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/33/" TARGET="_blank">藏文</A></TD>
+<td STYLE="font-size: 12px;">Tibetan</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">4096</TD>
+<td STYLE="font-size: 12px;">4255</TD>
+<td STYLE="font-size: 12px;">1000</TD>
+<td STYLE="font-size: 12px;">109F</TD>
+<td STYLE="font-size: 12px;">160</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/34/" TARGET="_blank">缅甸语</A></TD>
+<td STYLE="font-size: 12px;">Myanmar</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">4256</TD>
+<td STYLE="font-size: 12px;">4351</TD>
+<td STYLE="font-size: 12px;">10A0</TD>
+<td STYLE="font-size: 12px;">10FF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/35/" TARGET="_blank">格鲁吉亚语</A></TD>
+<td STYLE="font-size: 12px;">Georgian</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">4352</TD>
+<td STYLE="font-size: 12px;">4607</TD>
+<td STYLE="font-size: 12px;">1100</TD>
+<td STYLE="font-size: 12px;">11FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/36/" TARGET="_blank">朝鲜文</A></TD>
+<td STYLE="font-size: 12px;">Hangul Jamo</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">4608</TD>
+<td STYLE="font-size: 12px;">4991</TD>
+<td STYLE="font-size: 12px;">1200</TD>
+<td STYLE="font-size: 12px;">137F</TD>
+<td STYLE="font-size: 12px;">384</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/37/" TARGET="_blank">埃塞俄比亚语</A></TD>
+<td STYLE="font-size: 12px;">Ethiopic</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">4992</TD>
+<td STYLE="font-size: 12px;">5023</TD>
+<td STYLE="font-size: 12px;">1380</TD>
+<td STYLE="font-size: 12px;">139F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/38/" TARGET="_blank">埃塞俄比亚语补充</A></TD>
+<td STYLE="font-size: 12px;">Ethiopic Supplement</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">5024</TD>
+<td STYLE="font-size: 12px;">5119</TD>
+<td STYLE="font-size: 12px;">13A0</TD>
+<td STYLE="font-size: 12px;">13FF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/39/" TARGET="_blank">切罗基语</A></TD>
+<td STYLE="font-size: 12px;">Cherokee</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">5120</TD>
+<td STYLE="font-size: 12px;">5759</TD>
+<td STYLE="font-size: 12px;">1400</TD>
+<td STYLE="font-size: 12px;">167F</TD>
+<td STYLE="font-size: 12px;">640</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/40/" TARGET="_blank">统一加拿大土著语音节</A></TD>
+<td STYLE="font-size: 12px;">Unified Canadian Aboriginal
+Syllabics</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">5760</TD>
+<td STYLE="font-size: 12px;">5791</TD>
+<td STYLE="font-size: 12px;">1680</TD>
+<td STYLE="font-size: 12px;">169F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/41/" TARGET="_blank">欧甘字母</A></TD>
+<td STYLE="font-size: 12px;">Ogham</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">5792</TD>
+<td STYLE="font-size: 12px;">5887</TD>
+<td STYLE="font-size: 12px;">16A0</TD>
+<td STYLE="font-size: 12px;">16FF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/42/" TARGET="_blank">如尼文</A></TD>
+<td STYLE="font-size: 12px;">Runic</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">5888</TD>
+<td STYLE="font-size: 12px;">5919</TD>
+<td STYLE="font-size: 12px;">1700</TD>
+<td STYLE="font-size: 12px;">171F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/43/" TARGET="_blank">塔加拉语</A></TD>
+<td STYLE="font-size: 12px;">Tagalog</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">5920</TD>
+<td STYLE="font-size: 12px;">5951</TD>
+<td STYLE="font-size: 12px;">1720</TD>
+<td STYLE="font-size: 12px;">173F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/44/" TARGET="_blank">Hanun&oacute;o</A></TD>
+<td STYLE="font-size: 12px;">Hanun&oacute;o</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">5952</TD>
+<td STYLE="font-size: 12px;">5983</TD>
+<td STYLE="font-size: 12px;">1740</TD>
+<td STYLE="font-size: 12px;">175F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/45/" TARGET="_blank">Buhid</A></TD>
+<td STYLE="font-size: 12px;">Buhid</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">5984</TD>
+<td STYLE="font-size: 12px;">6015</TD>
+<td STYLE="font-size: 12px;">1760</TD>
+<td STYLE="font-size: 12px;">177F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/46/" TARGET="_blank">Tagbanwa</A></TD>
+<td STYLE="font-size: 12px;">Tagbanwa</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6016</TD>
+<td STYLE="font-size: 12px;">6143</TD>
+<td STYLE="font-size: 12px;">1780</TD>
+<td STYLE="font-size: 12px;">17FF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/47/" TARGET="_blank">高棉语</A></TD>
+<td STYLE="font-size: 12px;">Khmer</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">6144</TD>
+<td STYLE="font-size: 12px;">6319</TD>
+<td STYLE="font-size: 12px;">1800</TD>
+<td STYLE="font-size: 12px;">18AF</TD>
+<td STYLE="font-size: 12px;">176</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/48/" TARGET="_blank">蒙古文</A></TD>
+<td STYLE="font-size: 12px;">Mongolian</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6320</TD>
+<td STYLE="font-size: 12px;">6399</TD>
+<td STYLE="font-size: 12px;">18B0</TD>
+<td STYLE="font-size: 12px;">18FF</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/49/" TARGET="_blank">Cham</A></TD>
+<td STYLE="font-size: 12px;">Cham</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">6400</TD>
+<td STYLE="font-size: 12px;">6479</TD>
+<td STYLE="font-size: 12px;">1900</TD>
+<td STYLE="font-size: 12px;">194F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/50/" TARGET="_blank">Limbu</A></TD>
+<td STYLE="font-size: 12px;">Limbu</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6480</TD>
+<td STYLE="font-size: 12px;">6527</TD>
+<td STYLE="font-size: 12px;">1950</TD>
+<td STYLE="font-size: 12px;">197F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/51/" TARGET="_blank">德宏泰语</A></TD>
+<td STYLE="font-size: 12px;">Tai Le</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">6528</TD>
+<td STYLE="font-size: 12px;">6623</TD>
+<td STYLE="font-size: 12px;">1980</TD>
+<td STYLE="font-size: 12px;">19DF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/52/" TARGET="_blank">新傣仂语</A></TD>
+<td STYLE="font-size: 12px;">New Tai Lue</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6624</TD>
+<td STYLE="font-size: 12px;">6655</TD>
+<td STYLE="font-size: 12px;">19E0</TD>
+<td STYLE="font-size: 12px;">19FF</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/53/" TARGET="_blank">高棉语记号</A></TD>
+<td STYLE="font-size: 12px;">Kmer Symbols</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">6656</TD>
+<td STYLE="font-size: 12px;">6687</TD>
+<td STYLE="font-size: 12px;">1A00</TD>
+<td STYLE="font-size: 12px;">1A1F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/54/" TARGET="_blank">Buginese</A></TD>
+<td STYLE="font-size: 12px;">Buginese</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6688</TD>
+<td STYLE="font-size: 12px;">6751</TD>
+<td STYLE="font-size: 12px;">1A20</TD>
+<td STYLE="font-size: 12px;">1A5F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/55/" TARGET="_blank">Batak</A></TD>
+<td STYLE="font-size: 12px;">Batak</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">6784</TD>
+<td STYLE="font-size: 12px;">6895</TD>
+<td STYLE="font-size: 12px;">1A80</TD>
+<td STYLE="font-size: 12px;">1AEF</TD>
+<td STYLE="font-size: 12px;">112</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/56/" TARGET="_blank">Lanna</A></TD>
+<td STYLE="font-size: 12px;">Lanna</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">6912</TD>
+<td STYLE="font-size: 12px;">7039</TD>
+<td STYLE="font-size: 12px;">1B00</TD>
+<td STYLE="font-size: 12px;">1B7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/57/" TARGET="_blank">巴厘语</A></TD>
+<td STYLE="font-size: 12px;">Balinese</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">7040</TD>
+<td STYLE="font-size: 12px;">7088</TD>
+<td STYLE="font-size: 12px;">1B80</TD>
+<td STYLE="font-size: 12px;">1BB0</TD>
+<td STYLE="font-size: 12px;">49</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/58/" TARGET="_blank">巽他语</A></TD>
+<td STYLE="font-size: 12px;">Sundanese</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">7104</TD>
+<td STYLE="font-size: 12px;">7167</TD>
+<td STYLE="font-size: 12px;">1BC0</TD>
+<td STYLE="font-size: 12px;">1BFF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/59/" TARGET="_blank">Pahawh
+Hmong</A></TD>
+<td STYLE="font-size: 12px;">Pahawh Hmong</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">7168</TD>
+<td STYLE="font-size: 12px;">7247</TD>
+<td STYLE="font-size: 12px;">1C00</TD>
+<td STYLE="font-size: 12px;">1C4F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/60/" TARGET="_blank">雷布查语</A></TD>
+<td STYLE="font-size: 12px;">Lepcha</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">7248</TD>
+<td STYLE="font-size: 12px;">7295</TD>
+<td STYLE="font-size: 12px;">1C50</TD>
+<td STYLE="font-size: 12px;">1C7F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/61/" TARGET="_blank">Ol
+Chiki</A></TD>
+<td STYLE="font-size: 12px;">Ol Chiki</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">7296</TD>
+<td STYLE="font-size: 12px;">7391</TD>
+<td STYLE="font-size: 12px;">1C80</TD>
+<td STYLE="font-size: 12px;">1CDF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/62/" TARGET="_blank">曼尼普尔语</A></TD>
+<td STYLE="font-size: 12px;">Meithei/Manipuri</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">7424</TD>
+<td STYLE="font-size: 12px;">7551</TD>
+<td STYLE="font-size: 12px;">1D00</TD>
+<td STYLE="font-size: 12px;">1D7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/63/" TARGET="_blank">语音学扩展</A></TD>
+<td STYLE="font-size: 12px;">Phonetic Extensions</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">7552</TD>
+<td STYLE="font-size: 12px;">7615</TD>
+<td STYLE="font-size: 12px;">1D80</TD>
+<td STYLE="font-size: 12px;">1DBF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/64/" TARGET="_blank">语音学扩展补充</A></TD>
+<td STYLE="font-size: 12px;">Phonetic Extensions Supplement</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">7616</TD>
+<td STYLE="font-size: 12px;">7679</TD>
+<td STYLE="font-size: 12px;">1DC0</TD>
+<td STYLE="font-size: 12px;">1DFF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/65/" TARGET="_blank">结合用读音符号补充</A></TD>
+<td STYLE="font-size: 12px;">Combining Diacritics Marks
+Supplement</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">7680</TD>
+<td STYLE="font-size: 12px;">7935</TD>
+<td STYLE="font-size: 12px;">1E00</TD>
+<td STYLE="font-size: 12px;">1EFF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/66/" TARGET="_blank">拉丁文扩充附加</A></TD>
+<td STYLE="font-size: 12px;">Latin Extended Additional</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">7936</TD>
+<td STYLE="font-size: 12px;">8191</TD>
+<td STYLE="font-size: 12px;">1F00</TD>
+<td STYLE="font-size: 12px;">1FFF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/67/" TARGET="_blank">希腊语扩充</A></TD>
+<td STYLE="font-size: 12px;">Greek Extended</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">8192</TD>
+<td STYLE="font-size: 12px;">8303</TD>
+<td STYLE="font-size: 12px;">2000</TD>
+<td STYLE="font-size: 12px;">206F</TD>
+<td STYLE="font-size: 12px;">112</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/68/" TARGET="_blank">常用标点</A></TD>
+<td STYLE="font-size: 12px;">General Punctuation</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">8304</TD>
+<td STYLE="font-size: 12px;">8351</TD>
+<td STYLE="font-size: 12px;">2070</TD>
+<td STYLE="font-size: 12px;">209F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/69/" TARGET="_blank">上标及下标</A></TD>
+<td STYLE="font-size: 12px;">Superscripts and Subscripts</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">8352</TD>
+<td STYLE="font-size: 12px;">8399</TD>
+<td STYLE="font-size: 12px;">20A0</TD>
+<td STYLE="font-size: 12px;">20CF</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/70/" TARGET="_blank">货币符号</A></TD>
+<td STYLE="font-size: 12px;">Currency Symbols</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">8400</TD>
+<td STYLE="font-size: 12px;">8447</TD>
+<td STYLE="font-size: 12px;">20D0</TD>
+<td STYLE="font-size: 12px;">20FF</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/71/" TARGET="_blank">组合用记号</A></TD>
+<td STYLE="font-size: 12px;">Combining Diacritics Marks for
+Symbols</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">8448</TD>
+<td STYLE="font-size: 12px;">8527</TD>
+<td STYLE="font-size: 12px;">2100</TD>
+<td STYLE="font-size: 12px;">214F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/72/" TARGET="_blank">字母式符号</A></TD>
+<td STYLE="font-size: 12px;">Letterlike Symbols</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">8528</TD>
+<td STYLE="font-size: 12px;">8591</TD>
+<td STYLE="font-size: 12px;">2150</TD>
+<td STYLE="font-size: 12px;">218F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/73/" TARGET="_blank">数字形式</A></TD>
+<td STYLE="font-size: 12px;">Number Form</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">8592</TD>
+<td STYLE="font-size: 12px;">8703</TD>
+<td STYLE="font-size: 12px;">2190</TD>
+<td STYLE="font-size: 12px;">21FF</TD>
+<td STYLE="font-size: 12px;">112</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/74/" TARGET="_blank">箭头</A></TD>
+<td STYLE="font-size: 12px;">Arrows</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">8704</TD>
+<td STYLE="font-size: 12px;">8959</TD>
+<td STYLE="font-size: 12px;">2200</TD>
+<td STYLE="font-size: 12px;">22FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/75/" TARGET="_blank">数学运算符</A></TD>
+<td STYLE="font-size: 12px;">Mathematical Operator</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">8960</TD>
+<td STYLE="font-size: 12px;">9215</TD>
+<td STYLE="font-size: 12px;">2300</TD>
+<td STYLE="font-size: 12px;">23FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/76/" TARGET="_blank">杂项工业符号</A></TD>
+<td STYLE="font-size: 12px;">Miscellaneous Technical</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">9216</TD>
+<td STYLE="font-size: 12px;">9279</TD>
+<td STYLE="font-size: 12px;">2400</TD>
+<td STYLE="font-size: 12px;">243F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/77/" TARGET="_blank">控制图片</A></TD>
+<td STYLE="font-size: 12px;">Control Pictures</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">9280</TD>
+<td STYLE="font-size: 12px;">9311</TD>
+<td STYLE="font-size: 12px;">2440</TD>
+<td STYLE="font-size: 12px;">245F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/78/" TARGET="_blank">光学识别符</A></TD>
+<td STYLE="font-size: 12px;">Optical Character Recognition</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">9312</TD>
+<td STYLE="font-size: 12px;">9471</TD>
+<td STYLE="font-size: 12px;">2460</TD>
+<td STYLE="font-size: 12px;">24FF</TD>
+<td STYLE="font-size: 12px;">160</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/79/" TARGET="_blank">封闭式字母数字</A></TD>
+<td STYLE="font-size: 12px;">Enclosed Alphanumerics</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">9472</TD>
+<td STYLE="font-size: 12px;">9599</TD>
+<td STYLE="font-size: 12px;">2500</TD>
+<td STYLE="font-size: 12px;">257F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/80/" TARGET="_blank">制表符</A></TD>
+<td STYLE="font-size: 12px;">Box Drawing</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">9600</TD>
+<td STYLE="font-size: 12px;">9631</TD>
+<td STYLE="font-size: 12px;">2580</TD>
+<td STYLE="font-size: 12px;">259F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/81/" TARGET="_blank">方块元素</A></TD>
+<td STYLE="font-size: 12px;">Block Element</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">9632</TD>
+<td STYLE="font-size: 12px;">9727</TD>
+<td STYLE="font-size: 12px;">25A0</TD>
+<td STYLE="font-size: 12px;">25FF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/82/" TARGET="_blank">几何图形</A></TD>
+<td STYLE="font-size: 12px;">Geometric Shapes</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">9728</TD>
+<td STYLE="font-size: 12px;">9983</TD>
+<td STYLE="font-size: 12px;">2600</TD>
+<td STYLE="font-size: 12px;">26FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/83/" TARGET="_blank">杂项符号</A></TD>
+<td STYLE="font-size: 12px;">Miscellaneous Symbols</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">9984</TD>
+<td STYLE="font-size: 12px;">10175</TD>
+<td STYLE="font-size: 12px;">2700</TD>
+<td STYLE="font-size: 12px;">27BF</TD>
+<td STYLE="font-size: 12px;">192</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/84/" TARGET="_blank">印刷符号</A></TD>
+<td STYLE="font-size: 12px;">Dingbats</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">10176</TD>
+<td STYLE="font-size: 12px;">10223</TD>
+<td STYLE="font-size: 12px;">27C0</TD>
+<td STYLE="font-size: 12px;">27EF</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/85/" TARGET="_blank">杂项数学符号-A</A></TD>
+<td STYLE="font-size: 12px;">Miscellaneous Mathematical
+Symbols-A</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">10224</TD>
+<td STYLE="font-size: 12px;">10239</TD>
+<td STYLE="font-size: 12px;">27F0</TD>
+<td STYLE="font-size: 12px;">27FF</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/86/" TARGET="_blank">追加箭头-A</A></TD>
+<td STYLE="font-size: 12px;">Supplemental Arrows-A</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">10240</TD>
+<td STYLE="font-size: 12px;">10495</TD>
+<td STYLE="font-size: 12px;">2800</TD>
+<td STYLE="font-size: 12px;">28FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/87/" TARGET="_blank">盲文点字模型</A></TD>
+<td STYLE="font-size: 12px;">Braille Patterns</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">10496</TD>
+<td STYLE="font-size: 12px;">10623</TD>
+<td STYLE="font-size: 12px;">2900</TD>
+<td STYLE="font-size: 12px;">297F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/88/" TARGET="_blank">追加箭头-B</A></TD>
+<td STYLE="font-size: 12px;">Supplemental Arrows-B</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">10624</TD>
+<td STYLE="font-size: 12px;">10751</TD>
+<td STYLE="font-size: 12px;">2980</TD>
+<td STYLE="font-size: 12px;">29FF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/89/" TARGET="_blank">杂项数学符号-B</A></TD>
+<td STYLE="font-size: 12px;">Miscellaneous Mathematical
+Symbols-B</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">10752</TD>
+<td STYLE="font-size: 12px;">11007</TD>
+<td STYLE="font-size: 12px;">2A00</TD>
+<td STYLE="font-size: 12px;">2AFF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/90/" TARGET="_blank">追加数学运算符</A></TD>
+<td STYLE="font-size: 12px;">Supplemental Mathematical
+Operator</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">11008</TD>
+<td STYLE="font-size: 12px;">11263</TD>
+<td STYLE="font-size: 12px;">2B00</TD>
+<td STYLE="font-size: 12px;">2BFF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/91/" TARGET="_blank">杂项符号和箭头</A></TD>
+<td STYLE="font-size: 12px;">Miscellaneous Symbols and Arrows</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">11264</TD>
+<td STYLE="font-size: 12px;">11359</TD>
+<td STYLE="font-size: 12px;">2C00</TD>
+<td STYLE="font-size: 12px;">2C5F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/92/" TARGET="_blank">格拉哥里字母</A></TD>
+<td STYLE="font-size: 12px;">Glagolitic</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">11360</TD>
+<td STYLE="font-size: 12px;">11391</TD>
+<td STYLE="font-size: 12px;">2C60</TD>
+<td STYLE="font-size: 12px;">2C7F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/93/" TARGET="_blank">拉丁文扩展-C</A></TD>
+<td STYLE="font-size: 12px;">Latin Extended-C</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">11392</TD>
+<td STYLE="font-size: 12px;">11519</TD>
+<td STYLE="font-size: 12px;">2C80</TD>
+<td STYLE="font-size: 12px;">2CFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/94/" TARGET="_blank">古埃及语</A></TD>
+<td STYLE="font-size: 12px;">Coptic</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">11520</TD>
+<td STYLE="font-size: 12px;">11567</TD>
+<td STYLE="font-size: 12px;">2D00</TD>
+<td STYLE="font-size: 12px;">2D2F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/95/" TARGET="_blank">格鲁吉亚语补充</A></TD>
+<td STYLE="font-size: 12px;">Georgian Supplement</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">11568</TD>
+<td STYLE="font-size: 12px;">11647</TD>
+<td STYLE="font-size: 12px;">2D30</TD>
+<td STYLE="font-size: 12px;">2D7F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/96/" TARGET="_blank">提非纳文</A></TD>
+<td STYLE="font-size: 12px;">Tifinagh</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">11648</TD>
+<td STYLE="font-size: 12px;">11743</TD>
+<td STYLE="font-size: 12px;">2D80</TD>
+<td STYLE="font-size: 12px;">2DDF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/97/" TARGET="_blank">埃塞俄比亚语扩展</A></TD>
+<td STYLE="font-size: 12px;">Ethiopic Extended</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">11776</TD>
+<td STYLE="font-size: 12px;">11903</TD>
+<td STYLE="font-size: 12px;">2E00</TD>
+<td STYLE="font-size: 12px;">2E7F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/98/" TARGET="_blank">追加标点</A></TD>
+<td STYLE="font-size: 12px;">Supplemental Punctuation</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">11904</TD>
+<td STYLE="font-size: 12px;">12031</TD>
+<td STYLE="font-size: 12px;">2E80</TD>
+<td STYLE="font-size: 12px;">2EFF</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/99/" TARGET="_blank">CJK
+部首补充</A></TD>
+<td STYLE="font-size: 12px;">CJK Radicals Supplement</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12032</TD>
+<td STYLE="font-size: 12px;">12255</TD>
+<td STYLE="font-size: 12px;">2F00</TD>
+<td STYLE="font-size: 12px;">2FDF</TD>
+<td STYLE="font-size: 12px;">224</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/100/" TARGET="_blank">康熙字典部首</A></TD>
+<td STYLE="font-size: 12px;">Kangxi Radicals</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12272</TD>
+<td STYLE="font-size: 12px;">12287</TD>
+<td STYLE="font-size: 12px;">2FF0</TD>
+<td STYLE="font-size: 12px;">2FFF</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/101/" TARGET="_blank">表意文字描述符</A></TD>
+<td STYLE="font-size: 12px;">Ideographic Description
+Characters</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12288</TD>
+<td STYLE="font-size: 12px;">12351</TD>
+<td STYLE="font-size: 12px;">3000</TD>
+<td STYLE="font-size: 12px;">303F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/102/" TARGET="_blank">CJK
+符号和标点</A></TD>
+<td STYLE="font-size: 12px;">CJK Symbols and Punctuation</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12352</TD>
+<td STYLE="font-size: 12px;">12447</TD>
+<td STYLE="font-size: 12px;">3040</TD>
+<td STYLE="font-size: 12px;">309F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/103/" TARGET="_blank">日文平假名</A></TD>
+<td STYLE="font-size: 12px;">Hiragana</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12448</TD>
+<td STYLE="font-size: 12px;">12543</TD>
+<td STYLE="font-size: 12px;">30A0</TD>
+<td STYLE="font-size: 12px;">30FF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/104/" TARGET="_blank">日文片假名</A></TD>
+<td STYLE="font-size: 12px;">Katakana</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12544</TD>
+<td STYLE="font-size: 12px;">12591</TD>
+<td STYLE="font-size: 12px;">3100</TD>
+<td STYLE="font-size: 12px;">312F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/105/" TARGET="_blank">注音字母</A></TD>
+<td STYLE="font-size: 12px;">Bopomofo</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12592</TD>
+<td STYLE="font-size: 12px;">12687</TD>
+<td STYLE="font-size: 12px;">3130</TD>
+<td STYLE="font-size: 12px;">318F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/106/" TARGET="_blank">朝鲜文兼容字母</A></TD>
+<td STYLE="font-size: 12px;">Hangul Compatibility Jamo</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12688</TD>
+<td STYLE="font-size: 12px;">12703</TD>
+<td STYLE="font-size: 12px;">3190</TD>
+<td STYLE="font-size: 12px;">319F</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/107/" TARGET="_blank">象形字注释标志</A></TD>
+<td STYLE="font-size: 12px;">Kanbun</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12704</TD>
+<td STYLE="font-size: 12px;">12735</TD>
+<td STYLE="font-size: 12px;">31A0</TD>
+<td STYLE="font-size: 12px;">31BF</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/108/" TARGET="_blank">注音字母扩展</A></TD>
+<td STYLE="font-size: 12px;">Bopomofo Extended</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12736</TD>
+<td STYLE="font-size: 12px;">12783</TD>
+<td STYLE="font-size: 12px;">31C0</TD>
+<td STYLE="font-size: 12px;">31EF</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/109/" TARGET="_blank">CJK
+笔画</A></TD>
+<td STYLE="font-size: 12px;">CJK Strokes</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">12784</TD>
+<td STYLE="font-size: 12px;">12799</TD>
+<td STYLE="font-size: 12px;">31F0</TD>
+<td STYLE="font-size: 12px;">31FF</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/110/" TARGET="_blank">日文片假名语音扩展</A></TD>
+<td STYLE="font-size: 12px;">Katakana Phonetic Extensions</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">12800</TD>
+<td STYLE="font-size: 12px;">13055</TD>
+<td STYLE="font-size: 12px;">3200</TD>
+<td STYLE="font-size: 12px;">32FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/111/" TARGET="_blank">封闭式 CJK
+文字和月份</A></TD>
+<td STYLE="font-size: 12px;">Enclosed CJK Letters and Months</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">13056</TD>
+<td STYLE="font-size: 12px;">13311</TD>
+<td STYLE="font-size: 12px;">3300</TD>
+<td STYLE="font-size: 12px;">33FF</TD>
+<td STYLE="font-size: 12px;">256</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/112/,,," TARGET="_blank">CJK
+兼容</A></TD>
+<td STYLE="font-size: 12px;">CJK Compatibility</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">13312</TD>
+<td STYLE="font-size: 12px;">19903</TD>
+<td STYLE="font-size: 12px;">3400</TD>
+<td STYLE="font-size: 12px;">4DBF</TD>
+<td STYLE="font-size: 12px;">6592</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/113/" TARGET="_blank">CJK
+统一表意符号扩展 A</A></TD>
+<td STYLE="font-size: 12px;">CJK Unified Ideographs Extension
+A</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">19904</TD>
+<td STYLE="font-size: 12px;">19967</TD>
+<td STYLE="font-size: 12px;">4DC0</TD>
+<td STYLE="font-size: 12px;">4DFF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://ww,w.nengcha.com/code/unicode/class/114/" TARGET="_blank">易经六十四卦符号</A></TD>
+<td STYLE="font-size: 12px;">Yijing Hexagrams Symbols</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">19968</TD>
+<td STYLE="font-size: 12px;">40895</TD>
+<td STYLE="font-size: 12px;">4E00</TD>
+<td STYLE="font-size: 12px;">9FBF</TD>
+<td STYLE="font-size: 12px;">20928</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/115/" TARGET="_blank">CJK
+统一表意符号</A></TD>
+<td STYLE="font-size: 12px;">CJK Unified Ideographs</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">40960</TD>
+<td STYLE="font-size: 12px;">42127</TD>
+<td STYLE="font-size: 12px;">A000</TD>
+<td STYLE="font-size: 12px;">A48F</TD>
+<td STYLE="font-size: 12px;">1168</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/116/" TARGET="_blank">彝文音节</A></TD>
+<td STYLE="font-size: 12px;">Yi Syllables</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">42128</TD>
+<td STYLE="font-size: 12px;">42191</TD>
+<td STYLE="font-size: 12px;">A490</TD>
+<td STYLE="font-size: 12px;">A4CF</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/117/" TARGET="_blank">彝文字根</A></TD>
+<td STYLE="font-size: 12px;">Yi Radicals</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">42240</TD>
+<td STYLE="font-size: 12px;">42527</TD>
+<td STYLE="font-size: 12px;">A500</TD>
+<td STYLE="font-size: 12px;">A61F</TD>
+<td STYLE="font-size: 12px;">288</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/118/" TARGET="_blank">Vai</A></TD>
+<td STYLE="font-size: 12px;">Vai</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">42592</TD>
+<td STYLE="font-size: 12px;">42751</TD>
+<td STYLE="font-size: 12px;">A660</TD>
+<td STYLE="font-size: 12px;">A6FF</TD>
+<td STYLE="font-size: 12px;">160</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/119/" TARGET="_blank">统一加拿大土著语音节补充</A></TD>
+<td STYLE="font-size: 12px;">Unified Canadian Aboriginal Syllabics
+Supplement</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">42752</TD>
+<td STYLE="font-size: 12px;">42783</TD>
+<td STYLE="font-size: 12px;">A700</TD>
+<td STYLE="font-size: 12px;">A71F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/120/" TARGET="_blank">声调修饰字母</A></TD>
+<td STYLE="font-size: 12px;">Modifier Tone Letters</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">42784</TD>
+<td STYLE="font-size: 12px;">43007</TD>
+<td STYLE="font-size: 12px;">A720</TD>
+<td STYLE="font-size: 12px;">A7FF</TD>
+<td STYLE="font-size: 12px;">224</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/121/" TARGET="_blank">拉丁文扩展-D</A></TD>
+<td STYLE="font-size: 12px;">Latin Extended-D</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">43008</TD>
+<td STYLE="font-size: 12px;">43055</TD>
+<td STYLE="font-size: 12px;">A800</TD>
+<td STYLE="font-size: 12px;">A82F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/122/" TARGET="_blank">Syloti
+Nagri</A></TD>
+<td STYLE="font-size: 12px;">Syloti Nagri</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">43072</TD>
+<td STYLE="font-size: 12px;">43135</TD>
+<td STYLE="font-size: 12px;">A840</TD>
+<td STYLE="font-size: 12px;">A87F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/123/" TARGET="_blank">八思巴字</A></TD>
+<td STYLE="font-size: 12px;">Phags-pa</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">43136</TD>
+<td STYLE="font-size: 12px;">43231</TD>
+<td STYLE="font-size: 12px;">A880</TD>
+<td STYLE="font-size: 12px;">A8DF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/124/" TARGET="_blank">Saurashtra</A></TD>
+<td STYLE="font-size: 12px;">Saurashtra</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">43264</TD>
+<td STYLE="font-size: 12px;">43391</TD>
+<td STYLE="font-size: 12px;">A900</TD>
+<td STYLE="font-size: 12px;">A97F</TD>
+<td STYLE="font-size: 12px;">128</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/125/" TARGET="_blank">爪哇语</A></TD>
+<td STYLE="font-size: 12px;">Javanese</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">43392</TD>
+<td STYLE="font-size: 12px;">43487</TD>
+<td STYLE="font-size: 12px;">A980</TD>
+<td STYLE="font-size: 12px;">A9DF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/126/" TARGET="_blank">Chakma</A></TD>
+<td STYLE="font-size: 12px;">Chakma</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">43520</TD>
+<td STYLE="font-size: 12px;">43583</TD>
+<td STYLE="font-size: 12px;">AA00</TD>
+<td STYLE="font-size: 12px;">AA3F</TD>
+<td STYLE="font-size: 12px;">64</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/127/" TARGET="_blank">Varang
+Kshiti</A></TD>
+<td STYLE="font-size: 12px;">Varang Kshiti</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">43584</TD>
+<td STYLE="font-size: 12px;">43631</TD>
+<td STYLE="font-size: 12px;">AA40</TD>
+<td STYLE="font-size: 12px;">AA6F</TD>
+<td STYLE="font-size: 12px;">48</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/128/" TARGET="_blank">Sorang
+Sompeng</A></TD>
+<td STYLE="font-size: 12px;">Sorang Sompeng</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">43648</TD>
+<td STYLE="font-size: 12px;">43743</TD>
+<td STYLE="font-size: 12px;">AA80</TD>
+<td STYLE="font-size: 12px;">AADF</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/129/" TARGET="_blank">Newari</A></TD>
+<td STYLE="font-size: 12px;">Newari</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">43776</TD>
+<td STYLE="font-size: 12px;">43871</TD>
+<td STYLE="font-size: 12px;">AB00</TD>
+<td STYLE="font-size: 12px;">AB5F</TD>
+<td STYLE="font-size: 12px;">96</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/130/" TARGET="_blank">越南傣语</A></TD>
+<td STYLE="font-size: 12px;">Vi?t Th&aacute;i</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">43904</TD>
+<td STYLE="font-size: 12px;">43936</TD>
+<td STYLE="font-size: 12px;">AB80</TD>
+<td STYLE="font-size: 12px;">ABA0</TD>
+<td STYLE="font-size: 12px;">33</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/131/" TARGET="_blank">Kayah
+Li</A></TD>
+<td STYLE="font-size: 12px;">Kayah Li</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">44032</TD>
+<td STYLE="font-size: 12px;">55215</TD>
+<td STYLE="font-size: 12px;">AC00</TD>
+<td STYLE="font-size: 12px;">D7AF</TD>
+<td STYLE="font-size: 12px;">11184</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/132/" TARGET="_blank">朝鲜文音节</A></TD>
+<td STYLE="font-size: 12px;">Hangul Syllables</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">55296</TD>
+<td STYLE="font-size: 12px;">56319</TD>
+<td STYLE="font-size: 12px;">D800</TD>
+<td STYLE="font-size: 12px;">DBFF</TD>
+<td STYLE="font-size: 12px;">1024</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/133/" TARGET="_blank">High-half
+zone of UTF-16</A></TD>
+<td STYLE="font-size: 12px;">High-half zone of UTF-16</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">56320</TD>
+<td STYLE="font-size: 12px;">57343</TD>
+<td STYLE="font-size: 12px;">DC00</TD>
+<td STYLE="font-size: 12px;">DFFF</TD>
+<td STYLE="font-size: 12px;">1024</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/134/" TARGET="_blank">Low-half
+zone of UTF-16</A></TD>
+<td STYLE="font-size: 12px;">Low-half zone of UTF-16</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">57344</TD>
+<td STYLE="font-size: 12px;">63743</TD>
+<td STYLE="font-size: 12px;">E000</TD>
+<td STYLE="font-size: 12px;">F8FF</TD>
+<td STYLE="font-size: 12px;">6400</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/135/" TARGET="_blank">自行使用區域</A></TD>
+<td STYLE="font-size: 12px;">Private Use Zone</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">63744</TD>
+<td STYLE="font-size: 12px;">64255</TD>
+<td STYLE="font-size: 12px;">F900</TD>
+<td STYLE="font-size: 12px;">FAFF</TD>
+<td STYLE="font-size: 12px;">512</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/136/" TARGET="_blank">CJK
+兼容象形文字</A></TD>
+<td STYLE="font-size: 12px;">CJK Compatibility Ideographs</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">64256</TD>
+<td STYLE="font-size: 12px;">64335</TD>
+<td STYLE="font-size: 12px;">FB00</TD>
+<td STYLE="font-size: 12px;">FB4F</TD>
+<td STYLE="font-size: 12px;">80</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/137/" TARGET="_blank">字母表達形式</A></TD>
+<td STYLE="font-size: 12px;">Alphabetic Presentation Form</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">64336</TD>
+<td STYLE="font-size: 12px;">65023</TD>
+<td STYLE="font-size: 12px;">FB50</TD>
+<td STYLE="font-size: 12px;">FDFF</TD>
+<td STYLE="font-size: 12px;">688</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/138/" TARGET="_blank">阿拉伯表達形式A</A></TD>
+<td STYLE="font-size: 12px;">Arabic Presentation Form-A</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">65024</TD>
+<td STYLE="font-size: 12px;">65039</TD>
+<td STYLE="font-size: 12px;">FE00</TD>
+<td STYLE="font-size: 12px;">FE0F</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/139/" TARGET="_blank">变量选择符</A></TD>
+<td STYLE="font-size: 12px;">Variation Selector</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">65040</TD>
+<td STYLE="font-size: 12px;">65055</TD>
+<td STYLE="font-size: 12px;">FE10</TD>
+<td STYLE="font-size: 12px;">FE1F</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/140/" TARGET="_blank">竖排形式</A></TD>
+<td STYLE="font-size: 12px;">Vertical Forms</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">65056</TD>
+<td STYLE="font-size: 12px;">65071</TD>
+<td STYLE="font-size: 12px;">FE20</TD>
+<td STYLE="font-size: 12px;">FE2F</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/141/" TARGET="_blank">组合用半符号</A></TD>
+<td STYLE="font-size: 12px;">Combining Half Marks</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">65072</TD>
+<td STYLE="font-size: 12px;">65103</TD>
+<td STYLE="font-size: 12px;">FE30</TD>
+<td STYLE="font-size: 12px;">FE4F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/142/" TARGET="_blank">CJK
+兼容形式</A></TD>
+<td STYLE="font-size: 12px;">CJK Compatibility Forms</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">65104</TD>
+<td STYLE="font-size: 12px;">65135</TD>
+<td STYLE="font-size: 12px;">FE50</TD>
+<td STYLE="font-size: 12px;">FE6F</TD>
+<td STYLE="font-size: 12px;">32</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/143/" TARGET="_blank">小型变体形式</A></TD>
+<td STYLE="font-size: 12px;">Small Form Variants</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">65136</TD>
+<td STYLE="font-size: 12px;">65279</TD>
+<td STYLE="font-size: 12px;">FE70</TD>
+<td STYLE="font-size: 12px;">FEFF</TD>
+<td STYLE="font-size: 12px;">144</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/144/" TARGET="_blank">阿拉伯表達形式B</A></TD>
+<td STYLE="font-size: 12px;">Arabic Presentation Form-B</TD>
+</TR>
+<tr>
+<td STYLE="font-size: 12px;">65280</TD>
+<td STYLE="font-size: 12px;">65519</TD>
+<td STYLE="font-size: 12px;">FF00</TD>
+<td STYLE="font-size: 12px;">FFEF</TD>
+<td STYLE="font-size: 12px;">240</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/145/" TARGET="_blank">半型及全型形式</A></TD>
+<td STYLE="font-size: 12px;">Halfwidth and Fullwidth Form</TD>
+</TR>
+<tr BGCOLOR="#F7F7F7">
+<td STYLE="font-size: 12px;">65520</TD>
+<td STYLE="font-size: 12px;">65535</TD>
+<td STYLE="font-size: 12px;">FFF0</TD>
+<td STYLE="font-size: 12px;">FFFF</TD>
+<td STYLE="font-size: 12px;">16</TD>
+<td STYLE="font-size: 12px;"><a HREF="http://www.nengcha.com/code/unicode/class/146/" TARGET="_blank">特殊</A></TD>
+<td STYLE="font-size: 12px;">Specials</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="margin: 0px; padding: 0px; font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<p STYLE="margin: 0px; padding: 0px; font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+<br />
+转自：<a HREF="http://edu.gamfe.com/t/21805.html">http://edu.gamfe.com/t/21805.html</A></P>
+<p STYLE="margin: 0px; padding: 0px; font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<pre STYLE="white-space: pre-wrap; word-wrap: break-word; padding: 0px; line-height: 22px; margin-top: 0px; margin-bottom: 10px; zoom: 1; font-family: Arial; background-color: rgb(255, 255, 255);">
+
+另日语中的汉字使用的是中文的汉字，只有假名有单独的unicode！
+</PRE>
+<p STYLE="margin: 0px; padding: 0px; font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<pre STYLE="white-space: pre-wrap; word-wrap: break-word; padding: 0px; line-height: 22px; margin-top: 0px; margin-bottom: 10px; zoom: 1; font-family: Arial; background-color: rgb(255, 255, 255);">
+
+中文范围 4E00-9FBF
+</PRE>							
+		</div>

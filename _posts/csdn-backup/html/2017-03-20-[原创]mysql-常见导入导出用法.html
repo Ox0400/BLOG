@@ -1,0 +1,95 @@
+---
+layout: post
+title: "[原创]mysql-常见导入导出用法"
+date: 2017-03-20 14:42:38
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>Mysql导出：</DIV>
+1.<b>导出数据库(DB)结构</B>：
+<div><b><i>mysqldump -u root &nbsp;<wbr>-p -d DB_Name &gt;
+DB_Name_Create.sql</I></B></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">2.<b>导出数据库(DB)含所有数据：</B></SPAN></DIV>
+<div><b><i>mysqldump -u root -p DB_Name &gt;
+DB_Name_Data.sql</I></B></DIV>
+<div>说明：-u 用户名 -p 密码(密码不用填,敲回车的时候会要求输入) -d 意为导出结构</DIV>
+<div><br /></DIV>
+<div>3.<b>导出数据库(DB)下表格(Table)结构：</B></DIV>
+<div>
+<div STYLE="line-height: 21px;"><b><i>mysqldump -u root
+&nbsp;<wbr>-p -d DB_Name Table_Name &gt;
+DB_Name_Table_Name_Create.sql</I></B></DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">
+4.<b>导出数据库(DB)下表格(Table)<span STYLE="line-height: 21px;">含所有数据：</SPAN></B></DIV>
+<div STYLE="line-height: 21px;"><b><i>mysqldump -u root -p DB_Name
+Table_Name &gt;&nbsp;<wbr><span STYLE="line-height: 21px;">DB_Name_Table_Name_</SPAN>Data.sql</I></B></DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">5.<b>导出数据库(DB)</B></SPAN><span STYLE="line-height: 21px;"><b>含所有表(Table)，存储过程(proc)，函数(function)结构：</B></SPAN></DIV>
+<div STYLE="line-height: 21px;"><b><i><span STYLE="line-height: 21px;">mysqldump -u root -p -R -d DB_Name
+&gt;&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">DB_Name_create_proc</SPAN><span STYLE="line-height: 21px;">.sql</SPAN></I></B></DIV>
+<div>
+<div STYLE="line-height: 21px;">说明：-R 导出存储过程和函数</DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">6.<b>导出数据库(DB)</B></SPAN><span STYLE="line-height: 21px;"><b>含所有存储过程(proc)，函数(function)结构：</B></SPAN></DIV>
+<div STYLE="line-height: 21px;"><b><i><span STYLE="line-height: 21px;">mysqldump -u root -p -R -d -t DB_Name
+&gt;&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;">DB_Name_proc</SPAN><span STYLE="line-height: 21px;">.sql</SPAN></I></B></DIV>
+<div STYLE="line-height: 21px;">说明：-t 不导出表结构</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">
+<b>7.导出数据库(DB)所有的数据，仅导出数据，不导出表结构。</B></DIV>
+<div><b><i>mysqldump -u root -p --no-create-db
+--no-create-info&nbsp;<wbr></I></B><b STYLE="line-height: 1.5;"><i><span STYLE="line-height: 21px;">DB_Name
+&gt; DB_Name_DATA.sql</SPAN></I></B></DIV>
+<div><b STYLE="line-height: 1.5;"><i><span STYLE="line-height: 21px;"><br /></SPAN></I></B></DIV>
+<div STYLE="line-height: 21px;">
+当然，我想过单独导出所有的视图，貌似mysqldump没办法，视图也是表格(Table)，导出后dd一下吧。如果需要可以用python写个脚本。</DIV>
+<div STYLE="line-height: 21px;">大致思路：</DIV>
+<div STYLE="line-height: 21px;">python执行mysql命令:</DIV>
+<div STYLE="line-height: 21px;">mysql&gt; <b>select table_name from
+information_schema.views where table_schema='DB_Name';</B></DIV>
+<div>
+<div>+---------------------------+</DIV>
+<div>| table_name &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> |</DIV>
+<div>+---------------------------+</DIV>
+<div>| add_yesDay &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>| view_lastDay_all &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>|</DIV>
+<div>+---------------------------+</DIV>
+<div>2 rows in set (0.00 sec)</DIV>
+</DIV>
+</DIV>
+<div>获取到所有视图名后执行终端命令：</DIV>
+<div><b>mysqldump -u root &nbsp;<wbr>-p -d DB_Name
+Table_Name &gt; DB_Name_View_Name_Create.sql</B></DIV>
+<div>就这样一个for循环就可以了。</DIV>
+<div><br /></DIV>
+<div>Mysql导入：</DIV>
+<div>文件路径：</DIV>
+<div>zhipeng@ubuntu:~$ <b>ls</B></DIV>
+<div>create_DB_Name.sql</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ <b>pwd</B></DIV>
+<div>/home/zhipeng</DIV>
+</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ <b>mysql -u root -p</B></DIV>
+<div>Enter password:</DIV>
+</DIV>
+<div>mysql&gt; <b>source /home/zhipeng/create_DB_Name.sql</B></DIV>
+<div>OK，导入很简单，关键是SQL脚本。</DIV>							
+		</div>

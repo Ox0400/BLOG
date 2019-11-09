@@ -1,0 +1,69 @@
+---
+layout: post
+title: "[原创]Python-PyQuery&amp;nbsp-"
+date: 2017-03-20 14:47:27
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>新浪微博对标签和文本支持不是很好，所以很多标签<span STYLE="line-height: 21px;">文本</SPAN>被当作html标签了，大致意思还是可以懂的</DIV>
+有一段html如下：
+<div><i>&nbsp;<wbr> &nbsp;<wbr> P1</I></DIV>
+<div><i>&nbsp;<wbr> &nbsp;<wbr>
+<b>B1-Child</B></I></DIV>
+<div><i>&nbsp;<wbr> &nbsp;<wbr> P-Parent</I></DIV>
+<div><i>&nbsp;<wbr> &nbsp;<wbr>
+<b>B2-Child</B></I></DIV>
+<div><i>&nbsp;<wbr> &nbsp;<wbr> P2</I></DIV>
+<div><i><br />
+<br /></I></DIV>
+<div><br /></DIV>
+<div>con = "
+<p>
+P1&nbsp;<wbr><b>B1-Child&nbsp;<wbr></B>P-Parent&nbsp;<wbr><b>B2-Child&nbsp;<wbr></B>P2</P>
+"</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; pq(con).text()</DIV>
+<div>'P1 B1-Child P-Parent B2-Child P2'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; pq(con)[0].text</DIV>
+<div>'P1'&nbsp;<wbr></DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">#此处注意：如果要获取父标签的内容，只能获取到父标签第一个子标签之前的内容。</SPAN></DIV>
+<div>
+<div>&gt;&gt;&gt; pq("P")[0].text</DIV>
+<div>'P'</DIV>
+<div>&gt;&gt;&gt; pq("P")[0].text</DIV>
+<div>&gt;&gt;&gt; pq("P1 P2")[0].text</DIV>
+<div>'P1'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>如果要要获取父标签(不含自标签)所有内容，需要将子标签remove掉。</DIV>
+<div>
+<div>&gt;&gt;&gt; <font COLOR="#17FF3E">pq("P1
+P2").<b>remove('b')</B>.text()</FONT></DIV>
+<div>'P1 P2'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>&gt;&gt;&gt; <font COLOR="#1BFF16">pq(con).<b>remove('b')</B>.text()</FONT></DIV>
+<div>'P1 P-Parent P2'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>#同理，如果子标签有多个，可以使用逗号','分割</DIV>
+<div>
+<div>&gt;&gt;&gt; <font COLOR="#30FE1A">pq("&nbsp;<wbr>P1&nbsp;<wbr><b STYLE="line-height: 1.5;">b&nbsp;<wbr></B><a>a&nbsp;<wbr></A>P2").<b>remove('b,
+a')</B>.text()</FONT></DIV>
+<div>'P1 P2'</DIV>
+</DIV>							
+		</div>

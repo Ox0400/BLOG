@@ -1,0 +1,53 @@
+---
+layout: post
+title: "[原创]python-全局变量和局-"
+date: 2017-03-20 14:40:08
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			全局变量一般写在导入库之后
+<div>import sys</DIV>
+<div>import os</DIV>
+<div><br /></DIV>
+<div>NAME = 'zhangzhipeng'</DIV>
+<div>PWD = 'password'</DIV>
+<div><br /></DIV>
+<div>#在方法中读取全局变量的时候可以直接使用</DIV>
+<div>def login():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if NAME and PWD : print
+NAME,PWD</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> else : print 'please
+input name and password'</DIV>
+<div><br /></DIV>
+<div>这是完全可行的。会输出正确的名字和密码。</DIV>
+<div>
+<div STYLE="line-height: 21px;">
+这仅仅是对全局变量的读取，如果要对全局变量进行修改重新赋值等，需要在方法中使用global</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">def login():</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> global NAME</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> if NAME != "Baidu": NAME = "Baidu"</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> print NAME</DIV>
+<div STYLE="line-height: 21px;">或者：</DIV>
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">def login():</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> if NAME != "Baidu": global()["NAME"] =
+"Baidu"</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> print NAME</DIV>
+</DIV>
+</DIV>							
+		</div>

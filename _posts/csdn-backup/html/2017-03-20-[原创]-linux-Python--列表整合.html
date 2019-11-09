@@ -1,0 +1,675 @@
+---
+layout: post
+title: "[原创]-linux-Python--列表整合"
+date: 2017-03-20 14:43:44
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>草纸练习：</DIV>
+<div><span STYLE="line-height: 21px;">l1 =
+[('a1','a2'),('b1','b2'),('c1','c2')]</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">l2 =
+['a3','b3','c3']</SPAN></DIV>
+<div>想求结果：[('a1', 'a2', 'a3'), ('b1', 'b2', 'b3'), ('c1', 'c2',
+'c3')]</DIV>
+<div><br /></DIV>
+<div>过程如下，几个坑...</DIV>
+<div>In [74]: l1 = [('a1','a2'),('b1','b2'),('c1','c2')]</DIV>
+<div><br /></DIV>
+<div>In [75]: l1</DIV>
+<div>Out[75]: [('a1', 'a2'), ('b1', 'b2'), ('c1', 'c2')]</DIV>
+<div><br /></DIV>
+<div>In [76]: l2 = ['a3','b3','c3']</DIV>
+<div><br /></DIV>
+<div>In [77]: zip(l1)</DIV>
+<div>Out[77]: [(('a1', 'a2'),), (('b1', 'b2'),), (('c1',
+'c2'),)]</DIV>
+<div><br /></DIV>
+<div>In [78]: zip(l1,l2)</DIV>
+<div>Out[78]: [(('a1', 'a2'), 'a3'), (('b1', 'b2'), 'b3'), (('c1',
+'c2'), 'c3')]</DIV>
+<div><br /></DIV>
+<div>In [79]: map(zip(l1,l2))</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 map(zip(l1,l2))</DIV>
+<div><br /></DIV>
+<div>TypeError: map() requires at least two args</DIV>
+<div><br /></DIV>
+<div>In [80]: mpp(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>NameError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 mpp(l1,l2)</DIV>
+<div><br /></DIV>
+<div>NameError: name 'mpp' is not defined</DIV>
+<div><br /></DIV>
+<div>In [81]: map(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 map(l1,l2)</DIV>
+<div><br /></DIV>
+<div>TypeError: 'list' object is not callable</DIV>
+<div><br /></DIV>
+<div>In [82]: zip(l1,l2)</DIV>
+<div>Out[82]: [(('a1', 'a2'), 'a3'), (('b1', 'b2'), 'b3'), (('c1',
+'c2'), 'c3')]</DIV>
+<div><br /></DIV>
+<div>In [83]: lambda</DIV>
+<div>&nbsp;<wbr> File "", line 1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> lambda</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ^</DIV>
+<div>SyntaxError: invalid syntax</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>In [84]: lambda:l1</DIV>
+<div>Out[84]: &gt;</DIV>
+<div><br /></DIV>
+<div>In [85]: lambda:l1()</DIV>
+<div>Out[85]: &gt;</DIV>
+<div><br /></DIV>
+<div>In [86]: lambda:l1，啦</DIV>
+<div>&nbsp;<wbr> File "", line 1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> lambda:l1，啦</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>^</DIV>
+<div>SyntaxError: invalid syntax</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>In [87]: lambda:l1,l2</DIV>
+<div>Out[87]: (&gt;, ['a3', 'b3', 'c3'])</DIV>
+<div><br /></DIV>
+<div>In [88]: lambda:l1,l2()</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 lambda:l1,l2()</DIV>
+<div><br /></DIV>
+<div>TypeError: 'list' object is not callable</DIV>
+<div><br /></DIV>
+<div>In [89]: lambda:l1,l2(1)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 lambda:l1,l2(1)</DIV>
+<div><br /></DIV>
+<div>TypeError: 'list' object is not callable</DIV>
+<div><br /></DIV>
+<div>In [90]: lambda : l</DIV>
+<div>%load_ext &nbsp;<wbr>%loadpy &nbsp;<wbr>
+&nbsp;<wbr>%logoff &nbsp;<wbr>
+&nbsp;<wbr>%logon &nbsp;<wbr> &nbsp;<wbr>
+%logstart &nbsp;<wbr>%logstate &nbsp;<wbr>%logstop
+&nbsp;<wbr> %lsmagic &nbsp;<wbr> l &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>l1 &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> l2 &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> lambda
+&nbsp;<wbr> &nbsp;<wbr> len &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>license
+&nbsp;<wbr> &nbsp;<wbr>list &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> ll &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> locals
+&nbsp;<wbr> &nbsp;<wbr> long &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [90]: lambda lx,ly : [j.append(ly[i]) for i,j in
+enumerate(lx)]</DIV>
+<div>Out[90]: &gt;</DIV>
+<div><br /></DIV>
+<div>In [91]: lambda lx,ly : [j.append(ly[i]) for i,j in
+enumerate(lx)](l1,l2)</DIV>
+<div>Out[91]: &gt;</DIV>
+<div><br /></DIV>
+<div>In [92]: g = lambda lx,ly : [j.append(ly[i]) for i,j in
+enumerate(lx)](l1,l2)</DIV>
+<div><br /></DIV>
+<div>In [93]: g</DIV>
+<div>Out[93]: &gt;</DIV>
+<div><br /></DIV>
+<div>In [94]: g.</DIV>
+<div>g.func_closure &nbsp;<wbr> g.func_code
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>g.func_defaults &nbsp;<wbr>g.func_dict
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>g.func_doc
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+g.func_globals &nbsp;<wbr> g.func_name &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [94]: g()</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 g()</DIV>
+<div><br /></DIV>
+<div>TypeError: () takes exactly 2 arguments (0 given)</DIV>
+<div><br /></DIV>
+<div>In [95]: g(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>AttributeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>Traceback
+(most recent call last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 g(l1,l2)</DIV>
+<div><br /></DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+(lx, ly)</DIV>
+<div>----&gt; 1 g = lambda lx,ly : [j.append(ly[i]) for i,j in
+enumerate(lx)](l1,l2)</DIV>
+<div><br /></DIV>
+<div>AttributeError: 'tuple' object has no attribute 'append'</DIV>
+<div><br /></DIV>
+<div>In [96]: g = lambda lx,ly : [j.append(ly[i]) for i,j in
+enumerate(lx)]</DIV>
+<div><br /></DIV>
+<div>In [97]: g.</DIV>
+<div>g.func_closure &nbsp;<wbr> g.func_code
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>g.func_defaults &nbsp;<wbr>g.func_dict
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>g.func_doc
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+g.func_globals &nbsp;<wbr> g.func_name &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [97]: g()</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 g()</DIV>
+<div><br /></DIV>
+<div>TypeError: () takes exactly 2 arguments (0 given)</DIV>
+<div><br /></DIV>
+<div>In [98]: t = ()</DIV>
+<div><br /></DIV>
+<div>In [99]: t.</DIV>
+<div>t.count &nbsp;<wbr>t.index &nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [99]: t = (1,2)</DIV>
+<div><br /></DIV>
+<div>In [100]: t.</DIV>
+<div>t.count &nbsp;<wbr>t.index &nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [100]: t+t</DIV>
+<div>Out[100]: (1, 2, 1, 2)</DIV>
+<div><br /></DIV>
+<div>In [101]: g = lambda lx,ly : [j + ly[i] for i,j in
+enumerate(lx)]</DIV>
+<div><br /></DIV>
+<div>In [102]:&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [102]: g(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 g(l1,l2)</DIV>
+<div><br /></DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+(lx, ly)</DIV>
+<div>----&gt; 1 g = lambda lx,ly : [j + ly[i] for i,j in
+enumerate(lx)]</DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [103]: def f(l1,l2):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> for i,j in enumerate(l1)</DIV>
+<div>KeyboardInterrupt</DIV>
+<div><br /></DIV>
+<div>In [103]: def f(lx,ly):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> for i,j in enumerate(lx):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>KeyboardInterrupt</DIV>
+<div><br /></DIV>
+<div>In [103]: (lambda lx,ly : [j + ly[i] for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 (lambda lx,ly : [j + ly[i] for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+(lx, ly)</DIV>
+<div>----&gt; 1 (lambda lx,ly : [j + ly[i] for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [104]: (lambda lx,ly : [j + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 (lambda lx,ly : [j + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+(lx, ly)</DIV>
+<div>----&gt; 1 (lambda lx,ly : [j + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [105]: t</DIV>
+<div>Out[105]: (1, 2)</DIV>
+<div><br /></DIV>
+<div>In [106]: t+t+t</DIV>
+<div>Out[106]: (1, 2, 1, 2, 1, 2)</DIV>
+<div><br /></DIV>
+<div>In [107]: t = ('a','b')</DIV>
+<div><br /></DIV>
+<div>In [108]: t+t+t</DIV>
+<div>Out[108]: ('a', 'b', 'a', 'b', 'a', 'b')</DIV>
+<div><br /></DIV>
+<div>In [109]: t = ('a','b',)</DIV>
+<div><br /></DIV>
+<div>In [110]: t+t+t</DIV>
+<div>Out[110]: ('a', 'b', 'a', 'b', 'a', 'b')</DIV>
+<div><br /></DIV>
+<div>In [111]: (lambda lx,ly : [tuple(j) + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>----&gt; 1 (lambda lx,ly : [tuple(j) + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+(lx, ly)</DIV>
+<div>----&gt; 1 (lambda lx,ly : [tuple(j) + str(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [112]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr> print i,type(i)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2')</DIV>
+<div>('b1', 'b2')</DIV>
+<div>('c1', 'c2')</DIV>
+<div><br /></DIV>
+<div>In [113]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+i</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a1', 'a2')</DIV>
+<div>('b1', 'b2', 'b1', 'b2')</DIV>
+<div>('c1', 'c2', 'c1', 'c2')</DIV>
+<div><br /></DIV>
+<div>In [114]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+''</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 for
+i in l1:</DIV>
+<div>----&gt; 2 &nbsp;<wbr> &nbsp;<wbr> print
+i+''</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+3&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [115]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+('')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 for
+i in l1:</DIV>
+<div>----&gt; 2 &nbsp;<wbr> &nbsp;<wbr> print
+i+('')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+3&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>TypeError: can only concatenate tuple (not "str") to
+tuple</DIV>
+<div><br /></DIV>
+<div>In [116]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+ tuple('')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2')</DIV>
+<div>('b1', 'b2')</DIV>
+<div>('c1', 'c2')</DIV>
+<div><br /></DIV>
+<div>In [117]: (lambda lx,ly : [tuple(j) + tuple(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[117]: [('a1', 'a2', 'a', '3'), ('b1', 'b2', 'b', '3'),
+('c1', 'c2', 'c', '3')]</DIV>
+<div><br /></DIV>
+<div>In [118]: for i in l1: &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+
+tuple('a3')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a', '3')</DIV>
+<div>('b1', 'b2', 'a', '3')</DIV>
+<div>('c1', 'c2', 'a', '3')</DIV>
+<div><br /></DIV>
+<div>In [119]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+
+tuple('a3',)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a', '3')</DIV>
+<div>('b1', 'b2', 'a', '3')</DIV>
+<div>('c1', 'c2', 'a', '3')</DIV>
+<div><br /></DIV>
+<div>In [120]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+
+tuple(('a3'),)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a', '3')</DIV>
+<div>('b1', 'b2', 'a', '3')</DIV>
+<div>('c1', 'c2', 'a', '3')</DIV>
+<div><br /></DIV>
+<div>In [121]: l1</DIV>
+<div>Out[121]: [('a1', 'a2'), ('b1', 'b2'), ('c1', 'c2')]</DIV>
+<div><br /></DIV>
+<div>In [122]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+
+tuple(('a3'),)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a', '3')</DIV>
+<div>('b1', 'b2', 'a', '3')</DIV>
+<div>('c1', 'c2', 'a', '3')</DIV>
+<div><br /></DIV>
+<div>In [123]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print
+i.append('a3')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>AttributeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>Traceback
+(most recent call last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 for
+i in l1:</DIV>
+<div>----&gt; 2 &nbsp;<wbr> &nbsp;<wbr> print
+i.append('a3')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+3&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>AttributeError: 'tuple' object has no attribute 'append'</DIV>
+<div><br /></DIV>
+<div>In [124]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print
+tuple(list(i).append('a3'))</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>TypeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> Traceback (most recent call
+last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 for
+i in l1:</DIV>
+<div>----&gt; 2 &nbsp;<wbr> &nbsp;<wbr> print
+tuple(list(i).append('a3'))</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+3&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>TypeError: 'NoneType' object is not iterable</DIV>
+<div><br /></DIV>
+<div>In [125]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print
+list(i).append('a3')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>None</DIV>
+<div>None</DIV>
+<div>None</DIV>
+<div><br /></DIV>
+<div>In [126]: l1</DIV>
+<div>Out[126]: [('a1', 'a2'), ('b1', 'b2'), ('c1', 'c2')]</DIV>
+<div><br /></DIV>
+<div>In [127]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print list(i)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>['a1', 'a2']</DIV>
+<div>['b1', 'b2']</DIV>
+<div>['c1', 'c2']</DIV>
+<div><br /></DIV>
+<div>In [128]: (lambda lx,ly : [list(j).append(ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[128]: [None, None, None]</DIV>
+<div><br /></DIV>
+<div>In [129]:&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>In [129]: (lambda lx,ly : [(lambda x,y
+:x.append(y))(list(j),ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[129]: [None, None, None]</DIV>
+<div><br /></DIV>
+<div>In [130]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print
+i.append('aa')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>
+---------------------------------------------------------------------------</DIV>
+<div>AttributeError &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>Traceback
+(most recent call last)</DIV>
+<div>/home/zhipeng/zhangzhipeng_ssh/qingting/shazam/make_table/ in
+()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 1 for
+i in l1:</DIV>
+<div>----&gt; 2 &nbsp;<wbr> &nbsp;<wbr> print
+i.append('aa')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+3&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div>AttributeError: 'tuple' object has no attribute 'append'</DIV>
+<div><br /></DIV>
+<div>In [131]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+
+tuple('aa',)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'a', 'a')</DIV>
+<div>('b1', 'b2', 'a', 'a')</DIV>
+<div>('c1', 'c2', 'a', 'a')</DIV>
+<div><br /></DIV>
+<div>In [132]: for i in l1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print i+ ('aa', )</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>.....: &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>('a1', 'a2', 'aa')</DIV>
+<div>('b1', 'b2', 'aa')</DIV>
+<div>('c1', 'c2', 'aa')</DIV>
+<div><br /></DIV>
+<div>In [133]: (lambda lx,ly : [(lambda x,y
+:x.append(y))(list(j),ly[i]) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[133]: [None, None, None]</DIV>
+<div><br /></DIV>
+<div>In [134]: (lambda lx,ly : [tuple(j) + tuple(ly[i], ) for i,j
+in enumerate(lx)])(l1,l2)</DIV>
+<div>Out[134]: [('a1', 'a2', 'a', '3'), ('b1', 'b2', 'b', '3'),
+('c1', 'c2', 'c', '3')]</DIV>
+<div><br /></DIV>
+<div>In [135]: (lambda lx,ly : [tuple(j) + (ly[i], ) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[135]: [('a1', 'a2', 'a3'), ('b1', 'b2', 'b3'), ('c1',
+'c2', 'c3')]</DIV>
+<div><br /></DIV>
+<div>In [136]: tuple('aa')</DIV>
+<div>Out[136]: ('a', 'a')</DIV>
+<div><br /></DIV>
+<div>In [137]: (lambda lx,ly : [tuple(j) + (ly[i], ) for i,j in
+enumerate(lx)])(l1,l2)</DIV>
+<div>Out[137]: [('a1', 'a2', 'a3'), ('b1', 'b2', 'b3'), ('c1',
+'c2', 'c3')]</DIV>
+<div><br /></DIV>							
+		</div>

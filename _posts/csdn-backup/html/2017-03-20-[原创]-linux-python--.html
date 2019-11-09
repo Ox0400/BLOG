@@ -1,0 +1,226 @@
+---
+layout: post
+title: "[原创]-linux-python--"
+date: 2017-03-20 14:40:57
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;">linux 下python
+spider获取网页title</DIV>
+<hr />
+原创所有，转载请以超链接附明本文地址及作者，谢谢<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c20q.html">http://blog.sina.com.cn/s/blog_83dc494d0101c20q.html</A>
+<hr />
+------------------------------------
+<div>#!/usr/bin/python</DIV>
+<div>#!coding:utf-8</DIV>
+<div><br /></DIV>
+<div>import re</DIV>
+<div>import urllib</DIV>
+<div><br /></DIV>
+<div>urls=['http://www.baidu.com','http://www.hao123.com']</DIV>
+<div>i = 0</DIV>
+<div>regex=''</DIV>
+<div>#pattren = re.compile(regex)</DIV>
+<div>while i &lt; len(urls):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> htmlfile =
+urllib.urlopen(urls[i])</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> htmltext =
+htmlfile.read()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print urls[i],</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> #print
+regex,htmltext[:200]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> titles =
+re.findall(regex,htmltext)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> for f in titles:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print f</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> i+=1</DIV>
+<div>---------------------------------------------------</DIV>
+<div>说明，使用python
+urllib模块和re(正则)模块。获取网页html文件，使用正则匹配title标签。代码如上文以及下图所展示：</DIV>
+<div><br /></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c20q&url=http://album.sina.com.cn/pic/83dc494dgx6DpIbhW0454" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s5.sinaimg.cn/mw690/83dc494dgx6DpIbhW0454&amp;690" WIDTH="690" HEIGHT="586" NAME="image_operate_98541381726408475"  ALT="【原创】&nbsp;<wbr>linux-python&nbsp;<wbr>spider系列&nbsp;<wbr>-&nbsp;<wbr>获取title(含解码)" /></A><br />
+当然，你可以import sys，使用sys.argv 来获取你想要的网页title。</DIV>
+<div>
+下面展示代码，有兴趣自己百度或者谷歌如何进行的，很简单的东西，太小儿科了，但是考虑可能有的同学真的需要，就写一下吧。(爬虫获取到url，title，类别。。。)</DIV>
+<div>--------------------------------------</DIV>
+<div>
+<div>#!/usr/bin/python</DIV>
+<div>#!coding:utf-8</DIV>
+<div><br /></DIV>
+<div>import re</DIV>
+<div>import urllib</DIV>
+<div>import sys</DIV>
+<div><br /></DIV>
+<div>def get_title(urls):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> i = 0</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> regex=''</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> #pattren =
+re.compile(regex)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> while i &lt;
+len(urls):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> htmlfile = urllib.urlopen(urls[i])</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> htmltext = htmlfile.read()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print urls[i],</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #print regex,htmltext[:200]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> titles = re.findall(regex,htmltext)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for f in titles:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> print
+f</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> i+=1</DIV>
+<div><br /></DIV>
+<div>if __name__== '__main__':</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+get_title(sys.argv[1:])</DIV>
+</DIV>
+<div>-----------------------------</DIV>
+<div>说明：因为代码比较简短，不加注释了。</DIV>
+<div>使用：</DIV>
+<div>
+<div>zhangzhipeng@zhangzhipeng-K53SD:~/py/spider_test$ python
+get-title-argv.py http://www.baidu.com http://www.google.com
+http://www.hao123.com</DIV>
+<div>http://www.baidu.com 百度一下，你就知道</DIV>
+<div>http://www.google.com Google</DIV>
+<div>http://www.hao123.com hao123_上网从这里开始</DIV>
+<div>
+zhangzhipeng@zhangzhipeng-K53SD:~/py/spider_test$&nbsp;<wbr></DIV>
+</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c20q&url=http://album.sina.com.cn/pic/83dc494dgx6DpJNJgD47e" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s15.sinaimg.cn/mw690/83dc494dgx6DpJNJgD47e&amp;690" WIDTH="690" HEIGHT="297" NAME="image_operate_24421381727443690"  ALT="【原创】&nbsp;<wbr>linux-python&nbsp;<wbr>spider系列&nbsp;<wbr>-&nbsp;<wbr>获取title(含解码)" /></A><br />
+这里有一个问题的，如果网页的编码格式为GB2312的会乱码。</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c20q&url=http://album.sina.com.cn/pic/83dc494dgx6DpKaeSXc5e" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s15.sinaimg.cn/mw690/83dc494dgx6DpKaeSXc5e&amp;690" WIDTH="690" HEIGHT="278" NAME="image_operate_84191381732034994"  ALT="【原创】&nbsp;<wbr>linux-python&nbsp;<wbr>spider系列&nbsp;<wbr>-&nbsp;<wbr>获取title(含解码)" /></A><br />
+所以最好判断一下编码</DIV>
+<div><span STYLE="color: rgb(136, 18, 128); font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">
+china.com ---&gt;</SPAN> <span STYLE="font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">
+charset</SPAN><span STYLE="color: rgb(136, 18, 128); font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">="</SPAN><span STYLE="font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">GB2312</SPAN><span STYLE="color: rgb(136, 18, 128); font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">"&gt;</SPAN></DIV>
+<div><span STYLE="font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">
+qq.com ---&gt;
+<span>http-equiv</SPAN>="<span>Content-Type</SPAN>"
+<span>content</SPAN>="<span>text/html;
+charset=gb2312</SPAN>"&gt;</SPAN></DIV>
+<div><span STYLE="font-family: monospace; font-size: medium; line-height: normal; white-space: pre-wrap;">
+zhangzhipeng2023.cn ---&gt;</SPAN> <span STYLE="white-space: pre-wrap;">property</SPAN><span STYLE="font-size: medium; white-space: pre-wrap;">="</SPAN><span STYLE="white-space: pre-wrap;">qc:admins</SPAN><span STYLE="font-size: medium; white-space: pre-wrap;">"</SPAN> <span STYLE="white-space: pre-wrap;">content</SPAN><span STYLE="font-size: medium; white-space: pre-wrap;">="</SPAN><span STYLE="white-space: pre-wrap;">156636705167201056720236<wbr>367</SPAN><span STYLE="font-size: medium; white-space: pre-wrap;">"/&gt;</SPAN><br STYLE="white-space: pre-wrap;" />
+</DIV>
+<div><font SIZE="3"><span STYLE="line-height: 24px; white-space: pre-wrap;">咳咳...我的这个渣网站都没写charset
+...</SPAN></FONT></DIV>
+<div><font SIZE="3"><span STYLE="line-height: 24px; white-space: pre-wrap;">抓到以后我记得GB2312的转成iso-8859-01
+貌似可以正常显示，试试看- .-</SPAN></FONT></DIV>
+<div><font SIZE="3"><span STYLE="line-height: 24px; white-space: pre-wrap;">----------------------</SPAN></FONT></DIV>
+<div>
+<div><font SIZE="3"><span STYLE="white-space: pre-wrap;">#!/usr/bin/python</SPAN></FONT></DIV>
+<div><span STYLE="white-space: pre-wrap;">#!coding:utf-8</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;"><br /></SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">import re</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">import
+urllib</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">import sys</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;"><br /></SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">def
+get_title(urls):</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> i = 0</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> regex_title = ''</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> regex_char = ''</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> #pattren = re.compile(regex)</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> while i &lt; len(urls):</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> htmlfile =
+urllib.urlopen(urls[i])</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> htmltext =
+htmlfile.read()</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> print
+urls[i],</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #print
+regex,htmltext[:200]</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> titles =
+re.findall(regex_title,htmltext)</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+len(titles)&gt;0:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> titles =
+titles[0]</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> charset =
+re.findall(regex_char,htmltext)</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+len(charset)&gt;0:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">if len(charset[0]) ==
+1:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">charset =
+charset[0][0]</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">elif len(charset[0]) ==
+2:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">charset =
+charset[0][1]</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">else:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> charset = ''</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+else:</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> charset =''</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+charset.lower() == 'gb2312':</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> titles =
+titles.decode('gb2312')</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> elif
+charset.lower() == '' or charset.lower()==None :</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> titles =
+titles.decode('iso-8859-1')</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> print
+titles,charset</SPAN></DIV>
+<div><span STYLE="white-space: pre-wrap;">&nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+i+=1</SPAN></DIV>
+<div STYLE="line-height: 24px; white-space: pre-wrap;">
+-----------------------</DIV>
+<div STYLE="line-height: 24px; white-space: pre-wrap;"><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c20q&url=http://album.sina.com.cn/pic/83dc494dgx6DpPWkyHq6c" TARGET="_blank"></A><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c20q&url=http://album.sina.com.cn/pic/83dc494dgx6DpRn7QHub0" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s1.sinaimg.cn/mw690/83dc494dgx6DpRn7QHub0&amp;690" WIDTH="690" HEIGHT="131" NAME="image_operate_31791381733567902"  ALT="【原创】&nbsp;<wbr>linux-python&nbsp;<wbr>spider系列&nbsp;<wbr>-&nbsp;<wbr>获取title(含解码)" /></A><br />
+<br />
+我只能做到这里了</DIV>
+<div STYLE="line-height: 24px; white-space: pre-wrap;">python
+处理编码真是硬伤...<a HREF="http://www.china.com/" TARGET="_blank">中华网</A>明明是gb2312还是解码错误...</DIV>
+<div STYLE="line-height: 24px; white-space: pre-wrap;">如果有对python
+encoding擅长的，希望回帖求指点。</DIV>
+</DIV>
+<hr />
+原创所有，转载请以超链接附明本文地址及作者，谢谢<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c20q.html">http://blog.sina.com.cn/s/blog_83dc494d0101c20q.html</A>
+<hr />
+<br />							
+		</div>

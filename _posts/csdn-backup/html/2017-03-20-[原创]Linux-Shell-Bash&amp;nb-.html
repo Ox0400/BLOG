@@ -1,0 +1,29 @@
+---
+layout: post
+title: "[原创]Linux-Shell-Bash&amp;nb-"
+date: 2017-03-20 14:37:42
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-indent:2em;">今天在Linux-Ubuntu
+12.04运行一个[fileName].sh(shell)，一直提示Cannot execute binary
+file（无法执行的二进制文件）。试着用sudo 执行，不行。又试着用su执行，还是不行...纳闷了.</DIV>
+<div STYLE="text-indent:2em;">然后uname &nbsp;<wbr>-a
+查看了一下系统</DIV>
+<div STYLE="text-indent:2em;">Linux zhipeng-K53SD 3.5.0-39generic
+#60~precise1-Ubuntu SMP Web Aug 14 15:28:09 UTC 2013 i686 i686 i386
+GNU/Linux #注释:我安装的是64位，32位的输出结果是#32</DIV>
+<div STYLE="text-indent:2em;">
+没办法,又试着下了一个32位的shell，然后运行，竟然成功...为什么呢这是,不兼容的问题还是怎么回事,这就不得而知了.</DIV>
+<div STYLE="text-indent:2em;">总之呢，以后碰到Cannot execute binary
+file的决解办法就是查看系统是32位还是64位，运行的程序是32还是64的.如果系统是64位的，程序也是64位，但是提示Cannot
+execute binary file，试着运行对应程序的32位版本。</DIV>							
+		</div>

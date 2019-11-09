@@ -1,0 +1,258 @@
+---
+layout: post
+title: "[转载]-linux-mysql-django-"
+date: 2017-03-20 14:41:28
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			MySQL会出现中文乱码的原因不外乎下列几点：<br />
+1.server本身设定问题，例如还停留在latin1<br />
+2.table的语系设定问题(包含character与collation)<br />
+3.客户端程式(例如php)的连线语系设定问题<br />
+强烈建议使用utf8!!!!<br />
+utf8可以兼容世界上所有字符!!!!<br />
+一、避免创建<a HREF="http://www.2cto.com/database/" TARGET="_blank">数据库</A>及表出现中文乱码和查看编码方法<br />
+1、创建数据库的时候：CREATE DATABASE `test`<br />
+CHARACTER SET 'utf8'<br />
+COLLATE 'utf8_general_ci';<br />
+2、建表的时候 CREATE TABLE `database_user` (<br />
+`ID` varchar(40) NOT NULL default '',<br />
+`UserID` varchar(40) NOT NULL default '',<br />
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+这3个设置好了，基本就不会出问题了,即建库和建表时都使用相同的编码格式。<br />
+但是如果你已经建了库和表可以通过以下方式进行查询。<br />
+1.查看默认的编码格式:<br />
+<a HREF="http://www.2cto.com/database/MySQL/" TARGET="_blank">mysql</A>&gt; show variables like
+"%char%";<br />
++--------------------------+---------------+<br />
+| Variable_name | Value |<br />
++--------------------------+---------------+<br />
+| character_set_client | gbk |<br />
+| character_set_connection | gbk |<br />
+| character_set_database | utf8 |<br />
+| character_set_filesystem | binary |<br />
+| character_set_results | gbk |<br />
+| character_set_server | utf8 |<br />
+| character_set_system | utf8 |<br />
++--------------------------+-------------+<br />
+注：以前2个来确定,可以使用set names utf8,set names gbk设置默认的编码格式;</P>
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+执行SET NAMES utf8的效果等同于同时设定如下：<br />
+SET character_set_client='utf8';<br />
+SET character_set_connection='utf8';<br />
+SET character_set_results='utf8';</P>
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+2.查看test数据库的编码格式:<br />
+mysql&gt; show create database test;<br />
++------------+------------------------------------------------------------------------------------------------+<br />
+
+| Database | Create Database |<br />
++------------+------------------------------------------------------------------------------------------------+<br />
+
+| test | CREATE DATABASE `test` |<br />
++------------+------------------------------------------------------------------------------------------------+</P>
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+3.查看yjdb数据库的编码格式:<br />
+mysql&gt; show create table yjdb;<br />
+| yjdb | CREATE TABLE `yjdb` (<br />
+`sn` int(5) NOT NULL AUTO_INCREMENT,<br />
+`type` varchar(10) NOT NULL,<br />
+`brc` varchar(6) NOT NULL,<br />
+`teller` int(6) NOT NULL,<br />
+`telname` varchar(10) NOT NULL,<br />
+`date` int(10) NOT NULL,<br />
+`count` int(6) NOT NULL,<br />
+`back` int(10) NOT NULL,<br />
+PRIMARY KEY (`sn`),<br />
+UNIQUE KEY `sn` (`sn`),<br />
+UNIQUE KEY `sn_2` (`sn`)<br />
+) ENGINE=MyISAM AUTO_INCREMENT=1826 DEFAULT CHARSET=gbk
+ROW_FORMAT=DYNAMIC |</P>
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+二、避免导入数据有中文乱码的问题<br />
+1:将数据编码格式保存为utf-8<br />
+设置默认编码为utf8：<br />
+set names utf8;<br />
+设置数据库db_name默认为utf8:<br />
+ALTER DATABASE `db_name` DEFAULT CHARACTER SET utf8 COLLATE
+utf8_general_ci;<br />
+设置表tb_name默认编码为utf8:<br />
+ALTER TABLE `tb_name` DEFAULT CHARACTER SET utf8 COLLATE
+utf8_general_ci;<br />
+导入：<br />
+LOAD DATA LOCAL INFILE 'C:\\utf8.txt' INTO TABLE yjdb;<br />
+2:将数据编码格式保存为ansi(即GBK或GB2312)<br />
+设置默认编码为gbk：<br />
+set names gbk;<br />
+设置数据库db_name默认编码为gbk:<br />
+ALTER DATABASE `db_name` DEFAULT CHARACTER SET gbk COLLATE
+gbk_chinese_ci;<br />
+设置表tb_name默认编码为gbk:<br />
+ALTER TABLE `tb_name` DEFAULT CHARACTER SET gbk COLLATE
+gbk_chinese_ci;<br />
+导入：<br />
+LOAD DATA LOCAL INFILE 'C:\\gbk.txt' INTO TABLE yjdb;</P>
+<p STYLE="border-width: 0px; padding: 0px; margin: 0px 0px 8px; list-style: none; text-indent: 2em; color: rgb(51, 51, 51); font-family: 宋体; line-height: 28px; background-color: rgb(255, 255, 255);">
+注：1.UTF8不要导入gbk，gbk不要导入UTF8;<br />
+2.<a HREF="http://www.2cto.com/os/dos/" TARGET="_blank">dos</A>下不支持UTF8的显示;<br />
+三、解决网页中乱码的问题<br />
+&nbsp;<wbr><br />
+将网站编码设为 utf-8,这样可以兼容世界上所有字符。<br />
+　　如果网站已经运作了好久,已有很多旧数据,不能再更改简体中文的设定,那么建议将页面的编码设为 GBK,
+GBK与GB2312的区别就在于:GBK能比GB2312显示更多的字符,要显示简体码的繁体字,就只能用GBK。<br />
+1.编辑/etc/my.cnf　,在[mysql]段加入default_character_set=utf8;<br />
+2.在编写Connection
+URL时，加上?useUnicode=true&amp;characterEncoding=utf-8参;<br />
+
+3.在网页代码中加上一个"set names utf8"或者"set names
+gbk"的指令，告诉MySQL连线内容都要使用<br />
+utf8或者gbk;</P>
+....................................................................................
+<div><span STYLE="color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; font-size: 12px; line-height: 22px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></SPAN><a HREF="http://1992mrwang.blog.51cto.com/3265935/1123023" TARGET="_blank">原始出处</A><br />
+<div>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+Django 再次是当中字符编码问题</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+今天使用了bootstrap 当中的一些CSS 对自己的博客项目当中的一些东西进行美化</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+但是很奇怪的是 当 诸如按钮类的加入 中文字符后 就会提示 UnicodeDecodeError at / 错误</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+很明显就是字符问题</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+而最终解决的方案就是 在 settings.py 文件当中加入</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+ps：百度而来的方法</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+url:http://hi.baidu.com/kangjun118/item/96a98a0f5c485637a1312d4e<wbr></P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px; color: rgb(44, 44, 44);">
+
+</PRE>
+<ol STYLE="padding: 5px 0px; margin: 0px; color: rgb(92, 92, 92); list-style-position: initial; list-style-image: initial; border-left-width: 3px; border-style: none none none solid; border-left-color: rgb(20, 107, 0);">
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+<span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">
+FILE_CHARSET=</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">'gb18030'</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN></SPAN></LI>
+<li STYLE="margin-left: 20px; line-height: 1.3em; border: none; padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; list-style: decimal-leading-zero outside !important;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+DEFAULT_CHARSET=<span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">'utf-8'</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN></SPAN></LI>
+</OL>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+后解决问题</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+思考 Django当中出现字符问题的一些总结</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+1）先是数据库 插入问题 在默认的mysql当中插入中文字符的时候 会报错</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+解决方式就是修改 其数据库 或数据库当中某张表 或者某个字段成为UTF-8类型的 即可插入</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+在原先的总结当中就已经介绍了 修改表某列的字符编码方式</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+这里介绍</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+在MYSQL的安装目录下修改my.ini文件中的“default-character-set=”为GB2312或者UTF-8，修改这一项之后，会对MYSQL中的数据库全部起作用，如果你为了减少以后不必要的麻烦，你也可以只设置你当前要使用的数据库的编码，如：</P>
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px; color: rgb(44, 44, 44);">
+
+</PRE>
+<ol STYLE="padding: 5px 0px; margin: 0px; color: rgb(92, 92, 92); list-style-position: initial; list-style-image: initial; border-left-width: 3px; border-style: none none none solid; border-left-color: rgb(20, 107, 0);">
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">
+CREATE</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">DATABASE</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr>database_name&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">DEFAULT</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">CHARACTER</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">SET</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr>utf8&nbsp;<wbr></SPAN></SPAN></LI>
+</OL>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+2）然后就是编码 Django 的底层实现使用的是UTF-8字符 所以在程序设计时候 应该尽量使用utf-8 去进行编码
+而在开始时可以使用 #coding:utf-8 去声明使用的字符编码<br STYLE="padding: 0px; margin: 0px;" />
+&nbsp;<wbr></P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+3）Django支持国际化</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+可以在settings.py 的<span STYLE="padding: 0px; margin: 0px;">&nbsp;<wbr>MIDDLEWARE_CLASSES</SPAN>&nbsp;<wbr>区
+进行添加</P>
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px; color: rgb(44, 44, 44);">
+
+</PRE>
+<ol STYLE="padding: 5px 0px; margin: 0px; color: rgb(92, 92, 92); list-style-position: initial; list-style-image: initial; border-left-width: 3px; border-style: none none none solid; border-left-color: rgb(20, 107, 0);">
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+添加&nbsp;<wbr>&nbsp;<wbr></SPAN></LI>
+<li STYLE="margin-left: 20px; line-height: 1.3em; border: none; padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; list-style: decimal-leading-zero outside !important;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">
+'django.middleware.locale.LocaleMiddleware'</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN></SPAN></LI>
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+MIDDLEWARE_CLASSES&nbsp;<wbr></SPAN></LI>
+<li STYLE="margin-left: 20px; line-height: 1.3em; border: none; padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; list-style: decimal-leading-zero outside !important;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+设置中，并确保它在&nbsp;<wbr></SPAN></LI>
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">
+'django.contrib.sessions.middleware.SessionMiddleware'</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr>&nbsp;<wbr>之后&nbsp;<wbr></SPAN></SPAN></LI>
+</OL>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+刷新后会根据你的浏览器环境进行转换使用语言</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+打开你PROJECT下的settings.py,你可以看到：</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+"LANGUAGE_CODE =''"默认的是en-us,修改为zh-CN&nbsp;<wbr> 这样也可以</P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+4）在HTML 模版文件当中 设置编码格式 在</P>
+区域添加
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px; color: rgb(44, 44, 44);">
+
+</PRE>
+<ol STYLE="padding: 5px 0px; margin: 0px; color: rgb(92, 92, 92); list-style-position: initial; list-style-image: initial; border-left-width: 3px; border-style: none none none solid; border-left-color: rgb(20, 107, 0);">
+<li STYLE="padding: 0px 3px 0px 10px !important; margin-top: 0px !important; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 20px; list-style: decimal-leading-zero outside !important; color: inherit; line-height: 1.3em; border: none;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: black; background-color: inherit;">
+<span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">
+&lt;&lt;/span&gt;<span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">meta</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: red; background-color: inherit;">http-equiv</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">=</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">"Content-Type"</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: red; background-color: inherit;">content</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">=</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: blue; background-color: inherit;">"text/html;charset=utf-8"</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; color: rgb(0, 102, 153); background-color: inherit; font-weight: bold;">/&gt;</SPAN><span STYLE="padding: 0px; margin: 0px; border: none; background-color: inherit;">&nbsp;<wbr></SPAN></SPAN></SPAN></LI>
+</OL>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></P>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+至于先前 设置如下两个参数 由于还没有研究深入 所以还未了解其作用，未完待续</P>
+<div STYLE="background-color: rgb(255, 255, 255); color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; margin: 0px; margin-left: 2em; padding: 0px">
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px;">
+
+</PRE>
+<ul STYLE="padding: 0px; margin: 0px; list-style: none;">
+<li STYLE="padding: 0px; margin: 0px 0px 0px 20px; list-style-position: outside;">
+<span STYLE="padding: 0px; margin: 0px;"><span STYLE="padding: 0px; margin: 0px;">FILE_CHARSET=</SPAN><span STYLE="padding: 0px; margin: 0px; color: blue; background-color: inherit;">'gb18030'</SPAN><span STYLE="padding: 0px; margin: 0px;">&nbsp;<wbr></SPAN></SPAN></LI>
+<li STYLE="padding: 0px; margin: 0px 0px 0px 20px; list-style-position: outside;">
+<span STYLE="padding: 0px; margin: 0px;">DEFAULT_CHARSET=<span STYLE="padding: 0px; margin: 0px; color: blue; background-color: inherit;">'utf-8'</SPAN></SPAN></LI>
+<li STYLE="padding: 0px; margin: 0px 0px 0px 20px; list-style-position: outside;">
+&nbsp;<wbr></LI>
+</UL>
+</DIV>
+<p STYLE="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(44, 44, 44); font-family: 宋体, 'Arial narrow', arial, serif; line-height: 28px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr>在linux 当中pycharm开发时候发现模板不能使用中文字&nbsp;<wbr>
+于是 将前面两个参数都改成utf-8后解决</P>
+<pre STYLE="padding: 0px; margin-top: 0px; background-color: rgb(247, 247, 247); font-family: 'Courier new', monospace; font-size: 12px; overflow: auto; width: 712.796875px; color: rgb(44, 44, 44);">
+
+</PRE>
+<ul STYLE="padding: 0px; margin: 0px; list-style: none;">
+<li STYLE="padding: 0px; margin: 0px 0px 0px 20px; list-style-position: outside;">
+<span STYLE="padding: 0px; margin: 0px;"><span STYLE="padding: 0px; margin: 0px;">FILE_CHARSET=</SPAN><span STYLE="padding: 0px; margin: 0px; color: blue; background-color: inherit;">'gb18030'</SPAN><span STYLE="padding: 0px; margin: 0px;">&nbsp;<wbr></SPAN></SPAN></LI>
+<li STYLE="padding: 0px; margin: 0px 0px 0px 20px; list-style-position: outside;">
+<span STYLE="padding: 0px; margin: 0px;">DEFAULT_CHARSET=<span STYLE="padding: 0px; margin: 0px; color: blue; background-color: inherit;">'utf-8'</SPAN></SPAN></LI>
+</UL>
+</DIV>
+</DIV>							
+		</div>

@@ -1,0 +1,151 @@
+---
+layout: post
+title: "[原创]python-实体类"
+date: 2017-03-20 14:48:10
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<p>之前写过一篇：《<a href="http://blog.sina.com.cn/s/blog_83dc494d0102v1dt.html">Python 封装-实现 C#实体类</a>》 </p>
+
+<p>过程比较复杂，代码一堆一堆的的</p>
+
+<p> </p>
+
+<p>今天呢，再补发一个实测可用哦~</p>
+
+<pre class="has">
+<code class="language-python">1 # -*- coding:utf-8 -*-
+ 2
+ 3 # @version: 1.0
+ 4 # @author: ZhangZhipeng
+ 5 # @date: 2015-07-13
+ 6
+ 7 from collections import namedtuple
+ 8
+ 9
+10 class Entity(object):
+11
+12     """docstring for Entity"""
+13
+14     def __init__(self, class_name, columns, **kwargs):
+15         super(Entity, self).__init__()
+16         _columns = [i.strip() for i in columns.split(" ") if i.strip()]
+17         _columns.extend(kwargs.keys())
+18         columns = list(set(_columns))
+19         entity = namedtuple(class_name, columns)
+20         self._entity = entity(**kwargs)
+21
+22     def __getattribute__(self, key):
+23         entity = super(Entity, self).__getattribute__("_entity")
+24         try:
+25             return super(Entity, self).__getattribute__(key)
+26         except:
+27             return getattr(entity, key)
+28
+29     def __setattr__(self, key, value):
+30         if key == "_entity":
+31             super(Entity, self).__setattr__("_entity", value)
+32             return
+33         entity = super(Entity, self).__getattribute__("_entity")
+34         try:
+35             # setattr(entity, key, value)
+36             entity.__setattr__(key, value)
+37         except:
+38             super(Entity, self).__setattr__(key, value)
+39
+40
+41 if __name__ == '__main__':
+42     user = {"name": "zhipeng", "age": 20}
+43     entity = Entity("user", "", **user)
+44     print entity
+45     # print dir(entity)
+46     print entity.name, entity.age
+47     # print entity.score
+48
+49     entity.score = 200
+50     print entity.score
+51
+52     entity.name = 'zhang'
+53     print entity.name
+54
+55     entity.sex = "boy"
+56     print "sex:", entity.sex
+57
+
+</code></pre>
+
+<p>输出如下：</p>
+
+<p>zhangzhipeng@Earth:test$ python entity.py</p>
+
+<p>&lt;__main__.Entity object at 0x7f863f08c050&gt;</p>
+
+<p>zhipeng 20</p>
+
+<p>200</p>
+
+<p>zhang</p>
+
+<p>sex: boy</p>
+
+<p> </p>
+
+<p>可以把这个当作基类来用，</p>
+
+<pre class="has">
+<code class="language-python"> 1 # -*- coding:utf-8 -*-
+ 2
+ 3 # @version: 1.0
+ 4 # @author: ZhangZhipeng
+ 5 # @date: 2015-07-13
+ 6
+ 7 from entity import Entity
+ 8
+ 9
+10 class UserEntity(Entity):
+11
+12     """docstring for userEntity"""
+13
+14
+15 if __name__ == '__main__':
+16     user = {"name": "zhipeng", "age": 14}
+17     user_entity = UserEntity("user", "", **user)
+18     print user_entity
+19     # print dir(user_entity)
+20     print user_entity.name, user_entity.age
+21     # print user_entity.score
+22
+23     user_entity.score = 200
+24     print user_entity.score
+25
+26     user_entity.name = 'zhang'
+27     print user_entity.name
+28
+29     user_entity.weibo = 'sina'
+30     print user_entity.weibo
+31</code></pre>
+
+<p>运行效果：</p>
+
+<p>zhangzhipeng@Earth:test$ python user_entity.py</p>
+
+<p>&lt;__main__.UserEntity object at 0x7f8d38497950&gt;</p>
+
+<p>zhipeng 14</p>
+
+<p>200</p>
+
+<p>zhang</p>
+
+<p>sina</p>
+
+<p> </p>
+
+<p>参考《<a href="http://stackoverflow.com/questions/1305532/convert-python-dict-to-object">Convert Python dict to object?</a>》</p>

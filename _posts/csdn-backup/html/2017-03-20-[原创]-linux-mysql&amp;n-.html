@@ -1,0 +1,94 @@
+---
+layout: post
+title: "[原创]-linux-mysql&amp;n-"
+date: 2017-03-20 14:44:01
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<span STYLE="line-height: 21px;">今天远程连接mysql的时候，死活连接不上。</SPAN>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div><span STYLE="line-height: 21px;">客户端：</SPAN><span STYLE="line-height: 21px;">mysql --host=</SPAN><span STYLE="line-height: 21px;">xxx.xxx.xxx.xxx</SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr> -u root -p</SPAN><br STYLE="line-height: 21px;" />
+<div><font COLOR="#FF0000">ERROR 2003 (HY000): Can't connect to
+MySQL server on 'xxx.xxx.xxx.xxx' (111)</FONT></DIV>
+<div STYLE="line-height: 21px;">
+错误原因：没有权限，检查端口是否添加<b>--port=3307</B></DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE=""><span STYLE="line-height: 21px;">mysql
+--host=</SPAN><span STYLE="line-height: 21px;">xxx.xxx.xxx.xxx</SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr>&nbsp;<wbr></SPAN>--port=3307&nbsp;<wbr><span STYLE="line-height: 21px;">-u
+root -p</SPAN></DIV>
+<div STYLE="line-height: 21px;"><span STYLE="line-height: 21px;">sudo vi /etc/mysql/my.cnf</SPAN></DIV>
+<div STYLE="line-height: 21px;">
+<div STYLE="line-height: 21px;">&nbsp;<wbr>46 # Instead of
+skip-networking the default is now to listen only on</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>47 # localhost
+which is more compatible and is not less secure.</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>48 bind-address
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>=
+127.0.0.0</DIV>
+<div>把127.0.0.1 修改成0.0.0.0 或者注释掉</DIV>
+</DIV>
+<div><br /></DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">服务器：用户root/密码645321</DIV>
+<div STYLE="line-height: 21px;">客户端：mysql --host=<span STYLE="line-height: 21px;">xxx.xxx.xxx.xxx</SPAN>&nbsp;<wbr>--port=3307
+-u root -p</DIV>
+<div STYLE="line-height: 21px;">
+<div><font COLOR="#FF0000">ERROR 1130 (HY000): Host
+'xxx.xxx.xxx.xxx' is not allowed to connect to this MySQL
+server</FONT></DIV>
+<div>错误原因：主机 root用户 没有权限。</DIV>
+<div><br /></DIV>
+<div>查询服务器DB:mysql Table:user column:user=root 后发现少一列值 host = %
+(所有域名都可以访问)</DIV>
+<div><span STYLE="line-height: 21px;">服务器mysql执行：</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><b>GRANT ALL PRIVILEGES ON
+*.* TO 'root'@'%' IDENTIFIED BY '654321' WITH GRANT
+OPTION;</B></SPAN></DIV>
+<div>或者：</DIV>
+<div>
+<b>('%','root','*2A032F7C5BA932872F0F045E<wbr>0CF6B53CF702F2C5','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','Y','','','','',0,0,0,0,'',NULL);</B></DIV>
+<div><br /></DIV>
+<div>客户端：<span STYLE="line-height: 21px;">mysql
+--host=</SPAN><span STYLE="line-height: 21px;">xxx.xxx.xxx.xxx</SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr>--port=3307 -u root
+-p</SPAN><br />
+<div><font COLOR="#FF0000">ERROR 1045 (28000): Access denied for
+user 'root'@'xxx.xxx.xxx.xxx' (using password: YES)</FONT></DIV>
+<div>错误原因：密码不正确</DIV>
+</DIV>
+<div><br /></DIV>
+<div>细细研究了《<a HREF="http://till.iteye.com/blog/115659" TARGET="_blank">is not allowed to connect to this MySQL
+server</A>》终于发现问题所在~~</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">#3 #4 都提到了<b>flush
+privileges;&nbsp;<wbr></B>意为刷新权限。</DIV>
+<div STYLE="line-height: 21px;">执行后就可以通过域名或者ip登录。</DIV>
+<div STYLE="line-height: 21px;">服务器mysql执行：<b STYLE="line-height: 1.5;">flush privileges;</B></DIV>
+<div STYLE="line-height: 21px;"><b><br /></B></DIV>
+<div STYLE="line-height: 21px;">完毕。</DIV>
+<div STYLE="line-height: 21px;">附录：也看过别的文章说修改mysql
+配置文件，简单说明一下，一般来说mysql文件位于 /etc/mysql/my.cnf</DIV>
+<div STYLE="line-height: 21px;">sudo vi /etc/mysql/my.conf</DIV>
+<div STYLE="line-height: 21px;">...</DIV>
+<div STYLE="line-height: 21px;">有的文章说需要设置 bind-address 为域名ip
+其实不用设置的，设置为0.0.0.0 或者127.0.0.1
+都是可以的，设置为别的ip都重新重新启动mysql是无法启动的，我也觉得好奇怪，重新设置回0.0.0.0后，登录mysql必须指定-h
+127.0.0.1 才能进去，直接运行mysql -u root -p 是无法登录的。</DIV>
+<div STYLE="line-height: 21px;">指定域名修改mysql root用户密码：</DIV>
+<div STYLE="line-height: 21px;"><b>set password for
+'root'@'localhost'= PASSWORD('654321');</B></DIV>
+<div STYLE="line-height: 21px;">添加用户后要记得<b>flush
+privileges</B>&nbsp;<wbr>刷新权限。</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">记得删除配置文件中 skip-networking
+这行，或者在前面加#注释。默认是不存在这行值。</DIV>							
+		</div>

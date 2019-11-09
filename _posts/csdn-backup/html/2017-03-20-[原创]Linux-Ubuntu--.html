@@ -1,0 +1,35 @@
+---
+layout: post
+title: "[原创]Linux-Ubuntu--"
+date: 2017-03-20 14:45:06
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			说一下我电脑出问题的过程。
+<div>
+昨天开机忘了输入什么破命令，系统窗口标题栏什么的都没了，快捷键都失灵了，窗口还无故置顶。。。只能【Ctrl】+【Alt】+【F1(1-6)】杀一个用一个，麻烦，干脆开F2升级系统吧，一边鼓捣鼓捣。。。想想怎么重新启动图形界面，干脆将lightdm进程也杀了(会退出图形界面到命令模式，提示UseError)，杀了后就出问题了...</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxiw&url=http://album.sina.com.cn/pic/002pInNzzy6KGZH8BNdcf" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s16.sinaimg.cn/mw690/002pInNzzy6KGZH8BNdcf&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="246" HEIGHT="329" NAME="image_operate_56821406171145597"  ALT="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法"  TITLE="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法" /></A><br />
+将/tmp下的.X0-lock .X1-lock 也删了。。。</DIV>
+<div>最后在F8窗口用root登录进去了，终于能用了，但是权限问题比较麻烦，需要切换到普通用户(su -
+zhipeng)再用sudo 执行一些命令或者打开软件</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxiw&url=http://album.sina.com.cn/pic/002pInNzzy6KH00exwtb1" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s2.sinaimg.cn/mw690/002pInNzzy6KH00exwtb1&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="280" HEIGHT="201" NAME="image_operate_21871406171760962"  ALT="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法"  TITLE="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法" /></A></DIV>
+<div><br /></DIV>
+<div>完事后，发现系统升级失败，我了个擦擦。。关机走人，不管了、</DIV>
+<div>
+上午开机才发现循环登录了。。。用ftp的帐号也是循环登录，只能用来宾账户，还好，能用来宾帐号进入图形界面，搜了一下，大致是权限认证问题。</DIV>
+<div>回到tty1，</DIV>
+<div>sudo su</DIV>
+<div>rm -rf /tmp/*</DIV>
+<div>rm /home/zhipeng/.Xauthority*</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102uxiw&url=http://album.sina.com.cn/pic/002pInNzzy6KH0HZe02c2" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s3.sinaimg.cn/mw690/002pInNzzy6KH0HZe02c2&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="286" HEIGHT="109" NAME="image_operate_70611406171768264"  ALT="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法"  TITLE="【原创】Linux&nbsp;<wbr>Ubuntu&nbsp;<wbr>循环登录解决办法" /></A><br />
+<br /></DIV>
+<div>重新启动就恢复了</DIV>							
+		</div>

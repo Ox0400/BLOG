@@ -1,0 +1,81 @@
+---
+layout: post
+title: "[原创]Linux-终端-Screen&amp;n-"
+date: 2017-03-20 14:44:28
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			经常用到screen执行python脚本，但是出了问题以后总是找不回来了
+<div>一、笨办法，利用ubuntu的四窗口，将终端拉长，然后向下托，然后再向上拉长，再下托。。。这是最笨的，聪明人会用[Ctrl]
++ [Mouse-A]随便选中窗口都可以拖动。</DIV>
+<div><br /></DIV>
+<div>
+二、聪明人，在screen执行之前会运行一个命令，script，这个命令可以保存screen所有的打印信息，默认保存在同级目录下的typescripts文件中。</DIV>
+<div>
+<div>zhipeng@ubuntu:~$ script --help</DIV>
+<div><br /></DIV>
+<div>Usage:</DIV>
+<div>&nbsp;<wbr>script [options] [file]</DIV>
+<div>Options:</DIV>
+<div>&nbsp;<wbr>-a, --append &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>append the
+output&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr>-c, --command run command rather than
+interactive shell (直接运行你的命令)</DIV>
+<div>&nbsp;<wbr>-r, --return &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>return exit code of the child
+process</DIV>
+<div>&nbsp;<wbr>-f, --flush &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> run flush after each
+write</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>--force &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> use output file even when it is a link</DIV>
+<div>&nbsp;<wbr>-q, --quiet &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> be quiet</DIV>
+<div>&nbsp;<wbr>-t, --timing[=] &nbsp;<wbr> output
+timing data to stderr (or to FILE)</DIV>
+<div>&nbsp;<wbr>-V, --version &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> output version information and exit</DIV>
+<div>&nbsp;<wbr>-h, --help &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>display
+this help and exit</DIV>
+</DIV>
+<div><br /></DIV>
+<div>三、我个人最喜欢的命令 ttyplay &nbsp;<wbr>ttyrec
+(缺点是录制的文件非人类可阅读。。。)</DIV>
+<div>用这个可以用来录制终端类视频的啊，还可以回放输出，加速等等之类的，可以做教程。</DIV>
+<div><br /></DIV>
+<div>
+<div>usage: ttyrec [-u] [-e command] [-a] [file]</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div>Usage: ttyplay [OPTION] [FILE]</DIV>
+<div>&nbsp;<wbr> -s SPEED Set speed to SPEED [1.0]</DIV>
+<div>&nbsp;<wbr> -n &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> No wait mode</DIV>
+<div>&nbsp;<wbr> -p &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> Peek another person's ttyrecord</DIV>
+</DIV>
+<div>更多使用方法man ttyrec ttyplay</DIV>
+<div>四、不保存文件，直接在screen翻页。</DIV>
+<div>[Ctrl] +
+[A]，再按[ESC]，进入复制模式，默认翻页快捷键是[Ctrl]+[F]，[Ctrl]+[B]。我的翻页有好多，ctrl +
+d，ctrl +u，shift + 上，shift +下 ....</DIV>							
+		</div>

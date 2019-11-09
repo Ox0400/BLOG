@@ -1,0 +1,40 @@
+---
+layout: post
+title: "[原创]windows-mongodb&amp;nbs-"
+date: 2017-03-20 14:46:33
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			1、下载<a HREF="https://fastdl.mongodb.org/src/mongodb-src-r2.6.8.zip?_ga=1.111409604.1397188283.1426041912" TARGET="_blank">mongodb-src-r2.6.8.zip</A>，解压到 D:\Program
+Files\mongodb-src-r2.6.8
+<div>2、下载<a HREF="https://www.python.org/downloads/" TARGET="_blank">python</A>，2.7.x版本最合适</DIV>
+<div>3、下载<a HREF="http://softlayer-dal.dl.sourceforge.net/project/scons/scons/2.3.4/scons-2.3.4-setup.exe" TARGET="_blank">scons-2.3.4-setup.exe</A>，双击安装。在cmd中可以直接输入scons，出现如下：</DIV>
+<div><font COLOR="#FF0000">scons: *** No SConstruct file
+found.</FONT></DIV>
+<div><font COLOR="#FF0000">File
+"c:\python27\lib\site-packages\scons-2.3.4-py2.7.egg\scons-2.3.4\SCons\Script\Main.py",
+line 920, in _main</FONT></DIV>
+<div>说明安装成功</DIV>
+<div>4、cd&nbsp;<wbr><span STYLE="line-height: 21px;">mongodb-src-r2.6.8 ##注意，文件夹下如下</SPAN><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1ofd5ehwj20ig0dygpm.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1ofd5ehwj20ig0dygpm.jpg" NAME="image_operate_70021426048580339"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A></DIV>
+5、scons all&nbsp;<wbr>
+<div>时间比较长，耐心等待~预计需要2.5个小时，你可以出去吃个饭，遛遛街，睡个午觉。</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1srdbcqkj20rp0iy0z3.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1srdbcqkj20rp0iy0z3.jpg" NAME="image_operate_3161426057219847"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A><br />
+6、mongod 看看效果</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1swrr5k4j20rp0iy10u.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1swrr5k4j20rp0iy10u.jpg" NAME="image_operate_70461426057552447"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A><br />
+7、我们试着连接一下mongodb，</DIV>
+<div>再开一个终端，输入mongo</DIV>
+<div><a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1t8ha5dsj20tx0iin2e.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1t8ha5dsj20tx0iin2e.jpg" WIDTH="1024" HEIGHT="633" NAME="image_operate_95761426058189278"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A><br />
+服务器显示如下：<a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1t6yoijkj20rp0iytfl.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1t6yoijkj20rp0iytfl.jpg" NAME="image_operate_44101426058402628"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A></DIV>
+8、Ctrl + C
+关掉服务端，客户端会报连接错误。可见服务端和客户端都有一个定时检测机制。服务端检测有多少客户端链接，客户端检测跟服务端连接状态。<a HREF="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1tcqaniij21h60ihnch.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww3.sinaimg.cn/mw1024/83dc494djw1eq1tcqaniij21h60ihnch.jpg" WIDTH="1024" HEIGHT="356" NAME="image_operate_43331426058441989"  ALT="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src"  TITLE="【原创】windows&nbsp;<wbr>mongodb&nbsp;<wbr>源码安装src" /></A><br />
+<br />
+<div>安装MongoDB python支持，<b><i>easy_install pymongo</I></B></DIV>							
+		</div>

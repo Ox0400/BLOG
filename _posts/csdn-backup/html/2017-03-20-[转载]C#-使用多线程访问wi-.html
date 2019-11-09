@@ -1,0 +1,138 @@
+---
+layout: post
+title: "[转载]C#-使用多线程访问wi-"
+date: 2017-03-20 14:45:45
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - C#
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div STYLE="margin: 5px 0px 0px; padding: 0px; font-family: 'Courier new'; font-size: 12px; line-height: 18px; background-color: rgb(245, 245, 245);">
+<h1 STYLE="margin: 0px; padding: 0px; font-size: 14px; line-height: 1.5; width: 1009px; clear: both; color: rgb(68, 68, 68); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;">
+<span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"></A><a HREF="http://www.cnblogs.com/adforce/archive/2011/12/16/2290157.html" NAME="cb_post_title_url">C#
+使用多线程访问winform中控件</A></SPAN></H1>
+<p STYLE="margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+我们在做winform应用的时候，大部分情况下都会碰到使用多线程控制界面上控件信息的问题。然而我们并不能用传统方法来做这个问题，下面我将详细的介绍。</P>
+<p STYLE="margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px; display: inline !important;">
+传统方法：</P>
+<div STYLE="margin: 5px 0px; padding: 5px; border: 1px solid rgb(204, 204, 204); overflow: auto; color: rgb(0, 0, 0); font-family: 'Courier new' !important;">
+<a TITLE="复制代码"></A>
+<div STYLE="margin: 5px 0px 0px; padding: 0px;"><a TITLE="复制代码"></A><a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></DIV>
+<pre STYLE="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier new' !important;">
+
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 1</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">public</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">partial</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">class</SPAN> Form1 : Form
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 2</SPAN> {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 3</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">public</SPAN> Form1()
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 4</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 5</SPAN>         InitializeComponent();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 6</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 7</SPAN>     
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 8</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> Form1_Load(<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">object</SPAN> sender, EventArgs e)
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 9</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">10</SPAN>         Thread thread = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">new</SPAN> Thread(ThreadFuntion);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">11</SPAN>         thread.IsBackground = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">true</SPAN>;
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">12</SPAN>         thread.Start();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">13</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">14</SPAN>     
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">15</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> ThreadFuntion()
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">16</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">17</SPAN>         <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">while</SPAN> (<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">true</SPAN>)
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">18</SPAN>         {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">19</SPAN>             <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">this</SPAN>.textBox1.Text = DateTime.Now.ToString();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">20</SPAN>             Thread.Sleep(<span STYLE="margin: 0px; padding: 0px; color: rgb(128, 0, 128); font-family: 'Courier new' !important;">1000</SPAN>);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">21</SPAN>         }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">22</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">23</SPAN> }
+</PRE>
+<div STYLE="margin: 5px 0px 0px; padding: 0px;"><span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></SPAN></DIV>
+</DIV>
+<p STYLE="text-decoration: underline; margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+&nbsp;<wbr></P>
+<p STYLE="margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+　　运行这段代码，我们会看到<strong STYLE="margin: 0px; padding: 0px;"><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); background-color: rgb(255, 255, 255);">系统抛出一个异常</SPAN></STRONG>：Cross-thread
+operation not valid:Control 'textBox1' accessed from a thread other
+than the thread it was created on . 这是因为.net
+2.0以后加强了安全机制，不允许在winform中直接跨线程访问控件的属性。那么怎么解决这个问题呢，下面提供几种方案。</P>
+<p STYLE="text-decoration: underline; margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+<span STYLE="margin: 0px; padding: 0px; color: rgb(128, 128, 0);"><strong STYLE="margin: 0px; padding: 0px;">
+第一种方案，我们在Form1_Load()方法中加一句代码：</STRONG></SPAN></P>
+<div STYLE="margin: 5px 0px; padding: 5px; border: 1px solid rgb(204, 204, 204); overflow: auto; color: rgb(0, 0, 0); font-family: 'Courier new' !important;">
+<div STYLE="text-decoration: underline; margin: 5px 0px 0px; padding: 0px;">
+<span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></SPAN></DIV>
+<pre STYLE="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier new' !important;">
+
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">1</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> Form1_Load(<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">object</SPAN> sender, EventArgs e)
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">2</SPAN> {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">3</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(128, 0, 0); font-family: 'Courier new' !important;"><strong STYLE="margin: 0px; padding: 0px;">Control.CheckForIllegalCrossThre<wbr>adCalls = false;</STRONG></SPAN>
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">4</SPAN>     Thread thread = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">new</SPAN> Thread(ThreadFuntion);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">5</SPAN>     thread.IsBackground = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">true</SPAN>;
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">6</SPAN>     thread.Start();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">7</SPAN> }
+</PRE>
+<div STYLE="text-decoration: underline; margin: 5px 0px 0px; padding: 0px;">
+<span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></SPAN></DIV>
+</DIV>
+<p STYLE="text-decoration: underline; margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></P>
+<p STYLE="text-decoration: underline; margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+加入这句代码以后发现程序可以正常运行了。这句代码就是说在这个类中我们不检查跨线程的调用是否合法（如果没有加这句话运行也没有异常，那么说明系统以及
+默认的采用了不检查的方式）。然而，这种方法不可取。我们查看CheckForIllegalCrossThre<wbr>adCalls
+这个属性的定义，就会发现它是一个static的，也就是说无论我们在项目的什么地方修改了这个值，他就会在全局起作用。而且像这种跨线程访问是否存在异
+常，我们通常都会去检查。如果项目中其他人修改了这个属性，那么我们的方案就失败了，我们要采取另外的方案。</P>
+<p STYLE="text-decoration: underline; margin: 10px auto; padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 19.5px;">
+<strong STYLE="margin: 0px; padding: 0px;"><span STYLE="margin: 0px; padding: 0px; color: rgb(128, 128, 0);">下面来看第二种方案</SPAN></STRONG>，就是使用delegate和invoke来从其他线程中控制控件信息。运行下述代码，我们可以看到问题已经被解决了，通过等待异步，我们就不会总是持有主线程的控制，这样就可以在不发生跨线程调用异常的情况下完成多线程对winform多线程控件的控制了。</P>
+<div STYLE="margin: 5px 0px; padding: 5px; border: 1px solid rgb(204, 204, 204); overflow: auto; color: rgb(0, 0, 0); font-family: 'Courier new' !important;">
+<div STYLE="margin: 5px 0px 0px; padding: 0px;"><span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></SPAN></DIV>
+<pre STYLE="margin-top: 0px; margin-bottom: 0px; padding: 0px; white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier new' !important;">
+
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 1</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">public</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">partial</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">class</SPAN> Form1 : Form
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 2</SPAN> {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 3</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">delegate</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> FlushClient();<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">//</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">代理</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;"><br STYLE="margin: 0px; padding: 0px;" /></SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 4</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">public</SPAN> Form1()
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 5</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 6</SPAN>         InitializeComponent();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 7</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 8</SPAN>     
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;"> 9</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> Form1_Load(<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">object</SPAN> sender, EventArgs e)
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">10</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">11</SPAN>         Thread thread = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">new</SPAN> Thread(CrossThreadFlush);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">12</SPAN>         thread.IsBackground = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">true</SPAN>;
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">13</SPAN>         thread.Start();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">14</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">15</SPAN>     
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">16</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> CrossThreadFlush()
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">17</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">18</SPAN>         <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">while</SPAN> (<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">true</SPAN>)
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">19</SPAN>         {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">20</SPAN>             <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">//</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">将sleep和无限循环放在等待异步的外面</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;"><br STYLE="margin: 0px; padding: 0px;" /></SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">21</SPAN>             Thread.Sleep(<span STYLE="margin: 0px; padding: 0px; color: rgb(128, 0, 128); font-family: 'Courier new' !important;">1000</SPAN>);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">22</SPAN>             ThreadFunction();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">23</SPAN>         }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">24</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">25</SPAN>     
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">26</SPAN>     <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">private</SPAN> <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">void</SPAN> ThreadFunction()
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">27</SPAN>     {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">28</SPAN>         <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">if</SPAN> (<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">this</SPAN>.textBox1.InvokeRequired)<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">//</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">等待异步</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;"><br STYLE="margin: 0px; padding: 0px;" /></SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">29</SPAN>         {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">30</SPAN>             FlushClient fc = <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">new</SPAN> FlushClient(ThreadFunction);
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">31</SPAN>             <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">this</SPAN>.Invoke(fc);<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">//</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;">通过代理调用刷新方法</SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 0); font-family: 'Courier new' !important;"><br STYLE="margin: 0px; padding: 0px;" /></SPAN><span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">32</SPAN>         }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">33</SPAN>         <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">else</SPAN>
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">34</SPAN>         {
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">35</SPAN>             <span STYLE="margin: 0px; padding: 0px; color: rgb(0, 0, 255); font-family: 'Courier new' !important;">this</SPAN>.textBox1.Text = DateTime.Now.ToString();
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">36</SPAN>         }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">37</SPAN>     }
+<span STYLE="margin: 0px; padding: 0px; color: rgb(0, 128, 128); font-family: 'Courier new' !important;">38</SPAN> }
+</PRE>
+<div STYLE="margin: 5px 0px 0px; padding: 0px;"><span STYLE="margin: 0px; padding: 0px 5px 0px 0px; font-family: 'Courier new' !important;">
+<a TITLE="复制代码"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://common.cnblogs.com/images/copycode.gif" ALT="复制代码" STYLE="margin: 0px; padding: 0px; border-style: none !important;"  TITLE="【转载】C#&nbsp;<wbr>使用多线程访问winform中控件" /></A></SPAN></DIV>
+</DIV>
+</DIV>							
+		</div>

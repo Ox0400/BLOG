@@ -1,0 +1,155 @@
+---
+layout: post
+title: "[原创]基于-windowsXP-Linux-搭建高可用代理服务器集群"
+date: 2017-03-20 14:49:19
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<h1 style="margin-top:0px;margin-bottom:10px;padding:0px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">基于 windowsXP/Linux 搭建高可用代理服务器集群</h1><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">1 需求:</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">爬虫需要代理服务, 突破网站限制. 要求 IP可变\稳定\节约\</li></ul></li><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">2 方案:</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">购买N台云服务器 VPS, 需要有固定 IP, 公网可访问. 用于代理上游.</li><li style="margin-top:0px;margin-left:0px;">购买 N 个电信/移动/联通拨号资源. 要求可拨号/可远程(RDP</li></ul></li><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">3 注意事项:</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">拨号资源 IP 不固定, 拨号后需要能够通过公网访问.</li><li style="margin-top:0px;margin-left:0px;">客户端, WindowsXP, 下游代理服务器</li><li style="margin-top:0px;margin-left:0px;">VPS-Server, 服务端, 管理代理服务器VPS和客户端.</li><li style="margin-top:0px;margin-left:0px;">VPS-Proxy, 代理服务器, 绑定客户端做为代理下游</li></ul></li><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">4 整体流程</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">准备文件, 包含 squid 绿色安装包/客户端程序(python, 打包成 exe)/一些自动化脚本/</li><li style="margin-top:0px;margin-left:0px;">首次使用 RDP连接 XP, 使用 FTP 或者使用磁盘共享功能, 使得程序能够运行在XP 上.</li><li style="margin-top:0px;margin-left:0px;">方案1: 直接使用磁盘共享, 所有文件通过远程磁盘拷贝. 在 XP 进去磁盘, 运行即可</li><li style="margin-top:0px;margin-left:0px;">方案2: 磁盘共享 FTP 脚本, FTP 服务器共享其余文件. 在 XP 进入磁盘, 运行即可.</li><li style="margin-top:0px;margin-left:0px;">方案3: 所有文件共享在 FTP 服务器上. 进入 XP, 手动执行 CMD, 粘贴 FTP/运行命令.</li><li style="margin-top:0px;margin-left:0px;"><del style="margin-top:0px;">方案4: 使用磁盘共享或者 FTP, RDP 支持初始化执行程序. 不可行, 需要 RDP 后设置可执行成立列表</del></li></ul></li><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">5 客户端程序流程</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">启动</li><li style="margin-top:0px;margin-left:0px;">将squid绿色安装包(压缩文件) 复制解压到 C:\squid\</li><li style="margin-top:0px;margin-left:0px;">将客户端程序/相关文件复制到桌面</li><li style="margin-top:0px;margin-left:0px;">识别拨号账号/密码. 不能使用轮训, 因为多个 XP 同时测试拨号会有造成拨号失败. 手动输入模式. 成功保存在文件中.</li><li style="margin-top:0px;margin-left:0px;">和初始化服务器通信, 获取 代理服务器VPS IP, 用于绑定代理服务器.</li><li style="margin-top:0px;margin-left:0px;">把 代理服务器 IP 写入 squid 配置文件, 用于权限管理.</li><li style="margin-top:0px;margin-left:0px;">启动 squid 服务.</li><li style="margin-top:0px;margin-left:0px;">向 代理服务器 发送心跳包, 获取下一次重新启动时间.</li><li style="margin-top:0px;margin-left:0px;">心跳包返回内容可以有下次拨号时间\重启\退出</li></ul></li><li style="margin-top:0px;margin-left:0px;"><h3 style="margin-top:0px;margin-bottom:10px;padding:0px;font-size:18px;">6 服务器程序流程</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;"><li style="margin-top:0px;margin-left:0px;">服务器程序分为两部分.</li><li style="margin-top:0px;margin-left:0px;">a, VPS-Server, 代理服务器 VPS 向服务器注册\注销操作; 客户端获取代理服务器 VPS 的 IP.</li><li style="margin-top:0px;margin-left:0px;">b, VPS-Proxy, 代理服务器 VPS.<br style="margin-top:0px;" /></li><li style="margin-top:0px;margin-left:0px;">初始化配置</li><li style="margin-top:0px;margin-left:0px;">关闭防火墙, 安装 iptables-services, 配置/etc/sysconfig/iptables 并启动 iptables</li><li style="margin-top:0px;margin-left:0px;">安装 http-tools(htpasswd, 管理 squid 账号授权)</li><li style="margin-top:0px;margin-left:0px;">安装 squid 服务</li><li style="margin-top:0px;margin-left:0px;">启动 VPS-Server.</li><li style="margin-top:0px;margin-left:0px;">启动 VPS-Proxy.</li><li style="margin-top:0px;margin-left:0px;">VPS-Proxy 访问 VPS-Server, 注册/注销代理服务器.</li><li style="margin-top:0px;margin-left:0px;">VPS-Server 收到客户端申请代理服务器请求时, 返回可用的 VPS-Proxy IP.</li><li style="margin-top:0px;margin-left:0px;">VPS Server 将 N 个 VPS-Proxy 和 M 个客户端绑定信息持久化.</li><li style="margin-top:0px;margin-left:0px;">VPS-Proxy 每隔固定时间清除服务端 Squid.conf 下游配置.</li><li style="margin-top:0px;margin-left:0px;">VPS-Proxy 在重新启动 squid 之前, 根据客户端时间和 VPS-Proxy squid重启时间矫正为客户端下次心跳时间, 返回给客户端.</li><li style="margin-top:0px;margin-left:0px;">VPS-Proxy 到重启 Squid 时间后, 把客户端列表作为代理下游 写入 Squid.conf(含 squid 账号管理), 重新启动 Squid 服务.</li></ul></li><li style="margin-top:0px;margin-left:0px;"><p style="margin-bottom:15px;">VPS-Proxy 把绑定的客户端列表持久化.</p></li></ul><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">生成 RDP 文件(txt 文本), 重要参数如下</h3><ul style="margin-top:15px;margin-bottom:15px;padding-left:30px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><li style="margin-top:0px;margin-left:0px;">full address:s:{WindowsXP-IP}:{WindowsXP-Port}</li><li style="margin-top:0px;margin-left:0px;">username:s:{WindowsXP-UserName}</li><li style="margin-top:0px;margin-left:0px;">password 51:b:{Windows Password, for byte}</li><li style="margin-top:0px;margin-left:0px;">drivestoredirect:s:{LocalDriver,Ex: E:\};</li><li style="margin-top:0px;margin-left:0px;">connection type:i:6</li><li style="margin-top:0px;margin-left:0px;">authentication level:i:0 这里需要注意, WindowsPassword 是哈希, 用工具可以生成</li></ul><h1 style="margin-top:20px;margin-bottom:10px;padding:0px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;"></h1><p style="margin-top:15px;margin-bottom:15px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;">客户端的一些文件</p><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">客户端 start.bat</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-bat" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-bat" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">cd "C:\Documents and Settings\Administrator\桌面\"
+cls
+if exist "C:\Documents and Settings\Administrator\桌面\socket_client.exe" (
+    cls
+    echo file has exists...
+    xcopy /E /y "\\tsclient\E\adsl\client\dist\socket_client.exe" "C:\Documents and Settings\Administrator\桌面\socket_client.exe"
+    xcopy /E /y "\\tsclient\E\adsl\client\dist\scripts\run_client.bat" "C:\Documents and Settings\Administrator\桌面\"
+) else (
+    :: copy 压缩squid包, 可以替换为 ftp 形式
+    copy \\tsclient\F\adsl\client\soft\squid.zip C:\squid.zip
+    :: 解压文件到指定目录, 静默解压
+    "C:\Program Files\WinRAR\winRar.exe" -o+ x -ibck C:\squid.zip C:\
+    ::  递归/覆盖copy程序文件
+    xcopy /E /y "\\tsclient\E\adsl\client\dist\*" "C:\Documents and Settings\Administrator\桌面\"
+)
+"C:\Documents and Settings\Administrator\桌面\socket_client.exe" --client
+pause<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">管理 squid</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-bat" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-bat" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">net stop squid
+:: 撤销 squid 服务
+C:\squid\sbin\squid.exe -r
+:: 注册 squid 服务
+C:\squid\sbin\squid.exe -i
+:: 检查 squid 配置
+C:\squid\sbin\squid.exe -z
+net start squid
+:: pause<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">拨号管理</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-bat" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-bat" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">rasdial /disconnect
+:: 暂停2秒
+ping 0  -n 2 -w 1000 &gt; /null
+rasdial 宽带连接 adsl账号 adsl密码<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">客户端 squid 版本是2.7, 重要配置如下</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-txt" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-txt" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">acl remove_server src 112.74.113.132        # server ip
+http_access allow remove_server
+# 关闭日志文件信息
+access_log none
+cache_log none
+cache_store_log none
+# 关闭源 IP 设置
+via off
+cache_vary off
+forwarded_for off<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">Py2exe 打包 python 程序</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-none" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-none" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">import sys
+from distutils.core import setup 
+
+import py2exe
+
+sys.argv.append('py2exe')
+
+options = {"py2exe":
+            {"compressed": 1,
+             "optimize": 2,
+            # "ascii": 1,
+            #"includes":["encodings", "encodings.*"],
+            #'dll_excludes': ['w9xpopen.dll', "SHELL32.dll"],
+             "bundle_files": 1
+            }} 
+
+setup(
+    options = options,
+    console=[{"script": "socket_client.py"},],
+    #windows=[{"script": "socket_client.py"},],
+    data_files=[
+        ("scripts",["scripts\\start_client_squid.bat", "scripts\\connect_adsl.bat",  "scripts\\account.exe", "run_client.bat",]),
+        ("templates", ["templates\\squid.client.template", "templates\\adsl.client.template"])
+        ],
+    name = "socket client",
+    author="zhipeng",
+    zipfile=None,
+)<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h1 style="margin-top:20px;margin-bottom:10px;padding:0px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;"></h1><p style="margin-top:15px;margin-bottom:15px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;">服务端的一些文件</p><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">服务器初始化</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-shell" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-shell" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">SQUID_USER="squid"
+SQUID_PASSWD="proxy_squid"
+
+service squid stop
+# install htpasswd agent, squid server, iptables manager
+yum install -y screen httpd-tools squid iptables-services
+# change owner squid.conf
+chown zhipeng /etc/squid/squid.conf
+
+squid -k parse
+squid -z
+# create password file
+htpasswd -c -b /etc/squid/passwd $SQUID_USER $SQUID_PASSWD
+
+# 获取本地公网 ip. 仅限阿里云. 如果不可以, 考虑其他方式.
+ifconfig eth1 |grep inet|awk '{print $2}' &gt; net_ip
+
+# copy iptables to sys
+cp iptables.template /etc/sysconfig/iptables
+
+systemctl stop firewalld
+systemctl mask firewalld
+systemctl enable iptables
+service iptables restart
+service squid start<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">启动 squid</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-shell" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-shell" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">service squid stop
+/etc/squid/squid.conf.default &gt; /etc/squid/squid.conf
+squid -k parse &gt; /dev/null
+squid -z &gt; /dev/null
+service squid start
+cat /etc/squid/squid.conf |grep -e "^cache_peer" | awk '{print $2}' | xargs echo "reset adsl ip:"<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">server 管理</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-shell" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-shell" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">
+loc_ip=`ifconfig eth1 |grep inet|awk '{print $2}'`
+loc_port=4000
+daemon=""
+server=""
+restart=""
+setexit=""
+
+for i in "$@"
+do
+    echo check args: [$i]
+    if [[ "$i" == "--daemon" || "$i" == "-d" ]]
+    then
+        daemon="--daemon"
+        echo use daemon ..
+    elif [[ $i == "--server" ]]
+    then
+        server="--server"
+        echo "run server .."
+    elif [[ $i == "--restart" ]]
+    then
+        restart="--restart"
+        echo "restart server .."
+    elif [[ "$i" == "--exit" ]]
+    then
+        setexit="--exit"
+        echo "exit server .."
+    fi
+done
+
+if [[ $setexit == "--exit" &amp;&amp; $restart == "--restart" ]]
+then
+    echo exit:  params error, please input --exit or --restart
+else
+    echo python socket_server.py $loc_ip $loc_port $server $daemon $restart $setexit
+fi<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">代理服务器 squid 重要配置</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-txt" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-txt" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;"># 关闭代理跳转信息
+request_header_access Via deny all
+request_header_access X-Forwarded-For deny all
+# 用户授权
+auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwd
+acl auth_user proxy_auth REQUIRED
+http_access allow auth_user
+
+# 设置上游代理(本文理解为下游)
+# set parent
+{cache_peer}
+#cache_peer 11.111.11.111 sibling 3128 0 no-query default
+#cache_peer  parent 3128 0 no-query default login=user:password
+never_direct allow all<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">服务器 iptables ,开放某个端口</h3><div style="color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><pre class="line-numbers language-txt" style="margin-top:.5em;margin-bottom:.5em;background:rgb(45,45,45);border:1px solid rgb(204,204,204);font-size:13px;line-height:1.5;padding:1em 1em 1em 3.8em;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;"><code class="language-txt" style="margin:0px;border:none;background:none;color:rgb(204,204,204);font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;word-spacing:normal;line-height:1.5;">-A INPUT -p tcp -m state --state NEW -m tcp --dport 3828 -j ACCEPT<span class="line-numbers-rows" style="font-size:13px;width:3em;letter-spacing:-1px;border-right:1px solid rgb(153,153,153);"><span></span></span></code></pre></div><h3 style="margin-top:20px;margin-bottom:10px;padding:0px;font-size:18px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;">参考</h3><p style="margin-top:15px;margin-bottom:15px;color:rgb(0,0,0);font-family:Helvetica, arial, sans-serif;font-size:14px;"><a href="https://superuser.com/questions/315898/rdp-alternate-shell-not-working" style="color:rgb(65,131,196);">RDP “alternate shell” not working</a><br /><a href="https://technet.microsoft.com/en-us/library/cc730673(v=ws.10).aspx#BKMK_ConfigureHostServer" style="color:rgb(65,131,196);">Configure the server that will host RemoteApp programs</a> - <a href="https://technet.microsoft.com/en-us/library/cc730673(v=ws.10).aspx#BKMK_ConfigureHostServer" style="color:rgb(65,131,196);">https://technet.microsoft.com/en-us/library/cc730673(v=ws.10).aspx#BKMK_ConfigureHostServer</a><br /><a href="https://stackoverflow.com/questions/1226772/can-rdp-clients-launch-remote-applications-and-not-desktops" style="color:rgb(65,131,196);">Can RDP clients launch remote applications and not desktops</a><br /><a href="http://geekswithblogs.net/twickers/archive/2009/12/18/137048.aspx" style="color:rgb(65,131,196);">How to enable RemoteApp</a><br /><a href="http://www.techrepublic.com/blog/windows-and-office/directly-access-windows-xp-applications-from-windows-8/" style="color:rgb(65,131,196);">Directly access Windows XP applications from Windows 8</a><br /><a href="http://stealthpuppy.com/remoteapp-for-windows-xp-and-windows-vista-the-missing-pieces/" style="color:rgb(65,131,196);">RemoteApp for Windows XP and Windows Vista, the missing pieces</a><br /><a href="http://drtritsch.com/2011/08/31/remoteapp-on-windows-7-2/" style="color:rgb(65,131,196);">RemoteApp on Windows 7, run app</a><br /><a href="http://www.thinstuff.com/faq/index.php?action=artikel&amp;id=96" style="color:rgb(65,131,196);">RDP file setting</a><br /><a href="https://web.archive.org/web/20130127155938/http://coe.uncc.edu/mosaic/remote_desk/RDP%20File%20Settings.htm" style="color:rgb(65,131,196);">RDP file setting</a><br /><a href="https://www.remkoweijnen.nl/blog/2007/10/18/how-rdp-passwords-are-encrypted/" style="color:rgb(65,131,196);">how rdp passwords are encrypted</a><br /><a href="https://www.remkoweijnen.nl/blog/download/rdp.zip" style="color:rgb(65,131,196);">download rdp password builder file. rdp.zip</a><br /><a href="http://blog.miniasp.com/post/2009/06/24/Sleep-command-in-Batch.aspx" style="color:rgb(65,131,196);">如何在批次檔(Batch)中實現 sleep 命令讓任務暫停執行 n 秒</a><br /><a href="http://wmblue.lofter.com/post/4957c2_6b61423" style="color:rgb(65,131,196);">winrar压缩和解压的cmd命令</a><br /><a href="https://stackoverflow.com/questions/4340350/how-to-check-if-a-file-exists-from-inside-a-batch-file" style="color:rgb(65,131,196);">How to check if a file exists from inside a batch file</a></p>

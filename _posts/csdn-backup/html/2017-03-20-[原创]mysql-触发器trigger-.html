@@ -1,0 +1,105 @@
+---
+layout: post
+title: "[原创]mysql-触发器trigger-"
+date: 2017-03-20 14:42:49
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			写了一个mysql trigger
+<div><br />
+<div>
+<div>create trigger before_insert_song_play_log</DIV>
+<div>before insert on song_play_log</DIV>
+<div>for each row</DIV>
+<div>begin</DIV>
+<div>if new.`play_time`=0 then</DIV>
+<div>set new.`state`=1, new.`play_time` = 20 *
+new.`play_num`;</DIV>
+<div>end if;</DIV>
+<div>end;</DIV>
+</DIV>
+</DIV>
+<div>一直报错，我了个擦擦的要不要这么耍我啊！</DIV>
+<div><br /></DIV>
+<div>看了下版本5.5，找了下<a HREF="http://dev.mysql.com/doc/refman/5.5/en/create-trigger.html" TARGET="_blank">官方文档</A>，找到如下例子：</DIV>
+<div><b><i><span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+On Stop Action problems.</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+My solution was to create a unique/primary key on the table I want
+to insert into (in this case on S_ID), then if my sanity check
+fails I change the s_id to 0. This method will only ever create one
+duff record with an s_id of 0. Obviously you need to INSERT
+ignore!</SPAN></I><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+CREATE TRIGGER sanityCheck</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+BEFORE INSERT ON my_table</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+FOR EACH ROW</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+BEGIN</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+IF something THEN</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+SET NEW.S_ID = 0 ;</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+END IF;</SPAN><br STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);" />
+
+<span STYLE="font-family: Helvetica, Arial, sans-serif; font-size: 13px; line-height: 23.940000534057617px; background-color: rgb(255, 255, 255);">
+END;</SPAN></B></DIV>
+<div>可是我复制到mysql也好，workbench也好，都报错，还是一样连着三个错误：</DIV>
+<div>
+<div><font COLOR="#FF0000">ERROR 1064 (42000): You have an error in
+your SQL syntax; check the manual that corresponds to your MySQL
+server version for the right syntax to use near '' at line
+11</FONT></DIV>
+<div>mysql&gt;&nbsp;<wbr></DIV>
+<div>mysql&gt; <font COLOR="#FF0000">end if;</FONT></DIV>
+<div><font COLOR="#FF0000">ERROR 1064 (42000): You have an error in
+your SQL syntax; check the manual that corresponds to your MySQL
+server version for the right syntax to use near 'end if' at line
+1</FONT></DIV>
+<div>mysql&gt;&nbsp;<wbr></DIV>
+<div>mysql&gt; <font COLOR="#FF0000">end;</FONT></DIV>
+<div><font COLOR="#FF0000">ERROR 1064 (42000): You have an error in
+your SQL syntax; check the manual that corresponds to your MySQL
+server version for the right syntax to use near 'end' at line
+1</FONT></DIV>
+</DIV>
+<div>然后在CSDN上发现一个解决方案：<a HREF="http://bbs.csdn.net/topics/350230644" TARGET="_blank">超级简单的一个触发器怎么总是报错，帮忙看看</A></DIV>
+<div>原来需要demimiter：</DIV>
+<div>
+<div><b><font COLOR="#0CFD0E">DELIMITER $$</FONT></B></DIV>
+<div><b>create trigger before_insert_song_play_log</B></DIV>
+<div><b>before insert on song_play_log</B></DIV>
+<div><b>for each row</B></DIV>
+<div><b>begin</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> if new.`play_time`=0
+then</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set new.`state`=1, new.`play_time` = 20 *
+new.`play_num`;</B></DIV>
+<div><b>&nbsp;<wbr> &nbsp;<wbr> end if;</B></DIV>
+<div><b>end<font COLOR="#10FD11">$$</FONT></B></DIV>
+</DIV>							
+		</div>

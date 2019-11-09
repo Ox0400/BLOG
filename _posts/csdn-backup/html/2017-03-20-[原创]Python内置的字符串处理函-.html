@@ -1,0 +1,194 @@
+---
+layout: post
+title: "[原创]Python内置的字符串处理函-"
+date: 2017-03-20 14:40:11
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div><span STYLE="color: rgb(51, 51, 51);">常用的Python 内置的各种字符串处理
+函数的使用方法</SPAN></DIV>
+<div>
+<ol STYLE="list-style: decimal-leading-zero; background-color: rgb(255, 255, 255); font-family: verdana, sans-serif; color: rgb(51, 51, 51);">
+<li>生成字符串变量str='python String function'<br />
+&nbsp;<wbr></LI>
+<li>字符串长度获取：len(str)<br />
+<span STYLE="font-family: verdana, sans-serif; line-height: 21px;">例：</SPAN><br />
+
+&gt;&gt;&gt; print '%s
+length=%d' % (str,len(str))<br />
+python String function length=22<br /></LI>
+<li>字母处理<br />
+全部大写：str.upper()<br />
+全部小写：str.lower()<br />
+大小写互换：str.swapcase()<br />
+首字母大写，其余小写：str.capitalize()<br />
+首字母大写：str.title()<br />
+&gt;&gt;&gt; print '%s
+lower=%s' % (str,str.lower())<br />
+python String function lower=python string function<br />
+&gt;&gt;&gt; print '%s
+upper=%s' % (str,str.upper())<br />
+python String function upper=PYTHON STRING FUNCTION<br />
+&gt;&gt;&gt; print '%s
+swapcase=%s' % (str,str.swapcase())<br />
+python String function swapcase=PYTHON sTRING FUNCTION<br />
+&gt;&gt;&gt; print '%s
+capitalize=%s' % (str,str.capitalize())<br />
+python String function capitalize=Python string function<br />
+&gt;&gt;&gt; print '%s
+title=%s' % (str,str.title())<br />
+python String function title=Python String Function<br />
+&gt;&gt;&gt;</LI>
+<li>
+<p STYLE="line-height: 20px;">格式化相关<br />
+获取固定长度，右对齐，左边不够用空格补齐：str.ljust(width)<br />
+获取固定长度，左对齐，右边不够用空格补齐：str.ljust(width)<br />
+获取固定长度，中间对齐，两边不够用空格补齐：str.ljust(width)<br />
+获取固定长度，右对齐，左边不足用0补齐<br />
+&gt;&gt;&gt; print '%s
+ljust=%s' % (str,str.ljust(20))<br />
+python String function ljust=python String function<br />
+&gt;&gt;&gt; print '%s
+rjust=%s' % (str,str.rjust(20))<br />
+python String function rjust=python String function<br />
+&gt;&gt;&gt; print '%s
+center=%s' % (str,str.center(20))<br />
+python String function center=python String function<br />
+&gt;&gt;&gt; print '%s
+zfill=%s' % (str,str.zfill(20))<br />
+python String function zfill=python String function<br />
+&gt;&gt;&gt;</P>
+</LI>
+<li>
+<p STYLE="line-height: 20px;">字符串搜索相关<br />
+搜索指定字符串，没有返回-1：str.find('t')<br />
+指定起始位置搜索：str.find('t',start)<br />
+指定起始及结束位置搜索：str.find('t',start,end)<br />
+从右边开始查找：str.rfind('t')<br />
+搜索到多少个指定字符串：str.count('t')<br />
+上面所有方法都可用index代替，不同的是使用index查找不到会抛异常，而find返回-1<br />
+&gt;&gt;&gt; print '%s find
+nono=%d' % (str,str.find('nono'))<br />
+python String function find nono=-1<br />
+&gt;&gt;&gt; print '%s find
+t=%d' % (str,str.find('t'))<br />
+python String function find t=2<br />
+&gt;&gt;&gt; print '%s find t
+from %d=%d' % (str,1,str.find('t',1))<br />
+python String function find t from 1=2<br />
+&gt;&gt;&gt; print '%s find t
+from %d to %d=%d' % (str,1,2,str.find('t',1,2))<br />
+python String function find t from 1 to 2=-1<br />
+&gt;&gt;&gt; print '%s index
+nono ' % (str,str.index('nono',1,2))<br />
+<br />
+Traceback (most recent call last):<br />
+File " ", line 1, in<br />
+print '%s index nono ' % (str,str.index('nono',1,2))<br />
+ValueError: substring not found<br />
+&gt;&gt;&gt; print '%s rfind
+t=%d' % (str,str.rfind('t'))<br />
+python String function rfind t=18<br />
+&gt;&gt;&gt; print '%s count
+t=%d' % (str,str.count('t'))<br />
+python String function count t=3<br />
+&gt;&gt;&gt;</P>
+</LI>
+<li>
+<p STYLE="line-height: 20px;">字符串替换相关<br />
+替换old为new：str.replace('old','new')<br />
+替换指定次数的old为new：str.replace('old','new',maxReplaceTimes)<br />
+&gt;&gt;&gt; print '%s replace
+t to *=%s' % (str,str.replace('t', '*'))<br />
+python String function replace t to *=py*hon S*ring func*ion<br />
+&gt;&gt;&gt; print '%s replace
+t to *=%s' % (str,str.replace('t', '*',1))<br />
+python String function replace t to *=py*hon String function<br />
+&gt;&gt;&gt;</P>
+</LI>
+<li>
+<p STYLE="line-height: 20px;">字符串去空格及去指定字符<br />
+去两边空格：str.strip()<br />
+去左空格：str.lstrip()<br />
+去右空格：str.rstrip()<br />
+去两边字符串：str.strip('d')，相应的也有lstrip，rstrip<br />
+&gt;&gt;&gt; print '%s
+strip=%s' % (str,str.strip())<br />
+python String function strip=python String function<br />
+&gt;&gt;&gt; print '%s
+strip=%s' % (str,str.strip('p'))<br />
+python String function strip=ython String function<br />
+&gt;&gt;&gt; print '%s
+strip=%s' % (str,str.rstrip('n'))<br />
+python String function strip=python String functio<br />
+&gt;&gt;&gt;</P>
+</LI>
+<li>
+<p STYLE="line-height: 20px;">按指定字符分割字符串为数组：str.split('
+')，默认按空格分隔<br />
+&gt;&gt;&gt; str<br />
+'python String function'<br />
+&gt;&gt;&gt; print '%s
+strip=%s' % (str,str.split())<br />
+python String function strip=['python', 'String', 'function']<br />
+&gt;&gt;&gt;
+str='python-String-function'<br />
+&gt;&gt;&gt; print '%s
+strip=%s' % (str,str.split('-'))<br />
+python-String-function strip=['python', 'String', 'function']<br />
+&gt;&gt;&gt;</P>
+</LI>
+<li>
+<p STYLE="line-height: 20px;">字符串判断相关<br />
+是否以start开头：str.startswith('start')<br />
+是否以end结尾：str.endswith('end')<br />
+是否全为字母或数字：str.isalnum()<br />
+是否全字母：str.isalpha()<br />
+是否全数字：str.isdigit()<br />
+是否全小写：str.islower()<br />
+是否全大写：str.isupper()<br />
+&gt;&gt;&gt; str='python String
+function'<br />
+&gt;&gt;&gt; print '%s
+startwith t=%s' % (str,str.startswith('t'))<br />
+python String function startwith t=False<br />
+&gt;&gt;&gt; print '%s endwith
+d=%s' % (str,str.endswith('d'))<br />
+python String function endwith d=False<br />
+&gt;&gt;&gt; print '%s
+isalnum=%s' % (str,str.isalnum())<br />
+python String function isalnum=False<br />
+&gt;&gt;&gt;
+str='pythonStringfunction'<br />
+&gt;&gt;&gt; print '%s
+isalnum=%s' % (str,str.isalnum())<br />
+pythonStringfunction isalnum=True<br />
+&gt;&gt;&gt; print '%s
+isalpha=%s' % (str,str.isalpha())<br />
+pythonStringfunction isalpha=True<br />
+&gt;&gt;&gt; print '%s
+isupper=%s' % (str,str.isupper())<br />
+pythonStringfunction isupper=False<br />
+&gt;&gt;&gt; print '%s
+islower=%s' % (str,str.islower())<br />
+pythonStringfunction islower=False<br />
+&gt;&gt;&gt; print '%s
+isdigit=%s' % (str,str.isdigit())<br />
+pythonStringfunction isdigit=False<br />
+&gt;&gt;&gt; str='3423'<br />
+&gt;&gt;&gt; print '%s
+isdigit=%s' % (str,str.isdigit())<br />
+3423 isdigit=True<br />
+&gt;&gt;&gt;</P>
+</LI>
+</OL>
+</DIV>							
+		</div>

@@ -1,0 +1,37 @@
+---
+layout: post
+title: "[原创]selenium-等待某个元素加载完成"
+date: 2017-03-20 14:49:00
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent newfont_family"><span style="color:rgb(192,189,187);font-family:'Microsoft YaHei', 'Helvetica Neue', SimSun;font-size:14px;text-align:left;background-color:rgb(0,0,0);">selenium 设置等待某个元素加载完成</span><div style="color:rgb(192,189,187);font-family:'Microsoft YaHei', 'Helvetica Neue', SimSun;font-size:14px;text-align:left;background-color:rgb(0,0,0);"><pre class="python">from selenium import webdriver
+import selenium.webdriver.support.ui as ui
+
+user_name = "public"
+options = webdriver.ChromeOptions()
+
+prefs = {
+        "profile.managed_default_content_settings.images" : 2, # 不显示图片
+        # "download.default_directory" : "/home/%s/selenium_download/" % user_name # 设置下载目录
+        }
+
+driver = webdriver.Chrome(chrome_options=option)
+
+driver.implicitly_wait(5)
+
+# 设置默认超时时间为5s, 会触发 timeout
+waiter = ui.WebDriverWait(driver, 5)
+try:
+    waiter.until(lambda driver: driver.find_element_by_id("content"))
+    content = driver.find_element_by_id("content").text
+    # do something ...
+except (errors.TimeoutException, errors.NoSuchElementException):
+    pass</pre></div></div>

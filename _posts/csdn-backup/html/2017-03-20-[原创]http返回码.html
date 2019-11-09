@@ -1,0 +1,257 @@
+---
+layout: post
+title: "[原创]http返回码"
+date: 2017-03-20 14:39:16
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - html
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			返回码即http代码
+<div><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">
+100--199 信息，请求被接收，正在处理</SPAN></DIV>
+<div><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">
+200--299 成功，请求被成功接收、理解和接受</SPAN></DIV>
+<div><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">
+300--399 重定向，必须采取其他动作才能完成请求</SPAN></DIV>
+<div><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">
+400--499 客户机错误，请求包含不良语法或无法完成</SPAN></DIV>
+<div><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">
+500--599 服务器错误，服务器无法处理显然有效的请求</SPAN><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace"><span STYLE="font-size: 12px; white-space: pre-wrap;"><font FACE="Consolas, Lucida Console, monospace"><font FACE="Consolas, Lucida Console, monospace"><font FACE="Consolas, Lucida Console, monospace"><span STYLE="line-height: normal;"><br /></SPAN></FONT></FONT></FONT></SPAN></FONT>&nbsp;<wbr>
+<div><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+<b>1xx --- 临时响应 ：</B></SPAN><span STYLE=" color: rgb(34, 34, 34); font-size: 12px; white-space: pre-wrap;">表示临时响应并需要请求者继续执行操作的状态码。</SPAN></DIV>
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"100"
+: Continue &nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(继续)请求者应当继续提出请求。服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"101" : witching Protocols&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">101(切换协议)请求者已要求服务器切换协议，服务器已确认并准备切换。<br />
+</SPAN>
+<div><b STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+2xx ---&nbsp;<wbr></B><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace" STYLE="line-height: 1.5;"><span STYLE="line-height: normal; white-space: pre-wrap;"><b>成功：</B></SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">表示成功处理了请求的状态码。</SPAN></DIV>
+<div><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+<font COLOR="#22B14C">"200" :
+OK&nbsp;<wbr></FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"201" : Created&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"202" : Accepted&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(已接受)服务器已接受请求，但尚未处理。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"203" : Non-Authoritative
+Information&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(非授权信息)服务器已成功处理了请求，但返回的信息可能来自另一来源。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"204" : No Content&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(无内容)服务器成功处理了请求，但没有返回任何内容。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"205" : Reset Content&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(重置内容)服务器成功处理了请求，但没有返回任何内容。与
+204 响应不同，此响应要求请求者重置文档视图(例如，清除表单内容以输入新内容)。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"206" : Partial Content&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(部分内容)服务器成功处理了部分
+GET 请求。</SPAN></DIV>
+<div><b STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+<font STYLE="font-size: 14px;">3xx
+---&nbsp;<wbr></FONT></B><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace"><span STYLE="line-height: normal; white-space: pre-wrap;"><b><font STYLE="font-size: 14px;">重定向：</FONT></B></SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">要完成请求，需要进一步操作。通常，这些状态码用来重定向。Google
+建议您在每次请求中使用重定向不要超过 5 次。您可以使用网站管理员工具查看一下 Googlebot
+在抓取重定向网页时是否遇到问题。诊断下的网络抓取页列出了由于重定向错误导致 Googlebot
+无法抓取的网址。</SPAN><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace"><span STYLE="line-height: normal; white-space: pre-wrap;"><span STYLE="font-size: 12px;"><br STYLE="" /></SPAN></SPAN></FONT><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"300"
+: Multiple Choices&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">300(多种选择)针对请求，服务器可执行多种操作。服务器可根据请求者
+(user agent) 选择一项操作，或提供操作列表供请求者选择。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"301" : Moved Permanently&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(永久移动)请求的网页已永久移动到新位置。服务器返回此响应(对
+GET 或 HEAD 请求的响应)时，会自动将请求者转到新位置。您应使用此代码告诉 Googlebot
+某个网页或网站已永久移动到新位置。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<font COLOR="#22B14C"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"302" : Found&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(临时重定向)</SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应
+GET 和 HEAD 请求的 301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot
+某个网页或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"303" : See Other&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(查看其他位置)请求者应当对不同的位置使用单独的
+GET 请求来检索响应时，服务器返回此代码。对于除 HEAD
+之外的所有请求，服务器会自动转到其他位置。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<font COLOR="#22B14C"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"304" : Not Modified&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(未修改)</SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">自从上次请求后，请求的网页未修改过。服务器返回此响应时，不会返回网页内容。</SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">如果网页自请求者上次请求后再也没有更改过，您应将服务器配置为返回此响应(称为
+If-Modified-Since HTTP 标头)。服务器可以告诉搜索引擎的蜘蛛/机器人
+自从上次抓取后网页没有变更，进而节省带宽和开销。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"305" : Use Proxy&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(使用代理)请求者只能使用代理访问请求的网页。如果服务器返回此响应，还表示请求者应使用代理。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"307" : Temporary Redirect&nbsp;<wbr></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">临时重定向)服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来响应以后的请求。此代码与响应
+GET 和 HEAD 请求的 301 代码类似，会自动将请求者转到不同的位置，但您不应使用此代码来告诉 Googlebot
+某个页面或网站已经移动，因为 Googlebot 会继续抓取原有位置并编制索引。</SPAN></DIV>
+<div><b STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+4xx ---&nbsp;<wbr></B><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;"><b>(请求错误)：</B></SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">这些状态码表示请求可能出错，妨碍了服务器的处理。</SPAN><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace"><span STYLE="line-height: normal; white-space: pre-wrap;"><span STYLE="font-size: 12px;"><br STYLE="" /></SPAN></SPAN></FONT><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"400"
+: Bad Request <font STYLE="font-size: 12px;">请求无效</FONT>-</SPAN><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(错误请求)服务器不理解请求的语法。</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<font COLOR="#22B14C"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"401" : Unauthorized&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(未授权)</SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">请求要求身份验证。对于登录后请求的网页，服务器可能返回此响应。</SPAN></DIV>
+<div><font STYLE="font-size: 12px;"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+401.1 - 未授权：登录失败&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+401.2 - 未授权：服务器配置问题导致登录失败&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+401.3 - ACL 禁止访问资源&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+401.4 - 未授权：授权被筛选器拒绝&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+401.5 - 未授权：ISAPI 或 CGI
+授权失败&nbsp;<wbr></SPAN></FONT><font COLOR="#222222" FACE="Consolas, Lucida Console, monospace"><span STYLE="font-size: 12px; line-height: normal; white-space: pre-wrap;"><br STYLE="" />
+</SPAN></FONT><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"402"
+: Payment Required&nbsp;<wbr>状态被保留，将来使用</SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<font COLOR="#22B14C"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"403" : Forbidden&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(禁止访问)</SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">服务器拒绝请求。如果您在
+Googlebot 尝试抓取您网站上的有效网页时看到此状态码(您可以在 Google
+网站管理员工具诊断下的网络抓取页面上看到此信息)，可能是您的服务器或主机拒绝了 Googlebot
+访问。</SPAN><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;"><font STYLE="font-size: 12px;">对
+Internet 服务管理器 (HTML) 的访问仅限于
+Localhost&nbsp;<wbr>。</FONT></SPAN></DIV>
+<div><font SIZE="#"><span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.1 禁止访问：禁止可执行访问&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.2 - 禁止访问：禁止读访问&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.3 - 禁止访问：禁止写访问&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.4 - 禁止访问：要求 SSL&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.5 - 禁止访问：要求 SSL 128&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.6 - 禁止访问：IP 地址被拒绝&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.7 - 禁止访问：要求客户证书&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.8 - 禁止访问：禁止站点访问&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.9 - 禁止访问：连接的用户过多&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.10 - 禁止访问：配置无效&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.11 - 禁止访问：密码更改&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.12 - 禁止访问：映射器拒绝访问&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-size: 12px; font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.13 - 禁止访问：客户证书已被吊销&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<font STYLE="font-size: 12px;"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.15 - 禁止访问：客户访问许可过多&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.16 -
+禁止访问：客户证书不可信或者无效&nbsp;<wbr></SPAN></FONT></FONT><font STYLE="font-size: 12px;"><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+403.17 -
+禁止访问：客户证书已经到期或者尚未生效&nbsp;<wbr></SPAN></FONT><span STYLE="font-size: 12px;"><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+</SPAN><font COLOR="#22B14C"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"404"
+: Not Found&nbsp;<wbr></SPAN><span STYLE="font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">(未找到)</SPAN></FONT><span STYLE="color: rgb(34, 34, 34); font-family: Consolas, 'Lucida Console', monospace; font-size: 12px; line-height: normal; white-space: pre-wrap;">服务器找不到请求的网页。例如，对于服务器上不存在的网页经常会返回此代码。</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">如果您的网站上没有
+robots.txt 文件，而您在 Google 网站管理员工具"诊断"标签的 robots.txt
+页上看到此状态码，则这是正确的状态码。但是，如果您有 robots.txt 文件而又看到此状<font STYLE="font-size: 12px;">态码，则说明您的 robots.txt
+文件可能命名错误或位于错误的位置(该文件应当位于顶级域，名为
+robots.txt)。</FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">如果对于
+Googlebot 抓取的网址看到此状态码(在"诊断"标签的 HTTP 错误页面上)，则表示 Googlebot
+跟随的可能是另一个页面的无效链接(是旧链接或输入有误的链接)。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"405" : Method Not Allowed&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(方法禁用)禁用请求中指定的方法。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"406" : Not Acceptable&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(无法接受)无法使用请求的内容特性响应请求的网页。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"407" : Proxy Authentication
+Required&nbsp;<wbr></SPAN><font STYLE="font-size: 12px;"><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">(需要代理授权-</SPAN><span STYLE="">要求代理身份验证</SPAN><span STYLE=" color: rgb(51, 51, 51);">)此状态码与
+401(未授权)类似，但指定请求者应当授权使用代理。如果服务器返回此响应，还表示请求者应当使用代理。</SPAN></FONT></DIV>
+<div><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"408" : Request Time-out<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(请求超时)服务器等候请求时发生超时。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"409" : Conflict&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(冲突)服务器在完成请求时发生冲突。服务器必须在响应中包含有关冲突的信息。服务器在响应与前一个请求相冲突的
+PUT 请求时可能会返回此代码，以及两个请求的差异列表。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"410" : Gone&nbsp;<wbr></SPAN><font STYLE="font-size: 12px;"><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">(已删除-</SPAN><span STYLE="">永远不可用</SPAN><span STYLE="">&nbsp;<wbr></SPAN><span STYLE=" color: rgb(51, 51, 51);">)如果请求的资源已永久删除，服务器就会返回此响应。该代码与
+404(未找到)代码类似，但在资源以前存在而现在不存在的情况下，有时会用来替代 404 代码。如果资源已永久移动，您应使用 301
+指定资源的新位置。</SPAN></FONT></DIV>
+<div><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"411" : Length Required&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(需要有效长度)服务器不接受不含有效内容长度标头字段的请求。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"412" : Precondition Failed&nbsp;<wbr></SPAN><font STYLE="font-size: 12px;"><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">(</SPAN><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">先决</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">条件不满足)服务器未满足请求者在请求中设置的其中一个前提条件。</SPAN></FONT><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"413" : Request Entity Too Large<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(请求实体过大)服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"414" : Request-URI Too Large<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><font STYLE="font-size: 12px;"><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">(</SPAN><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">请求
+- URI 太长&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;">)请求的
+URI(通常为网址)过长，服务器无法处理。</SPAN></FONT><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"415" : Unsupported Media Type&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(不支持的媒体类型)请求的格式不受请求页面的支持。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"416" : Requested range not
+satisfiable&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(请求范围不符合要求)如果页面无法提供请求的范围，则服务器会返回此状态码。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"417" : Expectation Failed&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(未满足期望值)服务器未满足"期望"请求标头字段的要求。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<b><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+500 Internal Server Error ---&nbsp;<wbr></SPAN><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">内部服务器错误：</SPAN></B><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">这些状态码表示服务器在处理请求时发生内部错误。这些错误可能是服务器本身的错误，而不是请求出错。</FONT></SPAN></DIV>
+<div><font STYLE="font-size: 12px;"><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+500-100 &nbsp;<wbr>内部服务器错误 - ASP
+错误&nbsp;<wbr></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+500-11 服务器关闭</SPAN></FONT><font COLOR="#333333" FACE="verdana, Arial, Helvetica, sans-serif"><span STYLE="font-size: 12px; line-height: 25px;"><br STYLE="" /></SPAN></FONT><span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">"501"
+: Not Implemented<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(尚未实施)服务器不具备完成请求的功能。例如，服务器无法识别请求方法时可能会返回此代码。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"502" : Bad Gateway<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(错误网关)服务器作为网关或代理，从上游服务器收到无效响应。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"503" : Service Unavailable&nbsp;<wbr></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(服务不可用)服务器目前无法使用(由于超载或停机维护)。通常，这只是暂时状态。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"504" : Gateway Time-out<font STYLE="font-size: 12px;">&nbsp;<wbr></FONT></SPAN><span STYLE="color: rgb(51, 51, 51); font-family: verdana, Arial, Helvetica, sans-serif; line-height: 25px;"><font STYLE="font-size: 12px;">(网关超时)服务器作为网关或代理，但是没有及时从上游服务器收到请求。</FONT></SPAN><br STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;" />
+
+<span STYLE="font-family: Helvetica, Tahoma, Arial, sans-serif; line-height: 25.1875px;">
+"505" : HTTP Version not
+supported&nbsp;<wbr></SPAN><span STYLE=" color: rgb(51, 51, 51);"><font STYLE="font-size: 12px;">(HTTP
+版本不受支持)服务器不支持请求中所用的 HTTP 协议版本。</FONT></SPAN></DIV>
+<div><span STYLE=" color: rgb(51, 51, 51);"><font STYLE="font-size: 12px;"><br /></FONT></SPAN></DIV>
+<div>原创所有，转载请超链接注明本文地址及作者，谢谢。<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101blc0.html">http://blog.sina.com.cn/s/blog_83dc494d0101blc0.html</A></DIV>
+</DIV>							
+		</div>

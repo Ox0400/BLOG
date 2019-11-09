@@ -1,0 +1,109 @@
+---
+layout: post
+title: "[翻译]python日志logging模块"
+date: 2017-03-20 14:41:37
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;">python logging module</DIV>
+<div>What if you wanted to have some debugging messages or
+important messages</DIV>
+<div>to be stored somewhere so that you can check whether your
+program has been</DIV>
+<div>running as you would expect it? How do you “store somewhere”
+these messages?</DIV>
+<div>This can be achieved using the logging module.</DIV>
+<div>
+大概意思为：当你运行你的项目的时候，你是否想过在某个地方记录程序测试信息或者消息，这样就可以检测你的项目运行出错在哪里。你是如何处理这些信息的？这是一个可以处理logging模块。</DIV>
+<div>Save as use_logging.py: 把下面的代码保存为user_logging.py</DIV>
+<div><span STYLE="line-height: 21px;">------------------------------------------------------</SPAN></DIV>
+<div>import os, platform, logging</DIV>
+<div>if
+platform.platform().startswith('Windows'):#判断操作系统类型，获取当前用户的根目录</DIV>
+<div><br /></DIV>
+<div>#print platform.platform(aliased = 0, terse=0)实参可以为空</DIV>
+<div>#Linux-3.5.0-41-generic-i686-with-Ubuntu-12.04-precise</DIV>
+<div><br /></DIV>
+<div>#print platform.platform(aliased = 0, terse=1)</DIV>
+<div>#Linux-3.5.0-41-generic-i686-with-glibc2.7</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> logging_file =
+os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'),
+'test.log')</DIV>
+<div>else:</DIV>
+<div>&nbsp;<wbr> logging_file =
+os.path.join(os.getenv('HOME'), 'test.log')</DIV>
+<div>print("Logging to", logging_file)</DIV>
+<div>#配置调试参数</DIV>
+<div>logging.basicConfig(</DIV>
+<div>&nbsp;<wbr> level=logging.DEBUG,</DIV>
+<div>&nbsp;<wbr> format='%(asctime)s : %(levelname)s :
+%(message)s',</DIV>
+<div>&nbsp;<wbr> filename = logging_file,</DIV>
+<div>&nbsp;<wbr> filemode = 'w',</DIV>
+<div>&nbsp;<wbr> )</DIV>
+<div>logging.debug("Start of the program") #debug开始调试</DIV>
+<div>logging.info("Doing something") #测试阶段</DIV>
+<div>logging.warning("Dying now")#捕获一个警告</DIV>
+<div>------------------------------------------------------</DIV>
+<div>Output:</DIV>
+<div>$ python3 use_logging.py</DIV>
+<div>Logging to C:\Users\zhangzhipeng\test.log
+#Linux上则是：/home/zhangzhipeng/test.log</DIV>
+<div>If we check the contents of test.log, it will look something
+like this:</DIV>
+<div>2012-10-26 16:52:41,339 : DEBUG : Start of the program</DIV>
+<div>2012-10-26 16:52:41,339 : INFO : Doing something</DIV>
+<div>2012-10-26 16:52:41,339 : WARNING : Dying now</DIV>
+<div>How It Works:</DIV>
+<div>We use three modules from the standard library - the os module
+for interacting</DIV>
+<div>with the operating system, the platform module for information
+about the</DIV>
+<div>platform i.e. the operating system and the logging module to
+log information.</DIV>
+<div>First, we check which operating system we are using by
+checking the string re-</DIV>
+<div>turned by platform.platform() (for more information, see
+import platform;</DIV>
+<div>help(platform)). If it is Windows, we figure out the home
+drive, the home</DIV>
+<div>folder and the filename where we want to store the
+information. Putting these</DIV>
+<div>three parts together, we get the full location of the file.
+For other platforms, we</DIV>
+<div>need to know just the home folder of the user and we get the
+full location of the</DIV>
+<div>file.</DIV>
+<div>We use the os.path.join() function to put these three parts of
+the location</DIV>
+<div>together. The reason to use a special function rather than
+just adding the strings</DIV>
+<div>together is because this function will ensure the full
+location matches the format</DIV>
+<div>expected by the operating system.</DIV>
+<div>We configure the logging module to write all the messages in a
+particular format</DIV>
+<div>to the file we have specified.</DIV>
+<div>Finally, we can put messages that are either meant for
+debugging, information,</DIV>
+<div>warning or even critical messages. Once the program has run,
+we can check this</DIV>
+<div>file and we will know what happened in the program, even
+though no information</DIV>
+<div>was displayed to the user running the program.</DIV>
+<div>这个英文版的流程我就不翻译了，中间代码加了注释的。</DIV>
+<div>这本书名叫A Byte of Python.</DIV>
+<div>当然了，本例中的路径是绝对路径，可以根据实际情况写相对路径。</DIV>
+<hr />
+<div>原创翻译</DIV>
+<hr />							
+		</div>

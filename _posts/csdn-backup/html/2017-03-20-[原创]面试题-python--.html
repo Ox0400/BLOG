@@ -1,0 +1,674 @@
+---
+layout: post
+title: "[原创]面试题-python--"
+date: 2017-03-20 14:45:28
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>
+简单说一下，这是上海一家公司给我的两道题，先让我做出来，然后再进行进一步的沟通，但是我已经找到工作了，所以就把这道题发了过去。。</DIV>
+<div>
+<div STYLE="line-height: 21px;">
+&nbsp;<wbr>&nbsp;<wbr> Given a array of 10,000 random
+intergers, select the biggest 100 numbers.</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> 1) The order of the result numbers does not
+matter;</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> 2) Take care about the algorithm performance and
+big O complexity.</DIV>
+</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div><br /></DIV>
+<div>#!/usr/bin/env python</DIV>
+<div># -*- coding: utf-8 -*-</DIV>
+<div>#</DIV>
+<div># &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></DIV>
+<div># &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> By: 张志鹏yi
+&nbsp;<wbr> &nbsp;<wbr> Email:
+qq1126918258@gmail.com</DIV>
+<div># &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>Date: 2014-09-03 01:06:10</DIV>
+<div>from random import randint</DIV>
+<div>import time</DIV>
+<div><br /></DIV>
+<div>
+"""大致解释写的这么纠结的原因、、只是top,相对来说来时比较简单，定一个长度100的列表tmp_list，遍历一次长列表，每次再于tmp_list对比列表第一位和最后一位，如果是中间值用二分法快速重新对tmp_list</DIV>
+<div><br /></DIV>
+<div>但是想得有点多了,哎，跟题目不想关，而且性能不好，算了，还是用二分法写一次吧-. - method --》
+top2</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>top1
+1.先把列表根据用户要取top值对列表进行分片，用冒泡排序反转。2.将分片排序后的列表按照列表第一个值从小到大排序，从第一个列表开始，与下一个列表取top值。</DIV>
+<div>top2 1.完全使用二分法迭代列表.</DIV>
+<div><br /></DIV>
+<div>top1 优点:分片处理, 分片排序后取top值快. 缺点：冒泡排序效率过低...</DIV>
+<div>top2 优点:快, 可以对每次排序后的值只取top100，减少内存和下一轮多余的排序.
+&nbsp;<wbr>缺点:排序速度跟列表长度成正比. 50000 500000 5000000 50000000
+时间几乎长正比 x10。</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>
+待优化:看网上说腾讯算法题目，一亿个数字取top100，有大神只用了3秒就出结果了...&nbsp;<wbr></DIV>
+<div>我的想法,可以使用多线程，每50000个值进行一次排序.返回一个列表集.
+然后再用top1中的步骤二进行快速取top值。</DIV>
+<div>"""</DIV>
+<div>class GetTop(object):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> Given a array of 10,000
+random intergers, select the biggest 100 numbers.</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> 1) The order of the
+result numbers does not matter;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> 2) Take care about the
+algorithm performance and big O complexity.</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def __init__(self,
+num=10000, maxnum=100000000, topnum=5):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> num: list lenght</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> maxnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> topnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.lnum = []</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.num = num</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.tnum = topnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.mnum = maxnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.nums = []</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def
+makelist(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """make a list with choice"""</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> lnum = []</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> mnum = self.mnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #starttime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for i in xrange(self.num):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+lnum.append(randint(0, mnum))</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #endtime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #print 'build list time: %.5f (%s, %s)' %
+((endtime - starttime), starttime, endtime)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.lnum = lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #print self.lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return lnum</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def sort(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """list -&gt; lists, sort lists."""</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> starttime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> lnum = self.lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> zero = self.num % self.tnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_num = self.num / self.tnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_num = buffer_num &nbsp;<wbr>if
+zero == 0 else buffer_num - 1</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print "sort len: %s" % buffer_num</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list = []</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for i, j in enumerate(lnum[:len(lnum) /
+buffer_num + 1]):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> newl =
+lnum[i * buffer_num:i * buffer_num + buffer_num]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+len(newl) != 0:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> #print "old list len: %s" %
+len(newl)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> newl =
+self.bubble(newl)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> #print "new list len: %s\n" %
+len(newl)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+buffer_list.append(newl)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> endtime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print 'sorted time: %.5f;' % (endtime -
+starttime),</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return buffer_list, endtime</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def top1(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 10000;
+&nbsp;<wbr>sort list time: 0.03756&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 200; list len: 10000;
+&nbsp;<wbr>sort list time: 0.04039&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 500; list len: 10000;
+&nbsp;<wbr>sort list time: 0.03842&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 20000;
+&nbsp;<wbr>sort list time: 0.07546&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 200; list len: 20000;
+&nbsp;<wbr>sort list time: 0.07541&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 500; list len: 20000;
+&nbsp;<wbr>sort list time: 0.07553&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 50000;
+&nbsp;<wbr>sort list time: 0.21948&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 200; list len: 50000;
+&nbsp;<wbr>sort list time: 0.19389&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 500; list len: 50000;
+&nbsp;<wbr>sort list time: 0.18928&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 500000;
+&nbsp;<wbr>sort list time: 1.86262&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 5000000;
+&nbsp;<wbr>sort list time: 19.22609&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top2 num: 100; list len: 50000000;
+&nbsp;<wbr>sort list time: 188.99381&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> starttime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list, newstime = self.sort()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list = sorted(buffer_list)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list[0] = buffer_list[1][:2]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = []</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for i in xrange(self.tnum):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if i ==
+self.tnum:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> break</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if
+len(buffer_list[i]) == 0:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> continue</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> first =
+buffer_list[i][0]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> for k, j
+in enumerate(buffer_list[i + 1]):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> if first == j:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list[i + 1] = buffer_list[i + 1][:k +
+1]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> break</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> elif first &gt; j:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> buffer_list[i + 1] = buffer_list[i +
+1][:k]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> break</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+#nums.append(buffer_list[i])</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+nums.extend(buffer_list[i])</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums.sort()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums.reverse()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = nums[:100]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.nums = nums</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> endtime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print 'all time: %.5f; top time:%.5f' %
+((endtime - starttime), (endtime - newstime))</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def top2(self,
+lnum=[]):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> lnum = lnum if lnum else self.lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = [lnum[0]]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for i in lnum:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> nums =
+self._top2(nums, i)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return nums</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #return nums[-100:]</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def _top2(self, lnum=[],
+num=None):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #lnum = lnum if lnum else self.lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if not lnum:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+[]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = []</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> llen = len(lnum)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if llen == 0:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+[num]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if llen == 1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+lnum.append(num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> nums =
+sorted(lnum)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+nums</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if num &gt;= lnum[-1]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+lnum.append(num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+lnum</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if num &lt;= lnum[0]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+lnum.insert(0, num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+lnum</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> a, b = llen / 2, llen % 2</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if num == lnum[a]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> return
+self.insert(lnum, a, num)[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> if b == 1:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #[0, "1",
+'2', "3", 4]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #num[a] =
+2</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if num
+&gt; lnum[a]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> if num &lt;= lnum[a +
+1]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = self.insert(lnum, a + 1, num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> nums = lnum[:a + 2] +
+self._top2(lnum[a + 2:], num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if num
+&lt; lnum[a]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> if num &gt;= lnum[a -
+1]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> nums = self.insert(lnum, a, num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> nums = self._top2(lnum[:a -
+1], num) + lnum[a - 1:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> elif b == 0:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #[0, 1,
+"2", "3", 4, 5]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #lnum[a -
+1] = 2</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> #lnum[a] =
+3</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if num
+&gt;= lnum[a - 1] and num &lt;= lnum[a]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> nums = self.insert(lnum, a,
+num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if num
+&lt; lnum[a - 1]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> nums = self._top2(lnum[:a -
+1], num) + lnum[a - 1:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> return nums[-100:]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> if num
+&gt; lnum[a]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> nums = lnum[:a + 1] +
+self._top2(lnum[a + 1:], num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> return nums[-100:]</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def insert(self, lnum,
+index, num):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> lnum.insert(index, num)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return lnum</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def bubble(self,
+List):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """冒泡排序, 500/1000 的列表长度，运行时间相差甚大.</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 100; list len: 10000;
+&nbsp;<wbr>sort len: 100</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.09721 ; all time: 0.09742; top
+time:0.00020</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 200; list len: 10000;
+&nbsp;<wbr>sort len: 50</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.05002 ; all time: 0.05037; top
+time:0.00035</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 500; list len: 10000;
+&nbsp;<wbr>sort len: 20</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.02161 ; all time: 0.02235; top
+time:0.00074</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 100; list len: 20000;
+&nbsp;<wbr>sort len: 200</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.34503 ; all time: 0.34536; top
+time:0.00033</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 200; list len: 20000;
+&nbsp;<wbr>sort len: 100</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.17856 ; all time: 0.17890; top
+time:0.00034</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 500; list len: 20000;
+&nbsp;<wbr>sort len: 40</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 0.07788 ; all time: 0.07863; top
+time:0.00075</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 100; list len: 50000;
+&nbsp;<wbr>sort len: 500</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 2.10845 ; all time: 2.10883; top
+time:0.00037</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 200; list len: 50000;
+&nbsp;<wbr>sort len: 250</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sorted time: 1.07507 ; all time: 1.07557; top
+time:0.00050</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> top1 num: 500; list len: 50000;
+&nbsp;<wbr>sort len: 100</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #starttime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for j in range(len(List) - 1, 0, -1):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> for i in
+range(0, j):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> if List[i] &gt; List[i +
+1]:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #n = i - 1 if i &gt;= 1 else 0</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #newl[i: i + 2], newl[i + 1:n:-1]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> List[i], List[i + 1] = List[i + 1],
+List[i]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #endtime = time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #print 'sort list time: %.5f (%s, %s)' %
+((endtime - starttime), starttime, endtime)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> List.reverse()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return List</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>def test(topnum=200, num=200000, maxnum=10000):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print "top1 num: " +
+str(topnum) + "; list len: " + str(num) + "; ",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l =
+GetTop(topnum=topnum, num=num, maxnum=maxnum)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l.makelist()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> #l.sort()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l.top1()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print</DIV>
+<div><br /></DIV>
+<div>def test1(topnum=200, num=200000, maxnum=10000):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print "top2 num: " +
+str(topnum) + "; list len: " + str(num) + "; ",</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l =
+GetTop(topnum=topnum, num=num, maxnum=maxnum)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l.makelist()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> #l.sort()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> starttime =
+time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> l.top2()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> endtime =
+time.time()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> print 'sort list time:
+%.5f ' % (endtime - starttime)</DIV>
+<div><br /></DIV>
+<div>def t1():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=100,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=200,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=500,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=100,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=200,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=500,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=100,
+num=50000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=200,
+num=50000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test(topnum=500,
+num=50000, maxnum=10000)</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>def t2():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=200,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=500,
+num=10000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=200,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=500,
+num=20000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=50000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=200,
+num=50000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=500,
+num=50000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=500000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=5000000, maxnum=10000)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> test1(topnum=100,
+num=50000000, maxnum=10000)</DIV>
+<div><br /></DIV>
+<div>if __name__ == '__main__':</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> #t1()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> t2()</DIV>							
+		</div>

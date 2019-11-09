@@ -1,0 +1,70 @@
+---
+layout: post
+title: "[原创]python-sys.stderr"
+date: 2017-03-20 14:40:30
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			sys.stderr 目的就是返回错误信息,比如：
+<div>会红色字体提示错误。<br />
+<div>
+<div>&gt;&gt;&gt;
+shutddown</DIV>
+<div><br /></DIV>
+<div><font COLOR="#ED1C24">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#ED1C24">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#ED1C24">&nbsp;<wbr> &nbsp;<wbr>
+shutddown</FONT></DIV>
+<div><font COLOR="#ED1C24">NameError: name 'shutddown' is not
+defined</FONT></DIV>
+</DIV>
+</DIV>
+可以想一下，当我们自定义一个函数，然后需要提示用户错误的时候，但显然print出来是绿色字体，这时候sys.stderr就有作用了。
+<div>&nbsp;<wbr>
+<div>
+<div><span STYLE="line-height: 21px;">&gt;&gt;&gt;
+import sys</SPAN></DIV>
+<div>&gt;&gt;&gt; print
+'closing...'</DIV>
+<div><font COLOR="#4D6DF3">closing...</FONT></DIV>
+<div>&gt;&gt;&gt; print
+&gt;&gt; sys.stderr,'closing...'</DIV>
+<div><font COLOR="#ED1C24">closing...</FONT></DIV>
+</DIV>
+&gt;&gt;&gt; def test(x):</DIV>
+<div>if x == 0: print &gt;&gt;
+sys.stderr,'Error--&gt; x:can\'t is zero'</DIV>
+<div>else:print x</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt;
+test('what\'s')</DIV>
+<div><font COLOR="#4D6DF3">what's</FONT></DIV>
+<div>&gt;&gt;&gt; test(0)</DIV>
+<div><font COLOR="#ED1C24">Error--&gt; x:can't is
+zero</FONT></DIV>
+<div>
+&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div>附图：</DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101bvwv&url=http://album.sina.com.cn/pic/83dc494dtx6DcOm6Y559b" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s12.sinaimg.cn/mw690/83dc494dtx6DcOm6Y559b&amp;690" STYLE="margin: 0pt auto;display:block" WIDTH="652" HEIGHT="143" NAME="image_operate_50681381026601938"  ALT="【原创】python&nbsp;<wbr>sys.stderr"  TITLE="【原创】python&nbsp;<wbr>sys.stderr" /></A><br />
+<br /></DIV>
+<div>或者如下:</DIV>
+<div>
+<div>&gt;&gt;&gt;
+sys.stderr.write('sf')</DIV>
+<div><font COLOR="#ED1C24">sf</FONT></DIV>
+<div>&gt;&gt;&gt; print
+sys.stderr.write('sf')</DIV>
+<div><font COLOR="#ED1C24">sf</FONT><font COLOR="#4D6DF3">None</FONT></DIV>
+</DIV>
+<div>原创所有，转载请注明本文超链接地址及作者。</DIV>							
+		</div>

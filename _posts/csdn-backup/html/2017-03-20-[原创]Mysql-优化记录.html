@@ -1,0 +1,131 @@
+---
+layout: post
+title: "[原创]Mysql-优化记录"
+date: 2017-03-20 14:45:50
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>Mysql 优化记录</DIV>
+<div># ################################################# 业务
+#################################################################</DIV>
+<div>#获取应用的所有业务列表</DIV>
+<div>#select * from business where businessId in (select businessId
+from rel_app_business where appId = 1 );</DIV>
+<div>#首次编译执行时间0.016 sec. 之后执行时间0.000sec. 优化后执行时间：0.000sec.</DIV>
+<div>select business.* from business inner join rel_app_business on
+business.businessId =rel_app_business.businessId
+&nbsp;<wbr>where appId = 51 ;</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div># ################################################# 服务
+#################################################################</DIV>
+<div>#获取指定应用、业务 所关联的所有服务信息</DIV>
+<div>#select * from service where serviceId in (select serviceId
+from rel_business_service where appBusinessId in(select
+appBusinessId from rel_app_business where appId= 51 and businessId=
+2 ));</DIV>
+<div>#执行时间3.354sec，优化后执行时间 0.000sec.</DIV>
+<div>select * from service inner join (select serviceId from
+rel_business_service as rbs inner join rel_app_business as rab
+&nbsp;<wbr>on rbs.appBusinessId=rab.appBusinessId where
+&nbsp;<wbr>rab.appId= 51 and rab.businessId= 2) as nt on
+service.serviceId=nt.serviceId;</DIV>
+<div><br /></DIV>
+<div>#根据应用/业务 关联id，获取所有的服务信息</DIV>
+<div>#select * from service where serviceId in (select serviceId
+from rel_business_service where appBusinessId = 8);</DIV>
+<div>#执行事件1.045 sec/ 1.388 sec/ 1.123 sec，优化后首次编译执行0.016
+sec，之后0.000 sec.</DIV>
+<div>select service.* from service inner join rel_business_service
+on service.serviceId = rel_business_service.serviceId where
+rel_business_service.appBusinessId = 8;</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div># ################################################# 句式
+#################################################################</DIV>
+<div>#获取模版下的所有句式</DIV>
+<div>#select tp.*, tt.templateName from template_pattern as tp,
+template as tt where tp.templateId = tt.templateId and tp.dr = 0
+and tp.templateId = 1 order by tp.ts desc limit 0, 10;</DIV>
+<div>#首次编译执行0.015sec, 之后0.000sec。优化后0.000 sec.</DIV>
+<div>select tp.*, tt.templateName from template_pattern as tp inner
+join &nbsp;<wbr>template as tt on tp.templateId =
+tt.templateId where tp.dr = 0 and tp.templateId = 1 order by tp.ts
+desc limit 0, 10;</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div># ################################################# 同义词
+#################################################################</DIV>
+<div>#加载同义词</DIV>
+<div>#select tts.*, ts.serviceName from template_synset as tts,
+service as ts &nbsp;<wbr>where tts.serviceId = ts.serviceId
+and &nbsp;<wbr>tts.dr=0 and tts.userId=1 order by tts.ts
+desc limit 0, 10000;</DIV>
+<div>#执行时间 0.000 sec, 优化0.000sec .暂未提高.explain 结果一样。</DIV>
+<div>select tts.*, ts.serviceName from template_synset as tts inner
+join &nbsp;<wbr>service as ts &nbsp;<wbr>on
+tts.serviceId = ts.serviceId where tts.dr=0 and tts.userId=1 order
+by tts.ts desc limit 0, 10000;</DIV>
+<div><br /></DIV>
+<div>#获取某个服务的所有同义词</DIV>
+<div>#select tst.*, ts.ServiceName from template_synset as
+tst,service as ts where tst.serviceId = ts.serviceId and
+tst.serviceId = 1 order by tst.ts desc limit 0, 1000;</DIV>
+<div>#执行时间 0.000 sec, 优化0.000sec .暂未提高. explain 一样</DIV>
+<div>select tst.*, ts.ServiceName from template_synset as tst inner
+join service as ts on tst.serviceId = ts.serviceId where
+tst.serviceId = 1 order by tst.ts desc limit 0, 1000;</DIV>
+<div><br /></DIV>
+<div>#获取某个用户的同义词</DIV>
+<div>#select tst.*, ts.ServiceName &nbsp;<wbr>from
+template_synset tst,service as ts where tst.serviceId =
+ts.serviceId and tst.userId = 1 ;</DIV>
+<div>#执行时间 0.000 sec, 优化0.000sec .暂未提高. explain 一样</DIV>
+<div>select tst.*, ts.ServiceName &nbsp;<wbr>from
+template_synset tst inner join service as ts on tst.serviceId =
+ts.serviceId where tst.userId = 1 ;</DIV>
+<div><br /></DIV>
+<div># ################################################# 模版
+#################################################################</DIV>
+<div>#获取某个服务的所有模版</DIV>
+<div>#select tt.*, ts.serviceName from template as tt, service as
+ts where tt.serviceId = ts.serviceId and tt.dr = 0 and tt.serviceId
+= 1 ;</DIV>
+<div>#执行时间 0.000 sec, 优化0.000sec .explain 一样</DIV>
+<div>select tt.*, ts.serviceName from template as tt inner join
+&nbsp;<wbr>service as ts on tt.serviceId = ts.serviceId
+where tt.dr = 0 and tt.serviceId = 1 ;</DIV>
+<div><br /></DIV>
+<div># ################################################# 词条
+#################################################################</DIV>
+<div>#加载词条</DIV>
+<div>#explain select tte.*, tt.termName, ttl.languageName from
+term_entry as tte, term as tt, term_language as ttl where
+tte.languageId = ttl.languageId and tte.termId = tt.termId and
+tte.dr=0 and tte.userId = 1 and tte.termId = 1 order by tte.ts desc
+limit 0,10;</DIV>
+<div>#执行时间0.639 sec/ 0.671sec/ 0.655sec. 优化后0.608 sec, 0.609 sec,
+0.640 sec, term_entry增加一个索引，字段有termId/userId . 0.000 sec.</DIV>
+<div>#explain select tte.*, tt.termName, ttl.languageName from
+term_entry as tte left join term as tt on tte.termId = tt.termId
+&nbsp;<wbr>left join term_language as ttl on tte.languageId
+= ttl.languageId where tte.dr=0 and tt.dr=0 and tte.userId = 1 and
+tte.termId = 1 and tt.termId = 1 order by tte.ts desc limit
+0,10;</DIV>
+<div><br /></DIV>
+<div>select tte.*, tt.termName, ttl.languageName from term_entry as
+tte left join term as tt on tte.termId = tt.termId
+&nbsp;<wbr>left join term_language as ttl on tte.languageId
+= ttl.languageId where &nbsp;<wbr>tte.userId = 1 and
+tte.termId = 1 and tte.dr=0 order by tte.ts desc limit 0,10;</DIV>
+<div><br /></DIV>
+<div><br /></DIV>							
+		</div>

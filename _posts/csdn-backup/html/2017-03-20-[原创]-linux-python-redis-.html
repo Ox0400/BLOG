@@ -1,0 +1,291 @@
+---
+layout: post
+title: "[原创]-linux-python-redis-"
+date: 2017-03-20 14:41:34
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div STYLE="text-align: center;">
+linux-python-redis(NOSQL)简单操作</DIV>
+<hr />
+原创所有，转载请注明本文超链接地址以及作者，谢谢！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c6lc.html">http://blog.sina.com.cn/s/blog_83dc494d0101c6lc.html</A>
+<hr />
+又接触了一个新东西哈，redis数据库，貌似听说就是NOSQL，这种数据库的特点就是只有两列，key/values
+（列名，数据），说一般微博之类的都用这个存储数据的。废话不说，看步骤。
+<div>首先下载redis数据库</DIV>
+<div>1. --
+&gt;wget&nbsp;<wbr>http://download.redis.io/releases/redis-2.6.16.tar.gz
+#或者到网站下载http://redis.io</DIV>
+<div>2. -- &gt; tar -zxvf redis-2.6.16 #解压</DIV>
+<div>3. -- &gt; cd redis-2.6.16&nbsp;<wbr></DIV>
+<div>4. -- &gt; make #编译</DIV>
+<div>5. -- &gt; make install</DIV>
+<div>6. -- &gt; cd untils</DIV>
+<div>7. -- &gt; ./install_server</DIV>
+<div>8. -- &gt; redis-server #运行redis数据库</DIV>
+<div><br /></DIV>
+<div>下载python对redis数据库的支持 redis-py</DIV>
+<div>1. -- &gt;svn checkout&nbsp;<wbr><a HREF="https://github.com/andymccurdy/redis-py">https://github.com/andymccurdy/redis-py</A></DIV>
+<div>下载后进入redis-py文件夹内</DIV>
+<div>2 &nbsp;<wbr>--&gt;cd
+&nbsp;<wbr>redis-py/trunk/ &nbsp;<wbr>
+#进入配置文件夹内</DIV>
+<div>3 &nbsp;<wbr>--&gt;sudo python setup.py
+install #配置redis-py，</DIV>
+<div>4 &nbsp;<wbr>--&gt;rm -rf redis-py
+#返回到redis-py所在文件夹，删除掉即可（第三步已经把redis-py所需要的库配置到了python所在的目录）</DIV>
+<hr />
+mkdir /home/zhangzhipeng/py/redis_test #创建一个写程序的目录(自由支配)<br />
+cd /home/zhangzhipeng/py/redis_test<br />
+vi redis_test.py<br />
+<span STYLE="line-height: 21px;">---------------------------------------------------------------------</SPAN><br />
+
+#!/usr/bin/python<br />
+#!coding:utf-8<br />
+import redis #导入redis-py模块<br />
+class redis_db:<br />
+&nbsp;<wbr> def __init__(self):<br />
+&nbsp;<wbr> &nbsp;<wbr> self.host = 'localhost'
+#主机，本机为localhost<br />
+&nbsp;<wbr> &nbsp;<wbr> self.port = 6379
+#段口号，默认为6379<br />
+&nbsp;<wbr> def read(self,key):<br />
+&nbsp;<wbr> &nbsp;<wbr> rd =
+redis.StrictRedis(host=self.host,port=self.port)#链接到服务器<br />
+&nbsp;<wbr> &nbsp;<wbr> value =
+rd.get(key)#用get方法获取key所对应的value<br />
+&nbsp;<wbr> &nbsp;<wbr> print value #打印结果<br />
+&nbsp;<wbr> &nbsp;<wbr> return value
+<div>&nbsp;<wbr> def write(self.key,value):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> wd =
+redis.StrictRedis(host=self.host,port=self.port)#链接到服务器</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+wd.set(key,value)#用set方法将对应的key，value添加到数据库中</DIV>
+<div>if __name__ =='__main__':</DIV>
+<div>&nbsp;<wbr> db = new redis_db() #new一个类</DIV>
+<div>&nbsp;<wbr> key = 'apple_price_2013_10_20'</DIV>
+<div>&nbsp;<wbr> value = '3.4'</DIV>
+<div>&nbsp;<wbr> db.write(key,value)</DIV>
+<div>&nbsp;<wbr> db.read(key)</DIV>
+<div>
+---------------------------------------------------------------------</DIV>
+<div>ESC --&gt; : --&gt; wq
+--&gt;Enter</DIV>
+<div>python redis_test.py</DIV>
+<div>======================================</DIV>
+<div>下面再看一下对大数据，大量的数据进行读写的操作。</DIV>
+<div>vi redis_more_test.py</DIV>
+<div>
+----------------------------------------------------------------------</DIV>
+<div>#!/usr/bin/python</DIV>
+<div>#!coding:utf-8</DIV>
+<div><br /></DIV>
+<div>import redis</DIV>
+<div><span STYLE="line-height: 21px;">class
+redis_db:</SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr> def
+__init__(self):</SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> self.host = 'localhost'
+#主机，本机为localhost</SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> self.port = 6379
+#段口号，默认为6379&nbsp;<wbr></SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr> def
+read_more(self,keys):</SPAN></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> """keys 是列表类型</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> """<br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> rd =
+redis.StrictRedis(host=self.host,port=self.port)#链接到服务器</SPAN><br STYLE="line-height: 21px;" />
+
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> values =
+rd.mget(keys)#用get方法获取key所对应的value</SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> print values #打印结果</SPAN><br STYLE="line-height: 21px;" />
+<span STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> return value</SPAN>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> def
+write_more(self,values):</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> """data 是字典类型</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> """</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> wd =
+redis.StrictRedis(host=self.host,port=self.port)#链接到服务器</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> wd.mset(values)#用set方法将对应的key，value添加到数据库中</DIV>
+<div STYLE="line-height: 21px;"><br /></DIV>
+<div STYLE="line-height: 21px;">def test():</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> """this is a
+test.</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> """</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> keys = []</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> values ={}</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> for i in
+range(10):</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> key = 'apple_price_'+str(i)</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> keys.append(key)</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+&nbsp;<wbr> values[key] = &nbsp;<wbr>str(i)</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> db = new
+redis_db()</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr>
+db.mset(values)</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> db.mget(keys)
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div STYLE="line-height: 21px;">if __name__ =='__main__':</DIV>
+<div STYLE="line-height: 21px;">&nbsp;<wbr> test()</DIV>
+</DIV>
+<div>
+<div STYLE="line-height: 21px;">
+---------------------------------------------------------------------</DIV>
+<div STYLE="line-height: 21px;">ESC --&gt; :
+--&gt; wq --&gt;Enter</DIV>
+<div STYLE="line-height: 21px;">python redis_test.py</DIV>
+<div STYLE="line-height: 21px;">
+======================================</DIV>
+<div STYLE="line-height: 21px;">
+当然，有的人会问单条for循环存储和for循环后批量存储区别在哪？区别很大，假如你有1W数据，可以分别测试一下存取1W条数据的时间。1W条的批量处理，时间为1.5s以下，而单条存储的时候上10s也不足为怪。</DIV>
+<div STYLE="line-height: 21px;">
+下面我直接把握的代码放上来，供大家借鉴学习(其实我也是照搬的```~~），而且我把keys和values写到__init__函数块中了当时主要是脑子抽筋了，反正用来练习的。</DIV>
+<div STYLE="line-height: 21px;">
+-------------------------------------------------------------------</DIV>
+<div STYLE="line-height: 21px;">#!/usr/bin/python</DIV>
+<div>
+<div>import redis #导入redis 模块</DIV>
+<div>import datetime #时间模块</DIV>
+<div><br /></DIV>
+<div>class redis_data():</DIV>
+<div>&nbsp;<wbr> def __init__(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+self.host='localhost'#主机</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> self.port=6379 #端口</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> self.key = None
+#key值</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> self.value = None
+value值</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+self.keys=[]#keys列表</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+self.values={}#values字典，{key:value,key:value}</DIV>
+<div>##################单条操作###################</DIV>
+<div>&nbsp;<wbr> def read(self,key):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> rd =
+redis.StrictRedis(host=self.host, port=self.port)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> value =
+rd.get(key)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> return value</DIV>
+<div>&nbsp;<wbr> def write(self,key,value):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> wd =
+redis.StrictRedis(host=self.host, port=self.port)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> wd.set(key,value)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> return</DIV>
+<div>##################批量操作###################</DIV>
+<div>&nbsp;<wbr> def add_key(self,key):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+self.keys.append(key)</DIV>
+<div>&nbsp;<wbr> def read_more(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> rd =
+redis.StrictRedis(host=self.host, port=self.port)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> values =
+rd.mget(self.keys)</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> def add_values(self,key,value):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+self.values[key]=value</DIV>
+<div>&nbsp;<wbr> def write_more(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> wd =
+redis.StrictRedis(host=self.host, port=self.port)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+wd.mset(self.values)</DIV>
+<div>####################测试用例##################</DIV>
+<div>#------------ &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>test &nbsp;<wbr> ----------------</DIV>
+<div>def test_0(data): #单条读写--用来测试能否对数据库进行读写</DIV>
+<div>&nbsp;<wbr> data.write('meituan','88008')</DIV>
+<div>&nbsp;<wbr> rd = data.read('meituan')</DIV>
+<div><br /></DIV>
+<div>def test_2(data):#批量读写--测试对比时间</DIV>
+<div>&nbsp;<wbr> for i in range(10000):
+#将keys和values设置好</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+data.add_values('meituan'+str(i),str(i+1))</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+data.keys.append('meituan'+str(i))</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> print'-'*15,'more write','-'*15
+#批量写1W条数据</DIV>
+<div>&nbsp;<wbr> start_time = datetime.datetime.now()
+#开始时间</DIV>
+<div>&nbsp;<wbr> data.write_more()</DIV>
+<div>&nbsp;<wbr> end_time = datetime.datetime.now()
+#结束时间</DIV>
+<div>&nbsp;<wbr> print 'more write
+time:',end_time-start_time#批量写1W，用时</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> print'-'*15,'more
+read','-'*15#批量读1W数据</DIV>
+<div>&nbsp;<wbr> start_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> data.read_more()</DIV>
+<div>&nbsp;<wbr> end_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> print 'more read time:',end_time-start_time
+#批量读1W，用时</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> print '-'*15,'read one
+more','-'*15#单条读1W数据</DIV>
+<div>&nbsp;<wbr> start_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> for i in data.keys:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+data.read('meituan'+str(i))</DIV>
+<div>&nbsp;<wbr> end_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> print 'read one more time:',end_time -
+start_time#单条读1W，用时</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> print '-'*15,'write one
+more','-'*15#单条写1W数据</DIV>
+<div>&nbsp;<wbr> start_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> for i in range(10000):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>
+data.write('dazhong'+str(i),str(i+1))</DIV>
+<div>&nbsp;<wbr> end_time = datetime.datetime.now()</DIV>
+<div>&nbsp;<wbr> print 'write one more time:',end_time -
+start_time#单条写1W，用时</DIV>
+<div>#----------- &nbsp;<wbr> &nbsp;<wbr>test end
+-----------</DIV>
+<div>if __name__ == "__main__":</DIV>
+<div>&nbsp;<wbr> data = database()</DIV>
+<div>&nbsp;<wbr> test_2(data)</DIV>
+<div STYLE="line-height: 21px;">
+------------------------------------------------------------------------------------</DIV>
+</DIV>
+</DIV>
+<div STYLE="line-height: 21px;">看看效果</DIV>
+<div STYLE="line-height: 21px;"><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0101c6lc&url=http://album.sina.com.cn/pic/83dc494dgx6DzLi1RJX6d" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s14.sinaimg.cn/mw690/83dc494dgx6DzLi1RJX6d&amp;690" WIDTH="690" HEIGHT="221"  ALT="【原创】&nbsp;<wbr>linux-python-redis(NOSQL)简单操作"  TITLE="【原创】&nbsp;<wbr>linux-python-redis(NOSQL)简单操作" /></A><br />
+同样是1W条数据</DIV>
+<div STYLE="line-height: 21px;">get &nbsp;<wbr>
+&nbsp;<wbr>--&gt;5.088s</DIV>
+<div STYLE="line-height: 21px;">mget --&gt;0.109s</DIV>
+<div STYLE="line-height: 21px;">------</DIV>
+<div STYLE="line-height: 21px;">set &nbsp;<wbr>
+&nbsp;<wbr>--&gt;5.141s</DIV>
+<div STYLE="line-height: 21px;">mset --&gt;0.043s</DIV>
+<div STYLE="line-height: 21px;">
+可见差距之大，所以尽量存储一段时间或者一定数量后再进行读写。</DIV>
+<div STYLE="line-height: 21px;">好了redis数据库基础操作结束。</DIV>
+<hr />
+原创所有，转载请注明本文超链接地址以及作者，谢谢！<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101c6lc.html">http://blog.sina.com.cn/s/blog_83dc494d0101c6lc.html</A>
+<hr />							
+		</div>

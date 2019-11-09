@@ -1,0 +1,611 @@
+---
+layout: post
+title: "[原创]python-encoding中文编码"
+date: 2017-03-20 14:38:37
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<span STYLE="font-family: 宋体;">看一下</SPAN><span>python</SPAN><span STYLE="font-family: 宋体;">的字符编码，我琢磨了半天，这个好像没什么用啊，无论设置哪种编码方式，结果都一样的。</SPAN>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">设置方式如下：</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">在</SPAN><span>python</SPAN><span STYLE="font-family: 宋体;">的</SPAN><span>lib</SPAN><span STYLE="font-family: 宋体;">目录下</SPAN><span>site-packages</SPAN><span STYLE="font-family: 宋体;">目录中，新建</SPAN><code><b><span STYLE="font-size: 12pt;">sitecustomize.py</SPAN></B></CODE><code><span STYLE="font-size: 12pt;">，</SPAN></CODE></P>
+<p ALIGN="left"><span STYLE="font-size: 12pt;">C:\Python27\lib\site-pachages\sitecustomize.py</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">输入以下内容，保存关闭。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">#&nbsp;<wbr><a NAME="OLE_LINK3"></A><a NAME="OLE_LINK2"></A><a NAME="OLE_LINK1">sitecustomize</A>.py&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">#
+this file can be anywhere in your Python path,</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">#
+but it usually goes in ${pythondir}/lib/site-packages/</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">import sys</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; font-size: 12pt;">sys.setdefaultencoding('iso-8859-1')#</SPAN><span STYLE="font-family: 宋体; font-size: 12pt;">分别尝试了<span>ascii(</SPAN>默认<span>)</SPAN>，<span>UTF-8,gb2312</SPAN>，</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">每设置完后重新运行</SPAN><span>Python
+IDE</SPAN><span STYLE="font-family: 宋体;">。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">结果如下：</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">一、</SPAN><span>iso-8859-1</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'iso-8859-1'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s=u'</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">&Icirc;&Ograve;&Ecirc;&Ccedil;&Ouml;&ETH;</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&sup1;&uacute;</SPAN><span STYLE="color: rgb(0, 112, 192);">&Egrave;&Euml;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s='</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">我是中国人</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">二、</SPAN><span>ascii&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">默认编码方式，可以不用新建</SPAN><span STYLE="font-family: 宋体; font-size: 12pt;">sitecustomize.py</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'ascii'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s=u'</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">&Icirc;&Ograve;&Ecirc;&Ccedil;&Ouml;&ETH;</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&sup1;&uacute;</SPAN><span STYLE="color: rgb(0, 112, 192);">&Egrave;&Euml;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s='</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">我是中国人</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">三、</SPAN><span>UTF-8</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'UTF-8'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s=u'</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">&Icirc;&Ograve;&Ecirc;&Ccedil;&Ouml;&ETH;</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&sup1;&uacute;</SPAN><span STYLE="color: rgb(0, 112, 192);">&Egrave;&Euml;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s='</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">我是中国人</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">四、</SPAN><span>gb2312</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'gb2312'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s=u'</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">&Icirc;&Ograve;&Ecirc;&Ccedil;&Ouml;&ETH;</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&sup1;&uacute;</SPAN><span STYLE="color: rgb(0, 112, 192);">&Egrave;&Euml;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s='</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">我是中国人</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">发现没，他们输出的结果都一样</SPAN><span>…</SPAN><span STYLE="font-family: 宋体;">这让我表示郁闷，那设置这个有什么用吗？</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">按照书上的说法，设置默认的编码后，可以这样来用。</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+s=u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb' #</SPAN><span STYLE="font-family: 宋体;">正好对应‘我是中国人’</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+s</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">&Icirc;&Ograve;&Ecirc;&Ccedil;&Ouml;&ETH;</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&sup1;&uacute;</SPAN><span STYLE="color: rgb(0, 112, 192);">&Egrave;&Euml;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">但是四种编码方式都一样的，这结果让我更不知所措了</SPAN><span>…</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">刚才试着读中文格式的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">，报错了，</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">文本如下：</SPAN></P>
+<p ALIGN="left"><span>&lt;?xml version="1.0"
+encoding="gb2312"?&gt;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p ALIGN="left">
+<span>&lt;preface&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&lt;title&gt;</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>&lt;/title&gt;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p ALIGN="left">
+<span>&lt;/preface&gt;</SPAN></P>
+<p ALIGN="left"><span>Python IDE</SPAN><span STYLE="font-family: 宋体;">如下：</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; from xml.dom
+import minidom</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#1&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">ExpatError: not
+well-formed (invalid token): line 3, column 10</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">这是什么问题，我也不懂了，然后想了想一般编码不区分大小写的，但是抱着试一试的心态把</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">中的编码方式改了一下，改成</SPAN><span>GB2312</SPAN><span STYLE="font-family: 宋体;">，接着读</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">：</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">额，这是为什么，没有异常了。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">既然这样，那就这样吧，也只能这样了，以后大家写</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">或者</SPAN><span>html</SPAN><span STYLE="font-family: 宋体;">或者其他地方要写编码尽量用大写吧！</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">不过接着就出问题了，试着把读取到的东西输出：</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+title=xmldoc.getElementsByTagName_r('title')[0].firstChild.data</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+title</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">u'\u6445\u646e\ufae0$\u6563\u726f\u876e\u5f73\u1a50\u01fe'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+title</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">摅摮</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">&#64224;</SPAN><span STYLE="color: rgb(0, 112, 192);">$</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">散牯蝮彳</SPAN><span STYLE="color: rgb(0, 112, 192);">&#6736;</SPAN><span STYLE="color: rgb(0, 112, 192);">&#510;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">【释】这</SPAN><span>..</SPAN><span STYLE="font-family: 宋体;">这</SPAN><span>..</SPAN><span STYLE="font-family: 宋体;">又是乱码！</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">要不试着将文字换换编码再输出？</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle=title.encode('GB2312')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#6&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>converttitle=title.encode('GB2312')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">UnicodeEncodeError:
+'gb2312' codec can't encode character u'\u646e' in position 1:
+illegal multibyte sequence</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle=title.encode('UTF-8')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">'\xe6\x91\x85\xe6\x91\xae\xef\xab\xa0$\xe6\x95\xa3\xe7\x89\xaf\xe8\x9d\xae\xe5\xbd\xb3\xe1\xa9\x90\xc7\xbe'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+converttitle</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">摅摮</SPAN><span STYLE="font-family: 宋体;">&#64224;</SPAN><span>$</SPAN><span STYLE="font-family: 宋体;">散牯蝮彳</SPAN><span>&#6736;</SPAN><span>&#510;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+a='</SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN><span>'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; a</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 112, 192);">'\xce\xd2\xca\xc7\xd6\xd0\xb9\xfa\xc8\xcb'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle=title.encode('gb2312')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#12&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>converttitle=title.encode('gb2312')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">UnicodeEncodeError:
+'gb2312' codec can't encode character u'\u646e' in position 1:
+illegal multibyte sequence</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle=title.encode('ascii')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#13&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>converttitle=title.encode('ascii')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">UnicodeEncodeError:
+'ascii' codec can't encode characters in position 0-2: ordinal not
+in range(128)</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+converttitle=title.encode('iso-8859-1')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#14&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>converttitle=title.encode('iso-8859-1')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">UnicodeEncodeError:
+'latin-1' codec can't encode characters in position 0-2: ordinal
+not in range(256)</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">这怎么办，只有</SPAN><span>utf-8&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">能输出，但是还是乱码昂</SPAN><span>..</SPAN><span STYLE="font-family: 宋体;">这个问题，有待研究呀。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">还有个问题，</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">还是</SPAN><span>GB2312</SPAN><span STYLE="font-family: 宋体;">，使用这个用户配置编码</SPAN><span STYLE="font-family: 宋体; font-size: 12pt;">sitecustomize.py&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; font-size: 12pt;">分别设置为<span>iso-8859-1
+ascii utf-8
+GB2312&nbsp;<wbr></SPAN>，对<span>xml</SPAN>进行读取。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+import sys</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: rgb(0, 112, 192);">'GB2312'</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+from xml.dom import minidom</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+xmldoc = minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">Traceback (most recent call
+last):</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc
+= minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">ExpatError: unknown encoding: line
+1, column 30</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+import sys</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">'UTF-8'</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+from xml.dom import minidom</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+xmldoc = minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">Traceback (most recent call
+last):</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc
+= minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">ExpatError: not well-formed (invalid
+token): line 3, column 10</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+import sys</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">'ascii'</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+from xml.dom import minidom</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+xmldoc = minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">Traceback (most recent call
+last):</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc
+= minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">ExpatError: not well-formed (invalid
+token): line 3, column 10</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+import sys</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">'iso-8859-1'</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+from xml.dom import minidom</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;
+xmldoc = minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">Traceback (most recent call
+last):</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc
+= minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体; color: red;">ExpatError: unknown encoding: line
+1, column 30</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">【释】发现没有，</SPAN><span>UTF-8</SPAN><span STYLE="font-family: 宋体;">和</SPAN><span>ASCII&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">会报</SPAN><span>ExpatError:
+not well-formed (invalid token): line 3, column
+10&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">的异常，这不是之前大小写的问题吗？那为什么</SPAN><span>GB2312</SPAN><span STYLE="font-family: 宋体;">和</SPAN><span>iso-8859-1&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">会报</SPAN><span>ExpatError:
+unknown encoding: line 1, column 30</SPAN><span STYLE="font-family: 宋体;">的错误呢？要不把这个配置的编码删掉再试试：</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">'ascii'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; from xml.dom
+import minidom</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">ExpatError: unknown
+encoding: line 1, column 30</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">错了错了，颠覆了之前大小写的原因了。而且伦乱了，无论</SPAN><span>gb2312</SPAN><span STYLE="font-family: 宋体;">还是</SPAN><span>GB2312</SPAN><span STYLE="font-family: 宋体;">都是</SPAN><span>unknown
+encoding</SPAN><span STYLE="font-family: 宋体;">了，未知编码方式</SPAN><span>…</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">再试试，配置编码留着，但是什么都不做，只是</SPAN><span>import
+sys</SPAN><span STYLE="font-family: 宋体;">，下面</SPAN><span>#</SPAN><span STYLE="font-family: 宋体;">注释，</SPAN><span>IDE</SPAN><span STYLE="font-family: 宋体;">结果如下：</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; import
+sys</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+sys.getdefaultencoding()</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">'ascii'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; from xml.dom
+import minidom</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr><a NAME="OLE_LINK5"></A><a NAME="OLE_LINK4">xmldoc=minidom.parse('./mytest/russiansample.xml')</A></SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">Traceback (most recent
+call last):</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"&lt;pyshell#3&gt;", line 1, in
+&lt;module&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\minidom.py", line 1921, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return
+expatbuilder.parse(file)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 924, in
+parse</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>result
+= builder.parseFile(fp)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>File
+"C:\Python27\lib\xml\dom\expatbuilder.py", line 207, in
+parseFile</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>parser.Parse(buffer,
+0)</SPAN></P>
+<p ALIGN="left"><span STYLE="color: red;">ExpatError: not
+well-formed (invalid token): line 3, column 10</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">这不就是那个之前大小写时候的错误吗？哎，弄大小写了，没用</SPAN><span>….</SPAN><span STYLE="font-family: 宋体;">啊呀，那这个到底怎么读</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">内容啊！难道前面成功读取一次的只是巧合吗？</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">额，伦乱了伦乱了，不过我试着重新拷贝了一个</SPAN><span>qq</SPAN><span STYLE="font-family: 宋体;">的</SPAN><span>xml
+SSOConfig.xml</SPAN><span STYLE="font-family: 宋体;">，然后修改如下：</SPAN></P>
+<p ALIGN="left"><span>&lt;?xml version="1.0"
+encoding="utf-8" ?&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&lt;i18n&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;StringBundle&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">地区信息，目前只需要一个</SPAN><span>,
+SSOPlatform</SPAN><span STYLE="font-family: 宋体;">不需要地区信息</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/StringBundle&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&lt;/i18n&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/SSOConfig.xml')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">擦，终于可以了，然后试着把这段话复制到</SPAN><span>russiansample.xml&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">中：</SPAN></P>
+<p ALIGN="left"><span>&lt;?xml version="1.0"
+encoding="utf-8" ?&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&lt;i18n&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;StringBundle&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">地区信息，目前只需要一个</SPAN><span>,
+SSOPlatform</SPAN><span STYLE="font-family: 宋体;">不需要地区信息</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/StringBundle&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;preface&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;title&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">我是中国人</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/title&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&lt;/preface&gt;</SPAN></P>
+<p ALIGN="left">
+<span>&lt;/i18n&gt;</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">这个</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">对吧？我认为没有问题，但是还是一样的异常，一模一样的文件内容，就是名字不一样就会报错吗，我不信了，终于我发现问题了，告诉你们一个很重要的信息，那就是文件编码格式！！这个问题纠结了很久，来试试看吧！打开</SPAN><span>russiansample.xml&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体;">另存为</SPAN><span>-</SPAN><span STYLE="font-family: 宋体;">编码默认是</SPAN><span>ANSI</SPAN><span STYLE="font-family: 宋体;">选择</SPAN><span>UTF-8</SPAN><span STYLE="font-family: 宋体;">，保存并替换。</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc=minidom.parse('./mytest/russiansample.xml')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+xmldoc.getElementsByTagName_r('title')</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">[&lt;DOM Element: title at
+0x21f3328&gt;]</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; title =
+xmldoc.getElementsByTagName_r('title')[0].firstChild.data</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+title</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">u'\n\t\t\u5730\u533a\u4fe1\u606f\uff0c\u76ee\u524d\u53ea\u9700\u8981\u4e00\u4e2a,
+SSOPlatform\u4e0d\u9700\u8981\u5730\u533a\u4fe1\u606f\n\t'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+title</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">地区信息，目前只需要一个</SPAN><span STYLE="color: rgb(0, 176, 240);">,
+SSOPlatform</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">不需要地区信息</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;
+c=title.encode('gb2312')</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; c</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">'\n\t\t\xb5\xd8\xc7\xf8\xd0\xc5\xcf\xa2\xa3\xac\xc4\xbf\xc7\xb0\xd6\xbb\xd0\xe8\xd2\xaa\xd2\xbb\xb8\xf6,
+SSOPlatform\xb2\xbb\xd0\xe8\xd2\xaa\xb5\xd8\xc7\xf8\xd0\xc5\xcf\xa2\n\t'</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt; print
+c</SPAN></P>
+<p ALIGN="left"><span STYLE="color: rgb(0, 176, 240);">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">地区信息，目前只需要一个</SPAN><span STYLE="color: rgb(0, 176, 240);">,
+SSOPlatform</SPAN><span STYLE="font-family: 宋体; color: rgb(0, 176, 240);">不需要地区信息</SPAN></P>
+<p ALIGN="left">
+<span>&gt;&gt;&gt;&nbsp;<wbr></SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">终于成功了，而且不需要再转码输出了，我不要再试了。最后再说一句，文件编码方式很重要，这个尤其的</SPAN><span>windows</SPAN><span STYLE="font-family: 宋体;">上！</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">本人亲测：</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">中的</SPAN><span>encoding</SPAN><span STYLE="font-family: 宋体;">是</SPAN><span>UTF-8</SPAN><span STYLE="font-family: 宋体;">的时候，文件保存格式一定要是</SPAN><span>utf-8.</SPAN><span STYLE="font-family: 宋体;">这样直接打开</SPAN><span>IDE</SPAN><span STYLE="font-family: 宋体;">就可以读取</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">另附：</SPAN><span>QQ</SPAN><span STYLE="font-family: 宋体;">好像所有的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">文件都是</SPAN><span>utf-8</SPAN><span STYLE="font-family: 宋体;">编码和保存的；百度好像大部分是</SPAN><span>gb2312</SPAN><span STYLE="font-family: 宋体;">。</SPAN></P>
+<p ALIGN="left"><span STYLE="font-family: 宋体;">自从那一次大小写的问题读出了</SPAN><span>gb2312</SPAN><span STYLE="font-family: 宋体;">的</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">后，目前为止再也没有碰到过，哪怕结果是乱码也没有，都是异常。尽量用</SPAN><span>utf-8</SPAN><span STYLE="font-family: 宋体;">吧，基本可以解决一切</SPAN><span>xml</SPAN><span STYLE="font-family: 宋体;">编码问题。</SPAN></P>
+<p ALIGN="left"><span>9/15/2013 17:57:47</SPAN></P>
+<p ALIGN="left"><span>原创所有，转载请附加本文链接，谢谢！</SPAN></P>
+<p ALIGN="left"><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bi3s.html" TARGET="_blank">http://blog.sina.com.cn/s/blog_83dc494d0101bi3s.html</A></P>							
+		</div>

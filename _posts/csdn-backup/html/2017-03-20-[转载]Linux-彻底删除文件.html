@@ -1,0 +1,65 @@
+---
+layout: post
+title: "[转载]Linux-彻底删除文件"
+date: 2017-03-20 14:44:14
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			$ echo "123" &gt; rest
+<div>$ shred -u -f -n 12 -z -v rest</DIV>
+<div>
+<div>shred: rest：第1 次，共13 次 (random)...</DIV>
+<div>shred: rest：第2 次，共13 次 (000000)...</DIV>
+<div>shred: rest：第3 次，共13 次 (555555)...</DIV>
+<div>^C</DIV>
+</DIV>
+<div>Ctrl + C 停断,可以看到文本内容变成:</DIV>
+<div>
+UUUUUUUUUUUUUUUUUUUUUUUU<wbr>UUUUUUUUUUUUUUUUUUUUUUUU<wbr>UUUUUUUUUUUUUUUUUUUUUUUU<wbr>UUUUUUU</DIV>
+<div><br /></DIV>
+<div>
+<div>shred: rest：第1 次，共13 次 (random)...</DIV>
+<div>shred: rest：第2 次，共13 次 (555555)...</DIV>
+<div>shred: rest：第3 次，共13 次 (00c00c)...</DIV>
+<div>shred: rest：第4 次，共13 次 (777777)...</DIV>
+<div>shred: rest：第5 次，共13 次 (aaaaaa)...</DIV>
+<div>shred: rest：第6 次，共13 次 (111111)...</DIV>
+<div>shred: rest：第7 次，共13 次 (random)...</DIV>
+<div>shred: rest：第8 次，共13 次 (000000)...</DIV>
+<div>shred: rest：第9 次，共13 次 (249249)...</DIV>
+<div>shred: rest：第10 次，共13 次 (6db6db)...</DIV>
+<div>shred: rest：第11 次，共13 次 (ffffff)...</DIV>
+<div>shred: rest：第12 次，共13 次 (random)...</DIV>
+<div>shred: rest：第13 次，共13 次 (000000)...</DIV>
+<div>shred: rest：正在删除</DIV>
+<div>shred: rest：名称已更改为 0000</DIV>
+<div>shred: 0000：名称已更改为 000</DIV>
+<div>shred: 000：名称已更改为 00</DIV>
+<div>shred: 00：名称已更改为 0</DIV>
+<div>shred: rest：已删除</DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>
+<div>$ shred /dev/sdb1 &nbsp;<wbr> (注意不要加-u参数)</DIV>
+<div>shred的详细参数：</DIV>
+<div>-f, --force &nbsp;<wbr> 更改权限允许写入(如有必要)</DIV>
+<div>-n, --iterations=N &nbsp;<wbr> 重写N次，默认为3次</DIV>
+<div>--random-source=FILE 从指定文件读取数据</DIV>
+<div>-s, --size=N &nbsp;<wbr>将文件粉碎为固定大小 (可使用后缀如K、M、C等)</DIV>
+<div>-u, --remove &nbsp;<wbr> 重写后截短并移除文件</DIV>
+<div>-v, --verbose &nbsp;<wbr> 显示进度</DIV>
+<div>-z, --zero - add &nbsp;<wbr>用0覆盖数据</DIV>
+<div>&ndash;help &nbsp;<wbr>显示帮助</DIV>
+<div>&ndash;version &nbsp;<wbr> 显示版本信息</DIV>
+</DIV>
+<div>详见:<a HREF="http://www.linuxsong.org/2010/12/shred-file/" TARGET="_blank">Linux中彻底删除文件</A></DIV>							
+		</div>

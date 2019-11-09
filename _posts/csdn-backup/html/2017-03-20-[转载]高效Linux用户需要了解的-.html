@@ -1,0 +1,516 @@
+---
+layout: post
+title: "[转载]高效Linux用户需要了解的-"
+date: 2017-03-20 14:38:26
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - linux
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<p STYLE="box-sizing: border-box; margin: 0px 0px 24px; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+最近在Quora上看到一个问答题目，<a HREF="http://www.quora.com/Linux/What-are-some-time-saving-tips-that-every-Linux-user-should-know">关于在高效率Linux用户节省时间Tips</A>。<br STYLE="box-sizing: border-box;" />
+
+<span STYLE="box-sizing: border-box; line-height: 1.714285714; font-size: 1rem;">
+将该题目的回答进行学习总结，加上自己的一些经验，记录如下，方便自己和大家参考。</SPAN></P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 24px; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<span STYLE="box-sizing: border-box;"></SPAN></P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 24px; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<a HREF="http://www.lingcc.com/wp-content/uploads/2013/03/Linux.jpg">
+<img ALT="Linux" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.lingcc.com/wp-content/uploads/2013/03/Linux.jpg" WIDTH="468" HEIGHT="279" STYLE="box-sizing: border-box; vertical-align: middle; max-width: 100%; height: auto; margin: 5px 0px;"  TITLE="【转载】高效Linux用户需要了解的命令行技能" /></A></P>
+<p STYLE="box-sizing: border-box; margin: 0px 0px 24px; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+下面介绍的都是一些命令行工具，这些工具在几位回答者的日常工作中都很有用。<br STYLE="box-sizing: border-box;" />
+<span STYLE="box-sizing: border-box; line-height: 1.714285714; font-size: 1rem;">
+对于任何不了解的命令，请使用“man “查看，或者使用Google。</SPAN><br STYLE="box-sizing: border-box;" />
+有些命令需要先用 yum, apt-get install 命令安装。</P>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+Table of Contents</H2>
+<div STYLE="box-sizing: border-box;">
+<ul STYLE="box-sizing: border-box; margin: 16px 0px; padding: 0px 0px 0px 40px; list-style-type: square;">
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-1">
+1 基本命令</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-2">
+2 一些表达式</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-3">
+3 日常使用命令</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-4">
+4 数据处理</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-5">
+5 系统调试</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.lingcc.com/2013/03/22/12282/#sec-6">
+6 参考</A></LI>
+</UL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">1</SPAN>&nbsp;<wbr>基本命令</H2>
+<div STYLE="box-sizing: border-box;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+了解基本的bash</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">通读整个bash
+man page.</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">学习VIM</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在Linux系统上，虽然你有Emacs和Eclipse，但是VIM仍然是无出其右的利器。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+了解SSH，基本的无密码验证方式。</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+例如通过ssh-agent, ssh-add等。 《灵犀志趣》平时都使用如下脚本完成无密码验证，省事省力。<br STYLE="box-sizing: border-box;" />
+执行方式&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">sh
+nopasswd USER REMOTE_HOST</CODE><br STYLE="box-sizing: border-box;" />
+执行此脚本前，请确认：
+<p STYLE="box-sizing: border-box; margin: 0px 0px 24px;">&nbsp;<wbr></P>
+<ul STYLE="box-sizing: border-box; margin: 16px 0px; padding: 0px 0px 0px 40px; list-style-type: square;">
+<li STYLE="box-sizing: border-box;">
+本机上已有&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">id_dsa.pub</CODE>&nbsp;<wbr>,若无。
+使用命令&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">ssh-keygen
+-t dsa</CODE>&nbsp;<wbr>获得。</LI>
+<li STYLE="box-sizing: border-box;">远程机上登录用户家目录下，已经有 .ssh
+文件夹，若无创建之。</LI>
+</UL>
+</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+$ cat  nopasswd 
+<span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">#</SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">!/bin/sh
+</SPAN>
+scp ~/.ssh/id_dsa.pub  $<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">1</SPAN>@$<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">2</SPAN>:~/
+ssh $<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">1</SPAN>@$<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">2</SPAN> <span STYLE="box-sizing: border-box; color: rgb(255, 160, 122);">" touch ~/.ssh/authorized_keys ; cat ~/id_dsa.pub  &gt;&gt; ~/.ssh/authorized_keys; chmod 644 ~/.ssh/authorized_keys; exit"</SPAN>
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+熟悉Bash中常用的任务管理命令</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+<code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+&amp;,Ctrl-Z,Ctrl-C,jobs,fg,bg,kill</CODE>&nbsp;<wbr>等。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+基本的文件管理命令</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+<code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ls, ls-l, less, head, tail, tail -f, ln, ln -s, chmod, chown, du,
+du -sk *, df, mount</CODE></DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+基本的网络管理命令</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+<code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ipconfig, ifconfig, dig</CODE></DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">熟悉正则表达式，以及
+grep，egrep用到的选项</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+<code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+-o, -A, -B</CODE></DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+软件安装命令了解</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">apt-get 和
+yum</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+cat -n</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+可以帮助显示行号。</DD>
+</DL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">2</SPAN>&nbsp;<wbr>一些表达式</H2>
+<div STYLE="box-sizing: border-box;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+!!</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+再次执行上一条命令</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+!$</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+上一条命令的最后一个单词</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+{a..b}</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+按照从a到b顺序的一个数字列表</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+{a,b,c}</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">三个词a,b,c.
+可以这样使用&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">touch
+/tmp/{foo,bar,baz}</CODE></DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+{$1-$9}</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+执行shell脚本时的命令行参数</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+$0</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+正在执行的命令名称</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+$#</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+当前启动的命令中传入的参数个数</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+$?</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+上一条命令的执行返回值。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+$$</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+该shell的进程号。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+$*</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+从$1开始，启动该shell脚本的所有参数。</DD>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;"><a HREF="http://www.lingcc.com/wp-content/uploads/2013/03/CliCommandsFull.jpg">
+<img ALT="CliCommandsFull" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.lingcc.com/wp-content/uploads/2013/03/CliCommandsFull-1024x819.jpg" WIDTH="625" HEIGHT="499" STYLE="box-sizing: border-box; vertical-align: middle; max-width: 100%; height: auto; margin: 5px 0px;"  TITLE="【转载】高效Linux用户需要了解的命令行技能" /></A></DD>
+</DL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">3</SPAN>&nbsp;<wbr>日常使用命令</H2>
+<div STYLE="box-sizing: border-box;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+Ctrl-R</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">在bash中，
+Ctrl-R用于在历史命令中搜索</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+Ctrl-W, Ctrl-U, Alt-BackSpace</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+bash中，Ctrl-W删除最后一个词，Ctrl-U删除最后一行, Alt-BackSpace
+删除光标前的一个词&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">man
+readline</CODE>&nbsp;<wbr>中包含了大量bash中的默认热键绑定.</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+cd -</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+返回前一个工作路径</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+xargs</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+非常强大的命令。如果你还不确定是否能正确的执行任务，可以先用xargs echo查看。下面是一个用该功能的例子：</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+find . -name <span STYLE="box-sizing: border-box; color: rgb(255, 160, 122);">\*</SPAN>.py | xargs grep some_function
+cat hosts | xargs -l {} ssh root@{} hostname
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+parallel</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+一个更加强大的命令.
+可以实现并行执行任务,并可以分割输入文件,&nbsp;<wbr>指定多个节点同时运行命令等功能.详细的功能可以参考<a HREF="http://www.biostars.org/p/63816/" TARGET="_blank">这个链接</A>.</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+pstree -p</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+打用进程树的得力工具</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+pgrep,pkill</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+使用名字查找进程，或者直接向指定名字的进程发送信号。
+<p STYLE="box-sizing: border-box; margin: 0px 0px 24px;">&nbsp;<wbr></P>
+<ul STYLE="box-sizing: border-box; margin: 16px 0px; padding: 0px 0px 0px 40px; list-style-type: square;">
+<li STYLE="box-sizing: border-box;">
+了解用户能发送给进程的一些信号。比如&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">kill
+-STOP [pid]</CODE>&nbsp;<wbr>，让pid进程挂起。</LI>
+</UL>
+</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+nohup，disown,screen, tmux</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+当你需要将进程永远处在后台运行是，这两个命令很有用。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+lsof, netstat -lntp</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+查询当前什么进程在监听什么端口。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+set</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">在bash脚本中，
+使用&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">set
+-x</CODE>&nbsp;<wbr>获得debug输出，使用&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">set
+-e</CODE>&nbsp;<wbr>获得错误输出。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+;</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+分号用于开启一个子shell并运行至结束后关闭。 例如：</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+<span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">#</SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">在当前路径下执行一些命令
+</SPAN>(<span STYLE="box-sizing: border-box; color: rgb(176, 196, 222);">cd</SPAN> /some/other/dir; other-command)
+<span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);"># </SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">工作路径仍然是当前目录
+</SPAN>
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;">
+了解shell中的多种参数表达式</DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+${name:?error message}</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+检查某个变量是否存在，若不存在输出 error message。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+${var%suffix}, ${var#prefix}</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+输出var变量除前缀或者后缀外的部分。如下面的代码输出为foo.txt.</DD>
+</DL>
+</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+var = foo.pdf
+<span STYLE="box-sizing: border-box; color: rgb(176, 196, 222);">echo</SPAN> ${<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">var</SPAN>%pdf}.txt
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+&lt;,&gt;</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+输入输出重定向操作。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+some_command &gt; logfile 2&gt;&amp;1</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+将&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">some_command</CODE>&nbsp;<wbr>运行过程中的标准输出和标准错误输出都输出到文件logfile中。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+man ascii</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+获得一个好用的ASCII表格，包含10进制和16进制的值。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+screen,dtach</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在远程ssh绘画中，使用这两个命令可以保存你的会话，避免因为网络问题导致中断。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+curl, curl -l, wget</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在web页面调试中，这几个命令能帮你下载网页代码，很有用。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+lynx -dump -stdin</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+将HTML转换为文本</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+xmlstarlet</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+需要处理XML时，这个命令很有用。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ssh -L, ssh -D</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+需要利用远程服务器访问网页时，这命令可以帮助你在远程服务器和你的机器之间建立ssh 隧道。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ssh连接优化</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+如下配置能帮你避免链接丢失，不需要每次都输入yes确认和远程服务器的链接，以及在链接中启用压缩。建议将它放到.ssh/config中。</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">TCPKeepAlive</SPAN>=yes
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">ServerAliveInterval</SPAN>=15
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">ServerAliveCountMax</SPAN>=6
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">StrictHostKeyChecking</SPAN>=no
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">Compression</SPAN>=yes
+<span STYLE="box-sizing: border-box; color: rgb(238, 221, 130);">ForwardAgent</SPAN>=yes
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+在正输入的命令前加#</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+命令已经输入一半，忽然间改主意想少收运行时，<br STYLE="box-sizing: border-box;" />
+可以使用&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">Alt-#</CODE>&nbsp;<wbr>在命令前加‘#’，将整个命令变成注释。这样你稍后就能在命令历史中找到该命令了。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+cron</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+可以帮助你制定一些定时执行的计划任务。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+Ctrl-S Ctrl-C</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+将一不小心需要大量输出文本时，依次输入这两个操作，<br STYLE="box-sizing: border-box;" />
+比单纯的频繁按Ctrl-C能更快让程序终止。</DD>
+</DL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">4</SPAN>&nbsp;<wbr>数据处理</H2>
+<div STYLE="box-sizing: border-box;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+sort,uniq, uniq -u, uniq -d</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+了解这些排序命令</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+cut,paste, join</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+了解这些文本文件的维护工具。很多人都在使用cut后，忘记join</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+使用sort/uniq进行集合的交、并、补运算=</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+假设a和b是两个文本文件，其中的行都是唯一的。<br STYLE="box-sizing: border-box;" />
+如下几个命令可以快速的实现一些集合操作。</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+cat a b | sort | uniq &gt; c   <span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);"># </SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">c is a union b
+</SPAN>cat a b | sort | uniq -d &gt; c   <span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);"># </SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">c is a intersect b
+</SPAN>cat a b b | sort | uniq -u &gt; c   <span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);"># </SPAN><span STYLE="box-sizing: border-box; color: rgb(255, 127, 36);">c is set difference a - b
+</SPAN>
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+使用LC_ALL=C</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+Linux中有关locale的设置会影响大量的命令行工具，其中包括排序工具。<br STYLE="box-sizing: border-box;" />
+多数安装的Linux系统都将LANG或者其他的locale默认设置成US English。<br STYLE="box-sizing: border-box;" />
+但这可能会导致排序及其他命令慢上好几倍。<br STYLE="box-sizing: border-box;" />
+因此export LC<span STYLE="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; bottom: -0.25em;">ALL</SPAN>=C能避免使用i18n形式处理数据，带来性能提升。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+awk,sed</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+这两个工具能实现复杂的数据替换和修改。<br STYLE="box-sizing: border-box;" />
+例如，下面的命令实现对文本文件中低三列的数据求总和。<br STYLE="box-sizing: border-box;" />
+使用shell完成此运算比用Python快3倍。</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+awk <span STYLE="box-sizing: border-box; color: rgb(255, 160, 122);">'{ x += $3 } END { print x }'</SPAN>
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+shuf</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+该命令可以从将一个文件中的行混洗，或者从中随机选出一些行。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+sort</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+了解sort的常用选项(-t，-k， -s）如何工作。 注意-k1,1只会排序第一列，<br STYLE="box-sizing: border-box;" />
+而-k1会根据整个行排序。 -s能实现稳定排序。<br STYLE="box-sizing: border-box;" />
+例如，先使用第二个域排序，再按照域一排序，可以用这段命令实现</DD>
+</DL>
+<pre STYLE="box-sizing: border-box; font-size: 14px; -webkit-hyphens: none; background-color: rgb(245, 245, 245); color: rgb(102, 102, 102); margin-top: 20px; margin-bottom: 20px; overflow: auto; padding: 20px; white-space: pre-wrap; word-wrap: break-word;">
+
+cat INPUT_FILE | sort -k1,1  | sort -s -k2,2
+</PRE>
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+制表符的输入</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在bash的命令行中，如若需要输入制表符，可以使用 Ctrl-V 或者 $’\t’ 实现</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+hd,bvi</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+对于二进制文件，这两个命令分别实现16进制抽取，二进制编辑操作。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+strings,grep</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+可以帮助在二进制文件中寻找文本。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+iconv,uconv</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+可以帮助转换文本编码</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+split,csplit</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+分别可以实现将文件按照大小分割，以及按照特定的模式分割。</DD>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;"><a HREF="http://www.lingcc.com/wp-content/uploads/2013/03/free-linux.jpg">
+<img ALT="free-linux" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://www.lingcc.com/wp-content/uploads/2013/03/free-linux-1024x640.jpg" WIDTH="625" HEIGHT="390" STYLE="box-sizing: border-box; vertical-align: middle; max-width: 100%; height: auto; margin: 5px 0px;"  TITLE="【转载】高效Linux用户需要了解的命令行技能" /></A></DD>
+</DL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; background-color: rgb(255, 255, 255);">
+<h2 STYLE="box-sizing: border-box; clear: both; font-family: Bitter, Georgia, serif; line-height: 1.3; font-size: 30px; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">5</SPAN>&nbsp;<wbr>系统调试</H2>
+<div STYLE="box-sizing: border-box;">
+<dl STYLE="box-sizing: border-box; margin: 0px 20px;">
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+iostat,netstat,top,atop,htop,dstat</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+可以帮助了解硬盘，CPU，内存，网络的状态。<br STYLE="box-sizing: border-box;" />
+这能帮你对系统正在发生的情况有个第一认识。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+free,vmstat</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+如果想了解内存的状态，这两个命令很重要。<br STYLE="box-sizing: border-box;" />
+其中cached是Linux内核中文件缓存的大小。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+kill -3</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在调试Java程序时，使用此命令，可以在stderr/logs中找到完整的stack trace，<br STYLE="box-sizing: border-box;" />
+堆信息(包含垃圾收集的细节).</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+mtr,traceroute</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+能够帮忙找到网络问题，前者比traceroute更好用。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+iftop,nethogs</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+这两个命令可以办刚找出哪个端口或者进程占用了多少网络带宽。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ab,siege</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+这个Apache自带的工具能帮助快速检查web服务器的性能。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+wireshark,tshark</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+是进行更高级的网络调试的得力工具。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+strace,ltrace</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+这两个命令能帮你在一无所知的情况下，对程序运行失败，假死，崩溃等问题带来一些线索。<br STYLE="box-sizing: border-box;" />
+另外，他们还能帮忙发现一些性能问题。比如 -c选项可以做profiling；<br STYLE="box-sizing: border-box;" />
+-p选项可以挂到某个指定的进程上。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+ldd</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+检查共享库的情况</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+gdb</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+了解如何利用GDB连接到一个正在运行的进程，并且得到其stack trace。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+/proc/</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在做现场调试的时候很有用。比如&nbsp;<wbr><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">/proc/cpuinfo,
+/proc/XXX/cwd, /proc/XXX/exe, /proc/XXX/fd/,
+/proc/XXX/smaps</CODE></DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+sar</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+在需要判断为何过去某个时间系统会出错时，这个命令能显示CPU，内存和网络的历史情况。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+stap, perf</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+当需要更深的分析系统，以及性能情况时，这两个工具很有用。</DD>
+<dt STYLE="box-sizing: border-box; font-weight: bold;"><code STYLE="box-sizing: border-box; font-family: monospace, serif; font-size: 14px; -webkit-hyphens: none;">
+dmesg</CODE></DT>
+<dd STYLE="box-sizing: border-box; margin: 0px 0px 20px;">
+当系统出现一些很反常的现象时，比如可能是硬件或驱动问题时，这个很管用。</DD>
+</DL>
+</DIV>
+</DIV>
+<div STYLE="box-sizing: border-box; background-color: rgb(255, 255, 255);">
+<h2 STYLE="color: rgb(20, 20, 18); font-family: Bitter, Georgia, serif; font-size: 30px; line-height: 1.3; box-sizing: border-box; clear: both; margin: 25px 0px;">
+<span STYLE="box-sizing: border-box;">6</SPAN>&nbsp;<wbr>参考</H2>
+<div STYLE="box-sizing: border-box;">
+<ul STYLE="color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; box-sizing: border-box; margin: 16px 0px; padding: 0px 0px 0px 40px; list-style-type: square;">
+<li STYLE="box-sizing: border-box;"><a HREF="http://unixhelp.ed.ac.uk/scrpt/scrpt2.2.2.html">
+http://unixhelp.ed.ac.uk/scrpt/scrpt2.2.2.html</A></LI>
+<li STYLE="box-sizing: border-box;"><a HREF="http://www.quora.com/Linux/What-are-some-time-saving-tips-that-every-Linux-user-should-know">
+http://www.quora.com/Linux/What-are-some-time-saving-tips-that-every-Linux-user-should-know</A></LI>
+</UL>
+<h2 STYLE="color: rgb(20, 20, 18); font-family: Bitter, Georgia, serif; font-size: 30px; line-height: 1.3; box-sizing: border-box; clear: both; margin: 25px 0px;">
+7 致谢</H2>
+<ul STYLE="color: rgb(20, 20, 18); font-family: 'source sans pro', Helvetica, sans-serif; font-size: 16px; line-height: 24px; box-sizing: border-box; margin: 16px 0px; padding: 0px 0px 0px 40px; list-style-type: square;">
+<li STYLE="box-sizing: border-box;"><span STYLE="box-sizing: border-box; line-height: 1.714285714; font-size: 1rem;">
+杨青：增加 Alt-BackSpace</SPAN></LI>
+<li STYLE="box-sizing: border-box;">dikar: 修改 string -&gt;
+strings</LI>
+<li STYLE="box-sizing: border-box;">zsc: &nbsp;<wbr>增加了 GNU
+parallel命令</LI>
+<li STYLE="box-sizing: border-box;">RobberPhex: 修改 翻唱&ndash;&gt;反常</LI>
+</UL>
+<font COLOR="#141412" SIZE="3"><span STYLE="line-height: 24px;">转自：</SPAN></FONT><a HREF="http://www.lingcc.com/2013/03/22/12282/">http://www.lingcc.com/2013/03/22/12282/</A></DIV>
+</DIV>							
+		</div>

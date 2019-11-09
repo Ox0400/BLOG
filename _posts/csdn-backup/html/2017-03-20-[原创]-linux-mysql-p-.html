@@ -1,0 +1,492 @@
+---
+layout: post
+title: "[原创]-linux-mysql-p-"
+date: 2017-03-20 14:43:50
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>drop PROCEDURE sp_test;</DIV>
+<div>DELIMITER $$</DIV>
+<div>CREATE PROCEDURE sp_test()</DIV>
+<div>begin</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> declare o
+longtext;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> declare t
+longtext;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @o_tr='';</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @t_tr='';</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @t =
+replace(substring(date(now()),1,7),'-','');</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @tb1 =
+concat("CREATE TABLE IF NOT EXISTS `once", @t, "` (
+&nbsp;<wbr> `id` char(32) NOT NULL, &nbsp;<wbr>
+`station_id` int(11) DEFAULT NULL, &nbsp;<wbr> `artist_id`
+int(11) DEFAULT NULL, &nbsp;<wbr> `song_id` int(11) DEFAULT
+NULL, &nbsp;<wbr> `time` datetime DEFAULT NULL,
+&nbsp;<wbr> `pad_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> PRIMARY KEY (`id`), &nbsp;<wbr> KEY
+`station_id` (`station_id`), &nbsp;<wbr> KEY `artist_id`
+(`artist_id`), &nbsp;<wbr> KEY `song_id` (`song_id`),
+&nbsp;<wbr> CONSTRAINT `once", @t, "_ibfk_1` FOREIGN KEY
+(`station_id`) REFERENCES `Station` (`iD`), &nbsp;<wbr>
+CONSTRAINT `once", @t, "_ibfk_2` FOREIGN KEY (`artist_id`)
+REFERENCES `Artists` (`ID`), &nbsp;<wbr> CONSTRAINT `once",
+@t, "_ibfk_3` FOREIGN KEY (`song_id`) REFERENCES `Songs` (`ID`) )
+ENGINE=MyISAM DEFAULT CHARSET=utf8
+COLLATE=utf8_unicode_ci;");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> PREPARE stmt from
+@tb1;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> EXECUTE stmt;</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @tb2 =
+concat("CREATE TABLE IF NOT EXISTS `time", @t, "` (
+&nbsp;<wbr> `id` char(32) NOT NULL, &nbsp;<wbr>
+`station_id` int(11) DEFAULT NULL, &nbsp;<wbr> `artist_id`
+int(11) DEFAULT NULL, &nbsp;<wbr> `song_id` int(11) DEFAULT
+NULL, &nbsp;<wbr> `once_id` int(11) DEFAULT NULL,
+&nbsp;<wbr> `time` datetime DEFAULT NULL, &nbsp;<wbr>
+`itime` datetime NOT NULL, &nbsp;<wbr> PRIMARY KEY (`id`),
+&nbsp;<wbr> KEY `station_id` (`station_id`),
+&nbsp;<wbr> KEY `artist_id` (`artist_id`),
+&nbsp;<wbr> KEY `song_id` (`song_id`), &nbsp;<wbr>
+KEY `once_id` (`once_id`), &nbsp;<wbr> CONSTRAINT `time",
+@t, "_ibfk_1` FOREIGN KEY (`station_id`) REFERENCES `Station`
+(`ID`), &nbsp;<wbr> CONSTRAINT `time", @t, "_ibfk_2` FOREIGN
+KEY (`artist_id`) REFERENCES `Artists` (`ID`), &nbsp;<wbr>
+CONSTRAINT `time", @t, "_ibfk_3` FOREIGN KEY (`song_id`) REFERENCES
+`Songs` (`ID`), &nbsp;<wbr> CONSTRAINT `time", @t, "_ibfk_4`
+FOREIGN KEY (`once_id`) REFERENCES `once", @t, "` (`id`) )
+ENGINE=MyISAM DEFAULT CHARSET=utf8
+COLLATE=utf8_unicode_ci;");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> PREPARE stmt from
+@tb2;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> EXECUTE stmt;</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @tr =
+concat('before_insert_once', @t);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @s = concat("SELECT
+TRIGGER_NAME INTO @o_tr FROM information_schema.triggers WHERE
+TRIGGER_SCHEMA = 'DB_Music' AND TRIGGER_NAME = '", @tr,"';");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> PREPARE stmt from
+@s;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> EXECUTE stmt;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if length(@o_tr) =0
+then</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @dr_on = concat("DROP TRIGGER IF EXISTS ",
+@tr);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @tr_on = concat("CREATE TRIGGER
+before_insert_once", @t, " &nbsp;<wbr> BEFORE INSERT ON
+once", @t, " &nbsp;<wbr> FOR EACH ROW &nbsp;<wbr> SET
+NEW.`ID` = replace(uuid(),'-','');");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> select
+reverse(substr(reverse(trim(replace(group_concat(' (select * from
+',table_name, ') union'),',',''))),6)) into o FROM
+information_schema.tables WHERE table_schema = 'DB_Music' and
+table_name like 'once2%';</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @o = concat("create or replace view onces
+as",o);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> PREPARE stmt from @o;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> EXECUTE stmt;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> end if;</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @tr =
+concat('before_insert_time', @t);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> set @s = concat("SELECT
+TRIGGER_NAME INTO @t_tr FROM information_schema.triggers WHERE
+TRIGGER_SCHEMA = 'DB_Music' AND TRIGGER_NAME = '", @tr,"';");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> PREPARE stmt from
+@s;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> EXECUTE stmt;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if length(@t_tr) = 0
+then</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @dr_ti = concat("DROP TRIGGER IF EXISTS ",
+@tr);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @tr_ti = concat("CREATE TRIGGER
+before_insert_time", @t, " &nbsp;<wbr> BEFORE INSERT ON
+time", @t, " &nbsp;<wbr> FOR EACH ROW &nbsp;<wbr> SET
+NEW.`ID` = replace(uuid(),'-','');");</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> select
+reverse(substr(reverse(trim(replace(group_concat(' (select * from
+',table_name, ') union'),',',''))),6)) into t FROM
+information_schema.tables WHERE table_schema = 'DB_Music' and
+table_name like 'time2%';</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> set @t = concat("create or replace view times
+as",t);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> PREPARE stmt from @t;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> EXECUTE stmt;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> select @dr_on as dr_on, @tr_on as tr_on, @dr_ti
+as dr_ti, @tr_ti as tr_ti;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> end if;</DIV>
+<div>end$$</DIV>
+<div><br /></DIV>
+<div>call sp_test();\g</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>
+<div>#!/usr/bin/python</DIV>
+<div>#-*- coding: utf-8 -*-</DIV>
+<div>import MySQLdb</DIV>
+<div>import datetime</DIV>
+<div><br /></DIV>
+<div>SPLIT = ['，',',','&amp;','
+','、','\\','/',';','@','＠','：','<br /></DIV>
+<div><br /></DIV>
+<div>class Main():</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def __init__(self,
+splits = ''):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> try:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.splits = splits if splits else SPLIT</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+self.conn=MySQLdb.connect(host='localhost',user='root',passwd='123',port=3306,db='DB_Music',charset='utf8')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+#conn.set_character_set('utf8')</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> except MySQLdb.Error,e:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> print
+e.args</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def main(self):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> #sql = "CREATE TRIGGER before_insert_once201404
+&nbsp;<wbr> BEFORE INSERT ON once201404 &nbsp;<wbr>
+FOR EACH ROW &nbsp;<wbr> SET NEW.`ID` =
+replace(uuid(),'-','');"</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> sql = 'call sp_test();'</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> result = self.sql(sql)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> for i in result:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> for j in
+i:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> r = i[j]</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> if r:</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> print r</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> self.sql(i[j])</DIV>
+<div><br /></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> def sql(self, sql =
+"select 'ok'"):</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> cur =
+self.conn.cursor(MySQLdb.cursors.DictCursor)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> a = cur.execute(sql)</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> r = cur.fetchall()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> cur.close()</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> return list(r)</DIV>
+<div><br /></DIV>
+<div>if __name__ == '__main__':</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> Main().main()</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>下面是所有参考的网址，暂时保存下来 - -&nbsp;<wbr></DIV>
+<div>
+<div>下午4:24 MySQL :: MySQL 5.7 Reference Manual :: 13.5 SQL Syntax
+for Prepared Statements dev.mysql.com</DIV>
+<div>下午4:21 Triggers and Stored Procedures docs.oracle.com</DIV>
+<div>下午4:21
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CGcQFjAF&amp;url=http://docs.oracle.com/cd/E12151_01/doc.150/e12155/triggers_proc_mysql.htm&amp;ei=0yVWU8a3Asa4iQec6oDYDg&amp;usg=AFQjCNFm3YcyEZRHIMm7dAH3<wbr>dvrMMXcmWQ&amp;sig2=KNqqTm2mrXt1_4gqNJoWrg
+www.google.com.hk</DIV>
+<div>下午4:19 MySQL :: MySQL 5.6 Reference Manual :: 13.5 SQL Syntax
+for Prepared Statements dev.mysql.com</DIV>
+<div>下午4:18 MYSQL : How to create trigger from store procedure -
+Stack Overflow stackoverflow.com</DIV>
+<div>下午4:18
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDQQFjAB&amp;url=http://stackoverflow.com/questions/19046862/mysql-how-to-create-trigger-from-store-procedure&amp;ei=0yVWU8a3Asa4iQec6oDYDg&amp;usg=AFQjCNE6PQEsnfJQiEEn51Bc<wbr>r0l0MPnc_Q&amp;sig2=bzFt7YYCGFTDSYDQ1ybv1Q
+www.google.com.hk</DIV>
+<div>下午4:18 Create a trigger with a stored procedure in MySQL -
+Stack Overflow stackoverflow.com</DIV>
+<div>下午4:18
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://stackoverflow.com/questions/7485469/create-a-trigger-with-a-stored-procedure-in-mysql&amp;ei=0yVWU8a3Asa4iQec6oDYDg&amp;usg=AFQjCNFCffwTR5E2atSTNh-i-NB-Ox-XwA&amp;sig2=OyV_mMTMjfT6zyh--FtQuQ
+www.google.com.hk</DIV>
+<div>下午4:18 mysql create trigger in procedure - Google 搜索
+www.google.com.hk</DIV>
+<div>下午4:15 mysql - Call a stored procedure from a trigger -
+Database Administrators Stack Exchange dba.stackexchange.com</DIV>
+<div>下午4:15
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://dba.stackexchange.com/questions/10657/call-a-stored-procedure-from-a-trigger&amp;ei=RiVWU56PO4K1iQftkYG4DA&amp;usg=AFQjCNHppklIW0HHmR-WUZa4jSlpUyeWxA&amp;sig2=X3l1kJR4KwdSGF8pgCMD_Q
+www.google.com.hk</DIV>
+<div>下午4:15 mysql procedure create trigger - Google 搜索
+www.google.com.hk</DIV>
+<div>下午4:14 error: This command is not supported in the prepared
+statement protocol yet-CSDN论坛-CSDN.NET-中国最大的IT技术社区
+bbs.csdn.net</DIV>
+<div>下午4:14
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=10&amp;ved=0CI0BEBYwCQ&amp;url=http://bbs.csdn.net/topics/360106374&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNGJAmxy6y15AHYhDanU<wbr>E80CCMXsBg&amp;sig2=ZXsj0bzxzp2Zj60TQpJXng
+www.google.com.hk</DIV>
+<div>下午4:13 MySQL Bugs: #18971: drop trigger with prepare and
+execute statement inside stored procedure bugs.mysql.com</DIV>
+<div>下午4:12
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://bugs.mysql.com/18971&amp;ei=cCRWU9r0DKbBiQeYhIHACg&amp;usg=AFQjCNG2cv3H9S0h3RfSRPR-9t_Hnt_RJQ&amp;sig2=bxg-y7e01hl03r_MGEYOUQ
+www.google.com.hk</DIV>
+<div>下午4:12 PREPARE stmt from 'DROP TRIGGER IF - Google 搜索
+www.google.com.hk</DIV>
+<div>下午4:12 ERROR 1295 (HY000): This command is not supported in
+the prepared statement protocol yet www.mysqlfaqs.net</DIV>
+<div>下午4:12
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;ved=0CHcQFjAH&amp;url=http://www.mysqlfaqs.net/mysql-faqs/Errors/ERROR-1295-(HY000):-This-command-is-not-supported-in-the-prepared-statement-protocol-yet&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNHXqmJ8VpHrS6stYxAb<wbr>-i2l_IOl1A&amp;sig2=dCsxt-eBe5dnUkntMnR4zQ
+www.google.com.hk</DIV>
+<div>下午4:12 Error Codes: MySQL Error 1295 - SQLSTATE: HY000
+(ER_UNSUPPORTED_PS) This command is not supported in the prepared
+statement protocol yet www.briandunning.com</DIV>
+<div>下午4:12
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=7&amp;ved=0CG0QFjAG&amp;url=http://www.briandunning.com/errors/562&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNFxmkqCUAIDShhW3I65<wbr>OFmZzATdXw&amp;sig2=BRmevOhWdmvUlovFSKRF8w
+www.google.com.hk</DIV>
+<div>下午4:08 Roland Bouman's blog: MySQL 5: Prepared statement
+syntax and Dynamic SQL webcache.googleusercontent.com</DIV>
+<div>下午4:08
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CGUQIDAF&amp;url=http://webcache.googleusercontent.com/search?q=cache:CZtadDCmML8J:rpbouman.blogspot.com/2005/11/mysql-5-prepared-statement-syntax-and.html+&amp;cd=6&amp;hl=zh-CN&amp;ct=clnk&amp;gl=cn&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNFiHq5yR9iAu6Oom-EErFo7yNcZmQ&amp;sig2=xdAkB1_78KK9itMiKO_6Bw
+www.google.com.hk</DIV>
+<div>下午4:08
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CGIQFjAF&amp;url=http://rpbouman.blogspot.com/2005/11/mysql-5-prepared-statement-syntax-and.html&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNG9OrYNGVo-IefMO9Mu_nS3m_P2AQ&amp;sig2=dDZ3MzADwTaHbQywKlQQiA
+www.google.com.hk</DIV>
+<div>下午4:01 Google Translate translate.google.cn</DIV>
+<div>下午4:01 Google Translate translate.google.cn</DIV>
+<div>下午4:01 mysql - Dynamic table name &amp; LOAD DATA INFILE -
+Stack Overflow stackoverflow.com</DIV>
+<div>下午4:01
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=4&amp;ved=0CE0QFjAD&amp;url=http://stackoverflow.com/questions/16573176/dynamic-table-name-load-data-infile&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNEnif0-pVsO614XfrK_4WnPKcw2ZA&amp;sig2=Mz19fTsUCZFciuKk4SkncA
+www.google.com.hk</DIV>
+<div>下午4:00 PREPARE statement - MariaDB Knowledgebase
+mariadb.com</DIV>
+<div>下午4:00
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0CEQQFjAC&amp;url=https://mariadb.com/kb/v/prepare-statement/&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNEaUwOQk7y4yyXvJP_BFLCXZgRE8w&amp;sig2=abNHGFXygqwi6mrjOoJebg
+www.google.com.hk</DIV>
+<div>下午4:00 mysql的预处理语句| MacLochlainns博客
+blog.mclaughlinsoftware.com</DIV>
+<div>下午4:00
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://blog.mclaughlinsoftware.com/tag/mysql-prepared-statements/&amp;ei=nSFWU4b1DeeTiQfjoIGICw&amp;usg=AFQjCNFbpsqEM_d0bTJ24w8GSzaZ65kZpw&amp;sig2=FuIR1e06loetljo0EzBjig
+www.google.com.hk</DIV>
+<div>下午4:00 ERROR 1295 (HY000): This command is not supported in
+the prepared statement protocol yet - Google 搜索
+www.google.com.hk</DIV>
+<div>下午3:48 ERROR 1235 (42000): This version of MySQL doesn't yet
+support 'multiple triggers with the same action time and event for
+one table' - Google 搜索 www.google.com.hk</DIV>
+<div>下午3:41 MySQL :: MySQL 5.0 Reference Manual :: 13.1.18 DROP
+TRIGGER Syntax dev.mysql.com</DIV>
+<div>下午3:40 MySQL :: MySQL 5.0 Reference Manual :: 13.1.11 CREATE
+TRIGGER Syntax dev.mysql.com</DIV>
+<div>下午3:40
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=https://dev.mysql.com/doc/refman/5.0/en/create-trigger.html&amp;ei=6RxWU6r_K9GjiAfhgYGwDQ&amp;usg=AFQjCNEGb3go5BTq_4WOSArxvOgseeW9kw&amp;sig2=1FtiT17izbcAN1-H0HLvuA
+www.google.com.hk</DIV>
+<div>下午3:40 mysql create trigger or replace - Google 搜索
+www.google.com.hk</DIV>
+<div>下午3:39 create trigger or replace - Google 搜索
+www.google.com.hk</DIV>
+<div>下午3:28
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://blog.mclaughlinsoftware.com/tag/mysql-prepared-statements/&amp;ei=DRpWU-frA6m5iQfK4IC4Aw&amp;usg=AFQjCNFbpsqEM_d0bTJ24w8GSzaZ65kZpw&amp;sig2=OTvJhLrmg18peyh8fFQb7w
+www.google.com.hk</DIV>
+<div>下午3:27 ERROR 1295 (HY000): This command is not supported in
+the prepared statement protocol yet - Google 搜索
+www.google.com.hk</DIV>
+<div>下午3:19 MySQL :: MySQL 5.0 Reference Manual :: 13.1.12 CREATE
+VIEW Syntax dev.mysql.com</DIV>
+<div>下午3:19
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://dev.mysql.com/doc/refman/5.0/en/create-view.html&amp;ei=xRdWU8KWHuSpiAfM8IAI&amp;usg=AFQjCNEzvNmu6gwTHkkRXPws<wbr>mRqn1gPOgw&amp;sig2=piENzOe8N3JFHXanxtLZkQ
+www.google.com.hk</DIV>
+<div>下午3:18 无法访问 http://www.w3schools.com/sql/sql_view.asp
+www.w3schools.com</DIV>
+<div>下午3:18
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDkQFjAB&amp;url=http://www.w3schools.com/sql/sql_view.asp&amp;ei=xRdWU8KWHuSpiAfM8IAI&amp;usg=AFQjCNHrssxULL4B7dLOeyfA<wbr>amuY9K1bAQ&amp;sig2=MmUqlcTjqspENz5W7poRng
+www.google.com.hk</DIV>
+<div>下午3:18 mysql create view or replace - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:57 SELECT INTO Variable in MySQL DECLARE causes syntax
+error? - Stack Overflow stackoverflow.com</DIV>
+<div>下午2:57
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://stackoverflow.com/questions/3075147/select-into-variable-in-mysql-declare-causes-syntax-error&amp;ei=xRJWU4jbKLCyiQfj8oFo&amp;usg=AFQjCNFIpaCmM76ghlWlVEal<wbr>PgittQPoZA&amp;sig2=VkkdEFJoxmxkJpVFDkCT-g
+www.google.com.hk</DIV>
+<div>下午2:56 mysql declare select into - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:45 MySQL :: MySQL 5.0 Reference Manual :: 12.5 String
+Functions dev.mysql.com</DIV>
+<div>下午2:45
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://dev.mysql.com/doc/refman/5.0/en/string-functions.html&amp;ei=Zw5WU4DaEsHtiAeYuYCIBg&amp;usg=AFQjCNE2fDzP220Nnis3MBJl<wbr>XpURGY0ajw&amp;sig2=25MFNGyNohHHXE47qRheSQ
+www.google.com.hk</DIV>
+<div>下午2:39 MySQL TRIM() function - w3resource
+www.w3resource.com</DIV>
+<div>下午2:39
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDcQFjAB&amp;url=http://www.w3resource.com/mysql/string-functions/mysql-trim-function.php&amp;ei=Zw5WU4DaEsHtiAeYuYCIBg&amp;usg=AFQjCNHGUF1eWJ9xP0EiVOGz<wbr>zRp3MTJRqQ&amp;sig2=TyDaDHjJjYBy2vYuCw2XbA
+www.google.com.hk</DIV>
+<div>下午2:38 mysql strip - Google 搜索 www.google.com.hk</DIV>
+<div>下午2:28 mysql group_concat - Google 搜索 www.google.com.hk</DIV>
+<div>下午2:27 MySQL的 - 显示表像'年％'&gt; = 2010 - 堆栈溢出
+stackoverflow.com</DIV>
+<div>下午2:21 mysql - How to SELECT from SHOW TABLE STATUS results -
+Database Administrators Stack Exchange dba.stackexchange.com</DIV>
+<div>下午2:21
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CGQQFjAF&amp;url=http://dba.stackexchange.com/questions/3221/how-to-select-from-show-table-status-results&amp;ei=UQpWU478A5a58gXtgYIo&amp;usg=AFQjCNEaAGuEiUIv9IZdb4cA<wbr>kBuUt2c5kA&amp;sig2=-y1GCQG1FMbAGxL9N_-Vcw
+www.google.com.hk</DIV>
+<div>下午2:21 完全解析MySQL数据库中Show命令用法:show tables like "%Tbl_User%"; -
+向东博客 专注WEB应用 构架之美 --- 构架之美，在于尽态极妍 | 应用之美，在于药到病除 - Life is
+Short,Play it More,So Playin' with IT,Focus on Killer
+Application,Marketing Meets Technology.︻┳═一 Ζ〧φ﹀ヘ -
+www.justwinit.cn</DIV>
+<div>下午2:21
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;ved=0CFsQFjAE&amp;url=http://www.justwinit.cn/post/3665/&amp;ei=UQpWU478A5a58gXtgYIo&amp;usg=AFQjCNEcJfgQRWMbkc6u3VFh<wbr>RBUPruR_Bw&amp;sig2=3FphTO-Rq2Zzi9cA2tuiDQ
+www.google.com.hk</DIV>
+<div>下午2:20 mysql select table like - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:08 MySQL :: MySQL 5.1参考手册 :: 20. 存储程序和函数
+dev.mysql.com</DIV>
+<div>下午2:08 MySQL :: MySQL 5.1参考手册 :: 20. 存储程序和函数
+dev.mysql.com</DIV>
+<div>下午2:08
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDYQFjAB&amp;url=http://dev.mysql.com/doc/refman/5.1/zh/stored-procedures.html&amp;ei=bgdWU5yzJ8eOiAfCjYDQAQ&amp;usg=AFQjCNGf7Qgzj96hmpr0-ID2uj9sQKvr0g&amp;sig2=EsY0fC4tcv8OxRbq6wG00w
+www.google.com.hk</DIV>
+<div>下午2:08 mysql proc declare - Google 搜索 www.google.com.hk</DIV>
+<div>下午2:05 How does MySQL return a result set from a stored
+procedure? - Database Administrators Stack Exchange
+dba.stackexchange.com</DIV>
+<div>下午2:05
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://dba.stackexchange.com/questions/8291/how-does-mysql-return-a-result-set-from-a-stored-procedure&amp;ei=zQZWU7WXIaObigebyoDICA&amp;usg=AFQjCNFpL3DvUoqPrVNtPIFJ<wbr>kNHMRCU0wQ&amp;sig2=aJpSZaFu84Ntr9UnPXya_w
+www.google.com.hk</DIV>
+<div>下午2:05 mysql proc get select result - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:05 sql server 2012 - How to get results of stored
+procedure #1 into a temporary table in stored procedure #2 - Stack
+Overflow stackoverflow.com</DIV>
+<div>下午2:05
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDQQFjAB&amp;url=http://stackoverflow.com/questions/14294311/how-to-get-results-of-stored-procedure-1-into-a-temporary-table-in-stored-proce&amp;ei=kgZWU4HFCJCkiAfkwYCQBg&amp;usg=AFQjCNF97tI0Uc3dXD505R1R<wbr>7OlrvuGumA&amp;sig2=GDKxaebH7UMNKXAhAzVmsA
+www.google.com.hk</DIV>
+<div>下午2:04 PROCEDURE get show table like result - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:02
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://stackoverflow.com/questions/10675987/show-tables-like-year-2010&amp;ei=8AVWU7fnLcK5iQeppIGoDw&amp;usg=AFQjCNGQYoZ4I8k6Roe_Uq1ONG5hDnekSg&amp;sig2=1BjFqVAZ391BEjK8489aGg
+www.google.com.hk</DIV>
+<div>下午2:02 show table like in mysql to string - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:01 MySQL :: MySQL 5.0 Reference Manual :: 13.7.5.34 SHOW
+TABLES Syntax dev.mysql.com</DIV>
+<div>下午2:01
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=https://dev.mysql.com/doc/refman/5.0/en/show-tables.html&amp;ei=uAVWU4nvM8bsiAediYGgCg&amp;usg=AFQjCNGKI7WtqzxdqVXCnthH<wbr>NNDrTS_KZA&amp;sig2=XNu9pnBIRWQ6cisljVSZUQ
+www.google.com.hk</DIV>
+<div>下午2:01 show table like in mysql - Google 搜索
+www.google.com.hk</DIV>
+<div>下午2:00 show table like group by name - Google 搜索
+www.google.com.hk</DIV>
+<div>下午1:59 mysql set global variable - Google 搜索
+www.google.com.hk</DIV>
+<div>下午1:59 mysql set @ - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:59 mysql set - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:58 SQL问题：怎样将两列值相加的结果输出的相关推荐_ITPUB论坛 www.itpub.net</DIV>
+<div>下午1:58
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=9&amp;ved=0CHQQFjAI&amp;url=http://www.itpub.net/zhuanti/1078/mysqlsqljiangliangliezhi<wbr>lianjie_1078984.shtml&amp;ei=9gRWU5WEBsTkiAf_gIGYDA&amp;usg=AFQjCNEXGhWjpFrsTESOvt4W<wbr>mxkj3zNYNg&amp;sig2=QbhZmEm8zs94LiDvnmsQbA
+www.google.com.hk</DIV>
+<div>下午1:57 mysql set 两列值 - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:55 show tables like - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:55 show create view - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:53 用select语句来代替show create table来显示表结构 - 也就这样，
+type.so</DIV>
+<div>下午1:53
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=7&amp;ved=0CGAQFjAG&amp;url=http://type.so/sql/use-select-instead-of-show-create-table.html&amp;ei=1gNWU8z1D4XOiAfMtIHQAg&amp;usg=AFQjCNFWjAVDtxNXd2_xMMLfK74wOVI4wg&amp;sig2=rQYcXzF2hFM8hQOV_ndYsw
+www.google.com.hk</DIV>
+<div>下午1:53 SHOW CREATE TABLE取出的语句-RogerZhuo-ChinaUnix博客
+blog.chinaunix.net</DIV>
+<div>下午1:53
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;ved=0CE4QFjAE&amp;url=http://blog.chinaunix.net/uid-26364035-id-3172112.html&amp;ei=1gNWU8z1D4XOiAfMtIHQAg&amp;usg=AFQjCNFLULU0QhuJaKzjSN_m3eHKMjeOpA&amp;sig2=D9WuokOHiKm4NeLiWbFj6w
+www.google.com.hk</DIV>
+<div>下午1:53 show create where - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:47 mysql 多表合并查询 - zygzzp的专栏 - 博客频道 - CSDN.NET
+blog.csdn.net</DIV>
+<div>下午1:47
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http://blog.csdn.net/zygzzp/article/details/21236961&amp;ei=ewJWU_-CMIPq8AX5yILgDg&amp;usg=AFQjCNFdQ_qTPoJ4alDw6Pb_UPT72K-6gw&amp;sig2=8fUBPIAqUXrkHFLP1JLfEw
+www.google.com.hk</DIV>
+<div>下午1:47 mysql 两表合并 - Google 搜索 www.google.com.hk</DIV>
+<div>下午1:37
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCwQFjAA&amp;url=http://dev.mysql.com/doc/refman/5.0/en/create-view.html&amp;ei=CwBWU_GxO87QiAfw-YHgBw&amp;usg=AFQjCNEzvNmu6gwTHkkRXPws<wbr>mRqn1gPOgw&amp;sig2=VbOkX8asR-g5wUWH8Noz1A
+www.google.com.hk</DIV>
+<div>下午1:37 mysql view if not exists - Google 搜索
+www.google.com.hk</DIV>
+<div>下午1:30 我的广播_腾讯微博 t.qq.com</DIV>
+<div>下午1:23
+http://s.share.baidu.com/?url=http://fm.baidu.com/#/play/259218/share/tqq&amp;uid=41163&amp;to=tqq&amp;type=text&amp;pic=http://c.hiphotos.baidu.com/ting/pic/item/503d269759ee3d6d64f2b3ea<wbr>41166d224f4adede.jpg&amp;title=推荐
+&#9834;沙宝亮 的《暗香》(来自
+私人频道)&amp;desc=&amp;sign=off&amp;searchPic=0&amp;key=2239739986
+s.share.baidu.com</DIV>
+<div>下午12:04 百度随心听 fm.baidu.com</DIV>
+<div>上午11:08 Mysql中sql语句获得当前时间的long值.(毫秒值)_胆大的人，前面才有路！_百度空间
+hi.baidu.com</DIV>
+<div>上午11:08
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CFMQFjAF&amp;url=http://hi.baidu.com/zhang_zhu_1/item/79d1208076c91affe496e09d<wbr>&amp;ei=m9xVU9mjA7CeiAfz1ICQCA&amp;usg=AFQjCNHgiClCXdKYefQfJRno<wbr>2PvDS9SZpg&amp;sig2=xk6jEa2-F_oipoDkkIEotA
+www.google.com.hk</DIV>
+<div>上午11:06 mysql 如何获得毫秒数 - MySQL - 网站开发技术 s.yanghao.org</DIV>
+<div>上午11:06
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0CDoQFjAC&amp;url=http://s.yanghao.org/program/viewdetail.php?i=121816&amp;ei=m9xVU9mjA7CeiAfz1ICQCA&amp;usg=AFQjCNFcESHGCI0ujKUztRnn<wbr>A5_ZFBuLqA&amp;sig2=w-TxURkeH-p0i-YWx5MjqQ
+www.google.com.hk</DIV>
+<div>上午11:05 mysql毫秒 - Google 搜索 www.google.com.hk</DIV>
+<div>上午11:02 MySQL :: MySQL 5.5 Reference Manual :: 12.7 Date and
+Time Functions dev.mysql.com</DIV>
+<div>上午11:01 How to convert MySQL time to UNIX timestamp using PHP?
+- Stack Overflow stackoverflow.com</DIV>
+<div>上午11:01
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCkQFjAA&amp;url=http://stackoverflow.com/questions/4577794/how-to-convert-mysql-time-to-unix-timestamp-using-php&amp;ei=pNtVU-vbJsTJiAe5g4G4Cg&amp;usg=AFQjCNH0QWmAlNw6GdAuU4VX<wbr>xcItlUC0Bg&amp;sig2=bs4WyGiSKvvw_p5tAio3lQ
+www.google.com.hk</DIV>
+<div>上午11:01 mysql time to unix time - Google 搜索
+www.google.com.hk</DIV>
+<div>上午11:00 Mysql中时间戳，如何将int转换为datetime?
+大家帮帮忙-CSDN论坛-CSDN.NET-中国最大的IT技术社区 bbs.csdn.net</DIV>
+<div>上午11:00
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=7&amp;ved=0CGoQFjAG&amp;url=http://bbs.csdn.net/topics/270054503&amp;ei=jdpVU6HnDIiaiAffrYDgBg&amp;usg=AFQjCNF88zkMfYva3DHqvfWD<wbr>TrELMdUsWQ&amp;sig2=8pE_56r9rMp--u9pChxOvw
+www.google.com.hk</DIV>
+<div>上午10:57 [MySQL优化案例]系列 -- 用TIMESTAMP类型取代INT和DATETIME | MySQL
+中文网 imysql.cn</DIV>
+<div>上午10:57 MySql用int存储时间 - jezz - ITeye技术网站
+lijie250.iteye.com</DIV>
+<div>上午10:57
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=4&amp;ved=0CEsQFjAD&amp;url=http://lijie250.iteye.com/blog/250322&amp;ei=jdpVU6HnDIiaiAffrYDgBg&amp;usg=AFQjCNGzL307ZVII7Dh6qz3u<wbr>T6grB-cglw&amp;sig2=uIXeE60JqL0HrrmBKWhU0w
+www.google.com.hk</DIV>
+<div>上午10:57 mysql time to int - Google 搜索 www.google.com.hk</DIV>
+<div>上午10:56 Mysql时间字段格式如何选择，TIMESTAMP，DATETIME，INT？ - SegmentFault
+segmentfault.com</DIV>
+<div>上午10:56
+https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=9&amp;ved=0CHgQFjAI&amp;url=http://segmentfault.com/q/1010000000121702&amp;ei=CNpVU5WXCqOXigeVqYDQDg&amp;usg=AFQjCNGIKMqPjt8HQS4wTxk4<wbr>8VWqF8GkQA&amp;sig2=9tZOShdT8C-Ojln_skNicQ
+www.google.com.hk</DIV>
+<div>上午10:54 MySQL :: MySQL 5.1参考手册 :: 11. 列类型 dev.mysql.com</DIV>
+<div>上午10:54 mysql 时间戳类型 - Google 搜索 www.google.com.hk</DIV>
+</DIV>
+<div><br /></DIV>
+</DIV>							
+		</div>

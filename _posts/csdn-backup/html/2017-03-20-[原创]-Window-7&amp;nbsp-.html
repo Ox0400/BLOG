@@ -1,0 +1,100 @@
+---
+layout: post
+title: "[原创]-Window-7&amp;nbsp-"
+date: 2017-03-20 14:44:36
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			本机配置vs2010，sql server 2008， win7 64。
+<div>说一下我的安装过程</DIV>
+<div>在windows直接安装pymssql</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t2.qpic.cn/mblogpic/5fed28ede9b580a1f4c8/2000" STYLE="max-width:690px;" WIDTH="690" HEIGHT="223" NAME="image_operate_11401403065531266"  ALT="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)"  TITLE="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)" /><br /></DIV>
+<div><br /></DIV>
+<div>报错：</DIV>
+<div>
+<div><font COLOR="#FF0000">warning: no files found matching
+'pymssql_version.py'</FONT></DIV>
+<div><font COLOR="#FF0000">warning: no files found matching
+'win32\freetds.zip'</FONT></DIV>
+<div><font COLOR="#FF0000">warning: no previously-included files
+matching '*' found under directory 'docs\_build'</FONT></DIV>
+<div><font COLOR="#FF0000">error: Setup script exited with error:
+Unable to find vcvarsall.bat</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>看网上说是因为win32位 和win64位的原因，唔...</DIV>
+<div>干脆自己下个exe安装包安装吧</DIV>
+<div>https://pypi.python.org/pypi/pymssql/2.1.0#downloads</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t1.qpic.cn/mblogpic/5612cabeb44f82f4cafc/2000" STYLE="max-width:690px;" WIDTH="690" HEIGHT="344" NAME="image_operate_35361403065540474"  ALT="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)"  TITLE="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)" /><br /></DIV>
+<div>没有win64位的，下载<a HREF="https://pypi.python.org/packages/2.7/p/pymssql/pymssql-2.1.0.win32-py2.7.exe#md5=f02797a22ed93afa33714273d98bdecd" TARGET="_blank">pymssql-2.1.0.win32-py2.7.exe</A></DIV>
+<div>安装好了？</DIV>
+<div>试着在python中import一下</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t1.qpic.cn/mblogpic/c136dc1016a763b2966a/2000" STYLE="max-width:690px;" TITLE="" NAME=""  ALT="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)" /><br /></DIV>
+<div>报错：</DIV>
+<div>
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+import pymssql</FONT></DIV>
+<div><font COLOR="#FF0000">ImportError: DLL load failed: %1 不是有效的
+Win32 应用程序。</FONT></DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+<div STYLE="line-height: 21px;">看一篇帖子《<a HREF="http://it.chinawin.net/softwaredev/article-1753f.html" TARGET="_blank">Python访问SQLServer数据库</A>》，说因为“_mssql.pyd文件到python26\DLLs目录下导致import
+pymssql时总是报上面的错误。”</DIV>
+</DIV>
+<div><br /></DIV>
+<div>在C:\Python27\Lib\site-packages\真的发现一个_mssql.pyd(修改日期:2013-1-20
+17:21)&nbsp;<wbr></DIV>
+<div>把这个copy到C:\Python27\DLLs\</DIV>
+<div>再运行，还是提示&nbsp;<wbr><span STYLE="color: rgb(255, 0, 0);">ImportError: DLL load failed: %1 不是有效的
+Win32 应用程序。</SPAN></DIV>
+<div><br /></DIV>
+<div>在网上搜了一下pymssql win64&nbsp;<wbr></DIV>
+<div>发现一个《<a HREF="http://download.csdn.net/download/dongge8632/7381855" TARGET="_blank">pymssql.win64-py2.7.exe</A>》（需要CSDN
+2点下载积分，鄙视小气鬼，<font COLOR="#0D25FC">做人要懂得无偿奉献</FONT>，小哥所有东西、代码、资源全部<font COLOR="#0858FD">免费</FONT>、<font COLOR="#0430FF">无偿</FONT>，大家共勉进步~~，程序员，要有<font COLOR="#1135FF">开源意识精神</FONT>和<font COLOR="#070AFE">意识</FONT>，文章最底部有我的百度盘分享地址）</DIV>
+<div>安装后再import&nbsp;<wbr></DIV>
+<div><br /></DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t1.qpic.cn/mblogpic/0c91314acb087fa1817e/2000" WIDTH="686" HEIGHT="228" STYLE="max-width: 690px;" NAME="image_operate_61721403066465572"  ALT="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)"  TITLE="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)" /></DIV>
+<div>
+<div STYLE="line-height: 21px;">报错：</DIV>
+<div STYLE="line-height: 21px;">
+<div><font COLOR="#FF0000">Traceback (most recent call
+last):</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "", line 1,
+in</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> &nbsp;<wbr>
+import pymssql</FONT></DIV>
+<div><font COLOR="#FF0000">&nbsp;<wbr> File "_mssql.pxd",
+line 10, in init pymssql (pymssql.c:9660)</FONT></DIV>
+<div><font COLOR="#FF0000">ImportError: DLL load failed: %1 不是有效的
+Win32 应用程序。</FONT></DIV>
+</DIV>
+</DIV>
+<div><br /></DIV>
+<div>
+然后发现日期变了，再把C:\Python27\Lib\site-packages\_mssql.pyd(修改日期:2013-1-20
+17:21) copy(替换)到C:\Python27\DLLs\</DIV>
+<div>好了，import成功，把DLLs下的_mssql.pyd 删掉重新，重新尝试，可以了</DIV>
+<div><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://t1.qpic.cn/mblogpic/c13707b9b93a9b7fc49a/460" STYLE="max-width:690px;" WIDTH="460" HEIGHT="107" NAME="image_operate_7241403066466468"  ALT="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)"  TITLE="【原创】&nbsp;<wbr>Window&nbsp;<wbr>7&nbsp;<wbr>Python&nbsp;<wbr>安装pymssql(sql&nbsp;<wbr>server)" /><br /></DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>把“_mssql.pyd”和“pymssql.win64-py2.7.exe”奉献上。</DIV>
+<div><a HREF="http://pan.baidu.com/s/1mgibE8S" TARGET="_blank">http://pan.baidu.com/s/1mgibE8S</A>&nbsp;<wbr></DIV>
+<div>安装pymssql.win64-py2.7.exe&nbsp;<wbr></DIV>
+<div>将_mssql.pyd 复制粘贴到C:\Python27\Lib\site-packages 和
+C:\Python27\DLLs\&nbsp;<wbr></DIV>
+<div>import 一次 pymssql</DIV>
+<div>将Dlls的_mssql.pyd 删除</DIV>							
+		</div>

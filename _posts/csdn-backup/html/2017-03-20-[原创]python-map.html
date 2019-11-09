@@ -1,0 +1,82 @@
+---
+layout: post
+title: "[原创]python-map"
+date: 2017-03-20 14:40:25
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>map同<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bvby.html" TARGET="_blank">reduce</A>、<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bvb0.html" TARGET="_blank">filter</A>、<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bvbg.html" TARGET="_blank">lambda</A>也是相当巧妙的函数，但是map是返回一个list。</DIV>
+<div>&gt;&gt;&gt;
+nums=[1,2,3,4,6,7,8,1,4,7,8,5,2,45,756,7,6,74]</DIV>
+<div>&gt;&gt;&gt; reduce(lambda x,y:x+y,nums)</DIV>
+<div><font COLOR="#4D6DF3">946</FONT></DIV>
+<div>&gt;&gt;&gt; map(lambda x:x%2==0,nums)</DIV>
+<div><font COLOR="#4D6DF3">[False, True, False, True, True, False,
+True, False, True, False, True, False, True, False, True, False,
+True, True]</FONT></DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+<div>
+<div>&gt;&gt;&gt; map(lambda x:x,nums)</DIV>
+<div><font COLOR="#4D6DF3">[1, 2, 3, 4, 6, 7, 8, 1, 4, 7, 8, 5, 2,
+45, 756, 7, 6, 74]</FONT></DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; map(str,range(10))</DIV>
+<div>['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']</DIV>
+<div>&gt;&gt;&gt; map(lambda x:x%2==0,range(10))</DIV>
+<div><font COLOR="#4D6DF3">[True, False, True, False, True, False,
+True, False, True, False]</FONT></DIV>
+<div>&gt;&gt;&gt; def fun(x):</DIV>
+<div>if x%2==0:return x</DIV>
+<div><br /></DIV>
+<div>&gt;&gt;&gt; map(fun,range(10))</DIV>
+<div><font COLOR="#4D6DF3">[0, None, 2, None, 4, None, 6, None, 8,
+None]</FONT></DIV>
+<div>&gt;&gt;&gt;&nbsp;<wbr></DIV>
+</DIV>
+<div>还有一种巧妙的用法：</DIV>
+<div>
+<div>&gt;&gt;&gt; x,y,z=map(str,raw_input().split())</DIV>
+<div>tom tim jim</DIV>
+<div>&gt;&gt;&gt; x,y,z</DIV>
+<div>('tom', 'tim', 'jim')</DIV>
+<div>&gt;&gt;&gt; x</DIV>
+<div>'tom'</DIV>
+</DIV>
+<div><br /></DIV>
+<div>#求列表和，求每行的和</DIV>
+<div>
+<div>&gt;&gt;&gt; ls=[[0,1,2],[3,4,5]]</DIV>
+<div>&gt;&gt;&gt; [sum(x) for x in ls]</DIV>
+<div>[3, 12]</DIV>
+<div>&gt;&gt;&gt; map(sum,ls)</DIV>
+<div>[3, 12]</DIV>
+</DIV>
+<div>#求列表和，求没列的和</DIV>
+<div>
+<div>&gt;&gt;&gt; zip(ls)</DIV>
+<div>[([0, 1, 2],), ([3, 4, 5],)]</DIV>
+<div>&gt;&gt;&gt; zip(*ls) # * 意为<span STYLE="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51);">unzip，一定注意这点</SPAN></DIV>
+<div>[(0, 3), (1, 4), (2, 5)]</DIV>
+</DIV>
+<div>
+<div>&gt;&gt;&gt; [sum(x) for x in zip(*ls)]</DIV>
+<div>[3, 5, 7]</DIV>
+<div>&gt;&gt;&gt; map(sum,zip(*ls))</DIV>
+<div>[3, 5, 7]</DIV>
+</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>总结~~自己看例子吧</DIV>
+<div><br /></DIV>
+<div>原创所有，转载请附明本文超链接地址以及作者。</DIV>							
+		</div>

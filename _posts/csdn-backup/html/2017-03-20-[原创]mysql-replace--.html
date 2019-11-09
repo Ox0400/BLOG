@@ -1,0 +1,63 @@
+---
+layout: post
+title: "[原创]mysql-replace--"
+date: 2017-03-20 14:46:20
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>
+<pre>
+CREATE TABLE `tb` (
+</PRE>
+<pre>
+<font FACE="monospace"><span STYLE="white-space: pre;">     </SPAN>`id` INT(11) NOT NULL AUTO_INCREMENT,</FONT>
+</PRE>
+<pre>
+<font FACE="monospace"><span STYLE="white-space: pre;">    </SPAN>`uid` INT(11) NOT NULL,</FONT>
+</PRE>
+<pre>
+<font FACE="monospace"><span STYLE="white-space: pre;">  </SPAN>`name` VARCHAR(50) NULL DEFAULT NULL,</FONT>
+</PRE>
+<pre>
+<font FACE="monospace"><span STYLE="white-space: pre;">    </SPAN>PRIMARY KEY (`id`),</FONT>
+</PRE>
+<pre>
+<font FACE="monospace"><span STYLE="white-space: pre;">      </SPAN>UNIQUE INDEX `uid` (`uid`)</FONT>
+</PRE>
+<pre>
+)
+</PRE>
+<pre>
+COLLATE='utf8_general_ci'
+</PRE>
+<pre>
+ENGINE=InnoDB;
+</PRE></DIV>
+Mysql insert &nbsp;<wbr>报错： 1062 Duplicate entry '12' for
+key 'uid'
+<div>这就是约束键重复的原因，可以先判断一下是否存在再删除也无妨、或者使用</DIV>
+<div>
+<pre>
+#REPLACE &nbsp;<wbr>INTO `cinema_crawler`.`tb` (`uid`, `name`) VALUES (12, 'b');
+</PRE>
+<pre>
+INSERT &nbsp;<wbr>INTO `cinema_crawler`.`tb` (`uid`, `name`) VALUES (12, 'a') ON DUPLICATE KEY UPDATE name=values(name);
+</PRE>
+<pre>
+<font COLOR="#FF0000">replace into 是先删除后插入！可以同时对一条数据操作，可以看到id是在增长。</FONT>
+</PRE>
+<pre>
+<font COLOR="#FF0000">ON DUPLICATE KEY UPDATE key=values(key); 是先判断，再修改/插入；id不变。</FONT>
+</PRE>
+<div><span STYLE="color: rgb(204, 0, 0); font-family: arial; font-size: 13px; line-height: 20.0200004577637px; background-color: rgb(255, 255, 255);">
+IGNORE</SPAN><span STYLE="color: rgb(51, 51, 51); font-family: arial; font-size: 13px; line-height: 20.0200004577637px; background-color: rgb(255, 255, 255);">&nbsp;<wbr>就是直接忽略约束键，如果有冲突，忽略插入。</SPAN></DIV>
+</DIV>							
+		</div>

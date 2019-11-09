@@ -1,0 +1,126 @@
+---
+layout: post
+title: "[原创]java-web-strut-"
+date: 2017-03-20 14:45:56
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - java
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			刚学java EE，然后配置struts2 package 和include模块配置。
+<div><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#####</SPAN><span STYLE="line-height: 21px;"><b>struts.xml</B></SPAN><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#####</SPAN><br />
+<div>//struts.xml</DIV>
+<div>
+<div></DIV>
+<div></DIV>
+<div><br /></DIV>
+<div></DIV>
+<div><br /></DIV>
+<div></DIV>
+<div></DIV>
+<div>
+class="cn.zhangzhipeng2023.struts2_test.action.LoginRegistProAction"&gt;</DIV>
+<div>/WEB-INF/Content/index.jsp</DIV>
+<div>/WEB-INF/Content/loginError.html</DIV>
+<div><br /></DIV>
+<div>
+class="cn.zhangzhipeng2023.struts2_test.action.LoginRegistProAction"</DIV>
+<div>method="registUser"&gt;</DIV>
+<div>/WEB-INF/Content/index.jsp</DIV>
+<div>/WEB-INF/Content/loginError.html</DIV>
+<div><br /></DIV>
+<div>
+class="cn.zhangzhipeng2023.struts2_test.action.ViewUsersAction"</DIV>
+<div>method="viewUsers"&gt;</DIV>
+<div>/WEB-INF/Content/viewUsers.jsp</DIV>
+<div>/WEB-INF/Content/loginError.html</DIV>
+<div><br /></DIV>
+<div></DIV>
+<div><font COLOR="#FF0000">WEB-INF/Content/{1}.jsp</FONT></DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">WEB-INF/Content/{1}.html</FONT></DIV>
+<div><br /></DIV>
+<div></DIV>
+<div></DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#####</SPAN><span STYLE="line-height: 21px;"><b>struts-admin.xml</B></SPAN><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#####</SPAN></DIV>
+<div>//struts-admin.xml</DIV>
+<div>
+<div></DIV>
+<div>
+class="cn.zhangzhipeng2023.struts2_test.action.LoginRegistProAction"&gt;</DIV>
+<div>/WEB-INF/Content/index.jsp</DIV>
+<div>/WEB-INF/Content/loginError.html</DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">WEB-INF/Content/{1}.jsp</FONT></DIV>
+<div><br /></DIV>
+<div><font COLOR="#FF0000">WEB-INF/Content/{1}.html</FONT></DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#</SPAN><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#</SPAN><span STYLE="line-height: 21px;">#####################</SPAN><span STYLE="line-height: 21px;">#</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div>访问：http://localhost:8081/struts2-test/admin/login</DIV>
+<div>一直报404错误，因为我在web.xml 配置了error-code，所以一直是<b>page no
+found</B></DIV>
+<div>于是将web.xml error-page节点注释掉，报了下面错误。看飘红字</DIV>
+<div>
+<h1 STYLE="font-family: Tahoma, Arial, sans-serif; font-size: 22px; line-height: normal; background-color: rgb(82, 93, 118);">
+<span STYLE="color: white;">HTTP Status 404 -</SPAN> <font COLOR="#FF0000">/struts2-test/admin</FONT><font COLOR="#FFFFFF">/WEB-INF/Content/login.jsp</FONT></H1>
+<hr SIZE="1" NOSHADE="noshade" STYLE="color: rgb(82, 93, 118); font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal;" />
+
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">type</B>&nbsp;<wbr>Status
+report</P>
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">message</B>&nbsp;<wbr><u><font COLOR="#FF0000">/struts2-test/admin/WEB-INF</FONT>/Content/login.jsp</U></P>
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">description</B>&nbsp;<wbr><u>The
+requested resource is not available.</U></P>
+<hr SIZE="1" NOSHADE="noshade" STYLE="color: rgb(82, 93, 118); font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal;" />
+
+<h3 STYLE="font-family: Tahoma, Arial, sans-serif; color: white; font-size: 14px; line-height: normal; background-color: rgb(82, 93, 118);">
+Apache Tomcat/7.0.55</H3>
+</DIV>
+<div>很明显，是配置出问题了，struts2配置中的namespace异常导致的，</DIV>
+<div>struts.xml Action</DIV>
+<div>&nbsp;<wbr><span STYLE="color: rgb(255, 0, 0); line-height: 21px;">WEB-INF/Content/{1}.jsp</SPAN>
+<span STYLE="line-height: 21px;">这个WEB-INF前面是否指定根目录不重要，因为本身他就在根节点配置。</SPAN></DIV>
+</DIV>
+<div><span STYLE="line-height: 21px;">但是struts-admin.xml
+这么配置就是错误的，运行结果就是</SPAN>/struts2-test/admin/WEB-INF/Content/***
+当然找不到jsp文件了！！</DIV>
+<div>所以在struts-admin.xmlAction中WEB-INF改成<span STYLE="color: rgb(255, 0, 0); line-height: 21px;">/</SPAN><span STYLE="color: rgb(255, 0, 0); line-height: 21px;">WEB-INF</SPAN>
+<span STYLE="line-height: 21px;">即可</SPAN></DIV>
+<div><span STYLE="line-height: 21px;"><br /></SPAN></DIV>
+<div><span STYLE="line-height: 21px;">#######################################################################</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">可以测试一下</SPAN></DIV>
+<div>http://localhost:8081/struts2-test/admin/login 正常访问了，</DIV>
+<div>http://localhost:8081/struts2-test/admin/test 就报错了</DIV>
+<div>
+<h1 STYLE="font-family: Tahoma, Arial, sans-serif; color: white; font-size: 22px; line-height: normal; background-color: rgb(82, 93, 118);">
+HTTP Status 404 - /struts2-test/WEB-INF/Content/test.jsp</H1>
+<hr SIZE="1" NOSHADE="noshade" STYLE="color: rgb(82, 93, 118); font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal;" />
+
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">type</B>&nbsp;<wbr>Status
+report</P>
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">message</B>&nbsp;<wbr><u>/struts2-test/WEB-INF/Content/test.jsp</U></P>
+<p STYLE="font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal; background: rgb(255, 255, 255);">
+<b STYLE="color: white; background-color: rgb(82, 93, 118);">description</B>&nbsp;<wbr><u>The
+requested resource is not available.</U></P>
+<hr SIZE="1" NOSHADE="noshade" STYLE="color: rgb(82, 93, 118); font-family: Tahoma, Arial, sans-serif; font-size: medium; line-height: normal;" />
+
+<h3 STYLE="font-family: Tahoma, Arial, sans-serif; color: white; font-size: 14px; line-height: normal; background-color: rgb(82, 93, 118);">
+Apache Tomcat/7.0.55</H3>
+</DIV>
+<div>很明显，这个404是因为文件不存在，而不是路径不错在了。</DIV>
+<div><br /></DIV>
+<div><br /></DIV>							
+		</div>

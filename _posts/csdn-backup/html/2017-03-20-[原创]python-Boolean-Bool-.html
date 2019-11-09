@@ -1,0 +1,151 @@
+---
+layout: post
+title: "[原创]python-Boolean-Bool-"
+date: 2017-03-20 14:37:57
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<h2 STYLE="font-family: 'Trebuchet Ms', sans-serif; background-color: rgb(242, 242, 242); font-weight: normal; color: rgb(32, 67, 92); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); margin: 20px -20px 10px; padding: 3px 0px 3px 10px; font-size: 26px; line-height: normal;">
+5.2. Boolean Operations —&nbsp;<wbr><a><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>and</SPAN></TT></A>,&nbsp;<wbr><a><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>or</SPAN></TT></A>,&nbsp;<wbr><a><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>not</SPAN></TT></A><a HREF="http://docs.python.org/2/library/stdtypes.html#boolean-operations-and-or-not" TITLE="Permalink to this headline"></A></H2>
+<p STYLE="text-align: justify; line-height: 20px; font-family: sans-serif; font-size: 16px; background-color: rgb(255, 255, 255);">
+These are the Boolean operations, ordered by ascending
+priority:</P>
+<table BORDER="1" STYLE="border: 0px solid rgb(221, 204, 238); border-collapse: collapse; color: rgb(0, 0, 0); font-family: sans-serif; font-size: 16px; background-color: rgb(255, 255, 255);">
+<colgroup>
+<col WIDTH="25%" />
+<col WIDTH="62%" />
+<col WIDTH="13%" /></COLGROUP>
+<thead VALIGN="bottom">
+<tr>
+<th STYLE="text-align: center; padding: 2px 5px; background-color: rgb(238, 221, 238); border-left-width: 0px; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 170, 204);">
+Operation</TH>
+<th STYLE="text-align: center; padding: 2px 5px; background-color: rgb(238, 221, 238); border-left-width: 0px; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 170, 204);">
+Result</TH>
+<th STYLE="text-align: center; padding: 2px 5px; background-color: rgb(238, 221, 238); border-left-width: 0px; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 170, 204);">
+Notes</TH>
+</TR>
+</THEAD>
+<tbody VALIGN="top">
+<tr>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+<tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;">
+<span>x</SPAN>&nbsp;<wbr><span>or</SPAN>&nbsp;<wbr><span>y</SPAN></TT></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+if&nbsp;<wbr><em>x</EM>&nbsp;<wbr>is false,
+then&nbsp;<wbr><em>y</EM>,
+else&nbsp;<wbr><em>x</EM></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+(1)</TD>
+</TR>
+<tr>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+<tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;">
+<span>x</SPAN>&nbsp;<wbr><span>and</SPAN>&nbsp;<wbr><span>y</SPAN></TT></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+if&nbsp;<wbr><em>x</EM>&nbsp;<wbr>is false,
+then&nbsp;<wbr><em>x</EM>,
+else&nbsp;<wbr><em>y</EM></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+(2)</TD>
+</TR>
+<tr>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+<tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;">
+<span>not</SPAN>&nbsp;<wbr><span>x</SPAN></TT></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+if&nbsp;<wbr><em>x</EM>&nbsp;<wbr>is false,
+then&nbsp;<wbr><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>True</SPAN></TT>,
+else&nbsp;<wbr><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>False</SPAN></TT></TD>
+<td STYLE="padding: 2px 5px; border-left-width: 0px; background-color: rgb(238, 238, 255);">
+(3)</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p STYLE="text-align: justify; line-height: 20px; font-family: sans-serif; font-size: 16px; background-color: rgb(255, 255, 255);">
+Notes:</P>
+<ol STYLE="font-family: sans-serif; font-size: 16px; line-height: normal; background-color: rgb(255, 255, 255);">
+<li STYLE="text-align: justify; line-height: 20px;">This is a
+short-circuit operator, so it only evaluates the second argument if
+the first one is&nbsp;<wbr><a HREF="http://docs.python.org/2/library/constants.html#False" TITLE="False"><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>False</SPAN></TT></A>.</LI>
+<li STYLE="text-align: justify; line-height: 20px;">This is a
+short-circuit operator, so it only evaluates the second argument if
+the first one is&nbsp;<wbr><a HREF="http://docs.python.org/2/library/constants.html#True" TITLE="True"><tt STYLE="background-color: transparent; padding: 0px 1px; font-size: 0.95em; font-weight: bold;"><span>True</SPAN></TT></A>.</LI>
+<li STYLE="text-align: justify; line-height: 20px;"><tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;">
+<span>not</SPAN></TT>&nbsp;<wbr>has a lower priority than
+non-Boolean operators, so&nbsp;<wbr><tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;"><span>not</SPAN>&nbsp;<wbr><span>a</SPAN>&nbsp;<wbr><span>==</SPAN>&nbsp;<wbr><span>b</SPAN></TT>&nbsp;<wbr>is
+interpreted as&nbsp;<wbr><tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;"><span>not</SPAN>&nbsp;<wbr><span>(a</SPAN>&nbsp;<wbr><span>==</SPAN>&nbsp;<wbr><span>b)</SPAN></TT>,
+and&nbsp;<wbr><tt STYLE="background-color: rgb(236, 240, 243); padding: 0px 1px; font-size: 0.95em;"><span>a</SPAN>&nbsp;<wbr><span>==</SPAN>&nbsp;<wbr><span>not</SPAN>&nbsp;<wbr><span>b</SPAN></TT>&nbsp;<wbr>is
+a syntax error.</LI>
+</OL>
+<font STYLE="font-size: 14px;">以上是</FONT><a HREF="http://docs.python.org/2/library/stdtypes.html#bltin-file-objects" TARGET="_blank">python官方学习文档</A><font STYLE="font-size: 14px;">的解释，下面做几个小例子说明一下。</FONT>
+<div><span STYLE="font-size: medium;"><br /></SPAN></DIV>
+<div><span STYLE="font-size: medium;">1.x and y
+:<br /></SPAN><font STYLE="font-size: 14px;"><span STYLE="line-height: 24px;">Ex:</SPAN></FONT></DIV>
+<div>
+<div><span STYLE="font-size: medium;">&gt;&gt;&gt;
+1 and 2</SPAN></DIV>
+<div><i>2</I></DIV>
+<div>&gt;&gt;&gt; 1 and 0</DIV>
+<div><i>0</I></DIV>
+<div>&gt;&gt;&gt; 0 and 1</DIV>
+<div><i>0</I></DIV>
+</DIV>
+<div><font STYLE="font-size: 14px;">【释】依次找False值，找到就输出第一个False值，若到结尾还没False值，就输出最后一个True值。</FONT></DIV>
+<div><span STYLE="font-size: medium;">2.x or y ：</SPAN><br />
+<span STYLE="font-size: medium;">Ex:</SPAN></DIV>
+<div><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+1 or 2</FONT></DIV>
+<div><i><font STYLE="font-size: 14px;">1</FONT></I></DIV>
+<div><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+0 or 1</FONT></DIV>
+<div><i><font STYLE="font-size: 14px;">1</FONT></I></DIV>
+<div><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+0 or 0</FONT></DIV>
+<div><i><font STYLE="font-size: 14px;">0</FONT></I></DIV>
+<div>
+<div><span STYLE="line-height: 24px;"><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+0 or 1 or 3</FONT></SPAN></DIV>
+<div><i>1</I></DIV>
+<div>
+<div><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+{} or 0 or []</FONT></DIV>
+<div><i>[]</I></DIV>
+</DIV>
+<div><font STYLE="font-size: 14px;">【释】依次找True值，找到就输出第一个True值，若到结尾还没有True值，就输出最后一个False值。</FONT></DIV>
+<div><font STYLE="font-size: 14px;"><br /></FONT></DIV>
+<div><font STYLE="font-size: 14px;">3. not</FONT></DIV>
+<div>
+<div><font STYLE="font-size: 14px;">&gt;&gt;&gt;
+not -1</FONT></DIV>
+<div><i>False</I></DIV>
+<div>&gt;&gt;&gt; not 0</DIV>
+<div><i>True</I></DIV>
+<div>&gt;&gt;&gt; not 1</DIV>
+<div><i>False</I></DIV>
+<div>&gt;&gt;&gt; not 2</DIV>
+<div><i>False</I></DIV>
+<div>&gt;&gt;&gt; not []</DIV>
+<div><i>True</I></DIV>
+<div>&gt;&gt;&gt; not
+('')</DIV>
+<div><i>True</I></DIV>
+</DIV>
+<div><font STYLE="font-size: 14px;">【释】这就是所谓的负负得正(负指的是False,所有为空、零，("")为True值，元组中有一个空元素,元组不为空,所以为真值)</FONT></DIV>
+<div><font STYLE="font-size: 14px;"><br /></FONT></DIV>
+<div><font STYLE="font-size: 14px;">当然啦，and or not ...都可以拼接的的比如 x
+and y and (a or b and c) ，判断顺序是从左往右，优先执行括号中的噢！本例中的a or b and c =
+Result会优先判断，然后再判断 x and y and Result</FONT></DIV>
+<div><font STYLE="font-size: 14px;"><br /></FONT></DIV>
+<div><font STYLE="font-size: 14px;">原创所有，转载请附明本文链接，谢谢！</FONT></DIV>
+<div><a HREF="http://blog.sina.com.cn/s/blog_83dc494d0101bc6z.html"><font STYLE="font-size: 14px;">http://blog.sina.com.cn/s/blog_83dc494d0101bc6z.html</FONT></A></DIV>
+<div><font STYLE="font-size: 14px;"><br /></FONT></DIV>
+</DIV>							
+		</div>

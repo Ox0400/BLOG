@@ -1,0 +1,82 @@
+---
+layout: post
+title: "[原创]Cassandra-(NoSQL一-"
+date: 2017-03-20 14:46:51
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - SQL
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			昨天写过一篇博客《<a HREF="http://blog.sina.com.cn/s/blog_83dc494d0102vke0.html" TARGET="_blank">mongodb
+基础操作；同mysql对比</A>》，上文(msi安装文件安装的)是安装，本文是cassandra基础操作。
+<div>同Mongo 和 mysql 一样，从建库建表插入删除。</DIV>
+<div><br /></DIV>
+<div>1、查询现有的数据库(keyspaces，类似于show databases;) -- select * from
+system.schema_keyspaces; &nbsp;<wbr>//或者<span STYLE="line-height: 21px;">describe keyspaces;</SPAN></DIV>
+<div>
+<div>cqlsh&gt; select * from system.schema_keyspaces;</DIV>
+<div><a HREF="http://ww4.sinaimg.cn/mw1024/83dc494dgw1eqegg20ff6j20k303xt9k.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw1024/83dc494dgw1eqegg20ff6j20k303xt9k.jpg" WIDTH="723" HEIGHT="141" NAME="image_operate_79451427003509282"  ALT="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作"  TITLE="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作" /></A><br />
+<br /></DIV>
+<div><br /></DIV>
+</DIV>
+<div>
+<div>cqlsh&gt; describe keyspaces; // desc keyspaces;</DIV>
+<div><a HREF="http://s5.sinaimg.cn/orignal/83dc494djw1eqegiieef4j20k301ka9y.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw1024/83dc494djw1eqegiieef4j20k301ka9y.jpg" WIDTH="723" HEIGHT="56" NAME="image_operate_41301427005984342"  ALT="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作"  TITLE="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作" /></A><br />
+<br /></DIV>
+</DIV>
+<div>2、查询表 --&nbsp;<wbr>describe tables; 类似于show tables; //
+desc tables;</DIV>
+<div><a HREF="http://s1.sinaimg.cn/orignal/83dc494djw1eqegmb8wryj20k209lgn0.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw1024/83dc494djw1eqegmb8wryj20k209lgn0.jpg?&amp;690" WIDTH="722" HEIGHT="345" NAME="image_operate_6231427004336897"  ALT="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作"  TITLE="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作" /></A><br />
+<br /></DIV>
+<div><a HREF="http://s13.sinaimg.cn/orignal/83dc494djw1eqegrhafmcj20k403jdfz.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw1024/83dc494djw1eqegrhafmcj20k403jdfz.jpg?&amp;690" WIDTH="724" HEIGHT="127" NAME="image_operate_1271427005164621"  ALT="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作"  TITLE="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作" /></A><br />
+<br /></DIV>
+<div>3、查询create语句</DIV>
+<div>use <b>test_cassandra</B>; desc keyspace;
+//&nbsp;<wbr><span STYLE="line-height: 21px;">desc
+keyspace&nbsp;<wbr></SPAN><span STYLE="line-height: 21px;"><b>test_cassandra</B></SPAN><span STYLE="line-height: 21px;">;</SPAN></DIV>
+<div><span STYLE="line-height: 21px;">use&nbsp;<wbr></SPAN><b STYLE="line-height: 1.5;">test_cassandra</B><span STYLE="line-height: 21px;">;&nbsp;<wbr></SPAN>desc table
+users;</DIV>
+<div><br /></DIV>
+<div>4、创建一个数据库keyspace，类似create database xxx...</DIV>
+<div>create KEYSPACE <b>test_cassandra</B> WITH replication =
+{'class': '<b>SimpleStrategy</B>', 'replication_factor': 2};</DIV>
+<div><span STYLE="line-height: 21px;">replication
+复制模式，有两种：</SPAN></DIV>
+<div><span STYLE="color: rgb(217, 111, 93); font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 12px; line-height: 30px; text-align: justify; white-space: pre; background-color: rgb(250, 229, 226);">
+SimpleStrategy：</SPAN><font COLOR="#D96F5D" FACE="Menlo, Monaco, Consolas, Courier New, monospace"><span STYLE="font-size: 12px; line-height: 30px; white-space: pre;">该模式下需要指定复制策略,冗余几份数据</SPAN></FONT></DIV>
+<div>
+<pre STYLE="padding: 9.5px; font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 13px; color: rgb(63, 63, 63); border-radius: 4px; margin-top: 0px; margin-bottom: 25px; line-height: 20px; word-break: normal; word-wrap: normal; white-space: pre-wrap; border: 1px solid rgba(0, 0, 0, 0.14902); overflow: auto; text-align: justify; background-color: rgb(245, 245, 245);">
+
+<code STYLE="padding: 0px; font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 12px; color: rgb(217, 111, 93); border-radius: 3px; border: none; white-space: pre; background-color: transparent;">create KEYSPACE demodb WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2};</CODE>
+</PRE></DIV>
+<div><span STYLE="color: rgb(217, 111, 93); font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 12px; line-height: 30px; text-align: justify; white-space: pre; background-color: rgb(250, 229, 226);">
+NetworkTopologyStrategy：</SPAN><font COLOR="#D96F5D" FACE="Menlo, Monaco, Consolas, Courier New, monospace"><span STYLE="font-size: 12px; line-height: 30px; white-space: pre;">该模式是基于数据中心-机架的,创建基于此模式的KEYSPACE必须在配置文件中配置成该模式,</SPAN></FONT><span STYLE="font-size: 12px; line-height: 30px; white-space: pre; color: rgb(217, 111, 93);">否则将会报异常:Unable
+to complete request: one or more nodes were
+unavailable</SPAN></DIV>
+<div>
+<pre STYLE="padding: 9.5px; font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 13px; color: rgb(63, 63, 63); border-radius: 4px; margin-top: 0px; margin-bottom: 25px; line-height: 20px; word-break: normal; word-wrap: normal; white-space: pre-wrap; border: 1px solid rgba(0, 0, 0, 0.14902); overflow: auto; text-align: justify; background-color: rgb(245, 245, 245);">
+
+<code STYLE="padding: 0px; font-family: Menlo, Monaco, Consolas, 'Courier new', monospace; font-size: 12px; color: rgb(217, 111, 93); border-radius: 3px; border: none; white-space: pre; background-color: transparent;">CREATE KEYSPACE demodb WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'dc1' :3 };</CODE>
+</PRE></DIV>
+<div>5、创建表，(列簇)，类似create table xxx... -- create table users(id
+timeuuid, name text, primary key(id));</DIV>
+<div>6、插入数据 --&nbsp;<wbr>insert into users<font COLOR="#22B14C">(id, name)</FONT> values(now(), <font COLOR="#22B14C">'fish'</FONT>);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+注意：insert into <font COLOR="#FF0000">users</FONT> values(now(),
+'fish') 是 错误的！必须指定哪几列！</DIV>
+<div><span STYLE="line-height: 21px;">insert into users(id, name)
+values(now(), <font COLOR="#FF0000">"fish"</FONT>);
+是错误的！不可以使用双引号....</SPAN></DIV>
+<div>7、删除表 -- drop table <b>users</B>;</DIV>
+<div><span STYLE="line-height: 21px;">8、删除数据库 --</SPAN><span STYLE="line-height: 21px;">&nbsp;<wbr></SPAN>drop keyspace
+<b>test_cassandra</B>;&nbsp;<wbr></DIV>
+<div><a HREF="http://s1.sinaimg.cn/orignal/83dc494dgw1eqehsk6ajxj20k106yabg.jpg" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://ww4.sinaimg.cn/mw1024/83dc494dgw1eqehsk6ajxj20k106yabg.jpg?&amp;690" WIDTH="721" HEIGHT="250" NAME="image_operate_52461427006051162"  ALT="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作"  TITLE="【原创】Cassandra&nbsp;<wbr>(NoSQL一种)基础操作" /></A><br />
+<br /></DIV>
+<div>参考：<a HREF="http://www.jianshu.com/p/61762b9be42c" TARGET="_blank">Cassandra CQL 使用</A>&nbsp;<wbr></DIV>							
+		</div>

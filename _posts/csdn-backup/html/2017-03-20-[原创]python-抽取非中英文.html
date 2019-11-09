@@ -1,0 +1,34 @@
+---
+layout: post
+title: "[原创]python-抽取非中英文"
+date: 2017-03-20 14:47:13
+image: '/assets/img/'
+description: ""
+tags:
+    - 
+categories:
+    - python
+---
+
+
+
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+			<div>&gt;&gt;&gt; s = u"11&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3588;&#3623;&#3634;&#3617;&#3605;&#3633;&#3657;&#3591;&#3651;&#3592;&#3586;&#3629;&#3591;&#3609;&#3657;&#3629;&#3591;&#3652;&#3604;&#3657;&#3610;&#3656;zy&eacute;douさやか &#51221;&#44508;
+ツールテキスト哈哈~!@#$%^&amp;*()_+|{:\"?&gt;&lt;\\][';/.,abcfzABCDZ"</DIV>
+<div>&gt;&gt;&gt; print s</DIV>
+<div>11&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3588;&#3623;&#3634;&#3617;&#3605;&#3633;&#3657;&#3591;&#3651;&#3592;&#3586;&#3629;&#3591;&#3609;&#3657;&#3629;&#3591;&#3652;&#3604;&#3657;&#3610;&#3656;zy&eacute;douさやか &#51221;&#44508;
+ツールテキスト哈哈~!@#$%^&amp;*()_+|{:"?&gt;&lt;\][';/.,abcfzABCDZ</DIV>
+<div>&gt;&gt;&gt; print
+"".join(re.findall(u"[^\u4e00-\u9fa5\x00-\x99]", s))"</DIV>
+<div>&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3588;&#3623;&#3634;&#3617;&#3605;&#3633;&#3657;&#3591;&#3651;&#3592;&#3586;&#3629;&#3591;&#3609;&#3657;&#3629;&#3591;&#3652;&#3604;&#3657;&#3610;&#3656;&eacute;さやか&#51221;&#44508;ツールテキスト</DIV>
+<div>&gt;&gt;&gt; print
+"".join(re.findall(u"[^\u4e00-\u9fa5\w\x00-\x99]", s))"</DIV>
+<div>&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3588;&#3623;&#3634;&#3617;&#3605;&#3633;&#3657;&#3591;&#3651;&#3592;&#3586;&#3629;&#3591;&#3609;&#3657;&#3629;&#3591;&#3652;&#3604;&#3657;&#3610;&#3656;&eacute;さやか&#51221;&#44508;ツールテキスト</DIV>
+<div><br /></DIV>
+<div><a HREF="http://photo.blog.sina.com.cn/showpic.html#blogid=83dc494d0102vln7&url=http://album.sina.com.cn/pic/002pInNzzy6RweYDZwd09" TARGET="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://s10.sinaimg.cn/mw690/002pInNzzy6RweYDZwd09&amp;690" WIDTH="690" HEIGHT="90" NAME="image_operate_91111429097727100"  ALT="【原创】python&nbsp;<wbr>抽取非中英文"  TITLE="【原创】python&nbsp;<wbr>抽取非中英文" /></A><br />
+<br /></DIV>
+<div><br /></DIV>
+<div>----------修改--------2015-07-17 18:29:54</DIV>
+<div>最完善的包含繁体、多种类型的符号</DIV>
+<div><b><font COLOR="#06FF16">[^\u2000-\u2BFF\u3000-\u303F\u4E00-\u9FBF\uF900-\uFAFF\uFE30-\uFE6F\uFF00-\uFFFF\x00-\xff]</FONT></B></DIV>							
+		</div>
