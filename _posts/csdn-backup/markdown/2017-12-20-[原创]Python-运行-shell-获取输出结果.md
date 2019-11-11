@@ -2,8 +2,7 @@
 layout: post
 title: "[原创]Python-运行-shell-获取输出结果"
 date: 2017-12-20 18:40:23
-image: '/assets/img/'
-description: "首先使用内置模块os.>>> import os >>> code = os.system(\"pwd && sleep 2\") # /User/zhipeng >>> print code # 0   问题是 os.system 只能获取到结束状态 使用内置模块 subprocess>>> import subprocess >>> subprocess.Popen(\"pwd && sleep 2\""
+description: "python  获取 shell stdout stderr"
 tags:
     - python
     - shell

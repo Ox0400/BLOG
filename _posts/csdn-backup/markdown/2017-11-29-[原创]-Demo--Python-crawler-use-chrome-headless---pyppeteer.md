@@ -49,8 +49,9 @@ browser.close()
 
 ```
 
+### 参考
 
-[pyppeteer](https://github.com/miyakogi/pyppeteer) - https://github.com/miyakogi/pyppeteer
-[puppeteer (Node.js)](https://github.com/GoogleChrome/puppeteer) - https://github.com/GoogleChrome/puppeteer
-[Headless Chromium](https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md) - https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
-[Try It Online](https://try-puppeteer.appspot.com/) - https://try-puppeteer.appspot.com/
+- [pyppeteer](https://github.com/miyakogi/pyppeteer) - https://github.com/miyakogi/pyppeteer
+- [puppeteer (Node.js)](https://github.com/GoogleChrome/puppeteer) - https://github.com/GoogleChrome/puppeteer
+- [Headless Chromium](https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md) - https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+- [Try It Online](https://try-puppeteer.appspot.com/) - https://try-puppeteer.appspot.com/

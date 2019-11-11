@@ -13,38 +13,47 @@ categories:
 ---
 
 
-
----
-
 #### 安装 nginx
+
 ``` bash
 yum install -y nginx
 ```
+
 #### 安装 iptables iptables-services
 > 使用 iptables-services 管理配置文件
+
 ``` bash
 yum install -y iptables iptables-services
 ```
+
 #### 配置 iptables
+
 ``` bash
 # vi /etc/sysconfig/iptable
 # 默认有22端口, 复制一行, 改为 nginx 端口即可.
 -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
 ```
+
 #### 启动 iptables
 ``` bash
 service iptables start
 ```
+
 #### 安装 httpd-tools
+
 ``` bash
 # 生成密码
 yum install -y httpd-tools
 ```
+
 #### 生成密码文件
+
 ``` bash
 htpasswd /etc/nginx/httpdwd nginx_user
 ```
+
 #### 配置 nginx
+
 ```  bash
 # vi /etc/nginx/nginx.conf
 # 在 配置中添加 auth_basic 和 auth_bashc_user_file 即可
@@ -60,7 +69,9 @@ server {
         # ... ...
     }
 ```
+
 #### 启动 nginx
+
 ``` bash
 service nginx start
 ```

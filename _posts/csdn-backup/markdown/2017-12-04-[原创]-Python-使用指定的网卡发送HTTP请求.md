@@ -256,8 +256,10 @@ print " *** test urllib: " + urllib.urlopen("http://ip.haschek.at").read()
 print " *** test urllib2: " + urllib2.urlopen("http://ip.haschek.at").read()
 
 ```
+
 > 注意: 使用 urllib3.utils.connection 好像不起作用
 > 稍微再完善一下, 就是把根据网卡名自动获取 IP.
+
 ```python
 import subprocess
 
@@ -279,7 +281,7 @@ def get_local_ip(device_name):
 
 def random_local_ip():
     return get_local_ip(random.choice(ALL_DEVICES))
-    
+
 # code ...
 
 ```

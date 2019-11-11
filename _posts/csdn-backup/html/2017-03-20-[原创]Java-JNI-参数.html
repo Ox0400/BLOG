@@ -13,7 +13,7 @@ categories:
 
 
 <div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><h1 style="font-weight:bold;font-size:1.6em;border-bottom:1px solid rgb(221,221,221);">反编译一个 APP 时候, 一个<em>.so通过 loadLibrary加载. 把</em>. so 逆向后, 函数名已经混淆,但无法根据参数信息获取究竟哪一个才是对外提供的接口.</h1><p>所以了解一下 JNI,so文件中代码如何编码, 参数如何定义</p><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">a. 无参数 HelloJNI.Java</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
+<code style=""><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
    <span style="color:rgb(51,51,51);"><strong>static</strong></span> {
       System.loadLibrary(<span style="color:rgb(221,17,68);">"hello"</span>); <span style="color:rgb(153,153,136);"><em>// hello.dll (Windows) or libhello.so (Unixes)</em></span>
    }
@@ -28,7 +28,7 @@ categories:
 }
 </code>
 </pre><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">a. 无参数 HelloJNI.c</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<code style=""><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
 <span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
 <span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> "HelloJNI.h"</strong></span>
 
@@ -38,7 +38,7 @@ JNIEXPORT <span style="color:rgb(51,51,51);"><strong>void</strong></span> HelloJ
 }
 </code>
 </pre><h3 style="font-weight:bold;font-size:1.3em;">可以看到, java无参数调用接口时, *.c中定义的接口是有两个默认参数的. 一个 JNIEnv 一个 jobject.JNIEnv可以理解为 JNI 虚拟环境相关对象, jobject thisObj 看意思应该是类本身, 类似 java 中的this 或者 python 中的 self</h3><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">再看一个有参数的</h2><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">b. 有参数 HelloJNI.java</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
+<code style=""><span style="color:rgb(51,51,51);"><strong>public</strong></span> <span><span style="color:rgb(51,51,51);"><strong>class</strong></span> <span style="color:rgb(68,85,136);"><strong><strong>HelloJNI</strong></strong></span> </span>{
    <span style="color:rgb(51,51,51);"><strong>static</strong></span> {
       System.loadLibrary(<span style="color:rgb(221,17,68);">"myjni"</span>); <span style="color:rgb(153,153,136);"><em>// myjni.dll (Windows) or libmyjni.so (Unixes)</em></span>
    }
@@ -53,7 +53,7 @@ JNIEXPORT <span style="color:rgb(51,51,51);"><strong>void</strong></span> HelloJ
 }
 </code>
 </pre><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">b. 有参数 HelloJNI.c</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);color:rgb(51,51,51);background:rgb(248,248,248);"><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
+<code style=""><span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
 <span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> </strong></span>
 <span style="color:rgb(153,153,153);"><strong>#<span style="color:rgb(51,51,51);"><strong>include</strong></span> "HelloJNI.h"</strong></span>
 

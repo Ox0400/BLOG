@@ -13,17 +13,17 @@ categories:
 
 
 <div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><h1 style="font-weight:bold;font-size:1.6em;border-bottom:1px solid rgb(221,221,221);">Java HttpClient Raise Error: Connection <a href="http://www.xxx.com">http://www.xxx.com</a> refused</h1><p>在 Android 上运行 jar,目的是从服务器一直获取消息, 使用 HTTP 服务.</p><p>但是每次启动进程, 当请求次数达到<strong>1010</strong> 时候, 总是会报错: <strong>Connection <a href="http://www.xxx.com">http://www.xxx.com</a> refused</strong><br />很规律, 每次当请求1000次左右的时候就全挂了.</p><p>杀掉进程重新启动, 一切正常,1000次后又是连接被重置.</p><p>检查 HTTP 服务, 用 PC 访问API 正常, 在 Android 上用浏览器访问, API 也正常. 可以确认服务是正常的, 并不是服务器拒绝连接.</p><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">
+<code style="">
 adb shell  logcat -c <span style="color:rgb(153,153,153);">#  清除手机的 log</span>
 
 adb shell logcat
 </code>
 </pre><p>通过手机查看 log, 发现了错误提示:<strong>… -EMFILE (Too many open files) …</strong></p><h3 style="font-weight:bold;font-size:1.3em;">原因是: socket连接太多, Android本地拒绝连接服务.</h3><p>有 httpGet/HttpPostclose()/releaseCollection()</p><p>有httpClient.getConnectionManager()closeExpiredConnections()/shutdown()</p><p>HttpGetclose()/releaseCollection 只是虚函数, 没有实例函数, 并不能用.</p><h2 style="font-weight:bold;font-size:1.4em;border-bottom:1px solid rgb(238,238,238);">正确的方式是</h2><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">httpClient.getConnectionManager().closeExpiredConnections()
+<code style="">httpClient.getConnectionManager().closeExpiredConnections()
 httpClient.getConnectionManager().shutdown()
 </code>
 </pre><h4 style="font-weight:bold;font-size:1.2em;"><em>代码如下</em></h4><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">
+<code style="">
      <span style="color:rgb(102,153,204);"><span style="color:rgb(204,153,204);">public</span> <span style="color:rgb(204,153,204);">static</span> String <span style="color:rgb(153,153,153);">get</span><span style="color:rgb(249,145,87);">(String URL, Map params)</span> </span>{
 
         String result = <span style="color:rgb(153,204,153);">""</span>;

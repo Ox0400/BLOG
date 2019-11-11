@@ -24,13 +24,13 @@ insert_many</a>.</h2>
 <p style="margin:0px 0px 1.2em!important">注: MongoDB 主键字段是<strong>_id</strong></p>
 </blockquote>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(153,153,153)"># insert_many 用法</span>
+<code style=""><span style="color:rgb(153,153,153)"># insert_many 用法</span>
 insert_many(documents, ordered=<span style="color:rgb(204,153,204)">True</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>)
 </code>
 </pre>
 <p style="margin:0px 0px 1.2em!important">Insert an iterable ofdocuments.</p>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span>&gt;&gt;&gt; </span>db.test.count()
+<code style=""><span>&gt;&gt;&gt; </span>db.test.count()
 <span style="color:rgb(249,145,87)">0</span>
 <span>&gt;&gt;&gt; </span>result = db.test.insert_many([{<span style="color:rgb(153,204,153)">'x'</span>: i} <span style="color:rgb(204,153,204)">for</span> i <span style="color:rgb(204,153,204)">in</span> range(<span style="color:rgb(249,145,87)">2</span>)])
 <span>&gt;&gt;&gt; </span>result.inserted_ids
@@ -40,13 +40,13 @@ insert_many(documents, ordered=<span style="color:rgb(204,153,204)">True</span>,
 </code>
 </pre>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">insert_many(docs, ordered=<span style="color:rgb(204,153,204)">True</span>) <span style="color:rgb(153,153,153)"># 遇到错误 break, 并且抛出异常</span>
+<code style="">insert_many(docs, ordered=<span style="color:rgb(204,153,204)">True</span>) <span style="color:rgb(153,153,153)"># 遇到错误 break, 并且抛出异常</span>
 insert_many(docs, ordered=<span style="color:rgb(204,153,204)">False</span>) <span style="color:rgb(153,153,153)"># 遇到错误 continue, 循环结束后抛出异常</span>
 <span style="color:rgb(153,153,153)"># 无论 ordered 是 True 或者 False, 批量添加的时候遇到重复的, 并不会对历史数据更新</span>
 </code>
 </pre>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">insert_one(document, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>)
+<code style="">insert_one(document, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>)
 replace_one(filter, replacement, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
 update_one(filter, update, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
 update_many(filter, update, upsert=<span style="color:rgb(204,153,204)">False</span>, bypass_document_validation=<span style="color:rgb(204,153,204)">False</span>, collation=<span style="color:rgb(204,153,204)">None</span>)
@@ -58,7 +58,7 @@ update_many(filter, update, upsert=<span style="color:rgb(204,153,204)">False</s
 <p style="margin:0px 0px 1.2em!important">有一个<a target="_blank" href="https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/">$setOnInsert</a>的方式.但目的是为了仅仅插入不纯在的数据.<br>
 &lt;&lt;ahref=&quot;https://stackoverflow.com/questions/31375606/is-there-a-way-to-skip-over-existing-ids-for-insert-many-in-pymongo-3-0&quot;&gt;Isthere a way to skip over existing _id’s for insert_many in Pymongo3.0?&gt;</p>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em">bulk = pymongo.bulk.BulkOperationBuilder(collection,ordered=<span style="color:rgb(204,153,204)">True</span>)
+<code style="">bulk = pymongo.bulk.BulkOperationBuilder(collection,ordered=<span style="color:rgb(204,153,204)">True</span>)
 <span style="color:rgb(204,153,204)">for</span> doc <span style="color:rgb(204,153,204)">in</span> docs:
     bulk.find({ <span style="color:rgb(153,204,153)">&quot;_id&quot;</span>: doc[<span style="color:rgb(153,204,153)">&quot;_id&quot;</span>] }).upsert().updateOne({
         <span style="color:rgb(153,204,153)">&quot;$setOnInsert&quot;</span>: doc
@@ -70,7 +70,7 @@ response = bulk.execute()
 </code>
 </pre>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(153,153,153)">### 正确姿势如下</span>
+<code style=""><span style="color:rgb(153,153,153)">### 正确姿势如下</span>
 <span style="color:rgb(102,153,204)"><span style="color:rgb(204,153,204)">def</span> <span style="color:rgb(153,153,153)">insert_many</span><span style="color:rgb(249,145,87)">(collection, docs=None, update=True)</span>:</span>
     <span style="color:rgb(204,153,204)">if</span> <span style="color:rgb(204,153,204)">not</span> docs:
         <span style="color:rgb(204,153,204)">return</span>
@@ -95,7 +95,7 @@ response = bulk.execute()
 <p style="margin:0px 0px 1.2em!important"><a target="_blank" href="http://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.bulk_write">Send a batch of write operations to the server.</a></p>
 </blockquote>
 <pre style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; font-size:1em; line-height:1.2em; margin:1.2em 0px">
-<code style="font-size:0.85em; font-family:Consolas,inconsolata,Courier,monospace; margin:0px 0.15em; padding:0px 0.3em; white-space:pre-wrap; border:1px solid rgb(234,234,234); background-color:rgb(248,248,248); display:inline; white-space:pre; overflow:auto; border:1px solid rgb(204,204,204); padding:0.5em 0.7em; display:block!important; display:block; overflow-x:auto; background:rgb(45,45,45); color:rgb(204,204,204); padding:0.5em"><span style="color:rgb(204,153,204)">from</span> pymongo <span style="color:rgb(204,153,204)">import</span> UpdateOne, ReplaceOne <span style="color:rgb(153,153,153)"># InsertOne, DeleteOne</span>
+<code style=""><span style="color:rgb(204,153,204)">from</span> pymongo <span style="color:rgb(204,153,204)">import</span> UpdateOne, ReplaceOne <span style="color:rgb(153,153,153)"># InsertOne, DeleteOne</span>
 <span>&gt;&gt;&gt; </span><span style="color:rgb(204,153,204)">from</span> pymongo <span style="color:rgb(204,153,204)">import</span> MongoClient <span style="color:rgb(204,153,204)">as</span> MC
 <span>&gt;&gt;&gt; </span>db = MC().test.test1
 

@@ -13,16 +13,16 @@ categories:
 
 
 <div id="sina_keyword_ad_area2" class="articalContent newfont_family"><div><ul><li><h3 style="font-weight:bold;font-size:1.3em;">install</h3><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">$ brew install open-mpi
+<code style="">$ brew install open-mpi
 $ brew reinstall gcc --without-multilib
 $ <span style="color:rgb(249,145,87);">sudo</span> pip install mpi4py
 </code>
 </pre></li><li><h3 style="font-weight:bold;font-size:1.3em;">test</h3><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">$ mpirun -np <span style="color:rgb(249,145,87);">2</span> <span style="color:rgb(249,145,87);">echo</span> <span style="color:rgb(153,204,153);">'hello~'</span>
+<code style="">$ mpirun -np <span style="color:rgb(249,145,87);">2</span> <span style="color:rgb(249,145,87);">echo</span> <span style="color:rgb(153,204,153);">'hello~'</span>
 $ mpiexec -n <span style="color:rgb(249,145,87);">5</span> python -m mpi4py helloworld
 </code>
 </pre><h4 style="font-weight:bold;font-size:1.2em;">异常</h4>[zhipeng-MacBook:65764] [[47911,0],0] ORTE_ERROR_LOG: Bad parameterin file orted/pmix/pmix_server.c at line 262<br />[zhipeng-MacBook:65764] [[47911,0],0] ORTE_ERROR_LOG: Bad parameterin file ess_hnp_module.c at line 666</li></ul><p>It looks likeorte_init failed for some reason; your parallel process is<br />likely to abort. There are many reasons that a parallel processcan<br />fail during orte_init; some of which are due to configurationor<br />environment problems. This failure appears to be an internalfailure;<br />here’s some additional information (which may only be relevant toan<br />Open MPI developer):</p><p>pmix server initfailed</p><h2 style="border-bottom:1px solid rgb(238,238,238);"><span style="font-weight:normal;"><span style="font-size:14px;">→Returned value Bad parameter (-5) instead ofORTE_SUCCESS</span></span></h2><h4 style="font-weight:bold;font-size:1.2em;">解决办法</h4><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);"><span style="color:rgb(204,153,204);"><span style="font-family:Consolas, inconsolata, Courier, monospace;font-size:1em;">$</span> export</span> TMPDIR=/tmp
+<code style=""><span style="color:rgb(204,153,204);"><span style="font-family:Consolas, inconsolata, Courier, monospace;font-size:1em;">$</span> export</span> TMPDIR=/tmp
 </code>
 </pre><pre style="font-size:1em;font-family:Consolas, inconsolata, Courier, monospace;line-height:1.2em;">
-<code style="font-size:.85em;font-family:Consolas, inconsolata, Courier, monospace;border:1px solid rgb(204,204,204);background-color:rgb(248,248,248);background:rgb(45,45,45);color:rgb(204,204,204);">
+<code style="">

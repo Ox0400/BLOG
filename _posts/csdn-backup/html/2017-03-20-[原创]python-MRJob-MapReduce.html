@@ -1,0 +1,58 @@
+---
+layout: post
+title: "[原创]python MRJob - hadoop MapReduce"
+date: 2017-03-20 14:47:02
+image: '/assets/img/'
+description: ""
+tags:
+-
+categories:
+- python
+---
+<div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+    安装方式：easy_install mrjob
+    <div><br /></DIV>
+    <div>使用方法：<br />
+        <div>
+            <div>
+                <div>
+                </DIV>
+                <div>
+                </DIV>
+                <div>
+                    <pre>
+
+<code><span>#!-*- coding: utf8 -*-</SPAN></CODE><code><span>"这段代码是使用</SPAN><font COLOR="#008800" FACE="source Code pro, monospace"><span>MapReduce进行分词统计！</SPAN></FONT><span>"</SPAN></CODE><code><span>import</SPAN><span> re
+</SPAN><span>import</SPAN><span> sys
+</SPAN><span>import</SPAN><span> jieba
+
+</SPAN><span>from</SPAN><span> mrjob.job </SPAN><span>import</SPAN><span> MRJob
+
+word_re = re.compile(</SPAN><span>u"[\u4E00-\u9FA5]+"</SPAN><span>)
+
+
+</SPAN><span><span>class</SPAN> <span>TestMrJob</SPAN><span>(MRJob)</SPAN>:</SPAN><span>
+    </SPAN><span><span>def</SPAN> <span>mapper</SPAN><span>(self, _, line)</SPAN>:</SPAN></CODE><code><span>        </SPAN><span>"统计每行"</SPAN><span>
+        </SPAN><span>for</SPAN><span> word </SPAN><span>in</SPAN><span> word_re.findall(line.decode(</SPAN><span>"utf8"</SPAN><span>)):
+            </SPAN><span>for</SPAN><span> new_word </SPAN><span>in</SPAN><span> jieba.cut(word):
+                </SPAN><span>yield</SPAN><span> new_word.lower(), </SPAN><span>1</SPAN><span>
+
+    </SPAN><span><span>def</SPAN> <span>reducer</SPAN><span>(self, word, counts)</SPAN>:</SPAN></CODE><code><span>        "统计结果"</SPAN><span>
+        </SPAN><span>yield</SPAN><span> word, sum(counts)
+
+
+</SPAN><span>if</SPAN><span> __name__ == </SPAN><span>'__main__'</SPAN><span>:</SPAN></CODE><code><span>   #此处注意：</SPAN></CODE><span>    data = TestMrJob.run()
+    #sys.argv.append(</SPAN><span>"data/2"</SPAN><span>)
+    #TestMrJob.run()
+    </SPAN>
+</PRE>
+                    <pre>
+
+<font FACE="Source Code Pro, monospace"><span>python test-mrjob.py data/2  &gt; tmp<br />
+python test-mrjob.py data/*  &gt; tmp</SPAN></FONT>
+</PRE>
+                </DIV>
+            </DIV>
+        </DIV>
+    </DIV>
+</div>
