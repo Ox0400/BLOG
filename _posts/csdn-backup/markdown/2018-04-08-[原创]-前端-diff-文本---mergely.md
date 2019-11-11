@@ -24,7 +24,7 @@ CodeMirror 效果不是很好, DiffMatchPatch 是 Google 开发的, 感觉实现
 > 实际上, Mergely 用到了 CodeMirror, 而 CodeMirror 用到了 DiffMatchPatch.
 
 先上最终效果图
-![MergelyDemo](assets/img/d13f14d36a4408636231d17599c9ecde.png)
+![MergelyDemo](/assets/img/d13f14d36a4408636231d17599c9ecde.png)
 
 #### CodeMirror
 CodeMirror 和 DiffMatchPatch 这里不做过多介绍. 有兴趣可以试试.
